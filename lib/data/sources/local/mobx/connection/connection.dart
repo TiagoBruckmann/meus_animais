@@ -10,7 +10,7 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:mobx/mobx.dart';
 part 'connection.g.dart';
 
-class ConnectionMobx = _ConnectionMobx with _$ConnectionMobx;
+class ConnectionMobx extends _ConnectionMobx with _$ConnectionMobx {}
 
 abstract class _ConnectionMobx with Store {
 

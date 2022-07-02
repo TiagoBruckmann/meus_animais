@@ -6,5 +6,8 @@ import 'injection.config.dart';
 
 final getIt = GetIt.I;
 
+const String env = "firebase";
+// const String env = "api";
+
 @InjectableInit()
-void configureDependencies() => $initGetIt(getIt, environment: "firebase");
+void configureDependencies() => $initGetIt(getIt, environment: env);

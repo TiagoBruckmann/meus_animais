@@ -45,14 +45,14 @@ class _CreatePetPageState extends State<CreatePetPage> {
 
         return Scaffold(
           appBar: AppBar(
-            title: const Text("Cadastrar animal"),
+            title: const Text("Cadastrar pet"),
           ),
 
           body: ( _connectionMobx.connectionStatus.toString() == "ConnectivityResult.none" )
           ? const LoadingConnection()
-          : const Center(
-            child: Text("Novo pet"),
-          ),
+          : SingleChildScrollView(
+            padding: EdgeInsets.symmetric( horizontal: 8 ),
+          )
         );
 
       },

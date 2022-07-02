@@ -1,26 +1,19 @@
+import 'package:intl/intl.dart';
+
 class ModelPets {
 
-  String id, userId, name, sex, specie, breed, picture, createdAt, updatedAt = "";
-  double age, weight = 0.0;
+  String id, userId, name, sex, specie, breed, picture, age = "";
+  String? createdAt, updatedAt;
+  double? weight = 0.0;
 
-  // dados da vacina
-  String? vaccineId, vaccineName, vaccineType, vaccineDescription, vaccineDay, vaccineTypeTime, vaccineTime, vaccineLaboratory;
-  bool? vaccineReapply;
-
-  // dados de higiene
-  String? hygieneId, hygieneType, hygieneDay, hygienePlace;
-  double? hygieneValue;
+  dynamic context;
 
   ModelPets(
-    this.id, this.userId, this.name, this.sex, this.specie, this.breed, this.picture, this.age, this.weight, this.createdAt, this.updatedAt,
-    {
-      this.vaccineId, this.vaccineName, this.vaccineType, this.vaccineDescription, this.vaccineDay, this.vaccineTypeTime,
-      this.vaccineTime, this.vaccineLaboratory, this.vaccineReapply, this.hygieneId, this.hygieneType, this.hygieneDay, this.hygienePlace,
-      this.hygieneValue,
-    }
+    this.id, this.userId, this.name, this.sex, this.specie, this.breed,
+    this.picture, this.age, this.weight, this.createdAt, this.updatedAt
   );
 
-  ModelPets petsFromJson(Map<String, dynamic> json) {
+  factory ModelPets.fromJson(dynamic json) {
     return ModelPets(
       json["id"],
       json["user_id"],
@@ -36,32 +29,22 @@ class ModelPets {
     );
   }
 
-  vaccinesFromJson(Map<String, dynamic> json) {
-    Map modelVaccines = {
-      vaccineId: json["id"],
-      vaccineName: json["name"],
-      vaccineType: json["type"],
-      vaccineDescription: json["description"],
-      vaccineDay: json["day"],
-      vaccineTypeTime: json["type_time"],
-      vaccineTime: json["time"],
-      vaccineLaboratory: json["laboratory"],
-      vaccineReapply: json["reapply"],
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {
+      "id": id,
+      "user_id": userId,
+      "name": name,
+      "sex": sex,
+      "specie": specie,
+      "breed": breed,
+      "picture": picture,
+      "age": age,
+      "weight": weight,
+      "created_at": createdAt ?? DateTime.now().toString(),
+      "updated_at": ( createdAt == null ) ? null : DateTime.now().toString(),
     };
 
-    return modelVaccines;
-  }
-
-  hygienePets(Map<String, dynamic> json) {
-    Map modelHygiene = {
-      hygieneId: json["id"],
-      hygieneType: json["type"],
-      hygieneDay: json["day"],
-      hygieneValue: json["value"],
-      hygienePlace: json["place"],
-    };
-
-    return modelHygiene;
+    return map;
   }
 
   @override

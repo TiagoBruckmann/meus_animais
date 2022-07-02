@@ -51,6 +51,11 @@ class LoginApi implements LoginRepository {
 
   @override
   login( ModelLogin modelLogin ) async {
-
+    Services().setToken("apiToken", "ajklshdjkashdjkashbdjkasbhdjkasb");
+    Navigator.pushNamedAndRemoveUntil(
+      modelLogin.context,
+      "/",
+      (route) => false,
+    );
   }
 }

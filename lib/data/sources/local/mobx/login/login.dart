@@ -10,7 +10,7 @@ import 'package:meus_animais/domain/models/users/login.dart';
 import 'package:mobx/mobx.dart';
 part 'login.g.dart';
 
-class LoginMobx = _LoginMobx with _$LoginMobx;
+class LoginMobx extends _LoginMobx with _$LoginMobx {}
 
 abstract class _LoginMobx with Store {
 
