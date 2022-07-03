@@ -14,6 +14,7 @@ class AppColors {
   static const Color turbo = Color(0xffFFDB23);
 
   // white
+  static const Color amethystSmoke = Color(0xff94849E);
   static const Color blueSolitude = Color(0xffE8F0FE);
   static const Color whiteSmoke = Color(0xffF2F2F2);
   static const Color aliceBlue = Color(0xffF8F9FA);

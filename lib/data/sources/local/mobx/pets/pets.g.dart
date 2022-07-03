@@ -9,21 +9,6 @@ part of 'pets.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
 mixin _$PetsMobx on _PetsMobx, Store {
-  late final _$pictureAtom = Atom(name: '_PetsMobx.picture', context: context);
-
-  @override
-  String get picture {
-    _$pictureAtom.reportRead();
-    return super.picture;
-  }
-
-  @override
-  set picture(String value) {
-    _$pictureAtom.reportWrite(value, super.picture, () {
-      super.picture = value;
-    });
-  }
-
   late final _$controllerNameAtom =
       Atom(name: '_PetsMobx.controllerName', context: context);
 
@@ -85,17 +70,33 @@ mixin _$PetsMobx on _PetsMobx, Store {
     });
   }
 
+  late final _$controllerBreedAtom =
+      Atom(name: '_PetsMobx.controllerBreed', context: context);
+
+  @override
+  TextEditingController get controllerBreed {
+    _$controllerBreedAtom.reportRead();
+    return super.controllerBreed;
+  }
+
+  @override
+  set controllerBreed(TextEditingController value) {
+    _$controllerBreedAtom.reportWrite(value, super.controllerBreed, () {
+      super.controllerBreed = value;
+    });
+  }
+
   late final _$controllerWeightAtom =
       Atom(name: '_PetsMobx.controllerWeight', context: context);
 
   @override
-  TextEditingController get controllerWeight {
+  MoneyMaskedTextController get controllerWeight {
     _$controllerWeightAtom.reportRead();
     return super.controllerWeight;
   }
 
   @override
-  set controllerWeight(TextEditingController value) {
+  set controllerWeight(MoneyMaskedTextController value) {
     _$controllerWeightAtom.reportWrite(value, super.controllerWeight, () {
       super.controllerWeight = value;
     });
@@ -105,13 +106,13 @@ mixin _$PetsMobx on _PetsMobx, Store {
       Atom(name: '_PetsMobx.controllerBirth', context: context);
 
   @override
-  TextEditingController get controllerBirth {
+  MaskedTextController get controllerBirth {
     _$controllerBirthAtom.reportRead();
     return super.controllerBirth;
   }
 
   @override
-  set controllerBirth(TextEditingController value) {
+  set controllerBirth(MaskedTextController value) {
     _$controllerBirthAtom.reportWrite(value, super.controllerBirth, () {
       super.controllerBirth = value;
     });
@@ -154,11 +155,11 @@ mixin _$PetsMobx on _PetsMobx, Store {
   }
 
   @override
-  dynamic validateFields(dynamic context) {
+  dynamic validateFields(File? picture, dynamic context) {
     final _$actionInfo = _$_PetsMobxActionController.startAction(
         name: '_PetsMobx.validateFields');
     try {
-      return super.validateFields(context);
+      return super.validateFields(picture, context);
     } finally {
       _$_PetsMobxActionController.endAction(_$actionInfo);
     }
@@ -178,11 +179,11 @@ mixin _$PetsMobx on _PetsMobx, Store {
   @override
   String toString() {
     return '''
-picture: ${picture},
 controllerName: ${controllerName},
 sex: ${sex},
 specie: ${specie},
 breed: ${breed},
+controllerBreed: ${controllerBreed},
 controllerWeight: ${controllerWeight},
 controllerBirth: ${controllerBirth}
     ''';

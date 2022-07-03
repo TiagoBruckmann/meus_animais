@@ -22,6 +22,7 @@ import 'data/sources/local/injection/injection.dart';
 final ThemeData themeDefault = ThemeData(
   primaryColor: AppColors.barossa,
   secondaryHeaderColor: AppColors.cinnabar,
+  cardColor: AppColors.turbo,
   fontFamily: 'Ubuntu',
 
   // altera a cor do texto da status bar

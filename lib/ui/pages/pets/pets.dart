@@ -165,7 +165,7 @@ class _PetsPageState extends State<PetsPage> {
 
                                     // ao carregar a imagem, sobrepor com o loading com a imagem do pet
                                     Image.network(
-                                      modelPets.picture!,
+                                      modelPets.picture,
                                     ),
 
                                     Positioned(
@@ -179,7 +179,7 @@ class _PetsPageState extends State<PetsPage> {
                                           padding: const EdgeInsets.symmetric( horizontal: 16, vertical: 7 ),
                                           width: MediaQuery.of(context).size.width - 25,
                                           child: Text(
-                                            modelPets.name!,
+                                            modelPets.name,
                                             textAlign: TextAlign.center,
                                             style: const TextStyle(
                                               color: Colors.white,

@@ -1,18 +1,21 @@
-// imports nativos do flutter
+// import nativos do flutter
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 // import dos sources
 import 'package:meus_animais/data/sources/local/injection/injection.dart';
-import 'package:meus_animais/data/sources/local/manager/get_user.dart';
-import 'package:meus_animais/data/sources/local/manager/login.dart';
 import 'package:meus_animais/data/sources/local/manager/set_pet.dart';
 import 'package:meus_animais/domain/models/pets/pets.dart';
-import 'package:meus_animais/domain/models/users/login.dart';
+
+// import das telas
 import 'package:meus_animais/ui/pages/widgets/message.dart';
 
 // import dos pacotes
+import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:mobx/mobx.dart';
+import 'package:intl/intl.dart';
 part 'pets.g.dart';
 
 class PetsMobx extends _PetsMobx with _$PetsMobx{}
@@ -20,10 +23,7 @@ class PetsMobx extends _PetsMobx with _$PetsMobx{}
 abstract class _PetsMobx with Store {
 
   final setPetManager = getIt.get<SetPetManager>();
-  final userManager = getIt.get<GetUserManager>();
-
-  @observable
-  String picture = "";
+  // final userManager = getIt.get<GetUserManager>();
 
   @observable
   TextEditingController controllerName = TextEditingController();
@@ -38,10 +38,13 @@ abstract class _PetsMobx with Store {
   String breed = "";
 
   @observable
-  TextEditingController controllerWeight = TextEditingController();
+  TextEditingController controllerBreed = TextEditingController();
 
   @observable
-  TextEditingController controllerBirth = TextEditingController();
+  MoneyMaskedTextController controllerWeight = MoneyMaskedTextController(decimalSeparator: ".", precision: 2);
+
+  @observable
+  MaskedTextController controllerBirth = MaskedTextController(mask: "00/00/0000");
 
   @action
   void setSex(String value ) => sex = value;
@@ -53,8 +56,12 @@ abstract class _PetsMobx with Store {
   void setBreed(String value ) => breed = value;
 
   @action
-  validateFields( context ) {
+  validateFields( File? picture, context ) {
 
+    String? image;
+    if ( picture != null ) {
+      image = base64Encode(File(picture.toString().replaceAll("File: ", "").replaceAll("'", "")).readAsBytesSync());
+    }
     String name = controllerName.text;
     double weight = double.parse(controllerWeight.text);
     String birth = controllerBirth.text;
@@ -62,23 +69,23 @@ abstract class _PetsMobx with Store {
     if ( name.isNotEmpty && name.trim().length > 2 ) {
       if ( weight != 0.0 ) {
         if ( birth.isNotEmpty && birth.length != 10 ) {
-          if ( picture.trim().isNotEmpty && sex.trim().isNotEmpty && specie.trim().isNotEmpty && breed.trim().isNotEmpty ) {
+          if ( image != null && sex.trim().isNotEmpty && specie.trim().isNotEmpty && breed.trim().isNotEmpty ) {
             setSex("");
             setSpecie("");
             setBreed("");
 
             setPetManager.modelPets = ModelPets(
-                DateFormat('yyyyMMddkkmmss').format(DateTime.now()),
-                userManager.modelUser!.id,
-                name,
-                sex,
-                specie,
-                breed,
-                picture,
-                birth,
-                weight,
-                DateTime.now().toString(),
-                null
+              DateFormat('yyyyMMddkkmmss').format(DateTime.now()),
+              "zGLlSDFk0MO4X2dWl8D3FNt2UyU2",
+              name,
+              sex,
+              specie,
+              breed,
+              image,
+              birth,
+              weight,
+              DateTime.now().toString(),
+              null,
             );
 
             setPetManager.setData();
