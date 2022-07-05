@@ -58,7 +58,7 @@ Future<void> main() async {
       child: MaterialApp(
         title: "Meus animais",
         theme: themeDefault,
-        initialRoute: "/login",
+        initialRoute: "/splash",
         onGenerateRoute: Routes.generateRoutes,
         debugShowCheckedModeBanner: false,
       ),

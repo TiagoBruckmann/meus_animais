@@ -15,14 +15,16 @@ import '../../../../domain/repositories/login.dart' as _i7;
 import '../../../../domain/repositories/register.dart' as _i8;
 import '../../../../domain/repositories/set_pet.dart' as _i9;
 import '../../../../domain/repositories/set_vaccines.dart' as _i10;
-import '../manager/get_pets.dart' as _i11;
-import '../manager/get_user.dart' as _i12;
-import '../manager/get_vaccines.dart' as _i13;
-import '../manager/life_time.dart' as _i14;
-import '../manager/login.dart' as _i15;
-import '../manager/register.dart' as _i16;
-import '../manager/set_pet.dart' as _i17;
-import '../manager/set_vaccines.dart' as _i18;
+import '../../../../domain/repositories/splash.dart' as _i11;
+import '../manager/get_pets.dart' as _i12;
+import '../manager/get_user.dart' as _i13;
+import '../manager/get_vaccines.dart' as _i14;
+import '../manager/life_time.dart' as _i15;
+import '../manager/login.dart' as _i16;
+import '../manager/register.dart' as _i17;
+import '../manager/set_pet.dart' as _i18;
+import '../manager/set_vaccines.dart' as _i19;
+import '../manager/splash.dart' as _i20;
 
 const String _firebase = 'firebase';
 const String _api = 'api';
@@ -62,21 +64,27 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
       registerFor: {_firebase});
   gh.factory<_i10.SetVaccinesRepository>(() => _i10.SetVaccinesApi(),
       registerFor: {_api});
-  gh.lazySingleton<_i11.GetPetsManager>(
-      () => _i11.GetPetsManager(get<_i3.GetPetsRepository>()));
-  gh.lazySingleton<_i12.GetUserManager>(
-      () => _i12.GetUserManager(get<_i4.GetUserRepository>()));
-  gh.lazySingleton<_i13.GetVaccinesManager>(
-      () => _i13.GetVaccinesManager(get<_i5.GetVaccinesRepository>()));
-  gh.lazySingleton<_i14.LifeTimeManager>(
-      () => _i14.LifeTimeManager(get<_i6.LifeTimeRepository>()));
-  gh.lazySingleton<_i15.LoginManager>(
-      () => _i15.LoginManager(get<_i7.LoginRepository>()));
-  gh.lazySingleton<_i16.RegisterManager>(
-      () => _i16.RegisterManager(get<_i8.RegisterRepository>()));
-  gh.lazySingleton<_i17.SetPetManager>(
-      () => _i17.SetPetManager(get<_i9.SetPetRepository>()));
-  gh.lazySingleton<_i18.SetVaccineManager>(
-      () => _i18.SetVaccineManager(get<_i10.SetVaccinesRepository>()));
+  gh.factory<_i11.SplashRepository>(() => _i11.SplashFirebase(),
+      registerFor: {_firebase});
+  gh.factory<_i11.SplashRepository>(() => _i11.SplashApi(),
+      registerFor: {_api});
+  gh.lazySingleton<_i12.GetPetsManager>(
+      () => _i12.GetPetsManager(get<_i3.GetPetsRepository>()));
+  gh.lazySingleton<_i13.GetUserManager>(
+      () => _i13.GetUserManager(get<_i4.GetUserRepository>()));
+  gh.lazySingleton<_i14.GetVaccinesManager>(
+      () => _i14.GetVaccinesManager(get<_i5.GetVaccinesRepository>()));
+  gh.lazySingleton<_i15.LifeTimeManager>(
+      () => _i15.LifeTimeManager(get<_i6.LifeTimeRepository>()));
+  gh.lazySingleton<_i16.LoginManager>(
+      () => _i16.LoginManager(get<_i7.LoginRepository>()));
+  gh.lazySingleton<_i17.RegisterManager>(
+      () => _i17.RegisterManager(get<_i8.RegisterRepository>()));
+  gh.lazySingleton<_i18.SetPetManager>(
+      () => _i18.SetPetManager(get<_i9.SetPetRepository>()));
+  gh.lazySingleton<_i19.SetVaccineManager>(
+      () => _i19.SetVaccineManager(get<_i10.SetVaccinesRepository>()));
+  gh.lazySingleton<_i20.SplashManager>(
+      () => _i20.SplashManager(get<_i11.SplashRepository>()));
   return get;
 }

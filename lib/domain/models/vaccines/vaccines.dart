@@ -1,13 +1,12 @@
 class ModelVaccines {
 
   // dados da vacina
-  String id, name, type, description, day, createdAt = "";
-  String? typeTime, laboratory = "";
-  int? time;
+  String id, petId, name, type, description, day, createdAt = "";
+  String? typeTime, time, laboratory = "";
   bool reapply = true;
 
   ModelVaccines(
-    this.id, this.name, this.type, this.description, this.day, this.reapply, this.createdAt,
+    this.id, this.petId, this.name, this.type, this.description, this.day, this.reapply, this.createdAt,
     {
       this.typeTime, this.time, this.laboratory,
     }
@@ -16,6 +15,7 @@ class ModelVaccines {
   factory ModelVaccines.fromJson(Map<String, dynamic> json) {
     return ModelVaccines(
       json["id"],
+      json["pet_id"],
       json["name"],
       json["type"],
       json["description"],
@@ -28,7 +28,7 @@ class ModelVaccines {
     );
   }
 
-  Map<String, dynamic> toMap( String petId ) {
+  Map<String, dynamic> toMap() {
     Map<String, dynamic> map = {
       "id": id,
       "pet_id": petId,

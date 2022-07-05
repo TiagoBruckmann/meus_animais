@@ -14,16 +14,15 @@ class SetVaccineManager {
   final SetVaccinesRepository setVaccinesRepository;
 
   ModelVaccines? modelVaccines;
-  String? petId;
 
   setData() {
-    if ( modelVaccines != null && petId != null ) {
+    if ( modelVaccines != null ) {
       _setVaccines();
     }
   }
 
   _setVaccines() async {
-    await setVaccinesRepository.setVaccines( modelVaccines!, petId! );
+    await setVaccinesRepository.setVaccines( modelVaccines! );
   }
 
 }

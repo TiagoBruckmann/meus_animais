@@ -14,15 +14,15 @@ import 'package:meus_animais/ui/pages/widgets/message.dart';
 import 'package:injectable/injectable.dart';
 
 abstract class SetVaccinesRepository {
-  setVaccines( ModelVaccines modelVaccines, String petId );
+  setVaccines( ModelVaccines modelVaccines );
 }
 
 @Injectable(as: SetVaccinesRepository, env: ["firebase"])
 class SetVaccinesFirebase implements SetVaccinesRepository {
   @override
-  setVaccines( ModelVaccines modelVaccines, String petId ) async {
+  setVaccines( ModelVaccines modelVaccines) async {
 
-    await db.collection("vaccines").doc(modelVaccines.id).set(modelVaccines.toMap(petId));
+    await db.collection("vaccines").doc(modelVaccines.id).set(modelVaccines.toMap());
 
     /*
     CustomSnackBar(
@@ -43,7 +43,7 @@ class SetVaccinesFirebase implements SetVaccinesRepository {
 @Injectable(as: SetVaccinesRepository, env: ["api"])
 class SetVaccinesApi implements SetVaccinesRepository {
   @override
-  setVaccines( ModelVaccines modelVaccines, String petId ) async {
+  setVaccines( ModelVaccines modelVaccines ) async {
 
   }
 }

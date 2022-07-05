@@ -2,7 +2,7 @@ name: meus_animais
 description: Cuide de seus pets, desde os dias que tomam vacinas até a quantidade de banhos que tomam.
 
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
-version: 1.0.0+7
+version: 1.0.0+8
 
 environment:
   sdk: ">=2.17.3 <3.0.0"
@@ -51,7 +51,7 @@ dev_dependencies:
 # configuracao da splash
 flutter_native_splash:
   color: "#363435"
-  image: assets/img/logo2.png
+  image: assets/img/loading.jpg
   android: true
   ios: true
   fullscreen: true

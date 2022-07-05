@@ -166,6 +166,28 @@ mixin _$PetsMobx on _PetsMobx, Store {
   }
 
   @override
+  void setVaccine(ModelVaccines modelVaccines) {
+    final _$actionInfo =
+        _$_PetsMobxActionController.startAction(name: '_PetsMobx.setVaccine');
+    try {
+      return super.setVaccine(modelVaccines);
+    } finally {
+      _$_PetsMobxActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void setHygiene(ModelHygienePets modelHygienePets) {
+    final _$actionInfo =
+        _$_PetsMobxActionController.startAction(name: '_PetsMobx.setHygiene');
+    try {
+      return super.setHygiene(modelHygienePets);
+    } finally {
+      _$_PetsMobxActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   void clear() {
     final _$actionInfo =
         _$_PetsMobxActionController.startAction(name: '_PetsMobx.clear');

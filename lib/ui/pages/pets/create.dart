@@ -1,5 +1,7 @@
 // pacotes nativos flutter
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:intl/intl.dart';
 
 // import dos sources
 import 'package:meus_animais/data/sources/remote/services/services.dart';
@@ -12,7 +14,6 @@ import 'package:meus_animais/ui/pages/widgets/dropdown_error.dart';
 // import das telas
 import 'package:meus_animais/ui/pages/widgets/loading/loading_connection.dart';
 import 'package:meus_animais/ui/pages/widgets/camera/crop_page.dart';
-import 'package:meus_animais/ui/pages/widgets/card_pets.dart';
 import 'package:meus_animais/ui/styles/app_colors.dart';
 import 'package:meus_animais/ui/styles/app_images.dart';
 
@@ -38,6 +39,31 @@ class _CreatePetPageState extends State<CreatePetPage> {
   final PetsMobx _petsMobx = PetsMobx();
   final CropMobx _cropMobx = CropMobx();
   late ConnectionMobx _connectionMobx;
+  final String _petId = DateFormat('yyyyMMddkkmmss').format(DateTime.now());
+
+  _goToVaccines() async {
+    final data = await Navigator.pushNamed(
+      context,
+      "/vaccines",
+      arguments: _petId,
+    );
+
+    if ( data != null ) {
+      print("data vaccines => $data");
+    }
+  }
+
+  _goToHygiene() async {
+    final data = await Navigator.pushNamed(
+      context,
+      "/hygiene",
+      arguments: _petId
+    );
+
+    if ( data != null ) {
+      print("data hygiene => $data");
+    }
+  }
 
   @override
   void initState() {
@@ -105,7 +131,25 @@ class _CreatePetPageState extends State<CreatePetPage> {
                   ),
                 ),
 
-                const CardPetsWidget(title: "Dados do pet"),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  child: const Card(
+                    color: AppColors.barossa,
+                    elevation: 0,
+                    child: Padding(
+                      padding: EdgeInsets.symmetric( vertical: 15 ),
+                      child: Text(
+                        "Dados do pet",
+                        overflow: TextOverflow.fade,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 17,
+                          color: AppColors.whiteSmoke,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
 
                 // nome
                 Padding(
@@ -193,7 +237,7 @@ class _CreatePetPageState extends State<CreatePetPage> {
                     onChanged: (value) {
                       _petsMobx.setSex(value.toString());
                     },
-                    dropdownBuilder: (context, ticketsPerUser) {
+                    dropdownBuilder: (context, sex) {
                       return Container(
                         width: width,
                         decoration: BoxDecoration(
@@ -210,8 +254,7 @@ class _CreatePetPageState extends State<CreatePetPage> {
                         ),
                       );
                     },
-                    // controi a lista de tickets permitido para cada usuário
-                    dropdownItemBuilder: (context, ticketsPerUser, isSelected) {
+                    dropdownItemBuilder: (context, sex, isSelected) {
                       return Container(
                         decoration: !isSelected
                         ? null
@@ -224,7 +267,7 @@ class _CreatePetPageState extends State<CreatePetPage> {
                         ),
                         child: ListTile(
                           selected: isSelected,
-                          title: Text( ticketsPerUser.toString() ),
+                          title: Text( sex.toString() ),
                         ),
                       );
                     },
@@ -247,7 +290,7 @@ class _CreatePetPageState extends State<CreatePetPage> {
                     onChanged: (value) {
                       _petsMobx.setSpecie(value!.name);
                     },
-                    dropdownBuilder: (context, ticketsPerUser) {
+                    dropdownBuilder: (context, specie) {
                       return Container(
                         width: width,
                         decoration: BoxDecoration(
@@ -264,8 +307,7 @@ class _CreatePetPageState extends State<CreatePetPage> {
                         ),
                       );
                     },
-                    // controi a lista de tickets permitido para cada usuário
-                    dropdownItemBuilder: (context, ticketsPerUser, isSelected) {
+                    dropdownItemBuilder: (context, specie, isSelected) {
                       return Container(
                         decoration: !isSelected
                         ? null
@@ -278,7 +320,7 @@ class _CreatePetPageState extends State<CreatePetPage> {
                         ),
                         child: ListTile(
                           selected: isSelected,
-                          title: Text( ticketsPerUser.toString() ),
+                          title: Text( specie.toString() ),
                         ),
                       );
                     },
@@ -357,9 +399,172 @@ class _CreatePetPageState extends State<CreatePetPage> {
                   ),
                 ),
 
-                const CardPetsWidget(title: "Vacinas"),
+                // card das vacinas
+                SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  child: Card(
+                    color: AppColors.barossa,
+                    elevation: 0,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric( vertical: 15 ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
 
-                const CardPetsWidget(title: "Higiene"),
+                          const Text(""),
+
+                          const Text(
+                            "Vacinas",
+                            overflow: TextOverflow.fade,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 17,
+                              color: AppColors.whiteSmoke,
+                            ),
+                          ),
+
+                          GestureDetector(
+                            onTap: () {
+                              _goToVaccines();
+                            },
+                            child: const Padding(
+                              padding: EdgeInsets.only( right: 10 ),
+                              child: FaIcon(
+                                FontAwesomeIcons.circlePlus,
+                                color: AppColors.whiteSmoke,
+                              ),
+                            ),
+                          ),
+
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+
+                Card(
+                  color: AppColors.blueSolitude,
+                  child: Column(
+                    children: [
+
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: const [
+                          Text(
+                            "Nome da vacina",
+                            style: TextStyle(
+                              fontSize: 20,
+                            ),
+                          ),
+
+                          Text(
+                            "21/06/2022",
+                            style: TextStyle(
+                              fontSize: 20,
+                            ),
+                          ),
+
+                        ],
+                      ),
+
+                      const Divider(),
+
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: const [
+
+                          Text.rich(
+                            TextSpan(
+                              text: "Tipo:",
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18,
+                              ),
+                              children: [
+                                TextSpan(
+                                  text: "vermifuga",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w300,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+
+                        ],
+                      ),
+
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: const [
+
+                          Text.rich(
+                            TextSpan(
+                              text: "reaplicar:",
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18,
+                              ),
+                              children: [
+                                TextSpan(
+                                  text: "Sim, em 3 meses",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w300,
+                                    fontSize: 18,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+
+                        ],
+                      ),
+
+                    ],
+                  ),
+                ),
+
+                SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  child: Card(
+                    color: AppColors.barossa,
+                    elevation: 0,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric( vertical: 15 ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+
+                          const Text(""),
+
+                          const Text(
+                            "Higiene",
+                            overflow: TextOverflow.fade,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 17,
+                              color: AppColors.whiteSmoke,
+                            ),
+                          ),
+
+                          GestureDetector(
+                            onTap: () {
+                              _goToHygiene();
+                            },
+                            child: const Padding(
+                              padding: EdgeInsets.only( right: 10 ),
+                              child: FaIcon(
+                                FontAwesomeIcons.circlePlus,
+                                color: AppColors.whiteSmoke,
+                              ),
+                            ),
+                          ),
+
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
 
                 Container(
                   padding: const EdgeInsets.fromLTRB(10, 16, 10, 10),
@@ -383,7 +588,6 @@ class _CreatePetPageState extends State<CreatePetPage> {
                       ),
                     ),
                   ),
-
                 ),
 
               ],

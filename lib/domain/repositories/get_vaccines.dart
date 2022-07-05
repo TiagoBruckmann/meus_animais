@@ -1,9 +1,6 @@
 // import dos sources
 import 'package:meus_animais/data/sources/remote/services/services.dart';
 
-// import dos modelos
-import 'package:meus_animais/domain/models/pets/pets.dart';
-
 // import dos pacotes
 import 'package:injectable/injectable.dart';
 import 'package:meus_animais/domain/models/vaccines/vaccines.dart';
@@ -37,6 +34,7 @@ class GetVaccinesApi implements GetVaccinesRepository {
     List<ModelVaccines> list = [
       ModelVaccines(
         "5",
+        "1",
         "Anti-cria",
         "castral",
         "Para não engravidar",
@@ -44,7 +42,7 @@ class GetVaccinesApi implements GetVaccinesRepository {
         true,
         "02/07/2022",
         typeTime: "mounth",
-        time: 3,
+        time: "3",
         laboratory: "Sei la meo",
       )
     ];
