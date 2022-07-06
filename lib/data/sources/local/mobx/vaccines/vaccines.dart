@@ -9,6 +9,7 @@ import 'package:meus_animais/domain/models/vaccines/vaccines.dart';
 
 // import dos pacotes
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
+import 'package:meus_animais/ui/pages/widgets/message.dart';
 import 'package:mobx/mobx.dart';
 part 'vaccines.g.dart';
 
@@ -81,47 +82,80 @@ abstract class _VaccinesMobx with Store {
           if ( reapply == true ) {
             if ( typeTime.isNotEmpty ) {
               if ( time.isNotEmpty ) {
-                vaccineManager.modelVaccines = ModelVaccines(
-                  DateFormat('yyyyMMddkkmmss').format(DateTime.now()),
-                  petId,
-                  name,
-                  type,
-                  controllerDescription.text,
-                  day,
-                  reapply,
-                  DateTime.now().toString(),
-                  typeTime: typeTime,
-                  time: time,
-                  laboratory: controllerLaboratory.text,
+                vaccineManager.listVaccines.add(
+                  ModelVaccines(
+                    DateFormat('yyyyMMddkkmmss').format(DateTime.now()),
+                    petId,
+                    name,
+                    type,
+                    controllerDescription.text,
+                    day,
+                    reapply,
+                    DateTime.now().toString(),
+                    typeTime: typeTime,
+                    time: time,
+                    laboratory: controllerLaboratory.text,
+                  ),
+                );
+
+                Navigator.pop(
+                  context,
+                  vaccineManager.listVaccines,
                 );
               } else {
-                vaccineManager.modelVaccines = ModelVaccines(
-                  DateFormat('yyyyMMddkkmmss').format(DateTime.now()),
-                  petId,
-                  name,
-                  type,
-                  controllerDescription.text,
-                  day,
-                  reapply,
-                  DateTime.now().toString(),
+                CustomSnackBar(
+                  context,
+                  "Selecione o tempo estimado.",
+                  Colors.red,
                 );
               }
-              vaccineManager.setData();
 
             } else {
-
+              CustomSnackBar(
+                context,
+                "Selecione o periodo de tempo.",
+                Colors.red,
+              );
             }
           } else {
-            // reapply
+            vaccineManager.listVaccines.add(
+              ModelVaccines(
+                DateFormat('yyyyMMddkkmmss').format(DateTime.now()),
+                petId,
+                name,
+                type,
+                controllerDescription.text,
+                day,
+                reapply,
+                DateTime.now().toString(),
+              ),
+            );
+
+            Navigator.pop(
+              context,
+              vaccineManager.listVaccines,
+            );
           }
         } else {
-          // day
+          CustomSnackBar(
+            context,
+            "Informe o dia de aplicação da vacina.",
+            Colors.red,
+          );
         }
       } else {
-        // type
+        CustomSnackBar(
+          context,
+          "Informe o tipo de vacina.",
+          Colors.red,
+        );
       }
     } else {
-      // name
+      CustomSnackBar(
+        context,
+        "Insira um nome válido.",
+        Colors.red,
+      );
     }
   }
 

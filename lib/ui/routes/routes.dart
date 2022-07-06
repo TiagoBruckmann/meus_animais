@@ -1,5 +1,6 @@
 // imports nativos do flutter
 import 'package:flutter/material.dart';
+import 'package:meus_animais/ui/pages/hygiene/create_hygiene.dart';
 
 // import das telas
 import 'package:meus_animais/ui/pages/settings/settings.dart';
@@ -38,7 +39,7 @@ class Routes {
         );
       case "/hygiene" :
         return MaterialPageRoute(
-          builder: (_) => const RegisterPage(),
+          builder: (_) => CreateHygiene(petId: args.toString()),
         );
       case "/settings" :
         return MaterialPageRoute(

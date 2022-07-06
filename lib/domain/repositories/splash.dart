@@ -63,4 +63,5 @@ class SplashApi implements SplashRepository {
       (route) => false,
     );
   }
+
 }

@@ -66,7 +66,7 @@ class _CreateVaccinesState extends State<CreateVaccines> {
 
                 // nome
                 Padding(
-                  padding: const EdgeInsets.symmetric( vertical: 12, horizontal: 10 ),
+                  padding: const EdgeInsets.symmetric( vertical: 8, horizontal: 10 ),
                   child: TextField(
                     controller: _vaccinesMobx.controllerName,
                     keyboardType: TextInputType.text,
@@ -102,7 +102,7 @@ class _CreateVaccinesState extends State<CreateVaccines> {
 
                 // tipo de vacina
                 Padding(
-                  padding: const EdgeInsets.symmetric( vertical: 4, horizontal: 10 ),
+                  padding: const EdgeInsets.symmetric( vertical: 8, horizontal: 10 ),
                   child: TextField(
                     controller: _vaccinesMobx.controllerType,
                     keyboardType: TextInputType.text,
@@ -138,7 +138,7 @@ class _CreateVaccinesState extends State<CreateVaccines> {
 
                 // descricao
                 Padding(
-                  padding: const EdgeInsets.symmetric( vertical: 4, horizontal: 10 ),
+                  padding: const EdgeInsets.symmetric( vertical: 8, horizontal: 10 ),
                   child: TextField(
                     controller: _vaccinesMobx.controllerDescription,
                     minLines: 1,
@@ -176,7 +176,7 @@ class _CreateVaccinesState extends State<CreateVaccines> {
 
                 // dia da vacina
                 Padding(
-                  padding: const EdgeInsets.symmetric( vertical: 4, horizontal: 10 ),
+                  padding: const EdgeInsets.symmetric( vertical: 8, horizontal: 10 ),
                   child: TextField(
                     controller: _vaccinesMobx.controllerDay,
                     keyboardType: TextInputType.number,

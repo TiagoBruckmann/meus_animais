@@ -6,7 +6,7 @@ import 'dart:io';
 // import dos sources
 import 'package:meus_animais/data/sources/local/injection/injection.dart';
 import 'package:meus_animais/data/sources/local/manager/set_pet.dart';
-import 'package:meus_animais/domain/models/hygiene_pets/hygiene_pets.dart';
+import 'package:meus_animais/domain/models/hygiene/hygiene_pets.dart';
 import 'package:meus_animais/domain/models/vaccines/vaccines.dart';
 import 'package:meus_animais/domain/models/pets/pets.dart';
 

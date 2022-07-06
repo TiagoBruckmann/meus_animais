@@ -12,9 +12,10 @@ class ModelVaccines {
     }
   );
 
-  factory ModelVaccines.fromJson(Map<String, dynamic> json) {
+  factory ModelVaccines.fromJson(dynamic json) {
+    print(json);
     return ModelVaccines(
-      json["id"],
+      json["id"].toString(),
       json["pet_id"],
       json["name"],
       json["type"],

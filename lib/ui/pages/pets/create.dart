@@ -1,26 +1,30 @@
 // pacotes nativos flutter
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:intl/intl.dart';
 
 // import dos sources
 import 'package:meus_animais/data/sources/remote/services/services.dart';
 import 'package:meus_animais/data/sources/local/manager/life_time.dart';
 import 'package:meus_animais/data/sources/local/mobx/crop/crop.dart';
 import 'package:meus_animais/data/sources/local/mobx/pets/pets.dart';
+import 'package:meus_animais/domain/models/hygiene/hygiene_pets.dart';
 import 'package:meus_animais/domain/models/life_time/life_time.dart';
+import 'package:meus_animais/domain/models/vaccines/vaccines.dart';
 import 'package:meus_animais/ui/pages/widgets/dropdown_error.dart';
 
 // import das telas
 import 'package:meus_animais/ui/pages/widgets/loading/loading_connection.dart';
 import 'package:meus_animais/ui/pages/widgets/camera/crop_page.dart';
+import 'package:meus_animais/ui/pages/vaccines/vaccines.dart';
+import 'package:meus_animais/ui/pages/hygiene/hygiene.dart';
 import 'package:meus_animais/ui/styles/app_colors.dart';
 import 'package:meus_animais/ui/styles/app_images.dart';
 
 // import dos pacotes
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:find_dropdown/find_dropdown.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
+import 'package:intl/intl.dart';
 
 // gerencia de estado
 import 'package:meus_animais/data/sources/local/mobx/connection/connection.dart';
@@ -50,6 +54,7 @@ class _CreatePetPageState extends State<CreatePetPage> {
 
     if ( data != null ) {
       print("data vaccines => $data");
+      _petsMobx.listVaccines.add(ModelVaccines.fromJson(data));
     }
   }
 
@@ -62,6 +67,7 @@ class _CreatePetPageState extends State<CreatePetPage> {
 
     if ( data != null ) {
       print("data hygiene => $data");
+      _petsMobx.listHygiene.add(ModelHygienePets.fromJson(data));
     }
   }
 
@@ -442,87 +448,12 @@ class _CreatePetPageState extends State<CreatePetPage> {
                   ),
                 ),
 
-                Card(
-                  color: AppColors.blueSolitude,
-                  child: Column(
-                    children: [
-
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: const [
-                          Text(
-                            "Nome da vacina",
-                            style: TextStyle(
-                              fontSize: 20,
-                            ),
-                          ),
-
-                          Text(
-                            "21/06/2022",
-                            style: TextStyle(
-                              fontSize: 20,
-                            ),
-                          ),
-
-                        ],
-                      ),
-
-                      const Divider(),
-
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: const [
-
-                          Text.rich(
-                            TextSpan(
-                              text: "Tipo:",
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18,
-                              ),
-                              children: [
-                                TextSpan(
-                                  text: "vermifuga",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w300,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-
-                        ],
-                      ),
-
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: const [
-
-                          Text.rich(
-                            TextSpan(
-                              text: "reaplicar:",
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18,
-                              ),
-                              children: [
-                                TextSpan(
-                                  text: "Sim, em 3 meses",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w300,
-                                    fontSize: 18,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-
-                        ],
-                      ),
-
-                    ],
+                // vacinas
+                for ( var item in _petsMobx.listVaccines )
+                  Vaccines(
+                    modelVaccines: item,
                   ),
-                ),
+
 
                 SizedBox(
                   width: MediaQuery.of(context).size.width,
@@ -565,6 +496,12 @@ class _CreatePetPageState extends State<CreatePetPage> {
                     ),
                   ),
                 ),
+
+                // higienes
+                for ( var item in _petsMobx.listHygiene )
+                  Hygiene(
+                    modelHygiene: item,
+                  ),
 
                 Container(
                   padding: const EdgeInsets.fromLTRB(10, 16, 10, 10),

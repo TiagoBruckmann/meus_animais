@@ -3,7 +3,7 @@ import 'package:meus_animais/domain/repositories/set_pet.dart';
 import 'package:injectable/injectable.dart';
 
 // import dos modelos
-import 'package:meus_animais/domain/models/hygiene_pets/hygiene_pets.dart';
+import 'package:meus_animais/domain/models/hygiene/hygiene_pets.dart';
 import 'package:meus_animais/domain/models/vaccines/vaccines.dart';
 import 'package:meus_animais/domain/models/pets/pets.dart';
 
@@ -17,8 +17,8 @@ class SetPetManager {
   final SetPetRepository setPetRepository;
 
   ModelPets? modelPets;
-  ModelVaccines? modelVaccines;
-  ModelHygienePets? modelHygienePets;
+  List<ModelVaccines> listVaccines = [];
+  List<ModelHygienePets> listHygiene = [];
 
   setData() {
     if ( modelPets != null ) {
@@ -27,7 +27,7 @@ class SetPetManager {
   }
 
   _setPet() async {
-    await setPetRepository.setPet( modelPets!, modelVaccines, modelHygienePets );
+    await setPetRepository.setPet( modelPets!, listVaccines, listHygiene );
   }
 
 }

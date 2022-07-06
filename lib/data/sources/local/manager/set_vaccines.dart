@@ -13,16 +13,16 @@ class SetVaccineManager {
 
   final SetVaccinesRepository setVaccinesRepository;
 
-  ModelVaccines? modelVaccines;
+  List<ModelVaccines> listVaccines = [];
 
   setData() {
-    if ( modelVaccines != null ) {
+    if ( listVaccines.isNotEmpty ) {
       _setVaccines();
     }
   }
 
   _setVaccines() async {
-    await setVaccinesRepository.setVaccines( modelVaccines! );
+    await setVaccinesRepository.setVaccines( listVaccines );
   }
 
 }

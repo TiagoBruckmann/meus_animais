@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:meus_animais/data/sources/local/injection/injection.dart';
 import 'package:meus_animais/data/sources/remote/services/services.dart';
+import 'package:meus_animais/domain/models/hygiene/hygiene_pets.dart';
 
 // import dos modelos
 import 'package:meus_animais/domain/models/pets/pets.dart';
@@ -13,17 +14,17 @@ import 'package:meus_animais/ui/pages/widgets/message.dart';
 // import dos pacotes
 import 'package:injectable/injectable.dart';
 
-abstract class SetVaccinesRepository {
-  setVaccines( List<ModelVaccines> list );
+abstract class SetHygieneRepository {
+  setHygiene( List<ModelHygienePets> list );
 }
 
-@Injectable(as: SetVaccinesRepository, env: ["firebase"])
-class SetVaccinesFirebase implements SetVaccinesRepository {
+@Injectable(as: SetHygieneRepository, env: ["firebase"])
+class SetHygieneFirebase implements SetHygieneRepository {
   @override
-  setVaccines( List<ModelVaccines> list) async {
+  setHygiene( List<ModelHygienePets> list ) async {
 
     for ( var item in list ) {
-      await db.collection("vaccines").doc(item.id).set(item.toMap());
+      await db.collection("hygiene").doc(item.id).set(item.toMap());
     }
 
     /*
@@ -42,10 +43,10 @@ class SetVaccinesFirebase implements SetVaccinesRepository {
   }
 }
 
-@Injectable(as: SetVaccinesRepository, env: ["api"])
-class SetVaccinesApi implements SetVaccinesRepository {
+@Injectable(as: SetHygieneRepository, env: ["api"])
+class SetHygieneApi implements SetHygieneRepository {
   @override
-  setVaccines( List<ModelVaccines> list ) async {
+  setHygiene( List<ModelHygienePets> list ) async {
 
   }
 }
