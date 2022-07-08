@@ -13,7 +13,6 @@ class ModelVaccines {
   );
 
   factory ModelVaccines.fromJson(dynamic json) {
-    print(json);
     return ModelVaccines(
       json["id"].toString(),
       json["pet_id"],

@@ -1,10 +1,8 @@
 // import dos pacotes
-import 'package:meus_animais/domain/repositories/set_pet.dart';
 import 'package:injectable/injectable.dart';
 
 // import dos modelos
-import 'package:meus_animais/domain/models/hygiene/hygiene_pets.dart';
-import 'package:meus_animais/domain/models/vaccines/vaccines.dart';
+import 'package:meus_animais/domain/repositories/set_pet.dart';
 import 'package:meus_animais/domain/models/pets/pets.dart';
 
 @lazySingleton
@@ -17,17 +15,16 @@ class SetPetManager {
   final SetPetRepository setPetRepository;
 
   ModelPets? modelPets;
-  List<ModelVaccines> listVaccines = [];
-  List<ModelHygienePets> listHygiene = [];
+  dynamic context;
 
   setData() {
-    if ( modelPets != null ) {
+    if ( modelPets != null && context != null ) {
       _setPet();
     }
   }
 
   _setPet() async {
-    await setPetRepository.setPet( modelPets!, listVaccines, listHygiene );
+    await setPetRepository.setPet( modelPets!, context );
   }
 
 }

@@ -1,5 +1,6 @@
 // import dos pacotes nativos do flutter
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'dart:async';
 
 // import dos estilos
@@ -13,7 +14,6 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_performance/firebase_performance.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter/services.dart';
 
 // gerenciadores de estado
 import 'package:meus_animais/data/sources/local/mobx/connection/connection.dart';

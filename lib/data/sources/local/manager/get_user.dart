@@ -17,11 +17,12 @@ class GetUserManager {
   ModelUser? modelUser;
 
   void setCredentials( ModelUser user ) {
-    modelUser = ModelUser(user.id, user.name, user.email, user.password, picture: user.picture);
+    modelUser = ModelUser(user.id, user.name, user.email, picture: user.picture);
   }
 
-  void _getUser() {
-    modelUser = getUserRepository.getUser(modelUser);
+  _getUser() async {
+    modelUser = await getUserRepository.getUser(modelUser);
+    return modelUser!;
   }
 
 }

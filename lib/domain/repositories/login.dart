@@ -1,5 +1,7 @@
 // import dos sources
 import 'package:flutter/material.dart';
+import 'package:meus_animais/data/sources/local/injection/injection.dart';
+import 'package:meus_animais/data/sources/local/manager/get_user.dart';
 
 // import dos sources
 import 'package:meus_animais/data/sources/remote/services/services.dart';
@@ -26,9 +28,10 @@ class LoginFirebase implements LoginRepository {
     auth.signInWithEmailAndPassword(
       email: modelLogin.email,
       password: modelLogin.password,
-    ).then((firebaseUser) async {
+    ).whenComplete(() async {
 
-      Services().setToken("apiToken", firebaseUser.user!.uid);
+      getIt.get<GetUserManager>();
+      Services().setToken("apiToken", auth.currentUser!.uid);
       Navigator.pushNamedAndRemoveUntil(
         modelLogin.context,
         "/",

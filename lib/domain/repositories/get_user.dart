@@ -7,14 +7,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:injectable/injectable.dart';
 
 abstract class GetUserRepository {
-  getUser( ModelUser? modelUser );
+  Future<ModelUser> getUser( ModelUser? modelUser );
 }
 
 @Injectable(as: GetUserRepository, env: ["firebase"])
 class GetUserFirebase implements GetUserRepository {
 
   @override
-  getUser( ModelUser? modelUser ) async {
+  Future<ModelUser> getUser( ModelUser? modelUser ) async {
     User? userData = auth.currentUser;
     if ( modelUser == null && userData != null ) {
 
@@ -24,8 +24,7 @@ class GetUserFirebase implements GetUserRepository {
       }
 
     }
-
-    return modelUser;
+    return modelUser!;
   }
 }
 
@@ -33,7 +32,11 @@ class GetUserFirebase implements GetUserRepository {
 class GetUserApi implements GetUserRepository {
 
   @override
-  getUser( ModelUser? modelUser ) async {
-
+  Future<ModelUser> getUser( ModelUser? modelUser ) async {
+    return ModelUser(
+      "5",
+      "Tiago Api",
+      "tiagobruckmann@gmail.com",
+    );
   }
 }

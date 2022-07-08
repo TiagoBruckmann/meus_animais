@@ -40,55 +40,64 @@ abstract class _HygieneMobx with Store {
     String date = controllerDay.text;
     String place = controllerPlace.text;
     String value = controllerValue.text;
+    int day = int.parse(date.split("/")[0]);
+    int month = int.parse(date.split("/")[1]);
+    int year = int.parse(date.split("/")[2]);
 
-    if ( name.trim().isNotEmpty ) {
-      if ( date.isNotEmpty && date.length != 10 ) {
-        if ( place.trim().isNotEmpty ) {
-          if ( value != "0,00" ) {
-            hygieneManager.listHygiene.add(
-              ModelHygienePets(
-                DateFormat('yyyyMMddkkmmss').format(DateTime.now()),
-                petId,
-                name,
-                date,
-                place,
-                value,
-                DateTime.now().toString(),
-              ),
-            );
-
-            Navigator.pop(
-              context,
-              hygieneManager.listHygiene,
-            );
-          } else {
-            CustomSnackBar(
-              context,
-              "Insira um valor válido",
-              Colors.red,
-            );
-          }
-        } else {
-          CustomSnackBar(
-            context,
-            "Informe o estabelecimento.",
-            Colors.red,
-          );
-        }
-      } else {
-        CustomSnackBar(
-          context,
-          "Informe a data do serviço.",
-          Colors.red,
-        );
-      }
-    } else {
+    if ( name.trim().isEmpty ) {
       CustomSnackBar(
         context,
         "Selecione uma categoria de serviços.",
         Colors.red,
       );
+      return;
     }
+    if ( date.isEmpty && date.length != 10 ) {
+      CustomSnackBar(
+        context,
+        "Informe a data do serviço.",
+        Colors.red,
+      );
+      return;
+    }
+    if ( day > 31 && month > 12 && year > DateTime.now().year ) {
+      CustomSnackBar(
+        context,
+        "Informe uma data válida!",
+        Colors.red,
+      );
+      return;
+    }
+    if ( place.trim().isEmpty ) {
+      CustomSnackBar(
+        context,
+        "Informe o estabelecimento.",
+        Colors.red,
+      );
+      return;
+    }
+    if ( value == "0,00" ) {
+      CustomSnackBar(
+        context,
+        "Insira um valor válido",
+        Colors.red,
+      );
+      return;
+    }
+
+    hygieneManager.listHygiene.add(
+      ModelHygienePets(
+        DateFormat('yyyyMMddkkmmss').format(DateTime.now()),
+        petId,
+        name,
+        date,
+        place,
+        value,
+        DateTime.now().toString(),
+      ),
+    );
+
+    Navigator.pop(context);
   }
 
   @action

@@ -1,19 +1,20 @@
 // pacotes nativos flutter
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
 // import dos sources
+import 'package:meus_animais/data/sources/local/manager/set_vaccines.dart';
+import 'package:meus_animais/data/sources/local/manager/set_hygiene.dart';
 import 'package:meus_animais/data/sources/remote/services/services.dart';
 import 'package:meus_animais/data/sources/local/manager/life_time.dart';
 import 'package:meus_animais/data/sources/local/mobx/crop/crop.dart';
-import 'package:meus_animais/data/sources/local/mobx/pets/pets.dart';
-import 'package:meus_animais/domain/models/hygiene/hygiene_pets.dart';
 import 'package:meus_animais/domain/models/life_time/life_time.dart';
-import 'package:meus_animais/domain/models/vaccines/vaccines.dart';
-import 'package:meus_animais/ui/pages/widgets/dropdown_error.dart';
 
 // import das telas
 import 'package:meus_animais/ui/pages/widgets/loading/loading_connection.dart';
 import 'package:meus_animais/ui/pages/widgets/camera/crop_page.dart';
+import 'package:meus_animais/ui/pages/widgets/dropdown_error.dart';
 import 'package:meus_animais/ui/pages/vaccines/vaccines.dart';
 import 'package:meus_animais/ui/pages/hygiene/hygiene.dart';
 import 'package:meus_animais/ui/styles/app_colors.dart';
@@ -28,6 +29,7 @@ import 'package:intl/intl.dart';
 
 // gerencia de estado
 import 'package:meus_animais/data/sources/local/mobx/connection/connection.dart';
+import 'package:meus_animais/data/sources/local/mobx/create_pets/create.dart';
 import 'package:meus_animais/data/sources/local/injection/injection.dart';
 
 class CreatePetPage extends StatefulWidget {
@@ -40,35 +42,30 @@ class CreatePetPage extends StatefulWidget {
 class _CreatePetPageState extends State<CreatePetPage> {
 
   final _lifeTimeManager = getIt.get<LifeTimeManager>();
-  final PetsMobx _petsMobx = PetsMobx();
+  final CreateMobx _createMobx = CreateMobx();
   final CropMobx _cropMobx = CropMobx();
   late ConnectionMobx _connectionMobx;
+
   final String _petId = DateFormat('yyyyMMddkkmmss').format(DateTime.now());
 
-  _goToVaccines() async {
-    final data = await Navigator.pushNamed(
+  // injecoes de dependencia
+  final vaccineManager = getIt.get<SetVaccineManager>();
+  final hygieneManager = getIt.get<SetHygieneManager>();
+
+  _goToVaccines() {
+    Navigator.pushNamed(
       context,
       "/vaccines",
       arguments: _petId,
     );
-
-    if ( data != null ) {
-      print("data vaccines => $data");
-      _petsMobx.listVaccines.add(ModelVaccines.fromJson(data));
-    }
   }
 
-  _goToHygiene() async {
-    final data = await Navigator.pushNamed(
+  _goToHygiene() {
+    Navigator.pushNamed(
       context,
       "/hygiene",
       arguments: _petId
     );
-
-    if ( data != null ) {
-      print("data hygiene => $data");
-      _petsMobx.listHygiene.add(ModelHygienePets.fromJson(data));
-    }
   }
 
   @override
@@ -129,7 +126,7 @@ class _CreatePetPageState extends State<CreatePetPage> {
                           },
                           child: ( _cropMobx.image == null )
                           ? Image.asset(AppImages.loading)
-                          : Image.file(_cropMobx.image!),
+                          : Image.file(File(_cropMobx.image!.path)),
                         ),
 
                       ],
@@ -161,7 +158,7 @@ class _CreatePetPageState extends State<CreatePetPage> {
                 Padding(
                   padding: const EdgeInsets.symmetric( vertical: 12, horizontal: 10 ),
                   child: TextField(
-                    controller: _petsMobx.controllerName,
+                    controller: _createMobx.controllerName,
                     keyboardType: TextInputType.text,
                     style: const TextStyle(
                       fontSize: 20,
@@ -197,12 +194,12 @@ class _CreatePetPageState extends State<CreatePetPage> {
                 Padding(
                   padding: const EdgeInsets.symmetric( vertical: 4, horizontal: 10 ),
                   child: TextField(
-                    controller: _petsMobx.controllerWeight,
+                    controller: _createMobx.controllerWeight,
                     keyboardType: TextInputType.number,
                     style: const TextStyle(
                       fontSize: 20,
                     ),
-                    textInputAction: TextInputAction.next,
+                    textInputAction: TextInputAction.done,
                     decoration: InputDecoration(
                       contentPadding: const EdgeInsets.all(16),
                       labelText: "Peso",
@@ -239,9 +236,9 @@ class _CreatePetPageState extends State<CreatePetPage> {
                       "Femea",
                     ],
                     label: "Sexo do animal",
-                    selectedItem: _petsMobx.sex,
+                    selectedItem: _createMobx.sex,
                     onChanged: (value) {
-                      _petsMobx.setSex(value.toString());
+                      _createMobx.setSex(value.toString());
                     },
                     dropdownBuilder: (context, sex) {
                       return Container(
@@ -253,9 +250,9 @@ class _CreatePetPageState extends State<CreatePetPage> {
                         ),
                         child: ListTile(
                           title: Text(
-                            ( _petsMobx.sex.trim().isEmpty )
+                            ( _createMobx.sex.trim().isEmpty )
                             ? "Selecione o sexo do animal"
-                            : _petsMobx.sex,
+                            : _createMobx.sex,
                           ),
                         ),
                       );
@@ -294,7 +291,7 @@ class _CreatePetPageState extends State<CreatePetPage> {
                       return const DropdownError(text: "Nenhuma especie encontrada.");
                     },
                     onChanged: (value) {
-                      _petsMobx.setSpecie(value!.name);
+                      _createMobx.setSpecie(value!.name);
                     },
                     dropdownBuilder: (context, specie) {
                       return Container(
@@ -306,9 +303,9 @@ class _CreatePetPageState extends State<CreatePetPage> {
                         ),
                         child: ListTile(
                           title: Text(
-                            ( _petsMobx.specie.trim().isEmpty )
+                            ( _createMobx.specie.trim().isEmpty )
                             ? "Selecione a especie do animal"
-                            : _petsMobx.specie,
+                            : _createMobx.specie,
                           ),
                         ),
                       );
@@ -337,7 +334,7 @@ class _CreatePetPageState extends State<CreatePetPage> {
                 Padding(
                   padding: const EdgeInsets.symmetric( horizontal: 10, vertical: 4 ),
                   child: TextField(
-                    controller: _petsMobx.controllerBreed,
+                    controller: _createMobx.controllerBreed,
                     keyboardType: TextInputType.text,
                     style: const TextStyle(
                       fontSize: 20,
@@ -373,12 +370,12 @@ class _CreatePetPageState extends State<CreatePetPage> {
                 Padding(
                   padding: const EdgeInsets.symmetric( horizontal: 10, vertical: 12 ),
                   child: TextField(
-                    controller: _petsMobx.controllerBirth,
+                    controller: _createMobx.controllerBirth,
                     keyboardType: TextInputType.number,
                     style: const TextStyle(
                       fontSize: 20,
                     ),
-                    textInputAction: TextInputAction.next,
+                    textInputAction: TextInputAction.done,
                     decoration: InputDecoration(
                       contentPadding: const EdgeInsets.all(16),
                       labelText: "Nascimento/Adoção",
@@ -449,11 +446,10 @@ class _CreatePetPageState extends State<CreatePetPage> {
                 ),
 
                 // vacinas
-                for ( var item in _petsMobx.listVaccines )
+                for ( var item in vaccineManager.listVaccines )
                   Vaccines(
                     modelVaccines: item,
                   ),
-
 
                 SizedBox(
                   width: MediaQuery.of(context).size.width,
@@ -498,7 +494,7 @@ class _CreatePetPageState extends State<CreatePetPage> {
                 ),
 
                 // higienes
-                for ( var item in _petsMobx.listHygiene )
+                for ( var item in hygieneManager.listHygiene )
                   Hygiene(
                     modelHygiene: item,
                   ),
@@ -508,7 +504,7 @@ class _CreatePetPageState extends State<CreatePetPage> {
                   width: width,
                   child: ElevatedButton(
                     onPressed: () {
-                      _petsMobx.validateFields( _cropMobx.image, context );
+                      _createMobx.validateFields( _cropMobx.image, context );
                     },
                     style: ElevatedButton.styleFrom(
                       primary: Theme.of(context).cardColor,

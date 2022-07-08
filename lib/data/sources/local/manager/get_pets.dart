@@ -16,9 +16,17 @@ class GetPetsManager {
 
   List<ModelPets> listPets = [];
 
-  getPets() async {
+  Future<List<ModelPets>> getPets() async {
     Iterable<ModelPets> iterable = await getPetsRepository.getPets();
-    return listPets.addAll(iterable);
+    listPets.clear();
+    listPets.addAll(iterable);
+    return listPets;
+  }
+
+  refresh() async {
+    await Future.delayed(const Duration(seconds: 0, milliseconds: 200));
+    print("refresh");
+    getPets();
   }
 
 }

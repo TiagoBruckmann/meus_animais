@@ -1,5 +1,3 @@
-import 'package:intl/intl.dart';
-
 class ModelPets {
 
   String id, userId, name, sex, specie, breed, picture, age = "";

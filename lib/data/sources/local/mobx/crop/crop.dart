@@ -5,6 +5,7 @@ import 'dart:io';
 // import dos pacotes
 import 'package:image_picker/image_picker.dart';
 import 'package:image_crop/image_crop.dart';
+import 'package:meus_animais/data/sources/remote/services/services.dart';
 import 'package:meus_animais/ui/styles/app_colors.dart';
 import 'package:mobx/mobx.dart';
 part 'crop.g.dart';
@@ -17,7 +18,10 @@ abstract class _CropMobx with Store {
   final _imagePicker = ImagePicker();
 
   @observable
-  File? image;
+  XFile? image;
+
+  @observable
+  List<XFile> listImageFile = [];
 
   @observable
   File? imageFile;
@@ -29,7 +33,7 @@ abstract class _CropMobx with Store {
   File? lastCropped;
 
   @action
-  setImage( value ) => image = value;
+  setImage( XFile value ) => image = value;
 
   @action
   setSample( value ) {
@@ -38,6 +42,9 @@ abstract class _CropMobx with Store {
 
   @action
   setFile( value ) => imageFile = value;
+
+  @action
+  setListImage( XFile value ) => listImageFile = [value];
 
   @action
   setLastCropped( value ) => lastCropped = value;
@@ -66,28 +73,34 @@ abstract class _CropMobx with Store {
   }
 
   @action
-  Future _selectImage( String originImage ) async {
-    XFile? imageSelected;
-    switch( originImage ) {
-      case "camera" :
-        imageSelected = (await _imagePicker.pickImage(source: ImageSource.camera));
+  Future _selectImage( String imageSource ) async {
+    try {
+
+      XFile? image;
+      switch ( imageSource ) {
+        case "camera": image = await _imagePicker.pickImage(source: ImageSource.camera);
         break;
-      case "gallery" :
-        imageSelected = (await _imagePicker.pickImage(source: ImageSource.gallery));
+        case "gallery": image = await _imagePicker.pickImage(source: ImageSource.gallery);
         break;
+      }
+
+      final file = File(image!.path);
+      final sample = await ImageCrop.sampleImage(
+        file: file,
+        preferredSize: 2550,
+        // preferredSize: context.size!.longestSide.ceil(),
+      );
+
+      sampleImage?.delete();
+      imageFile?.delete();
+      listImageFile.clear();
+      setSample(sample);
+      setFile(file);
+      setListImage(image);
+
+    } catch (e) {
+      crash.log(e.toString());
     }
-
-    final file = File(imageSelected!.path);
-    final sample = await ImageCrop.sampleImage(
-      file: file,
-      preferredSize: 1550,
-      // preferredSize: context.size!.longestSide.ceil(),
-    );
-
-    sampleImage?.delete();
-    imageFile?.delete();
-    setSample(sample);
-    setFile(file);
   }
 
   @action
@@ -103,8 +116,8 @@ abstract class _CropMobx with Store {
     // this will sample image in higher resolution to make cropped image larger
     final sample = await ImageCrop.sampleImage(
       file: imageFile!,
-      preferredWidth: (1000).round(),
-      preferredHeight: (480).round(),
+      preferredWidth: (1280).round(),
+      preferredHeight: (620).round(),
     );
 
     final file = await ImageCrop.cropImage(
@@ -116,6 +129,6 @@ abstract class _CropMobx with Store {
 
     lastCropped?.delete();
     setLastCropped(file);
-    setImage(file);
+    setImage(XFile(file.path));
   }
 }

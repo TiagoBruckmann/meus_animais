@@ -24,7 +24,6 @@ class GetPetsFirebase implements GetPetsRepository {
     for ( dynamic item in data.docs ) {
       listPets.add(ModelPets.fromJson(item));
     }
-
     return listPets;
   }
 }
@@ -32,7 +31,7 @@ class GetPetsFirebase implements GetPetsRepository {
 @Injectable(as: GetPetsRepository, env: ["api"])
 class GetPetsApi implements GetPetsRepository {
   @override
-  Future<List<ModelPets>> getPets() async {
+  getPets() async {
     List<ModelPets> list = [
       ModelPets(
         "5",

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'pets.dart';
+part of 'create.dart';
 
 // **************************************************************************
 // StoreGenerator
@@ -8,9 +8,9 @@ part of 'pets.dart';
 
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
-mixin _$PetsMobx on _PetsMobx, Store {
+mixin _$CreateMobx on _CreateMobx, Store {
   late final _$controllerNameAtom =
-      Atom(name: '_PetsMobx.controllerName', context: context);
+      Atom(name: '_CreateMobx.controllerName', context: context);
 
   @override
   TextEditingController get controllerName {
@@ -25,7 +25,7 @@ mixin _$PetsMobx on _PetsMobx, Store {
     });
   }
 
-  late final _$sexAtom = Atom(name: '_PetsMobx.sex', context: context);
+  late final _$sexAtom = Atom(name: '_CreateMobx.sex', context: context);
 
   @override
   String get sex {
@@ -40,7 +40,7 @@ mixin _$PetsMobx on _PetsMobx, Store {
     });
   }
 
-  late final _$specieAtom = Atom(name: '_PetsMobx.specie', context: context);
+  late final _$specieAtom = Atom(name: '_CreateMobx.specie', context: context);
 
   @override
   String get specie {
@@ -55,23 +55,8 @@ mixin _$PetsMobx on _PetsMobx, Store {
     });
   }
 
-  late final _$breedAtom = Atom(name: '_PetsMobx.breed', context: context);
-
-  @override
-  String get breed {
-    _$breedAtom.reportRead();
-    return super.breed;
-  }
-
-  @override
-  set breed(String value) {
-    _$breedAtom.reportWrite(value, super.breed, () {
-      super.breed = value;
-    });
-  }
-
   late final _$controllerBreedAtom =
-      Atom(name: '_PetsMobx.controllerBreed', context: context);
+      Atom(name: '_CreateMobx.controllerBreed', context: context);
 
   @override
   TextEditingController get controllerBreed {
@@ -87,7 +72,7 @@ mixin _$PetsMobx on _PetsMobx, Store {
   }
 
   late final _$controllerWeightAtom =
-      Atom(name: '_PetsMobx.controllerWeight', context: context);
+      Atom(name: '_CreateMobx.controllerWeight', context: context);
 
   @override
   MoneyMaskedTextController get controllerWeight {
@@ -103,7 +88,7 @@ mixin _$PetsMobx on _PetsMobx, Store {
   }
 
   late final _$controllerBirthAtom =
-      Atom(name: '_PetsMobx.controllerBirth', context: context);
+      Atom(name: '_CreateMobx.controllerBirth', context: context);
 
   @override
   MaskedTextController get controllerBirth {
@@ -118,83 +103,70 @@ mixin _$PetsMobx on _PetsMobx, Store {
     });
   }
 
-  late final _$_PetsMobxActionController =
-      ActionController(name: '_PetsMobx', context: context);
+  late final _$validateFieldsAsyncAction =
+      AsyncAction('_CreateMobx.validateFields', context: context);
+
+  @override
+  Future validateFields(XFile? picture, dynamic context) {
+    return _$validateFieldsAsyncAction
+        .run(() => super.validateFields(picture, context));
+  }
+
+  late final _$_CreateMobxActionController =
+      ActionController(name: '_CreateMobx', context: context);
 
   @override
   void setSex(String value) {
     final _$actionInfo =
-        _$_PetsMobxActionController.startAction(name: '_PetsMobx.setSex');
+        _$_CreateMobxActionController.startAction(name: '_CreateMobx.setSex');
     try {
       return super.setSex(value);
     } finally {
-      _$_PetsMobxActionController.endAction(_$actionInfo);
+      _$_CreateMobxActionController.endAction(_$actionInfo);
     }
   }
 
   @override
   void setSpecie(String value) {
-    final _$actionInfo =
-        _$_PetsMobxActionController.startAction(name: '_PetsMobx.setSpecie');
+    final _$actionInfo = _$_CreateMobxActionController.startAction(
+        name: '_CreateMobx.setSpecie');
     try {
       return super.setSpecie(value);
     } finally {
-      _$_PetsMobxActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  void setBreed(String value) {
-    final _$actionInfo =
-        _$_PetsMobxActionController.startAction(name: '_PetsMobx.setBreed');
-    try {
-      return super.setBreed(value);
-    } finally {
-      _$_PetsMobxActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  dynamic validateFields(File? picture, dynamic context) {
-    final _$actionInfo = _$_PetsMobxActionController.startAction(
-        name: '_PetsMobx.validateFields');
-    try {
-      return super.validateFields(picture, context);
-    } finally {
-      _$_PetsMobxActionController.endAction(_$actionInfo);
+      _$_CreateMobxActionController.endAction(_$actionInfo);
     }
   }
 
   @override
   void setVaccine(ModelVaccines modelVaccines) {
-    final _$actionInfo =
-        _$_PetsMobxActionController.startAction(name: '_PetsMobx.setVaccine');
+    final _$actionInfo = _$_CreateMobxActionController.startAction(
+        name: '_CreateMobx.setVaccine');
     try {
       return super.setVaccine(modelVaccines);
     } finally {
-      _$_PetsMobxActionController.endAction(_$actionInfo);
+      _$_CreateMobxActionController.endAction(_$actionInfo);
     }
   }
 
   @override
   void setHygiene(ModelHygienePets modelHygienePets) {
-    final _$actionInfo =
-        _$_PetsMobxActionController.startAction(name: '_PetsMobx.setHygiene');
+    final _$actionInfo = _$_CreateMobxActionController.startAction(
+        name: '_CreateMobx.setHygiene');
     try {
       return super.setHygiene(modelHygienePets);
     } finally {
-      _$_PetsMobxActionController.endAction(_$actionInfo);
+      _$_CreateMobxActionController.endAction(_$actionInfo);
     }
   }
 
   @override
   void clear() {
     final _$actionInfo =
-        _$_PetsMobxActionController.startAction(name: '_PetsMobx.clear');
+        _$_CreateMobxActionController.startAction(name: '_CreateMobx.clear');
     try {
       return super.clear();
     } finally {
-      _$_PetsMobxActionController.endAction(_$actionInfo);
+      _$_CreateMobxActionController.endAction(_$actionInfo);
     }
   }
 
@@ -204,7 +176,6 @@ mixin _$PetsMobx on _PetsMobx, Store {
 controllerName: ${controllerName},
 sex: ${sex},
 specie: ${specie},
-breed: ${breed},
 controllerBreed: ${controllerBreed},
 controllerWeight: ${controllerWeight},
 controllerBirth: ${controllerBirth}

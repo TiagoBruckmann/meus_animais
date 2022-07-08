@@ -12,15 +12,31 @@ mixin _$CropMobx on _CropMobx, Store {
   late final _$imageAtom = Atom(name: '_CropMobx.image', context: context);
 
   @override
-  File? get image {
+  XFile? get image {
     _$imageAtom.reportRead();
     return super.image;
   }
 
   @override
-  set image(File? value) {
+  set image(XFile? value) {
     _$imageAtom.reportWrite(value, super.image, () {
       super.image = value;
+    });
+  }
+
+  late final _$listImageFileAtom =
+      Atom(name: '_CropMobx.listImageFile', context: context);
+
+  @override
+  List<XFile> get listImageFile {
+    _$listImageFileAtom.reportRead();
+    return super.listImageFile;
+  }
+
+  @override
+  set listImageFile(List<XFile> value) {
+    _$listImageFileAtom.reportWrite(value, super.listImageFile, () {
+      super.listImageFile = value;
     });
   }
 
@@ -76,8 +92,8 @@ mixin _$CropMobx on _CropMobx, Store {
       AsyncAction('_CropMobx._selectImage', context: context);
 
   @override
-  Future<dynamic> _selectImage(String originImage) {
-    return _$_selectImageAsyncAction.run(() => super._selectImage(originImage));
+  Future<dynamic> _selectImage(String imageSource) {
+    return _$_selectImageAsyncAction.run(() => super._selectImage(imageSource));
   }
 
   late final _$cropImageAsyncAction =
@@ -92,7 +108,7 @@ mixin _$CropMobx on _CropMobx, Store {
       ActionController(name: '_CropMobx', context: context);
 
   @override
-  dynamic setImage(dynamic value) {
+  dynamic setImage(XFile value) {
     final _$actionInfo =
         _$_CropMobxActionController.startAction(name: '_CropMobx.setImage');
     try {
@@ -125,6 +141,17 @@ mixin _$CropMobx on _CropMobx, Store {
   }
 
   @override
+  dynamic setListImage(XFile value) {
+    final _$actionInfo =
+        _$_CropMobxActionController.startAction(name: '_CropMobx.setListImage');
+    try {
+      return super.setListImage(value);
+    } finally {
+      _$_CropMobxActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   dynamic setLastCropped(dynamic value) {
     final _$actionInfo = _$_CropMobxActionController.startAction(
         name: '_CropMobx.setLastCropped');
@@ -150,6 +177,7 @@ mixin _$CropMobx on _CropMobx, Store {
   String toString() {
     return '''
 image: ${image},
+listImageFile: ${listImageFile},
 imageFile: ${imageFile},
 sampleImage: ${sampleImage},
 lastCropped: ${lastCropped}

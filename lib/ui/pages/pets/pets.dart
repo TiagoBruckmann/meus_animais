@@ -1,5 +1,7 @@
 // pacotes nativos flutter
 import 'package:flutter/material.dart';
+import 'package:meus_animais/data/sources/local/injection/injection.dart';
+import 'package:meus_animais/data/sources/local/manager/get_pets.dart';
 
 // import dos sources
 import 'package:meus_animais/data/sources/remote/services/services.dart';
@@ -7,16 +9,16 @@ import 'package:meus_animais/domain/models/pets/pets.dart';
 
 // import das telas
 import 'package:meus_animais/ui/pages/widgets/loading/loading_connection.dart';
-import 'package:meus_animais/ui/styles/app_colors.dart';
+import 'package:meus_animais/ui/pages/widgets/loading/refresh_widget.dart';
+import 'package:meus_animais/ui/pages/widgets/loading/loading_pets.dart';
+import 'package:meus_animais/ui/styles/app_images.dart';
 
 // import dos pacotes
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:meus_animais/ui/styles/app_images.dart';
 import 'package:provider/provider.dart';
 
 // gerencia de estado
 import 'package:meus_animais/data/sources/local/mobx/connection/connection.dart';
-import 'package:meus_animais/data/sources/local/bloc/pets/pets.dart';
 
 class PetsPage extends StatefulWidget {
   const PetsPage({Key? key}) : super(key: key);
@@ -27,14 +29,13 @@ class PetsPage extends StatefulWidget {
 
 class _PetsPageState extends State<PetsPage> {
 
-  final PetsBloc _bloc = PetsBloc();
   late ConnectionMobx _connectionMobx;
+  final _getPets = getIt.get<GetPetsManager>();
 
   @override
   void initState() {
     super.initState();
     Services().sendScreen("Pets");
-    _bloc.getPets();
   }
 
   @override
@@ -43,12 +44,6 @@ class _PetsPageState extends State<PetsPage> {
     _connectionMobx = Provider.of<ConnectionMobx>(context);
     await _connectionMobx.verifyConnection();
     _connectionMobx.connectivity.onConnectivityChanged.listen(_connectionMobx.updateConnectionStatus);
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    _bloc.closeStream();
   }
 
   @override
@@ -65,83 +60,37 @@ class _PetsPageState extends State<PetsPage> {
           ? const LoadingConnection()
           : RefreshIndicator(
             onRefresh: () {
-              return _bloc.refresh();
+              return _getPets.refresh();
             },
-            child: StreamBuilder(
-              stream: _bloc.listen,
+            child: FutureBuilder<List<ModelPets>>(
+              future: _getPets.getPets(),
               builder: ( context, snapshot ) {
 
-                // verificando conexão
-                if ( _bloc.listPets.isNotEmpty ) {
+                if ( snapshot.connectionState == ConnectionState.waiting ) {
+                  return const LoadingPetsWidget();
+                } else if ( snapshot.hasError ) {
 
-                } else {
-                  if ( snapshot.hasError ) {
+                  return RefreshIndicator(
+                    onRefresh: () {
+                      return _getPets.refresh();
+                    },
+                    child: const RefreshWidget( message: "Nenhum pet encontrado no momento!", ),
+                  );
+                } else if ( _getPets.listPets.isEmpty ) {
 
-                    return RefreshIndicator(
-                      onRefresh: () {
-                        return _bloc.refresh();
-                      },
-                      child: const CircularProgressIndicator(
-                        color: AppColors.darkGray,
-                      ),
-                    );
-
-                  } else if ( snapshot.connectionState == ConnectionState.waiting ) {
-
-                    return const CircularProgressIndicator(
-                      color: AppColors.darkGray,
-                    );
-
-                  } else if ( _bloc.listPets.isEmpty ) {
-
-                    if ( _bloc.isLoading == true ) {
-
-                      return const CircularProgressIndicator(
-                        color: AppColors.darkGray,
-                      );
-
-                    } else {
-
-                      return RefreshIndicator(
-                        onRefresh: () {
-                          return _bloc.refresh();
-                        },
-                        child: const CircularProgressIndicator(
-                          color: AppColors.darkGray,
-                        ),
-                      );
-
-                    }
-
-                  }  else if ( _bloc.listPets == [] ) {
-
-                    if ( _bloc.isLoading == true ) {
-
-                      return const CircularProgressIndicator(
-                        color: AppColors.darkGray,
-                      );
-
-                    } else {
-
-                      return RefreshIndicator(
-                        onRefresh: () {
-                          return _bloc.refresh();
-                        },
-                        child: const CircularProgressIndicator(
-                          color: AppColors.darkGray,
-                        ),
-                      );
-
-                    }
-
-                  }
+                  return RefreshIndicator(
+                    onRefresh: () {
+                      return _getPets.refresh();
+                    },
+                    child: const RefreshWidget( message: "Nenhum pet encontrado no momento!", ),
+                  );
                 }
 
                 return ListView.builder(
-                  itemCount: _bloc.listPets.length,
+                  itemCount: _getPets.listPets.length,
                   itemBuilder: ( context, index ) {
 
-                    ModelPets modelPets = _bloc.listPets[index];
+                    ModelPets modelPets = _getPets.listPets[index];
 
                     return Padding(
                       padding: const EdgeInsets.symmetric( horizontal: 5, vertical: 8 ),
@@ -200,6 +149,7 @@ class _PetsPageState extends State<PetsPage> {
 
                   },
                 );
+
               },
             ),
           ),
