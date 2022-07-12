@@ -9,7 +9,7 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:url_launcher/url_launcher.dart' as launcher;
+import 'package:url_launcher/url_launcher.dart';
 
 // import dos sources
 import 'package:meus_animais/data/sources/local/injection/injection.dart';
@@ -86,7 +86,7 @@ class Services {
       url = Uri.https("www.apple.com", "/br/app-store/");
     }
 
-    await launcher.launchUrl(url);
+    await launchUrl(url);
   }
 
 }
