@@ -87,11 +87,11 @@ mixin _$HygieneMobx on _HygieneMobx, Store {
   }
 
   @override
-  dynamic validateFields(dynamic context, String petId) {
+  dynamic validateFields(dynamic context, String petId, bool updatePet) {
     final _$actionInfo = _$_HygieneMobxActionController.startAction(
         name: '_HygieneMobx.validateFields');
     try {
-      return super.validateFields(context, petId);
+      return super.validateFields(context, petId, updatePet);
     } finally {
       _$_HygieneMobxActionController.endAction(_$actionInfo);
     }

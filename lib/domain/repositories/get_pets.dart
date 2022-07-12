@@ -18,13 +18,16 @@ class GetPetsFirebase implements GetPetsRepository {
   @override
   getPets() async {
 
-    final data = await db.collection("pets")
-        .where("user_id", isEqualTo: auth.currentUser!.uid)
-        .get();
-
     List<ModelPets> listPets = [];
-    for ( dynamic item in data.docs ) {
-      listPets.add(ModelPets.fromJson(item));
+
+    if ( auth.currentUser != null ) {
+      final data = await db.collection("pets")
+          .where("user_id", isEqualTo: auth.currentUser!.uid)
+          .get();
+
+      for ( dynamic item in data.docs ) {
+        listPets.add(ModelPets.fromJson(item));
+      }
     }
     return listPets;
   }

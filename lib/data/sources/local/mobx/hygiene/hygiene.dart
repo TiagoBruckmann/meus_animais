@@ -35,7 +35,7 @@ abstract class _HygieneMobx with Store {
   setName( String value ) => name = value;
 
   @action
-  validateFields( context, String petId ) {
+  validateFields( context, String petId, bool updatePet ) {
 
     String date = controllerDay.text;
     String place = controllerPlace.text;
@@ -97,7 +97,14 @@ abstract class _HygieneMobx with Store {
       ),
     );
 
-    Navigator.pop(context);
+    if ( updatePet == true ) {
+      hygieneManager.setData();
+    }
+
+    Navigator.pop(
+      context,
+      hygieneManager.listHygiene,
+    );
   }
 
   @action

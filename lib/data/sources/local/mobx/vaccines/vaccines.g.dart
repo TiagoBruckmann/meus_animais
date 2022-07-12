@@ -183,11 +183,11 @@ mixin _$VaccinesMobx on _VaccinesMobx, Store {
   }
 
   @override
-  dynamic validateFields(dynamic context, String petId) {
+  dynamic validateFields(dynamic context, String petId, bool updatePet) {
     final _$actionInfo = _$_VaccinesMobxActionController.startAction(
         name: '_VaccinesMobx.validateFields');
     try {
-      return super.validateFields(context, petId);
+      return super.validateFields(context, petId, updatePet);
     } finally {
       _$_VaccinesMobxActionController.endAction(_$actionInfo);
     }

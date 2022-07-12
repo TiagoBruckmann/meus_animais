@@ -50,7 +50,7 @@ class Vaccines extends StatelessWidget {
           ),
 
           Padding(
-            padding: const EdgeInsets.only( left: 16 ),
+            padding: const EdgeInsets.fromLTRB(16, 0, 0, 8),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
@@ -80,7 +80,7 @@ class Vaccines extends StatelessWidget {
           ( modelVaccines.reapply == false )
           ? const Padding(padding: EdgeInsets.zero)
           : Padding(
-            padding: const EdgeInsets.fromLTRB(16, 8, 0, 8),
+            padding: const EdgeInsets.fromLTRB(16, 0, 0, 8),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [

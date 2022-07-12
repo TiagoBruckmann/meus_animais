@@ -6,16 +6,16 @@ import 'package:injectable/injectable.dart';
 import 'package:meus_animais/domain/models/vaccines/vaccines.dart';
 
 abstract class GetVaccinesRepository {
-  getVaccines();
+  getVaccines( String petId );
 }
 
 @Injectable(as: GetVaccinesRepository, env: ["firebase"])
 class GetPetsFirebase implements GetVaccinesRepository {
   @override
-  getVaccines() async {
+  getVaccines( String petId ) async {
 
     final data = await db.collection("vaccines")
-        .where("pet_id", isEqualTo: "35CKECXTI2EvXz4GSQBj")
+        .where("pet_id", isEqualTo: petId)
         .get();
 
     List<ModelVaccines> listVaccines = [];
@@ -30,7 +30,7 @@ class GetPetsFirebase implements GetVaccinesRepository {
 @Injectable(as: GetVaccinesRepository, env: ["api"])
 class GetVaccinesApi implements GetVaccinesRepository {
   @override
-  Future<List<ModelVaccines>> getVaccines() async {
+  Future<List<ModelVaccines>> getVaccines( String petId ) async {
     List<ModelVaccines> list = [
       ModelVaccines(
         "5",

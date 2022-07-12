@@ -22,7 +22,8 @@ import 'package:meus_animais/data/sources/local/mobx/hygiene/hygiene.dart';
 class CreateHygiene extends StatefulWidget {
 
   final String petId;
-  const CreateHygiene({ Key? key, required this.petId }) : super(key: key);
+  final bool update;
+  const CreateHygiene({ Key? key, required this.petId, required this.update }) : super(key: key);
 
   @override
   State<CreateHygiene> createState() => _CreateHygieneState();
@@ -76,6 +77,30 @@ class _CreateHygieneState extends State<CreateHygiene> {
                     selectedItem: _hygieneMobx.name,
                     onChanged: (value) {
                       _hygieneMobx.setName(value.toString());
+                    },
+                    errorBuilder: ( context, item ) {
+                      return const Center(
+                        child: Text(
+                          "Nenhum serviço encontrado",
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 15,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      );
+                    },
+                    emptyBuilder: ( item ) {
+                      return const Center(
+                        child: Text(
+                          "Nenhum serviço encontrado",
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 15,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      );
                     },
                     dropdownBuilder: (context, name) {
                       return Container(
@@ -227,7 +252,7 @@ class _CreateHygieneState extends State<CreateHygiene> {
                   width: width,
                   child: ElevatedButton(
                     onPressed: () {
-                      _hygieneMobx.validateFields( context, widget.petId );
+                      _hygieneMobx.validateFields( context, widget.petId, widget.update );
                     },
                     style: ElevatedButton.styleFrom(
                       primary: Theme.of(context).cardColor,

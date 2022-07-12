@@ -103,6 +103,22 @@ mixin _$CreateMobx on _CreateMobx, Store {
     });
   }
 
+  late final _$clickedAtom =
+      Atom(name: '_CreateMobx.clicked', context: context);
+
+  @override
+  bool get clicked {
+    _$clickedAtom.reportRead();
+    return super.clicked;
+  }
+
+  @override
+  set clicked(bool value) {
+    _$clickedAtom.reportWrite(value, super.clicked, () {
+      super.clicked = value;
+    });
+  }
+
   late final _$validateFieldsAsyncAction =
       AsyncAction('_CreateMobx.validateFields', context: context);
 
@@ -138,22 +154,33 @@ mixin _$CreateMobx on _CreateMobx, Store {
   }
 
   @override
-  void setVaccine(ModelVaccines modelVaccines) {
+  void setClicked(bool value) {
     final _$actionInfo = _$_CreateMobxActionController.startAction(
-        name: '_CreateMobx.setVaccine');
+        name: '_CreateMobx.setClicked');
     try {
-      return super.setVaccine(modelVaccines);
+      return super.setClicked(value);
     } finally {
       _$_CreateMobxActionController.endAction(_$actionInfo);
     }
   }
 
   @override
-  void setHygiene(ModelHygienePets modelHygienePets) {
+  void setVaccine(dynamic value) {
+    final _$actionInfo = _$_CreateMobxActionController.startAction(
+        name: '_CreateMobx.setVaccine');
+    try {
+      return super.setVaccine(value);
+    } finally {
+      _$_CreateMobxActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void setHygiene(dynamic value) {
     final _$actionInfo = _$_CreateMobxActionController.startAction(
         name: '_CreateMobx.setHygiene');
     try {
-      return super.setHygiene(modelHygienePets);
+      return super.setHygiene(value);
     } finally {
       _$_CreateMobxActionController.endAction(_$actionInfo);
     }
@@ -178,7 +205,8 @@ sex: ${sex},
 specie: ${specie},
 controllerBreed: ${controllerBreed},
 controllerWeight: ${controllerWeight},
-controllerBirth: ${controllerBirth}
+controllerBirth: ${controllerBirth},
+clicked: ${clicked}
     ''';
   }
 }

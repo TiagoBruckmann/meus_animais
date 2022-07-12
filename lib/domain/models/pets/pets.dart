@@ -48,6 +48,16 @@ class ModelPets {
     return map;
   }
 
+  Map<String, dynamic> updateToMap() {
+    Map<String, dynamic> map = {
+      "picture": picture,
+      "weight": weight,
+      "updated_at": DateTime.now().toString(),
+    };
+
+    return map;
+  }
+
   @override
   String toString() => name;
 

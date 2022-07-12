@@ -3,13 +3,18 @@ import 'package:flutter/material.dart';
 
 // import dos sources
 import 'package:meus_animais/data/sources/local/injection/injection.dart';
+import 'package:meus_animais/data/sources/local/manager/update_pets.dart';
 import 'package:meus_animais/data/sources/local/manager/life_time.dart';
-import 'package:meus_animais/data/sources/local/manager/get_user.dart';
-import 'package:meus_animais/data/sources/local/manager/set_pet.dart';
 import 'package:meus_animais/domain/models/hygiene/hygiene_pets.dart';
-import 'package:meus_animais/domain/models/life_time/life_time.dart';
-import 'package:meus_animais/domain/models/pets/pets.dart';
 import 'package:meus_animais/domain/models/vaccines/vaccines.dart';
+import 'package:meus_animais/domain/models/pets/pets.dart';
+
+// import das telas
+import 'package:meus_animais/ui/pages/widgets/message.dart';
+
+// gerencia de estado
+import 'package:meus_animais/data/sources/local/manager/get_hygiene_pets.dart';
+import 'package:meus_animais/data/sources/local/manager/get_vaccines.dart';
 
 // import dos pacotes
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
@@ -20,9 +25,10 @@ class EditMobx extends _EditMobx with _$EditMobx{}
 
 abstract class _EditMobx with Store {
 
+  final updatePetManager = getIt.get<UpdatePetManager>();
   final lifeTimeManager = getIt.get<LifeTimeManager>();
-  final setPetManager = getIt.get<SetPetManager>();
-  final userManager = getIt.get<GetUserManager>();
+  final _getVaccineManager = getIt.get<GetVaccinesManager>();
+  final _getHygienePetManager = getIt.get<GetHygienePetsManager>();
 
   @observable
   TextEditingController controllerName = TextEditingController();
@@ -52,13 +58,21 @@ abstract class _EditMobx with Store {
   @action
   setAllData( ModelPets modelPets ) async {
 
+    _getVaccineManager.petId = modelPets.id;
+    _getHygienePetManager.petId = modelPets.id;
+
+    Iterable<ModelVaccines> vaccines = await _getVaccineManager.getVaccines();
+    setVaccines(vaccines);
+    Iterable<ModelHygienePets> hygiene = await _getHygienePetManager.getHygiene();
+    setHygiene(hygiene);
+
     controllerName.text = modelPets.name;
     controllerSex.text = modelPets.sex;
     controllerSpecie.text = modelPets.specie;
     controllerBreed.text = modelPets.breed;
-    controllerWeight.text = modelPets.weight.toString();
+    controllerWeight = MoneyMaskedTextController(decimalSeparator: ".", precision: 2, initialValue: modelPets.weight! );
     controllerBirth.text = modelPets.birth;
-
+    
     await lifeTimeManager.getData();
 
     for ( var item in lifeTimeManager.list ) {
@@ -71,21 +85,30 @@ abstract class _EditMobx with Store {
   }
 
   @action
-  validateFields( context ) async {
+  validateFields( ModelPets modelPets, context ) async {
 
-    String userId = userManager.modelUser!.id;
+    double weight = double.parse(controllerWeight.text);
+    
+    if ( weight == 0.0 ) {
+      CustomSnackBar(
+        context,
+        "Informe um peso válido",
+        Colors.red,
+      );
+      return;
+    }
+
+    updatePetManager.modelPets = modelPets;
+    updatePetManager.context = context;
+    updatePetManager.setData();
 
   }
 
   @action
-  void setVaccine( ModelVaccines modelVaccines ) {
-    listVaccines.add(modelVaccines);
-  }
+  setVaccines( value ) => listVaccines.addAll(value);
 
   @action
-  void setHygiene( ModelHygienePets modelHygienePets ) {
-    listHygiene.add(modelHygienePets);
-  }
+  setHygiene( value ) => listHygiene.addAll(value);
 
   @action
   void clear() {

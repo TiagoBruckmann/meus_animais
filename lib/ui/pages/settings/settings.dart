@@ -126,7 +126,7 @@ class _SettingsPageState extends State<SettingsPage> {
                     children: [
                       GestureDetector(
                         onTap: () {
-                          // _goToRateApp();
+                          Services().rateApp();
                         },
                         child: const Padding(
                           padding: EdgeInsets.fromLTRB(30, 0, 16, 0),
@@ -201,6 +201,7 @@ class _SettingsPageState extends State<SettingsPage> {
                     ],
                   ),
 
+                  /*
                   const Divider(
                     height: 30,
                     thickness: 1,
@@ -259,6 +260,7 @@ class _SettingsPageState extends State<SettingsPage> {
                     ],
                   ),
 
+                   */
                   const Divider(
                     height: 30,
                     thickness: 1,

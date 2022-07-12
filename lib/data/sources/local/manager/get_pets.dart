@@ -23,9 +23,4 @@ class GetPetsManager {
     return listPets;
   }
 
-  refresh() async {
-    await Future.delayed(const Duration(seconds: 0, milliseconds: 200));
-    getPets();
-  }
-
 }

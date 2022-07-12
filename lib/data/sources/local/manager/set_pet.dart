@@ -1,4 +1,5 @@
 // import dos pacotes
+import 'package:image_picker/image_picker.dart';
 import 'package:injectable/injectable.dart';
 
 // import dos modelos
@@ -16,15 +17,16 @@ class SetPetManager {
 
   ModelPets? modelPets;
   dynamic context;
+  XFile? picture;
 
   setData() {
-    if ( modelPets != null && context != null ) {
+    if ( modelPets != null && context != null && picture != null ) {
       _setPet();
     }
   }
 
   _setPet() async {
-    await setPetRepository.setPet( modelPets!, context );
+    await setPetRepository.setPet( modelPets!, picture!, context );
   }
 
 }

@@ -50,35 +50,7 @@ class Hygiene extends StatelessWidget {
           ),
 
           Padding(
-            padding: const EdgeInsets.only( left: 16 ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-
-                Text.rich(
-                  TextSpan(
-                    text: "Valor: ",
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18,
-                    ),
-                    children: [
-                      TextSpan(
-                        text: "R\$ ${modelHygiene.value}",
-                        style: const TextStyle(
-                          fontWeight: FontWeight.w300,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-
-              ],
-            ),
-          ),
-
-          Padding(
-            padding: const EdgeInsets.fromLTRB(16, 8, 0, 8),
+            padding: const EdgeInsets.fromLTRB(16, 0, 0, 8),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
@@ -96,6 +68,34 @@ class Hygiene extends StatelessWidget {
                         style: const TextStyle(
                           fontWeight: FontWeight.w300,
                           fontSize: 18,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+
+              ],
+            ),
+          ),
+
+          Padding(
+            padding: const EdgeInsets.only( left: 16, bottom: 8 ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+
+                Text.rich(
+                  TextSpan(
+                    text: "Valor: ",
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18,
+                    ),
+                    children: [
+                      TextSpan(
+                        text: modelHygiene.value,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.w300,
                         ),
                       ),
                     ],

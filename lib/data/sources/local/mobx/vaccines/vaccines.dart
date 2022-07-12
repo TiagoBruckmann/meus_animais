@@ -70,7 +70,7 @@ abstract class _VaccinesMobx with Store {
   void setTime( String value ) => time = value;
 
   @action
-  validateFields( context, String petId ) {
+  validateFields( context, String petId, bool updatePet ) {
 
     String name = controllerName.text;
     String type = controllerType.text;
@@ -150,7 +150,14 @@ abstract class _VaccinesMobx with Store {
       );
     }
 
-    return Navigator.pop(context);
+    if ( updatePet == true ) {
+      vaccineManager.setData();
+    }
+
+    return Navigator.pop(
+      context,
+      vaccineManager.listVaccines,
+    );
 
   }
 

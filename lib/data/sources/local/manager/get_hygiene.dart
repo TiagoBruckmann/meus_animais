@@ -15,6 +15,7 @@ class GetHygieneManager {
   final GetHygieneRepository getHygieneRepository;
 
   List<ModelHygiene> listHygiene = [];
+  String petId = "";
 
   getHygiene() async {
     Iterable<ModelHygiene> iterable = await getHygieneRepository.getHygiene();

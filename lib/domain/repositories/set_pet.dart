@@ -1,5 +1,6 @@
 // imports nativos
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 // import dos sources
 import 'package:meus_animais/data/sources/local/manager/set_vaccines.dart';
@@ -15,19 +16,20 @@ import 'package:meus_animais/ui/pages/widgets/message.dart';
 import 'package:injectable/injectable.dart';
 
 abstract class SetPetRepository {
-  setPet( ModelPets modelPets, context );
+  setPet( ModelPets modelPets, XFile picture, context );
 }
 
 @Injectable(as: SetPetRepository, env: ["firebase"])
 class SetPetFirebase implements SetPetRepository {
 
   @override
-  setPet( ModelPets modelPets, context ) async {
+  setPet( ModelPets modelPets, XFile picture, context ) async {
 
     await db.collection("pets")
     .doc(modelPets.id)
     .set(modelPets.toMap())
     .then(( data ) async {
+
       final vaccineManager = getIt.get<SetVaccineManager>();
       final hygieneManager = getIt.get<SetHygieneManager>();
 
@@ -38,11 +40,7 @@ class SetPetFirebase implements SetPetRepository {
         await hygieneManager.setData();
       }
 
-      Navigator.pushNamedAndRemoveUntil(
-        context,
-        "/",
-        (route) => false,
-      );
+      await Services().uploadPicture( modelPets, picture, context );
 
     }).onError((error, stackTrace) {
       CustomSnackBar(
@@ -61,7 +59,7 @@ class SetPetFirebase implements SetPetRepository {
 class SetPetApi implements SetPetRepository {
 
   @override
-  setPet( ModelPets modelPets, context ) async {
+  setPet( ModelPets modelPets, XFile picture, context ) async {
 
     /*
     final vaccineManager = getIt.get<SetVaccineManager>();

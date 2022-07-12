@@ -14,7 +14,6 @@ import 'package:meus_animais/domain/models/pets/pets.dart';
 import 'package:meus_animais/ui/pages/widgets/message.dart';
 
 // import dos pacotes
-import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mobx/mobx.dart';
@@ -51,11 +50,17 @@ abstract class _CreateMobx with Store {
 
   ObservableList<ModelHygienePets> listHygiene = ObservableList();
 
+  @observable
+  bool clicked = false;
+
   @action
   void setSex( String value ) => sex = value;
 
   @action
   void setSpecie( String value ) => specie = value;
+
+  @action
+  void setClicked( bool value ) => clicked = value;
 
   @action
   validateFields( XFile? picture, context ) async {
@@ -65,11 +70,8 @@ abstract class _CreateMobx with Store {
     double weight = double.parse(controllerWeight.text);
     String birth = controllerBirth.text;
     String breed = controllerBreed.text;
-    int day = int.parse(birth.split("/")[0]);
-    int month = int.parse(birth.split("/")[1]);
-    int year = int.parse(birth.split("/")[2]);
 
-    if ( name.isEmpty && name.trim().length < 3 ) {
+    if ( name.trim().isEmpty && name.trim().length < 3 ) {
       CustomSnackBar(
         context,
         "Informe o nome do seu amiguinho!",
@@ -85,7 +87,7 @@ abstract class _CreateMobx with Store {
       );
       return;
     }
-    if ( birth.isNotEmpty && birth.length != 10 ) {
+    if ( birth.trim().isEmpty || birth.length != 10 ) {
       CustomSnackBar(
         context,
         "Informe a data de adoção/nascimento do seu amiguinho!",
@@ -93,6 +95,10 @@ abstract class _CreateMobx with Store {
       );
       return;
     }
+
+    int day = int.parse(birth.split("/")[0]);
+    int month = int.parse(birth.split("/")[1]);
+    int year = int.parse(birth.split("/")[2]);
     if ( day > 31 && month > 12 && year > DateTime.now().year ) {
       CustomSnackBar(
         context,
@@ -110,56 +116,36 @@ abstract class _CreateMobx with Store {
       return;
     }
 
-    firebase_storage.UploadTask uploadTask;
-    firebase_storage.Reference archive = firebase_storage
-        .FirebaseStorage.instance
-        .ref()
-        .child("documents/pets/$userId/")
-        .child(picture!.name);
+    setClicked( true );
 
-    final metadata = firebase_storage.SettableMetadata(
-      contentType: '${picture.mimeType}',
-      customMetadata: {'picked-file-path': picture.path},
+    setPetManager.picture = picture;
+    setPetManager.context = context;
+    setPetManager.modelPets = ModelPets(
+      DateFormat('yyyyMMddkkmmss').format(DateTime.now()),
+      userId,
+      name,
+      sex,
+      specie,
+      breed,
+      picture!.name,
+      birth,
+      birth,
+      weight,
+      DateTime.now().toString(),
+      null,
     );
 
-    uploadTask = archive.putData(await picture.readAsBytes(), metadata);
+    await setPetManager.setData();
 
-    uploadTask.snapshotEvents.listen((event) async {
-      event.ref.getDownloadURL().then((value) async {
+    getPets.listPets.add(setPetManager.modelPets!);
 
-        setPetManager.context = context;
-        setPetManager.modelPets = ModelPets(
-          DateFormat('yyyyMMddkkmmss').format(DateTime.now()),
-          userId,
-          name,
-          sex,
-          specie,
-          breed,
-          value,
-          birth,
-          birth,
-          weight,
-          DateTime.now().toString(),
-          null,
-        );
-
-        await setPetManager.setData();
-
-        getPets.listPets.add(setPetManager.modelPets!);
-
-      });
-    });
   }
 
   @action
-  void setVaccine( ModelVaccines modelVaccines ) {
-    listVaccines.add(modelVaccines);
-  }
+  void setVaccine( value ) => listVaccines.addAll(value);
 
   @action
-  void setHygiene( ModelHygienePets modelHygienePets ) {
-    listHygiene.add(modelHygienePets);
-  }
+  void setHygiene( value ) => listHygiene.addAll(value);
 
   @action
   void clear() {

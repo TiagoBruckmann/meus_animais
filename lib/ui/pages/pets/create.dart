@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'dart:io';
 
 // import dos sources
-import 'package:meus_animais/data/sources/local/manager/set_vaccines.dart';
-import 'package:meus_animais/data/sources/local/manager/set_hygiene.dart';
 import 'package:meus_animais/data/sources/remote/services/services.dart';
 import 'package:meus_animais/data/sources/local/manager/life_time.dart';
 import 'package:meus_animais/data/sources/local/mobx/crop/crop.dart';
@@ -47,24 +45,38 @@ class _CreatePetPageState extends State<CreatePetPage> {
 
   final String _petId = DateFormat('yyyyMMddkkmmss').format(DateTime.now());
 
-  // injecoes de dependencia
-  final vaccineManager = getIt.get<SetVaccineManager>();
-  final hygieneManager = getIt.get<SetHygieneManager>();
+  _goToVaccines() async {
+    Map params = {
+      "pet_id": _petId,
+      "update": false,
+    };
 
-  _goToVaccines() {
-    Navigator.pushNamed(
+    final vaccines = await Navigator.pushNamed(
       context,
       "/vaccines",
-      arguments: _petId,
+      arguments: params,
     );
+
+    if ( vaccines != null ) {
+      _createMobx.setVaccine( vaccines );
+    }
   }
 
-  _goToHygiene() {
-    Navigator.pushNamed(
+  _goToHygiene() async {
+    Map params = {
+      "pet_id": _petId,
+      "update": false,
+    };
+
+    final hygiene = await Navigator.pushNamed(
       context,
       "/hygiene",
-      arguments: _petId,
+      arguments: params,
     );
+
+    if ( hygiene != null ) {
+      _createMobx.setHygiene( hygiene );
+    }
   }
 
   @override
@@ -445,7 +457,7 @@ class _CreatePetPageState extends State<CreatePetPage> {
                 ),
 
                 // vacinas
-                for ( var item in vaccineManager.listVaccines )
+                for ( var item in _createMobx.listVaccines )
                   Vaccines(
                     modelVaccines: item,
                   ),
@@ -493,7 +505,7 @@ class _CreatePetPageState extends State<CreatePetPage> {
                 ),
 
                 // higienes
-                for ( var item in hygieneManager.listHygiene )
+                for ( var item in _createMobx.listHygiene )
                   Hygiene(
                     modelHygiene: item,
                   ),
@@ -503,7 +515,9 @@ class _CreatePetPageState extends State<CreatePetPage> {
                   width: width,
                   child: ElevatedButton(
                     onPressed: () {
-                      _createMobx.validateFields( _cropMobx.image, context );
+                      if ( _createMobx.clicked == false ) {
+                        _createMobx.validateFields( _cropMobx.image, context );
+                      }
                     },
                     style: ElevatedButton.styleFrom(
                       primary: Theme.of(context).cardColor,
@@ -513,7 +527,9 @@ class _CreatePetPageState extends State<CreatePetPage> {
                       ),
                     ),
                     child: Text(
-                      "Cadastrar",
+                      ( _createMobx.clicked == false )
+                      ? "Cadastrar"
+                      : "Aguarde...",
                       style: TextStyle(
                         color: Theme.of(context).primaryColor,
                         fontSize: 20,

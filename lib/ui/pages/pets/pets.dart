@@ -1,7 +1,5 @@
 // pacotes nativos flutter
 import 'package:flutter/material.dart';
-import 'package:meus_animais/data/sources/local/injection/injection.dart';
-import 'package:meus_animais/data/sources/local/manager/get_pets.dart';
 
 // import dos sources
 import 'package:meus_animais/data/sources/remote/services/services.dart';
@@ -19,6 +17,7 @@ import 'package:provider/provider.dart';
 
 // gerencia de estado
 import 'package:meus_animais/data/sources/local/mobx/connection/connection.dart';
+import 'package:meus_animais/data/sources/local/mobx/pets/pets.dart';
 
 class PetsPage extends StatefulWidget {
   const PetsPage({Key? key}) : super(key: key);
@@ -29,8 +28,8 @@ class PetsPage extends StatefulWidget {
 
 class _PetsPageState extends State<PetsPage> {
 
+  final PetsMobx _petsMobx = PetsMobx();
   late ConnectionMobx _connectionMobx;
-  final _getPets = getIt.get<GetPetsManager>();
 
   @override
   void initState() {
@@ -60,10 +59,13 @@ class _PetsPageState extends State<PetsPage> {
           ? const LoadingConnection()
           : RefreshIndicator(
             onRefresh: () {
-              return _getPets.refresh();
+              setState(() {
+                _petsMobx.refresh();
+              });
+              return _petsMobx.getPets();
             },
             child: FutureBuilder<List<ModelPets>>(
-              future: _getPets.getPets(),
+              future: _petsMobx.getPets(),
               builder: ( context, snapshot ) {
 
                 if ( snapshot.connectionState == ConnectionState.waiting ) {
@@ -72,25 +74,31 @@ class _PetsPageState extends State<PetsPage> {
 
                   return RefreshIndicator(
                     onRefresh: () {
-                      return _getPets.refresh();
+                      setState(() {
+                        _petsMobx.refresh();
+                      });
+                      return _petsMobx.getPets();
                     },
                     child: const RefreshWidget( message: "Nenhum pet encontrado no momento!", ),
                   );
-                } else if ( _getPets.listPets.isEmpty ) {
+                } else if ( _petsMobx.listPets.isEmpty ) {
 
                   return RefreshIndicator(
                     onRefresh: () {
-                      return _getPets.refresh();
+                      setState(() {
+                        _petsMobx.refresh();
+                      });
+                      return _petsMobx.getPets();
                     },
                     child: const RefreshWidget( message: "Nenhum pet encontrado no momento!", ),
                   );
                 }
 
                 return ListView.builder(
-                  itemCount: _getPets.listPets.length,
+                  itemCount: _petsMobx.listPets.length,
                   itemBuilder: ( context, index ) {
 
-                    ModelPets modelPets = _getPets.listPets[index];
+                    ModelPets modelPets = _petsMobx.listPets[index];
 
                     return Padding(
                       padding: const EdgeInsets.symmetric( horizontal: 5, vertical: 8 ),
@@ -99,7 +107,7 @@ class _PetsPageState extends State<PetsPage> {
                           Navigator.pushNamed(
                             context,
                             "/detail_pet",
-                            arguments: modelPets
+                            arguments: modelPets,
                           );
                         },
                         child: SizedBox(

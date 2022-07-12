@@ -47,12 +47,20 @@ class Routes {
           builder: (_) => EditPets(modelPets: args as ModelPets),
         );
       case "/vaccines" :
+        final Map params = args as Map;
         return MaterialPageRoute(
-          builder: (_) => CreateVaccines(petId: args.toString()),
+          builder: (_) => CreateVaccines(
+            petId: params["pet_id"],
+            update: params["update"],
+          ),
         );
       case "/hygiene" :
+        final Map params = args as Map;
         return MaterialPageRoute(
-          builder: (_) => CreateHygiene(petId: args.toString()),
+          builder: (_) => CreateHygiene(
+            petId: params["pet_id"],
+            update: params["update"],
+          ),
         );
       case "/settings" :
         return MaterialPageRoute(

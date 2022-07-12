@@ -1,6 +1,6 @@
 // import dos dominios
 import 'package:meus_animais/domain/repositories/get_vaccines.dart';
-import 'package:meus_animais/domain/models/pets/pets.dart';
+import 'package:meus_animais/domain/models/vaccines/vaccines.dart';
 
 // import dos pacotes
 import 'package:injectable/injectable.dart';
@@ -9,15 +9,21 @@ import 'package:injectable/injectable.dart';
 class GetVaccinesManager {
 
   GetVaccinesManager(this.getVaccinesRepository) {
-    _getVaccines();
+    getVaccines();
   }
 
   final GetVaccinesRepository getVaccinesRepository;
 
-  List<ModelPets> listVaccines = [];
+  List<ModelVaccines> listVaccines = [];
+  String petId = "";
 
-  void _getVaccines() {
-    listVaccines.addAll(getVaccinesRepository.getVaccines());
+  getVaccines() async {
+    if ( petId.trim().isNotEmpty ) {
+      listVaccines.clear();
+      Iterable<ModelVaccines> iterable = await getVaccinesRepository.getVaccines( petId );
+      listVaccines.addAll(iterable);
+      return listVaccines;
+    }
   }
 
 }

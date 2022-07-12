@@ -121,45 +121,43 @@ mixin _$EditMobx on _EditMobx, Store {
     });
   }
 
+  late final _$setAllDataAsyncAction =
+      AsyncAction('_EditMobx.setAllData', context: context);
+
+  @override
+  Future setAllData(ModelPets modelPets) {
+    return _$setAllDataAsyncAction.run(() => super.setAllData(modelPets));
+  }
+
   late final _$validateFieldsAsyncAction =
       AsyncAction('_EditMobx.validateFields', context: context);
 
   @override
-  Future validateFields(dynamic context) {
-    return _$validateFieldsAsyncAction.run(() => super.validateFields(context));
+  Future validateFields(ModelPets modelPets, dynamic context) {
+    return _$validateFieldsAsyncAction
+        .run(() => super.validateFields(modelPets, context));
   }
 
   late final _$_EditMobxActionController =
       ActionController(name: '_EditMobx', context: context);
 
   @override
-  dynamic setAllData(ModelPets modelPets) {
+  dynamic setVaccines(dynamic value) {
     final _$actionInfo =
-        _$_EditMobxActionController.startAction(name: '_EditMobx.setAllData');
+        _$_EditMobxActionController.startAction(name: '_EditMobx.setVaccines');
     try {
-      return super.setAllData(modelPets);
+      return super.setVaccines(value);
     } finally {
       _$_EditMobxActionController.endAction(_$actionInfo);
     }
   }
 
   @override
-  void setVaccine(ModelVaccines modelVaccines) {
-    final _$actionInfo =
-        _$_EditMobxActionController.startAction(name: '_EditMobx.setVaccine');
-    try {
-      return super.setVaccine(modelVaccines);
-    } finally {
-      _$_EditMobxActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  void setHygiene(ModelHygienePets modelHygienePets) {
+  dynamic setHygiene(dynamic value) {
     final _$actionInfo =
         _$_EditMobxActionController.startAction(name: '_EditMobx.setHygiene');
     try {
-      return super.setHygiene(modelHygienePets);
+      return super.setHygiene(value);
     } finally {
       _$_EditMobxActionController.endAction(_$actionInfo);
     }

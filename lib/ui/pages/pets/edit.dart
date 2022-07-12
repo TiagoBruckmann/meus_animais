@@ -2,8 +2,6 @@
 import 'package:flutter/material.dart';
 
 // import dos sources
-import 'package:meus_animais/data/sources/local/manager/set_vaccines.dart';
-import 'package:meus_animais/data/sources/local/manager/set_hygiene.dart';
 import 'package:meus_animais/data/sources/remote/services/services.dart';
 import 'package:meus_animais/domain/models/pets/pets.dart';
 
@@ -22,7 +20,6 @@ import 'package:provider/provider.dart';
 // gerencia de estado
 import 'package:meus_animais/data/sources/local/mobx/connection/connection.dart';
 import 'package:meus_animais/data/sources/local/mobx/edit_pets/edit.dart';
-import 'package:meus_animais/data/sources/local/injection/injection.dart';
 
 class EditPets extends StatefulWidget {
 
@@ -39,23 +36,41 @@ class _EditPetsState extends State<EditPets> {
   late ConnectionMobx _connectionMobx;
 
   // injecoes de dependencia
-  final vaccineManager = getIt.get<SetVaccineManager>();
-  final hygieneManager = getIt.get<SetHygieneManager>();
 
-  _goToVaccines() {
-    Navigator.pushNamed(
+
+  _goToVaccines() async {
+    Map params = {
+      "pet_id": widget.modelPets.id,
+      "update": true,
+    };
+
+    final vaccines = await Navigator.pushNamed(
       context,
       "/vaccines",
-      arguments: widget.modelPets.id,
+      arguments: params,
     );
+
+    if ( vaccines != null ) {
+      _editMobx.setVaccines(vaccines);
+    }
   }
 
-  _goToHygiene() {
-    Navigator.pushNamed(
+  _goToHygiene() async {
+
+    Map params = {
+      "pet_id": widget.modelPets.id,
+      "update": true,
+    };
+
+    final hygiene = await Navigator.pushNamed(
       context,
       "/hygiene",
-      arguments: widget.modelPets.id,
+      arguments: params,
     );
+
+    if ( hygiene != null ) {
+      _editMobx.setHygiene(hygiene);
+    }
   }
 
   @override
@@ -434,7 +449,7 @@ class _EditPetsState extends State<EditPets> {
                 ),
 
                 // vacinas
-                for ( var item in vaccineManager.listVaccines )
+                for ( var item in _editMobx.listVaccines )
                   Vaccines(
                     modelVaccines: item,
                   ),
@@ -482,7 +497,7 @@ class _EditPetsState extends State<EditPets> {
                 ),
 
                 // higienes
-                for ( var item in hygieneManager.listHygiene )
+                for ( var item in _editMobx.listHygiene )
                   Hygiene(
                     modelHygiene: item,
                   ),
@@ -492,7 +507,7 @@ class _EditPetsState extends State<EditPets> {
                   width: width,
                   child: ElevatedButton(
                     onPressed: () {
-                      // _createMobx.validateFields( context );
+                      _editMobx.validateFields(widget.modelPets, context);
                     },
                     style: ElevatedButton.styleFrom(
                       primary: Theme.of(context).cardColor,

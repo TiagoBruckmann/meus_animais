@@ -20,7 +20,8 @@ import 'package:meus_animais/data/sources/local/mobx/vaccines/vaccines.dart';
 class CreateVaccines extends StatefulWidget {
 
   final String petId;
-  const CreateVaccines({ Key? key, required this.petId }) : super(key: key);
+  final bool update;
+  const CreateVaccines({ Key? key, required this.petId, required this.update }) : super(key: key);
 
   @override
   State<CreateVaccines> createState() => _CreateVaccinesState();
@@ -378,7 +379,7 @@ class _CreateVaccinesState extends State<CreateVaccines> {
                   width: width,
                   child: ElevatedButton(
                     onPressed: () {
-                      _vaccinesMobx.validateFields( context, widget.petId );
+                      _vaccinesMobx.validateFields( context, widget.petId, widget.update );
                     },
                     style: ElevatedButton.styleFrom(
                       primary: Theme.of(context).cardColor,
