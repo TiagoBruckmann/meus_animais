@@ -226,7 +226,10 @@ class _LoginPageState extends State<LoginPage> {
 
                         GestureDetector(
                           onTap: () {
-
+                            Navigator.pushNamed(
+                              context,
+                              "/forgot_password",
+                            );
                           },
                           child: const Padding(
                             padding: EdgeInsets.fromLTRB(20, 15, 20, 10),

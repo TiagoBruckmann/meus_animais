@@ -1,10 +1,15 @@
-// import dos sources
+// imports nativos
 import 'package:flutter/material.dart';
+
+// import dos sources
 import 'package:meus_animais/data/sources/local/manager/set_vaccines.dart';
 import 'package:meus_animais/data/sources/local/injection/injection.dart';
 import 'package:meus_animais/data/sources/local/manager/set_hygiene.dart';
 import 'package:meus_animais/data/sources/remote/services/services.dart';
 import 'package:meus_animais/domain/models/pets/pets.dart';
+
+// import das telas
+import 'package:meus_animais/ui/pages/widgets/message.dart';
 
 // import dos pacotes
 import 'package:injectable/injectable.dart';
@@ -19,7 +24,10 @@ class SetPetFirebase implements SetPetRepository {
   @override
   setPet( ModelPets modelPets, context ) async {
 
-    await db.collection("pets").doc(modelPets.id).set(modelPets.toMap()).whenComplete(() async {
+    await db.collection("pets")
+    .doc(modelPets.id)
+    .set(modelPets.toMap())
+    .then(( data ) async {
       final vaccineManager = getIt.get<SetVaccineManager>();
       final hygieneManager = getIt.get<SetHygieneManager>();
 
@@ -37,7 +45,13 @@ class SetPetFirebase implements SetPetRepository {
       );
 
     }).onError((error, stackTrace) {
+      CustomSnackBar(
+        context,
+        "não foi possivel cadastrar o pet, tente novamente mais tarde",
+        Colors.red,
+      );
       crash.recordError(error, stackTrace);
+      crash.log(error.toString());
     });
 
   }
@@ -49,8 +63,10 @@ class SetPetApi implements SetPetRepository {
   @override
   setPet( ModelPets modelPets, context ) async {
 
+    /*
     final vaccineManager = getIt.get<SetVaccineManager>();
     final hygieneManager = getIt.get<SetHygieneManager>();
+    */
 
   }
 }

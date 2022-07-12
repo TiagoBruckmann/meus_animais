@@ -1,12 +1,8 @@
 // import dos sources
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 // import dos sources
 import 'package:meus_animais/data/sources/remote/services/services.dart';
-
-// import dos modelos
-import 'package:meus_animais/domain/models/users/login.dart';
 
 // import dos pacotes
 import 'package:injectable/injectable.dart';
@@ -26,8 +22,8 @@ class SplashFirebase implements SplashRepository {
 
     if ( mobx.connectionStatus.toString() == "ConnectivityResult.wifi" || mobx.connectionStatus.toString() == "ConnectivityResult.mobile" ) {
 
-      User? userData = auth.currentUser;
-      if( userData != null ) {
+      if ( auth.currentUser != null ) {
+
         Navigator.pushNamedAndRemoveUntil(
           context,
           "/",

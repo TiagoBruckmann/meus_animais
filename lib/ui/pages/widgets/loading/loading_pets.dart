@@ -1,7 +1,11 @@
 // imports nativos do flutter
 import 'package:flutter/material.dart';
-import 'package:meus_animais/ui/styles/app_images.dart';
+
+// import dos pacotes
 import 'package:shimmer_animation/shimmer_animation.dart';
+
+// import das telas
+import 'package:meus_animais/ui/styles/app_images.dart';
 
 class LoadingPetsWidget extends StatelessWidget {
   const LoadingPetsWidget({Key? key}) : super(key: key);

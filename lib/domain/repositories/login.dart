@@ -28,7 +28,7 @@ class LoginFirebase implements LoginRepository {
     auth.signInWithEmailAndPassword(
       email: modelLogin.email,
       password: modelLogin.password,
-    ).whenComplete(() async {
+    ).then(( value ) async {
 
       getIt.get<GetUserManager>();
       Services().setToken("apiToken", auth.currentUser!.uid);

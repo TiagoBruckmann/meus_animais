@@ -1,18 +1,18 @@
 // pacotes nativos flutter
 import 'package:flutter/material.dart';
-import 'package:meus_animais/data/sources/local/injection/injection.dart';
-import 'package:meus_animais/data/sources/local/manager/get_user.dart';
-import 'package:meus_animais/data/sources/local/manager/logout.dart';
 
 // import dos sources
+import 'package:meus_animais/data/sources/local/injection/injection.dart';
 import 'package:meus_animais/data/sources/remote/services/services.dart';
+import 'package:meus_animais/data/sources/local/manager/get_user.dart';
 
 // import das telas
 import 'package:meus_animais/ui/pages/widgets/loading/loading_connection.dart';
+import 'package:meus_animais/ui/pages/widgets/pop_up.dart';
+import 'package:meus_animais/ui/styles/app_images.dart';
 
 // import dos pacotes
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:meus_animais/ui/styles/app_images.dart';
 import 'package:provider/provider.dart';
 
 // gerencia de estado
@@ -156,9 +156,14 @@ class _SettingsPageState extends State<SettingsPage> {
                         padding: const EdgeInsets.fromLTRB(30, 0, 16, 0),
                         child: GestureDetector(
                           onTap: () {
-                            final logout = getIt.get<LogoutManager>();
-                            logout.context = context;
-                            logout.disconnect();
+                            showDialog(
+                              context: context,
+                              builder: (builder) => const PopUpWidget(
+                                type: "Logout",
+                                title: "Desconectar",
+                                text: "Deseja mesmo desconectar da sua conta?",
+                              ),
+                            );
                           },
                           child: const Text(
                             "Desconectar",
@@ -262,14 +267,21 @@ class _SettingsPageState extends State<SettingsPage> {
                     endIndent: 16,
                   ),
 
-                  // como deletar a conta
+                  // excluir conta
                   Row(
                     children: [
                       Padding(
                         padding: const EdgeInsets.fromLTRB(30, 0, 16, 0),
                         child: GestureDetector(
                           onTap: () {
-                            // _destroy();
+                            showDialog(
+                              context: context,
+                              builder: (builder) => const PopUpWidget(
+                                type: "Destroy",
+                                title: "Deletar sua conta?",
+                                text: "Deseja mesmo confirmar a exclusão da sua conta? esta ação não poderá ser desfeita!",
+                              ),
+                            );
                           },
                           child: const Text(
                             "Excluir minha conta",

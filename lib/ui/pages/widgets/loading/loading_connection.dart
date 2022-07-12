@@ -9,7 +9,7 @@ class LoadingConnection extends StatefulWidget {
   const LoadingConnection({ Key? key }) : super(key: key);
 
   @override
-  _LoadingConnectionState createState() => _LoadingConnectionState();
+  State<LoadingConnection> createState() => _LoadingConnectionState();
 }
 
 class _LoadingConnectionState extends State<LoadingConnection> {

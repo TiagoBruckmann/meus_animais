@@ -1,6 +1,7 @@
 // import dos pacotes
 import 'package:injectable/injectable.dart';
-import 'package:meus_animais/domain/models/pets/pets.dart';
+
+// import dos domain
 import 'package:meus_animais/domain/models/vaccines/vaccines.dart';
 import 'package:meus_animais/domain/repositories/set_vaccines.dart';
 

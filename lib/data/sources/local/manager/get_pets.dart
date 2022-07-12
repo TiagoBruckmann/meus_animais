@@ -25,7 +25,6 @@ class GetPetsManager {
 
   refresh() async {
     await Future.delayed(const Duration(seconds: 0, milliseconds: 200));
-    print("refresh");
     getPets();
   }
 
