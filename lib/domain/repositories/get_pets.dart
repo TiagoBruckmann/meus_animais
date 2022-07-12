@@ -1,4 +1,6 @@
 // import dos sources
+import 'package:meus_animais/data/sources/local/injection/injection.dart';
+import 'package:meus_animais/data/sources/local/manager/get_user.dart';
 import 'package:meus_animais/data/sources/remote/services/services.dart';
 
 // import dos modelos
@@ -17,7 +19,7 @@ class GetPetsFirebase implements GetPetsRepository {
   getPets() async {
 
     final data = await db.collection("pets")
-        .where("user_id", isEqualTo: "zGLlSDFk0MO4X2dWl8D3FNt2UyU2")
+        .where("user_id", isEqualTo: auth.currentUser!.uid)
         .get();
 
     List<ModelPets> listPets = [];
@@ -41,7 +43,8 @@ class GetPetsApi implements GetPetsRepository {
         "Felina",
         "Comum",
         "https://www.petz.com.br/blog/wp-content/uploads/2021/11/enxoval-para-gato-Copia.jpg",
-        "1 Ano 7 meses e la vai pedrada",
+        "10/09/2020",
+        "10/09/2020",
         2.5,
         DateTime.now().toString(),
         null,

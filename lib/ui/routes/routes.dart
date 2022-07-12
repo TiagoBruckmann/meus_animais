@@ -1,9 +1,13 @@
 // imports nativos do flutter
 import 'package:flutter/material.dart';
 
+// import dos modelos
+import 'package:meus_animais/domain/models/pets/pets.dart';
+
 // import das telas
 import 'package:meus_animais/ui/pages/hygiene/create_hygiene.dart';
 import 'package:meus_animais/ui/pages/login/forgot_password.dart';
+import 'package:meus_animais/ui/pages/pets/edit.dart';
 import 'package:meus_animais/ui/pages/settings/settings.dart';
 import 'package:meus_animais/ui/pages/vaccines/create.dart';
 import 'package:meus_animais/ui/pages/login/register.dart';
@@ -22,10 +26,6 @@ class Routes {
         return MaterialPageRoute(
           builder: (_) => const SplashPage(),
         );
-      case "/" :
-        return MaterialPageRoute(
-          builder: (_) => const HomePage(),
-        );
       case "/login" :
         return MaterialPageRoute(
           builder: (_) => const LoginPage(),
@@ -37,6 +37,14 @@ class Routes {
       case "/forgot_password" :
         return MaterialPageRoute(
           builder: (_) => const ForgotPassword(),
+        );
+      case "/" :
+        return MaterialPageRoute(
+          builder: (_) => const HomePage(),
+        );
+      case "/detail_pet" :
+        return MaterialPageRoute(
+          builder: (_) => EditPets(modelPets: args as ModelPets),
         );
       case "/vaccines" :
         return MaterialPageRoute(

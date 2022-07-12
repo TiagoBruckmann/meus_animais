@@ -1,6 +1,8 @@
+import 'package:meus_animais/domain/functions/pets.dart';
+
 class ModelPets {
 
-  String id, userId, name, sex, specie, breed, picture, age = "";
+  String id, userId, name, sex, specie, breed, picture, age, birth = "";
   String? createdAt, updatedAt;
   double? weight = 0.0;
 
@@ -8,7 +10,7 @@ class ModelPets {
 
   ModelPets(
     this.id, this.userId, this.name, this.sex, this.specie, this.breed,
-    this.picture, this.age, this.weight, this.createdAt, this.updatedAt
+    this.picture, this.age, this.birth, this.weight, this.createdAt, this.updatedAt
   );
 
   factory ModelPets.fromJson(dynamic json) {
@@ -21,6 +23,7 @@ class ModelPets {
       json["breed"],
       json["picture"],
       json["age"],
+      PetsFunctions().calculateBirth(json["age"]),
       json["weight"],
       json["created_at"],
       json["updated_at"],

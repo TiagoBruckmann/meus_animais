@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 // import dos sources
 import 'package:meus_animais/data/sources/local/injection/injection.dart';
 import 'package:meus_animais/data/sources/local/manager/get_pets.dart';
+import 'package:meus_animais/data/sources/local/manager/get_user.dart';
 import 'package:meus_animais/data/sources/local/manager/set_pet.dart';
 import 'package:meus_animais/domain/models/hygiene/hygiene_pets.dart';
 import 'package:meus_animais/domain/models/vaccines/vaccines.dart';
@@ -25,8 +26,8 @@ class CreateMobx extends _CreateMobx with _$CreateMobx{}
 abstract class _CreateMobx with Store {
 
   final setPetManager = getIt.get<SetPetManager>();
+  final userManager = getIt.get<GetUserManager>();
   final getPets = getIt.get<GetPetsManager>();
-  // final userManager = getIt.get<GetUserManager>();
 
   @observable
   TextEditingController controllerName = TextEditingController();
@@ -59,7 +60,7 @@ abstract class _CreateMobx with Store {
   @action
   validateFields( XFile? picture, context ) async {
 
-    String userId = "zGLlSDFk0MO4X2dWl8D3FNt2UyU2";
+    String userId = userManager.modelUser!.id;
     String name = controllerName.text;
     double weight = double.parse(controllerWeight.text);
     String birth = controllerBirth.text;
@@ -135,6 +136,7 @@ abstract class _CreateMobx with Store {
           specie,
           breed,
           value,
+          birth,
           birth,
           weight,
           DateTime.now().toString(),

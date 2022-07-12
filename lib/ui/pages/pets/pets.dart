@@ -96,7 +96,11 @@ class _PetsPageState extends State<PetsPage> {
                       padding: const EdgeInsets.symmetric( horizontal: 5, vertical: 8 ),
                       child: GestureDetector(
                         onTap: () {
-
+                          Navigator.pushNamed(
+                            context,
+                            "/detail_pet",
+                            arguments: modelPets
+                          );
                         },
                         child: SizedBox(
                           width: MediaQuery.of(context).size.width,

@@ -1,19 +1,14 @@
 // pacotes nativos flutter
 import 'package:flutter/material.dart';
-import 'dart:io';
 
 // import dos sources
 import 'package:meus_animais/data/sources/local/manager/set_vaccines.dart';
 import 'package:meus_animais/data/sources/local/manager/set_hygiene.dart';
 import 'package:meus_animais/data/sources/remote/services/services.dart';
-import 'package:meus_animais/data/sources/local/manager/life_time.dart';
-import 'package:meus_animais/data/sources/local/mobx/crop/crop.dart';
-import 'package:meus_animais/domain/models/life_time/life_time.dart';
+import 'package:meus_animais/domain/models/pets/pets.dart';
 
 // import das telas
 import 'package:meus_animais/ui/pages/widgets/loading/loading_connection.dart';
-import 'package:meus_animais/ui/pages/widgets/camera/crop_page.dart';
-import 'package:meus_animais/ui/pages/widgets/dropdown_error.dart';
 import 'package:meus_animais/ui/pages/vaccines/vaccines.dart';
 import 'package:meus_animais/ui/pages/hygiene/hygiene.dart';
 import 'package:meus_animais/ui/styles/app_colors.dart';
@@ -21,31 +16,27 @@ import 'package:meus_animais/ui/styles/app_images.dart';
 
 // import dos pacotes
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:find_dropdown/find_dropdown.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
-import 'package:intl/intl.dart';
 
 // gerencia de estado
 import 'package:meus_animais/data/sources/local/mobx/connection/connection.dart';
-import 'package:meus_animais/data/sources/local/mobx/create_pets/create.dart';
+import 'package:meus_animais/data/sources/local/mobx/edit_pets/edit.dart';
 import 'package:meus_animais/data/sources/local/injection/injection.dart';
 
-class CreatePetPage extends StatefulWidget {
-  const CreatePetPage({Key? key}) : super(key: key);
+class EditPets extends StatefulWidget {
+
+  final ModelPets modelPets;
+  const EditPets({ Key? key, required this.modelPets }) : super(key: key);
 
   @override
-  State<CreatePetPage> createState() => _CreatePetPageState();
+  State<EditPets> createState() => _EditPetsState();
 }
 
-class _CreatePetPageState extends State<CreatePetPage> {
+class _EditPetsState extends State<EditPets> {
 
-  final _lifeTimeManager = getIt.get<LifeTimeManager>();
-  final CreateMobx _createMobx = CreateMobx();
-  final CropMobx _cropMobx = CropMobx();
+  final EditMobx _editMobx = EditMobx();
   late ConnectionMobx _connectionMobx;
-
-  final String _petId = DateFormat('yyyyMMddkkmmss').format(DateTime.now());
 
   // injecoes de dependencia
   final vaccineManager = getIt.get<SetVaccineManager>();
@@ -55,7 +46,7 @@ class _CreatePetPageState extends State<CreatePetPage> {
     Navigator.pushNamed(
       context,
       "/vaccines",
-      arguments: _petId,
+      arguments: widget.modelPets.id,
     );
   }
 
@@ -63,14 +54,15 @@ class _CreatePetPageState extends State<CreatePetPage> {
     Navigator.pushNamed(
       context,
       "/hygiene",
-      arguments: _petId,
+      arguments: widget.modelPets.id,
     );
   }
 
   @override
   void initState() {
     super.initState();
-    Services().sendScreen("Create-pet");
+    Services().sendScreen("Edit-pet");
+    _editMobx.setAllData( widget.modelPets );
   }
 
   @override
@@ -90,15 +82,11 @@ class _CreatePetPageState extends State<CreatePetPage> {
 
         return Scaffold(
           appBar: AppBar(
-            title: const Text("Cadastrar pet"),
+            title: Text(widget.modelPets.name),
           ),
 
           body: ( _connectionMobx.connectionStatus.toString() == "ConnectivityResult.none" )
           ? const LoadingConnection()
-          : ( _cropMobx.sampleImage != null )
-          ? CropPage(
-            cropMobx: _cropMobx,
-          )
           : SingleChildScrollView(
             child: Column(
               children: [
@@ -110,22 +98,13 @@ class _CreatePetPageState extends State<CreatePetPage> {
                     child: Stack(
                       alignment: AlignmentDirectional.center,
                       children: [
-                        GestureDetector(
-                          onTap: () {
-                            ScaffoldMessenger.of(context).showSnackBar( _cropMobx.settingCamera() );
-                          },
-                          child: Image.asset(
-                            AppImages.loading,
-                          ),
-                        ),
 
-                        GestureDetector(
-                          onTap: () {
-                            ScaffoldMessenger.of(context).showSnackBar( _cropMobx.settingCamera() );
-                          },
-                          child: ( _cropMobx.image == null )
-                          ? Image.asset(AppImages.loading)
-                          : Image.file(File(_cropMobx.image!.path)),
+                        ( widget.modelPets.picture.trim().isEmpty )
+                        ? Image.asset(
+                          AppImages.loading,
+                        )
+                        : Image.network(
+                          widget.modelPets.picture,
                         ),
 
                       ],
@@ -157,7 +136,8 @@ class _CreatePetPageState extends State<CreatePetPage> {
                 Padding(
                   padding: const EdgeInsets.symmetric( vertical: 12, horizontal: 10 ),
                   child: TextField(
-                    controller: _createMobx.controllerName,
+                    controller: _editMobx.controllerName,
+                    enabled: false,
                     keyboardType: TextInputType.text,
                     style: const TextStyle(
                       fontSize: 20,
@@ -191,9 +171,9 @@ class _CreatePetPageState extends State<CreatePetPage> {
 
                 // peso
                 Padding(
-                  padding: const EdgeInsets.symmetric( vertical: 4, horizontal: 10 ),
+                  padding: const EdgeInsets.symmetric( vertical: 12, horizontal: 10 ),
                   child: TextField(
-                    controller: _createMobx.controllerWeight,
+                    controller: _editMobx.controllerWeight,
                     keyboardType: TextInputType.number,
                     style: const TextStyle(
                       fontSize: 20,
@@ -228,112 +208,83 @@ class _CreatePetPageState extends State<CreatePetPage> {
                 // sexo
                 Padding(
                   padding: const EdgeInsets.symmetric( vertical: 12, horizontal: 10 ),
-                  child: FindDropdown(
-                    showSearchBox: false,
-                    items: const [
-                      "Macho",
-                      "Femea",
-                    ],
-                    label: "Sexo do animal",
-                    selectedItem: _createMobx.sex,
-                    onChanged: (value) {
-                      _createMobx.setSex(value.toString());
-                    },
-                    dropdownBuilder: (context, sex) {
-                      return Container(
-                        width: width,
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Theme.of(context).primaryColor),
-                          borderRadius: BorderRadius.circular(5),
-                          color: AppColors.blueSolitude,
+                  child: TextField(
+                    controller: _editMobx.controllerSex,
+                    enabled: false,
+                    keyboardType: TextInputType.text,
+                    style: const TextStyle(
+                      fontSize: 20,
+                    ),
+                    textInputAction: TextInputAction.done,
+                    decoration: InputDecoration(
+                      contentPadding: const EdgeInsets.all(16),
+                      labelText: "Sexo",
+                      labelStyle: const TextStyle(
+                        color: AppColors.barossa,
+                      ),
+                      filled: true,
+                      fillColor: AppColors.blueSolitude,
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Theme.of(context).primaryColor,
                         ),
-                        child: ListTile(
-                          title: Text(
-                            ( _createMobx.sex.trim().isEmpty )
-                            ? "Selecione o sexo do animal"
-                            : _createMobx.sex,
-                          ),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Theme.of(context).primaryColor,
                         ),
-                      );
-                    },
-                    dropdownItemBuilder: (context, sex, isSelected) {
-                      return Container(
-                        decoration: !isSelected
-                        ? null
-                        : BoxDecoration(
-                          border: Border.all(
-                            color: Theme.of(context).primaryColor,
-                          ),
-                          borderRadius: BorderRadius.circular(5),
-                          color: Colors.white,
-                        ),
-                        child: ListTile(
-                          selected: isSelected,
-                          title: Text( sex.toString() ),
-                        ),
-                      );
-                    },
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                      border:  OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                    ),
                   ),
                 ),
 
                 // especie
                 Padding(
                   padding: const EdgeInsets.symmetric( vertical: 12, horizontal: 10 ),
-                  child: FindDropdown<ModelLifeTime>(
-                    items: _lifeTimeManager.list,
-                    showSearchBox: false,
-                    label: "Especie do animal",
-                    errorBuilder: ( context, item ) {
-                      return const DropdownError(text: "Nenhuma especie encontrada.");
-                    },
-                    emptyBuilder: ( item ) {
-                      return const DropdownError(text: "Nenhuma especie encontrada.");
-                    },
-                    onChanged: (value) {
-                      _createMobx.setSpecie(value!.name);
-                    },
-                    dropdownBuilder: (context, specie) {
-                      return Container(
-                        width: width,
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Theme.of(context).primaryColor),
-                          borderRadius: BorderRadius.circular(5),
-                          color: AppColors.blueSolitude,
+                  child: TextField(
+                    controller: _editMobx.controllerSpecie,
+                    enabled: false,
+                    keyboardType: TextInputType.text,
+                    style: const TextStyle(
+                      fontSize: 20,
+                    ),
+                    textInputAction: TextInputAction.done,
+                    decoration: InputDecoration(
+                      contentPadding: const EdgeInsets.all(16),
+                      labelText: "Especie",
+                      labelStyle: const TextStyle(
+                        color: AppColors.barossa,
+                      ),
+                      filled: true,
+                      fillColor: AppColors.blueSolitude,
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Theme.of(context).primaryColor,
                         ),
-                        child: ListTile(
-                          title: Text(
-                            ( _createMobx.specie.trim().isEmpty )
-                            ? "Selecione a especie do animal"
-                            : _createMobx.specie,
-                          ),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Theme.of(context).primaryColor,
                         ),
-                      );
-                    },
-                    dropdownItemBuilder: (context, specie, isSelected) {
-                      return Container(
-                        decoration: !isSelected
-                        ? null
-                        : BoxDecoration(
-                          border: Border.all(
-                            color: Theme.of(context).primaryColor,
-                          ),
-                          borderRadius: BorderRadius.circular(5),
-                          color: Colors.white,
-                        ),
-                        child: ListTile(
-                          selected: isSelected,
-                          title: Text( specie.toString() ),
-                        ),
-                      );
-                    },
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                      border:  OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                    ),
                   ),
                 ),
 
                 //raca
                 Padding(
-                  padding: const EdgeInsets.symmetric( horizontal: 10, vertical: 4 ),
+                  padding: const EdgeInsets.symmetric( vertical: 12, horizontal: 10 ),
                   child: TextField(
-                    controller: _createMobx.controllerBreed,
+                    controller: _editMobx.controllerBreed,
+                    enabled: false,
                     keyboardType: TextInputType.text,
                     style: const TextStyle(
                       fontSize: 20,
@@ -367,9 +318,10 @@ class _CreatePetPageState extends State<CreatePetPage> {
 
                 // nascimento/adocao
                 Padding(
-                  padding: const EdgeInsets.symmetric( horizontal: 10, vertical: 12 ),
+                  padding: const EdgeInsets.symmetric( vertical: 12, horizontal: 10 ),
                   child: TextField(
-                    controller: _createMobx.controllerBirth,
+                    controller: _editMobx.controllerBirth,
+                    enabled: false,
                     keyboardType: TextInputType.number,
                     style: const TextStyle(
                       fontSize: 20,
@@ -378,6 +330,43 @@ class _CreatePetPageState extends State<CreatePetPage> {
                     decoration: InputDecoration(
                       contentPadding: const EdgeInsets.all(16),
                       labelText: "Nascimento/Adoção",
+                      labelStyle: const TextStyle(
+                        color: AppColors.barossa,
+                      ),
+                      filled: true,
+                      fillColor: AppColors.blueSolitude,
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Theme.of(context).primaryColor,
+                        ),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Theme.of(context).primaryColor,
+                        ),
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                      border:  OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                    ),
+                  ),
+                ),
+
+                // tempo de vida estimado
+                Padding(
+                  padding: const EdgeInsets.symmetric( vertical: 12, horizontal: 10 ),
+                  child: TextField(
+                    controller: _editMobx.controllerLifeTime,
+                    enabled: false,
+                    keyboardType: TextInputType.number,
+                    style: const TextStyle(
+                      fontSize: 20,
+                    ),
+                    textInputAction: TextInputAction.done,
+                    decoration: InputDecoration(
+                      contentPadding: const EdgeInsets.all(16),
+                      labelText: "Tempo de vida estimado",
                       labelStyle: const TextStyle(
                         color: AppColors.barossa,
                       ),
@@ -503,7 +492,7 @@ class _CreatePetPageState extends State<CreatePetPage> {
                   width: width,
                   child: ElevatedButton(
                     onPressed: () {
-                      _createMobx.validateFields( _cropMobx.image, context );
+                      // _createMobx.validateFields( context );
                     },
                     style: ElevatedButton.styleFrom(
                       primary: Theme.of(context).cardColor,
@@ -513,7 +502,7 @@ class _CreatePetPageState extends State<CreatePetPage> {
                       ),
                     ),
                     child: Text(
-                      "Cadastrar",
+                      "Atualizar",
                       style: TextStyle(
                         color: Theme.of(context).primaryColor,
                         fontSize: 20,

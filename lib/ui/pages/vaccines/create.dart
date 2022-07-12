@@ -294,7 +294,8 @@ class _CreateVaccinesState extends State<CreateVaccines> {
                         label: "Intervalo de tempo",
                         selectedItem: _vaccinesMobx.time,
                         onChanged: (value) {
-                          _vaccinesMobx.setTime(value.toString());
+                          String time = value.toString().split(" - ")[0];
+                          _vaccinesMobx.setTime(time);
                         },
                         dropdownBuilder: (context, time) {
                           return Container(

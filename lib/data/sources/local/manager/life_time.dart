@@ -16,9 +16,10 @@ class LifeTimeManager {
 
   List<ModelLifeTime> list = [];
 
-  getData() async {
+  Future<List<ModelLifeTime>> getData() async {
     Iterable<ModelLifeTime> iterable = await lifeTimeRepository.getLifeTime();
-    return list.addAll(iterable);
+    list.addAll(iterable);
+    return list;
   }
 
 }
