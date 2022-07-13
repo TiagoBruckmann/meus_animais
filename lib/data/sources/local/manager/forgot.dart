@@ -1,4 +1,5 @@
 // import dos dominios
+import 'package:meus_animais/data/sources/remote/services/services.dart';
 import 'package:meus_animais/domain/repositories/forgot.dart';
 import 'package:meus_animais/domain/models/users/login.dart';
 
@@ -20,6 +21,7 @@ class ForgotManager {
   Future<bool> forgot() async {
     if ( modelLogin != null ) {
       _emailVerified = await forgotRepository.forgot( modelLogin!, _emailVerified );
+      analytics.logEvent(name: "email_verified");
     }
     return _emailVerified;
   }

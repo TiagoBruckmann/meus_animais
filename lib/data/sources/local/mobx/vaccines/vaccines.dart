@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 // import dos sources
 import 'package:meus_animais/data/sources/local/manager/set_vaccines.dart';
 import 'package:meus_animais/data/sources/local/injection/injection.dart';
+import 'package:meus_animais/data/sources/remote/services/services.dart';
 import 'package:meus_animais/domain/models/vaccines/vaccines.dart';
 
 // import dos pacotes
@@ -72,6 +73,7 @@ abstract class _VaccinesMobx with Store {
   @action
   validateFields( context, String petId, bool updatePet ) {
 
+    analytics.logEvent(name: "validate_vaccines");
     String name = controllerName.text;
     String type = controllerType.text;
     String day = controllerDay.text;

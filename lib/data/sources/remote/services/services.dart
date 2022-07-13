@@ -2,6 +2,7 @@
 import 'dart:io' show Platform;
 
 // import dos pacotes
+import 'package:firebase_performance/firebase_performance.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
@@ -20,6 +21,7 @@ final FirebaseCrashlytics crash = FirebaseCrashlytics.instance;
 final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
 final FirebaseFirestore db = FirebaseFirestore.instance;
 final FirebaseAuth auth = FirebaseAuth.instance;
+final FirebasePerformance perf = FirebasePerformance.instance;
 const storage = FlutterSecureStorage();
 
 class Services {
@@ -40,11 +42,13 @@ class Services {
   // deletar todos os tokens
   void deleteAllTokens() async {
     await storage.deleteAll();
+    analytics.logEvent(name: "delete_all_tokens");
   }
 
   // deletar token especifico
   void deleteOnlyToken( String keyName ) async {
     await storage.delete(key: keyName);
+    analytics.logEvent(name: "delete_only_token");
   }
 
   uploadPicture( ModelPets modelPets, XFile picture, context ) async {
@@ -79,6 +83,7 @@ class Services {
 
   rateApp() async {
 
+    analytics.logEvent(name: "rateApp");
     Uri url;
     if ( Platform.isAndroid ) {
       url = Uri.https("play.google.com", "/store/apps/details", {"id": "com.sega.sprint"});

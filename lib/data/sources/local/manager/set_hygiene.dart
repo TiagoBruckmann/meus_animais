@@ -1,5 +1,6 @@
 // import dos pacotes
 import 'package:injectable/injectable.dart';
+import 'package:meus_animais/data/sources/remote/services/services.dart';
 
 // import dos domain
 import 'package:meus_animais/domain/models/hygiene/hygiene_pets.dart';
@@ -24,6 +25,7 @@ class SetHygieneManager {
 
   _setHygiene() async {
     await setHygieneRepository.setHygiene(listHygiene);
+    analytics.logEvent(name: "create_hygiene");
   }
 
 }

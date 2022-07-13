@@ -37,7 +37,7 @@ class RegisterFirebase implements RegisterRepository {
 
       CustomSnackBar(
         modelLogin.context,
-        "Cadastro efetuado com sucesso",
+        "Cadastro efetuado com sucesso.",
         Colors.green,
       );
 

@@ -1,0 +1,171 @@
+{
+  "btn_register": "Cadastrar",
+  "btn_update": "Atualizar",
+  "btn_login": "Efetuar login",
+  "btn_await": "Aguarde...",
+  "home": {
+    "main": "Pets",
+    "new": "Novo Pet",
+    "settings": "Configurações"
+  },
+  "widgets": {
+    "pop_up": {
+      "btn_no": "Cancelar",
+      "btn_yes": "Confirmar"
+    },
+   "settings": {
+     "title": "Nome do usuário",
+     "subtitle": "E-mail do usuário",
+     "main": "Geral",
+     "rate": "Deixe sua opnião sobre o app",
+     "logout": {
+       "title": "Desconectar",
+       "text": "Deseja mesmo desconectar da sua conta?",
+       "logout": "Desconectar"
+     },
+     "faq": "FAQ",
+     "destroy": {
+       "title": "Deletar sua conta?",
+       "text": "Deseja mesmo confirmar a exclusão da sua conta? esta ação não poderá ser desfeita!",
+       "destroy": "Excluir minha conta"
+     }
+   },
+    "pets": {
+      "title": "Buscando pets"
+    },
+    "connection": {
+      "title": "Verifique sua conexão com a internet, para poder continuar utilizando o app."
+    },
+    "crop": {
+      "new": "Nova imagem",
+      "save": "Salvar imagem"
+    }
+  },
+  "pages": {
+    "vaccines": {
+      "type": "Tipo: ",
+      "reapply": "Reaplicar: ",
+      "time": "Sim, em {time} {typeTime}",
+      "create": {
+        "appbar": "Cadastrar vacina",
+        "name": "Nome",
+        "type": "Tipo de vacina",
+        "description": "Descrição",
+        "day": "Dia da vacina",
+        "reapply": "Revacinar?",
+        "type_time": [
+          {
+            "name": "Dia(s)"
+          },
+          {
+            "name": "Semana(s)"
+          },
+          {
+            "name": "Mês/Meses"
+          },
+          {
+            "name": "Ano(s)"
+          }
+        ],
+        "type_time_label": "Perido para revacinar",
+        "type_time_empty": "Selecione o periodo de tempo para revacinar.",
+        "interval": "Intervalo de tempo",
+        "interval_empty": "Intervalo de tempo entre as vacinas.",
+        "laboratory": "Laboratorio de vabricação"
+      }
+    },
+    "pets": {
+      "pets": {
+        "appbar": "Pets",
+        "empty": "Nenhum pet encontrado no momento!"
+      },
+      "edit": {
+        "detail": "Dados do pet",
+        "name": "Nome",
+        "weight": "Peso",
+        "sex": "Sexo",
+        "specie": "Especie",
+        "breed": "Raça",
+        "birth": "Nascimento/Adoção",
+        "calc_birth": "{year} ano(s) {month} mes(es) e {day} dia(s)",
+        "life_time": "Tempo de vida estimado",
+        "vaccines": "Vacinas",
+        "hygiene": "Higiene"
+      },
+      "create": {
+        "appbar": "Cadastrar pet",
+        "sex": [
+          {
+            "name": "Macho"
+          },
+          {
+            "name": "Femea"
+          }
+        ],
+        "sex_empty": "Selecione o sexo do animal",
+        "specie_error": "Nenhuma especie encontrada.",
+        "specie_empty": "Selecione a especie do animal"
+      }
+    },
+    "login": {
+      "title": "Autenticação",
+      "email": "E-mail",
+      "password": "Senha",
+      "register": {
+        "appbar": "Cadastro",
+        "name": "Nome"
+      },
+      "login": {
+        "forgot": "Esqueceu\nsua senha?"
+      },
+      "forgot": {
+        "appbar": "Esqueci minha senha",
+        "forgot": "Esqueceu sua senha",
+        "btn_email": "Validar e-mail",
+        "btn_unreceived": "Não recebi o e-mail"
+      }
+    },
+    "hygiene": {
+      "hygiene": {
+        "place": "Local: ",
+        "value": "valor: "
+      },
+      "create": {
+        "appbar": "Cadastrar higiene",
+        "category": "Categoria do serviço",
+        "empty_category": "Nenhum serviço encontrado.",
+        "select_category": "Categoria de serviços.",
+        "day": "Dia do serviço",
+        "establishment": "Estabelecimento",
+        "value": "Valor"
+      }
+    }
+  },
+  "custom_message": {
+    "destroy": {
+      "error": "Não foi possível deletar sua conta, tente novamente!",
+      "success": "Conta deletada com sucesso!"
+    },
+    "forgot": {
+      "success": "Link de redefinição enviado com sucesso!",
+      "error": "Não foi possivel enviar sua senha de redefinição, tente novamente!"
+    },
+    "login": {
+      "error": "Houve um erro ao efetuar sua solicitação, tente novamente mais tarde!"
+    },
+    "logout": {
+      "success": "Desconectado com sucesso!",
+      "error": "Não foi possivel efetuar o logout, tente novamente!"
+    },
+    "register": {
+      "success": "Cadastro efetuado com sucesso",
+      "error": "Houve um erro ao efetuar sua solicitação, tente novamente mais tarde!"
+    },
+    "set_pet": {
+      "error": "Não foi possivel cadastrar o pet, tente novamente mais tarde"
+    },
+    "update_pet": {
+      "error": "Não foi possivel atualizar o pet, tente novamente mais tarde."
+    }
+  }
+}

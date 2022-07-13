@@ -1,4 +1,5 @@
 // import dos dominios
+import 'package:meus_animais/data/sources/remote/services/services.dart';
 import 'package:meus_animais/domain/models/users/login.dart';
 import 'package:meus_animais/domain/repositories/login.dart';
 
@@ -24,6 +25,7 @@ class LoginManager {
 
   _login() async {
     modelLogin = await loginRepository.login( modelLogin! );
+    analytics.logEvent(name: "login_successful");
   }
 
 }

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 // import dos sources
 import 'package:meus_animais/data/sources/local/injection/injection.dart';
 import 'package:meus_animais/data/sources/local/manager/register.dart';
+import 'package:meus_animais/data/sources/remote/services/services.dart';
 import 'package:meus_animais/domain/models/users/login.dart';
 
 // import dos pacotes
@@ -40,25 +41,25 @@ abstract class _RegisterMobx with Store {
   @action
   validateFields( context ) {
 
+    analytics.logEvent(name: "validate_register");
     String name = controllerName.text;
     String email = controllerEmail.text;
     String passwd = controllerPasswd.text;
 
-    if ( name.isNotEmpty && name.trim().length > 2 ) {
-      if ( email.isNotEmpty && email.contains("@") ) {
-        if ( passwd.isNotEmpty && passwd.length > 5 ) {
-          setMessage("");
-          registerManager.modelLogin = ModelLogin( email, passwd, name: name, context: context );
-          registerManager.setCredentials();
-        } else {
-          setMessage("Preencha a sua senha");
-        }
-      } else {
-        setMessage("Preencha um e-mail válido");
-      }
-    } else {
-      setMessage("Nós informe seu nome");
+    if ( name.trim().isEmpty || name.trim().length < 2 ) {
+      return setMessage("Nós informe seu nome");
     }
+    if ( email.trim().isEmpty || !email.contains("@") ) {
+      return setMessage("Preencha um e-mail válido");
+    }
+    if ( passwd.trim().isEmpty && passwd.trim().length < 5 ) {
+      return setMessage("Preencha a sua senha");
+    }
+
+    setMessage("");
+    registerManager.modelLogin = ModelLogin( email, passwd, name: name, context: context );
+    registerManager.setCredentials();
+
   }
 
   @action

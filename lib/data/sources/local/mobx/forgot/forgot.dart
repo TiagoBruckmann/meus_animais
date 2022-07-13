@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 // import dos sources
 import 'package:meus_animais/data/sources/local/injection/injection.dart';
 import 'package:meus_animais/data/sources/local/manager/forgot.dart';
+import 'package:meus_animais/data/sources/remote/services/services.dart';
 import 'package:meus_animais/domain/models/users/login.dart';
 
 // import dos pacotes
@@ -33,6 +34,7 @@ abstract class _ForgotMobx with Store {
 
   @action
   validateEmail( context ) async {
+    analytics.logEvent(name: "validate_email");
     String email = controllerEmail.text;
 
     if ( email.trim().isEmpty || !email.contains("@") ) {

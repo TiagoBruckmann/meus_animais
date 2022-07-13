@@ -8,6 +8,7 @@ import 'package:meus_animais/data/sources/local/manager/get_user.dart';
 
 // import das telas
 import 'package:meus_animais/ui/pages/widgets/loading/loading_connection.dart';
+import 'package:meus_animais/ui/pages/widgets/loading/loading_settings.dart';
 import 'package:meus_animais/ui/pages/widgets/pop_up.dart';
 import 'package:meus_animais/ui/styles/app_images.dart';
 
@@ -27,7 +28,7 @@ class SettingsPage extends StatefulWidget {
 
 class _SettingsPageState extends State<SettingsPage> {
 
-  final getUser = getIt.get<GetUserManager>();
+  final _getUser = getIt.get<GetUserManager>();
   late ConnectionMobx _connectionMobx;
 
   @override
@@ -56,6 +57,8 @@ class _SettingsPageState extends State<SettingsPage> {
 
           body: ( _connectionMobx.connectionStatus.toString() == "ConnectivityResult.none" )
           ? const LoadingConnection()
+          : ( _getUser.modelUser == null )
+          ? const LoadingSettings()
           : Container(
             padding: const EdgeInsets.all(16),
             child: SingleChildScrollView(
@@ -74,14 +77,14 @@ class _SettingsPageState extends State<SettingsPage> {
                       ),
                     ),
                     title: Text(
-                      getUser.modelUser!.name,
+                      _getUser.modelUser!.name,
                       style: const TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.w500,
                       ),
                     ),
                     subtitle: Text(
-                      getUser.modelUser!.email,
+                      _getUser.modelUser!.email,
                       style: const TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.w500,

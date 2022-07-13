@@ -1,3 +1,6 @@
+// import dos servicos
+import 'package:meus_animais/data/sources/remote/services/services.dart';
+
 // import dos pacotes
 import 'package:image_picker/image_picker.dart';
 import 'package:injectable/injectable.dart';
@@ -27,6 +30,7 @@ class SetPetManager {
 
   _setPet() async {
     await setPetRepository.setPet( modelPets!, picture!, context );
+    analytics.logEvent(name: "create_pet");
   }
 
 }

@@ -48,12 +48,13 @@ const String _api = 'api';
 _i1.GetIt $initGetIt(_i1.GetIt get,
     {String? environment, _i2.EnvironmentFilter? environmentFilter}) {
   final gh = _i2.GetItHelper(get, environment, environmentFilter);
-  gh.factory<_i3.DestroyRepository>(() => _i3.LoginFirebase(),
+  gh.factory<_i3.DestroyRepository>(() => _i3.DestroyFirebase(),
       registerFor: {_firebase});
-  gh.factory<_i3.DestroyRepository>(() => _i3.LoginApi(), registerFor: {_api});
-  gh.factory<_i4.ForgotRepository>(() => _i4.LoginFirebase(),
+  gh.factory<_i3.DestroyRepository>(() => _i3.DestroyApi(),
+      registerFor: {_api});
+  gh.factory<_i4.ForgotRepository>(() => _i4.ForgotFirebase(),
       registerFor: {_firebase});
-  gh.factory<_i4.ForgotRepository>(() => _i4.LoginApi(), registerFor: {_api});
+  gh.factory<_i4.ForgotRepository>(() => _i4.ForgotApi(), registerFor: {_api});
   gh.factory<_i5.GetHygienePetsRepository>(() => _i5.GetHygienePetsFirebase(),
       registerFor: {_firebase});
   gh.factory<_i5.GetHygienePetsRepository>(() => _i5.GetHygienePetsApi(),
@@ -72,7 +73,7 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
       registerFor: {_api});
   gh.factory<_i9.GetVaccinesRepository>(() => _i9.GetVaccinesApi(),
       registerFor: {_api});
-  gh.factory<_i9.GetVaccinesRepository>(() => _i9.GetPetsFirebase(),
+  gh.factory<_i9.GetVaccinesRepository>(() => _i9.GetVaccinesFirebase(),
       registerFor: {_firebase});
   gh.factory<_i10.LifeTimeRepository>(() => _i10.LifeTimeFirebase(),
       registerFor: {_firebase});
@@ -105,9 +106,9 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
       registerFor: {_api});
   gh.factory<_i17.SplashRepository>(() => _i17.SplashFirebase(),
       registerFor: {_firebase});
-  gh.factory<_i18.UpdatePetRepository>(() => _i18.SetPetApi(),
+  gh.factory<_i18.UpdatePetRepository>(() => _i18.UpdatePetApi(),
       registerFor: {_api});
-  gh.factory<_i18.UpdatePetRepository>(() => _i18.SetPetFirebase(),
+  gh.factory<_i18.UpdatePetRepository>(() => _i18.UpdatePetFirebase(),
       registerFor: {_firebase});
   gh.lazySingleton<_i19.DestroyManager>(
       () => _i19.DestroyManager(get<_i3.DestroyRepository>()));

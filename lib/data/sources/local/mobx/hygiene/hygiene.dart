@@ -8,6 +8,7 @@ import 'package:meus_animais/data/sources/local/injection/injection.dart';
 
 // import dos pacotes
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
+import 'package:meus_animais/data/sources/remote/services/services.dart';
 import 'package:meus_animais/domain/models/hygiene/hygiene_pets.dart';
 import 'package:meus_animais/ui/pages/widgets/message.dart';
 import 'package:mobx/mobx.dart';
@@ -37,6 +38,7 @@ abstract class _HygieneMobx with Store {
   @action
   validateFields( context, String petId, bool updatePet ) {
 
+    analytics.logEvent(name: "validate_hygiene");
     String date = controllerDay.text;
     String place = controllerPlace.text;
     String value = controllerValue.text;

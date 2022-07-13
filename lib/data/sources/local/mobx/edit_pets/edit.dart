@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:meus_animais/data/sources/local/injection/injection.dart';
 import 'package:meus_animais/data/sources/local/manager/update_pets.dart';
 import 'package:meus_animais/data/sources/local/manager/life_time.dart';
+import 'package:meus_animais/data/sources/remote/services/services.dart';
 import 'package:meus_animais/domain/models/hygiene/hygiene_pets.dart';
 import 'package:meus_animais/domain/models/vaccines/vaccines.dart';
 import 'package:meus_animais/domain/models/pets/pets.dart';
@@ -87,6 +88,7 @@ abstract class _EditMobx with Store {
   @action
   validateFields( ModelPets modelPets, context ) async {
 
+    analytics.logEvent(name: "validate_update_pet");
     double weight = double.parse(controllerWeight.text);
     
     if ( weight == 0.0 ) {

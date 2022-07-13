@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 // import dos sources
 import 'package:meus_animais/data/sources/local/injection/injection.dart';
 import 'package:meus_animais/data/sources/local/manager/login.dart';
+import 'package:meus_animais/data/sources/remote/services/services.dart';
 import 'package:meus_animais/domain/models/users/login.dart';
 
 // import dos pacotes
@@ -37,23 +38,24 @@ abstract class _LoginMobx with Store {
   @action
   validateFields( context ) {
 
+    analytics.logEvent(name: "validate_login");
     String email = controllerEmail.text;
     String passwd = controllerPasswd.text;
 
-    if ( email.isNotEmpty && email.contains("@") ) {
-
-      if ( passwd.isNotEmpty && passwd.length > 5 ) {
-        setMessage("");
-        loginManager.modelLogin = ModelLogin(email, passwd, context: context);
-        loginManager.setCredentials();
-
-      } else {
-        setMessage("Preencha a sua senha");
-      }
-
-    } else {
+    if ( email.trim().isEmpty || !email.contains("@") ) {
       setMessage("Preencha um e-mail valido");
+      return;
     }
+
+    if ( passwd.trim().isEmpty || passwd.trim().length < 5 ) {
+      setMessage("Preencha a sua senha");
+      return;
+    }
+
+    setMessage("");
+    loginManager.modelLogin = ModelLogin(email, passwd, context: context);
+    loginManager.setCredentials();
+
   }
 
   @action

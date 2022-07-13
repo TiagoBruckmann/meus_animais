@@ -6,6 +6,7 @@ import 'package:meus_animais/data/sources/local/injection/injection.dart';
 import 'package:meus_animais/data/sources/local/manager/get_pets.dart';
 import 'package:meus_animais/data/sources/local/manager/get_user.dart';
 import 'package:meus_animais/data/sources/local/manager/set_pet.dart';
+import 'package:meus_animais/data/sources/remote/services/services.dart';
 import 'package:meus_animais/domain/models/hygiene/hygiene_pets.dart';
 import 'package:meus_animais/domain/models/vaccines/vaccines.dart';
 import 'package:meus_animais/domain/models/pets/pets.dart';
@@ -65,6 +66,7 @@ abstract class _CreateMobx with Store {
   @action
   validateFields( XFile? picture, context ) async {
 
+    analytics.logEvent(name: "validate_pet");
     String userId = userManager.modelUser!.id;
     String name = controllerName.text;
     double weight = double.parse(controllerWeight.text);

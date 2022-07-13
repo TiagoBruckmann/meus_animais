@@ -10,7 +10,7 @@ abstract class GetVaccinesRepository {
 }
 
 @Injectable(as: GetVaccinesRepository, env: ["firebase"])
-class GetPetsFirebase implements GetVaccinesRepository {
+class GetVaccinesFirebase implements GetVaccinesRepository {
   @override
   getVaccines( String petId ) async {
 

@@ -18,7 +18,7 @@ abstract class ForgotRepository {
 }
 
 @Injectable(as: ForgotRepository, env: ["firebase"])
-class LoginFirebase implements ForgotRepository {
+class ForgotFirebase implements ForgotRepository {
 
   @override
   Future<bool> forgot( ModelLogin modelLogin, bool emailVerified ) async {
@@ -35,7 +35,7 @@ class LoginFirebase implements ForgotRepository {
       emailVerified = false;
       CustomSnackBar(
         modelLogin.context,
-        "não foi possivel enviar sua senha de redefinição, tente novamente!",
+        "Não foi possivel enviar sua senha de redefinição, tente novamente!",
         Colors.red,
       );
       crash.recordError(error, stackTrace);
@@ -47,7 +47,7 @@ class LoginFirebase implements ForgotRepository {
 }
 
 @Injectable(as: ForgotRepository, env: ["api"])
-class LoginApi implements ForgotRepository {
+class ForgotApi implements ForgotRepository {
 
   @override
   Future<bool> forgot( ModelLogin modelLogin, bool emailVerified ) async {

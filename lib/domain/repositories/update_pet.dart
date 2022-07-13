@@ -16,7 +16,7 @@ abstract class UpdatePetRepository {
 }
 
 @Injectable(as: UpdatePetRepository, env: ["firebase"])
-class SetPetFirebase implements UpdatePetRepository {
+class UpdatePetFirebase implements UpdatePetRepository {
 
   @override
   updatePet( ModelPets modelPets, context ) async {
@@ -43,7 +43,7 @@ class SetPetFirebase implements UpdatePetRepository {
 }
 
 @Injectable(as: UpdatePetRepository, env: ["api"])
-class SetPetApi implements UpdatePetRepository {
+class UpdatePetApi implements UpdatePetRepository {
 
   @override
   updatePet( ModelPets modelPets, context ) async {

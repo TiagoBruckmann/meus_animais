@@ -19,7 +19,7 @@ abstract class DestroyRepository {
 }
 
 @Injectable(as: DestroyRepository, env: ["firebase"])
-class LoginFirebase implements DestroyRepository {
+class DestroyFirebase implements DestroyRepository {
 
   @override
   destroy( ModelUser modelUser, context ) async {
@@ -64,7 +64,7 @@ class LoginFirebase implements DestroyRepository {
 }
 
 @Injectable(as: DestroyRepository, env: ["api"])
-class LoginApi implements DestroyRepository {
+class DestroyApi implements DestroyRepository {
 
   @override
   destroy( ModelUser modelUser, context ) async {
