@@ -1,5 +1,6 @@
 // pacotes nativos flutter
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 
 // import dos sources
 import 'package:meus_animais/data/sources/remote/services/services.dart';
@@ -129,16 +130,16 @@ class _EditPetsState extends State<EditPets> {
 
                 SizedBox(
                   width: MediaQuery.of(context).size.width,
-                  child: const Card(
+                  child: Card(
                     color: AppColors.barossa,
                     elevation: 0,
                     child: Padding(
-                      padding: EdgeInsets.symmetric( vertical: 15 ),
+                      padding: const EdgeInsets.symmetric( vertical: 15 ),
                       child: Text(
-                        "Dados do pet",
+                        FlutterI18n.translate(context, "pages.pets.edit.detail"),
                         overflow: TextOverflow.fade,
                         textAlign: TextAlign.center,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 17,
                           color: AppColors.whiteSmoke,
                         ),
@@ -160,7 +161,7 @@ class _EditPetsState extends State<EditPets> {
                     textInputAction: TextInputAction.next,
                     decoration: InputDecoration(
                       contentPadding: const EdgeInsets.all(16),
-                      labelText: "Nome",
+                      labelText: FlutterI18n.translate(context, "pages.pets.edit.name"),
                       labelStyle: const TextStyle(
                         color: AppColors.barossa,
                       ),
@@ -196,7 +197,7 @@ class _EditPetsState extends State<EditPets> {
                     textInputAction: TextInputAction.done,
                     decoration: InputDecoration(
                       contentPadding: const EdgeInsets.all(16),
-                      labelText: "Peso",
+                      labelText: FlutterI18n.translate(context, "pages.pets.edit.weight"),
                       labelStyle: const TextStyle(
                         color: AppColors.barossa,
                       ),
@@ -233,7 +234,7 @@ class _EditPetsState extends State<EditPets> {
                     textInputAction: TextInputAction.done,
                     decoration: InputDecoration(
                       contentPadding: const EdgeInsets.all(16),
-                      labelText: "Sexo",
+                      labelText: FlutterI18n.translate(context, "pages.pets.edit.sex"),
                       labelStyle: const TextStyle(
                         color: AppColors.barossa,
                       ),
@@ -270,7 +271,7 @@ class _EditPetsState extends State<EditPets> {
                     textInputAction: TextInputAction.done,
                     decoration: InputDecoration(
                       contentPadding: const EdgeInsets.all(16),
-                      labelText: "Especie",
+                      labelText: FlutterI18n.translate(context, "pages.pets.edit.specie"),
                       labelStyle: const TextStyle(
                         color: AppColors.barossa,
                       ),
@@ -307,7 +308,7 @@ class _EditPetsState extends State<EditPets> {
                     textInputAction: TextInputAction.next,
                     decoration: InputDecoration(
                       contentPadding: const EdgeInsets.all(16),
-                      labelText: "Raça",
+                      labelText: FlutterI18n.translate(context, "pages.pets.edit.breed"),
                       labelStyle: const TextStyle(
                         color: AppColors.barossa,
                       ),
@@ -344,7 +345,7 @@ class _EditPetsState extends State<EditPets> {
                     textInputAction: TextInputAction.done,
                     decoration: InputDecoration(
                       contentPadding: const EdgeInsets.all(16),
-                      labelText: "Nascimento/Adoção",
+                      labelText: FlutterI18n.translate(context, "pages.pets.edit.birth"),
                       labelStyle: const TextStyle(
                         color: AppColors.barossa,
                       ),
@@ -381,7 +382,7 @@ class _EditPetsState extends State<EditPets> {
                     textInputAction: TextInputAction.done,
                     decoration: InputDecoration(
                       contentPadding: const EdgeInsets.all(16),
-                      labelText: "Tempo de vida estimado",
+                      labelText: FlutterI18n.translate(context, "pages.pets.edit.life_time"),
                       labelStyle: const TextStyle(
                         color: AppColors.barossa,
                       ),
@@ -419,11 +420,11 @@ class _EditPetsState extends State<EditPets> {
 
                           const Text(""),
 
-                          const Text(
-                            "Vacinas",
+                          Text(
+                            FlutterI18n.translate(context, "pages.pets.edit.vaccines"),
                             overflow: TextOverflow.fade,
                             textAlign: TextAlign.center,
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 17,
                               color: AppColors.whiteSmoke,
                             ),
@@ -467,11 +468,11 @@ class _EditPetsState extends State<EditPets> {
 
                           const Text(""),
 
-                          const Text(
-                            "Higiene",
+                          Text(
+                            FlutterI18n.translate(context, "pages.pets.edit.hygiene"),
                             overflow: TextOverflow.fade,
                             textAlign: TextAlign.center,
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 17,
                               color: AppColors.whiteSmoke,
                             ),
@@ -517,7 +518,7 @@ class _EditPetsState extends State<EditPets> {
                       ),
                     ),
                     child: Text(
-                      "Atualizar",
+                      FlutterI18n.translate(context, "btn_update"),
                       style: TextStyle(
                         color: Theme.of(context).primaryColor,
                         fontSize: 20,

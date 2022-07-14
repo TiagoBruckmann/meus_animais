@@ -1,5 +1,6 @@
 // pacotes nativos do flutter
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 
 // import dos data
 import 'package:meus_animais/data/sources/remote/services/services.dart';
@@ -59,7 +60,9 @@ class _RegisterPageState extends State<RegisterPage> {
 
         return Scaffold(
           appBar: AppBar(
-            title: const Text("Cadastro"),
+            title: Text(
+              FlutterI18n.translate(context, "pages.login.register.appbar"),
+            ),
           ),
           body: ( _connectionMobx.connectionStatus.toString() == "ConnectivityResult.none" )
           ? const LoadingConnection()
@@ -78,12 +81,12 @@ class _RegisterPageState extends State<RegisterPage> {
                       height: 100,
                     ),
                     */
-                    const Padding(
-                      padding: EdgeInsets.all(30),
+                    Padding(
+                      padding: const EdgeInsets.all(30),
                       child: Center(
                         child: Text(
-                          "Autenticação",
-                          style: TextStyle(
+                          FlutterI18n.translate(context, "pages.login.title"),
+                          style: const TextStyle(
                             fontSize: 25,
                           ),
                         ),
@@ -100,7 +103,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       textInputAction: TextInputAction.next,
                       decoration: InputDecoration(
                         contentPadding: const EdgeInsets.all(16),
-                        labelText: "Nome",
+                        labelText: FlutterI18n.translate(context, "pages.login.register.appbar"),
                         labelStyle: const TextStyle(
                           color: AppColors.barossa,
                         ),
@@ -135,7 +138,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         textInputAction: TextInputAction.next,
                         decoration: InputDecoration(
                           contentPadding: const EdgeInsets.all(16),
-                          labelText: "E-mail",
+                          labelText: FlutterI18n.translate(context, "pages.login.email"),
                           labelStyle: const TextStyle(
                             color: AppColors.barossa,
                           ),
@@ -169,7 +172,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       style: const TextStyle(fontSize: 20),
                       decoration: InputDecoration(
                         contentPadding: const EdgeInsets.fromLTRB( 16, 16, 0, 16),
-                        labelText: "Senha",
+                        labelText: FlutterI18n.translate(context, "pages.login.password"),
                         labelStyle: TextStyle(
                           color: Theme.of(context).primaryColor,
                         ),
@@ -216,9 +219,9 @@ class _RegisterPageState extends State<RegisterPage> {
                             borderRadius: BorderRadius.circular(10),
                           ),
                         ),
-                        child: const Text(
-                          "Cadastrar",
-                          style: TextStyle(
+                        child: Text(
+                          FlutterI18n.translate(context, "btn_register"),
+                          style: const TextStyle(
                             color: Colors.white,
                             fontSize: 20,
                           ),

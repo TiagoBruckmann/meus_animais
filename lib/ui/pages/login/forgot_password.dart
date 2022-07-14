@@ -1,5 +1,6 @@
 // pacotes nativos do flutter
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 
 // import dos data
 import 'package:meus_animais/data/sources/remote/services/services.dart';
@@ -57,7 +58,9 @@ class _ForgotPasswordState extends State<ForgotPassword> {
 
         return Scaffold(
           appBar: AppBar(
-            title: const Text("Esqueci minha senha"),
+            title: Text(
+              FlutterI18n.translate(context, "pages.login.forgot.appbar"),
+            ),
           ),
           body: ( _connectionMobx.connectionStatus.toString() == "ConnectivityResult.none" )
           ? const LoadingConnection()
@@ -76,12 +79,12 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                       height: 100,
                     ),
                     */
-                    const Padding(
-                      padding: EdgeInsets.all(30),
+                    Padding(
+                      padding: const EdgeInsets.all(30),
                       child: Center(
                         child: Text(
-                          "Esqueceu sua senha",
-                          style: TextStyle(
+                          FlutterI18n.translate(context, "pages.login.forgot.forgot"),
+                          style: const TextStyle(
                             fontSize: 25,
                           ),
                         ),
@@ -99,7 +102,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                         textInputAction: TextInputAction.next,
                         decoration: InputDecoration(
                           contentPadding: const EdgeInsets.all(16),
-                          labelText: "E-mail",
+                          labelText: FlutterI18n.translate(context, "pages.login.email"),
                           labelStyle: const TextStyle(
                             color: AppColors.barossa,
                           ),
@@ -138,8 +141,8 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                         ),
                         child: Text(
                           ( _forgotMobx.emailVerified == false )
-                          ? "Validar email"
-                          : "Não recebi o E-mail",
+                          ? FlutterI18n.translate(context, "pages.login.forgot.btn_email")
+                          : FlutterI18n.translate(context, "pages.login.forgot.btn_unreceived"),
                           style: const TextStyle(
                             color: Colors.white,
                             fontSize: 20,

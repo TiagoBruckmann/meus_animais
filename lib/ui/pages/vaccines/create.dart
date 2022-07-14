@@ -1,5 +1,6 @@
 // pacotes nativos flutter
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 
 // import dos sources
 import 'package:meus_animais/data/sources/remote/services/services.dart';
@@ -55,7 +56,9 @@ class _CreateVaccinesState extends State<CreateVaccines> {
 
         return Scaffold(
           appBar: AppBar(
-            title: const Text("Cadastrar vacina"),
+            title: Text(
+              FlutterI18n.translate(context, "pages.vaccines.create.appbar"),
+            ),
           ),
 
           body: ( _connectionMobx.connectionStatus.toString() == "ConnectivityResult.none" )
@@ -77,7 +80,7 @@ class _CreateVaccinesState extends State<CreateVaccines> {
                     textInputAction: TextInputAction.next,
                     decoration: InputDecoration(
                       contentPadding: const EdgeInsets.all(16),
-                      labelText: "Nome",
+                      labelText: FlutterI18n.translate(context, "pages.vaccines.create.name"),
                       labelStyle: const TextStyle(
                         color: AppColors.barossa,
                       ),
@@ -113,7 +116,7 @@ class _CreateVaccinesState extends State<CreateVaccines> {
                     textInputAction: TextInputAction.next,
                     decoration: InputDecoration(
                       contentPadding: const EdgeInsets.all(16),
-                      labelText: "Tipo de vacina",
+                      labelText: FlutterI18n.translate(context, "pages.vaccines.create.type"),
                       labelStyle: const TextStyle(
                         color: AppColors.barossa,
                       ),
@@ -151,7 +154,7 @@ class _CreateVaccinesState extends State<CreateVaccines> {
                     textInputAction: TextInputAction.next,
                     decoration: InputDecoration(
                       contentPadding: const EdgeInsets.all(16),
-                      labelText: "Descrição",
+                      labelText: FlutterI18n.translate(context, "pages.vaccines.create.description"),
                       labelStyle: const TextStyle(
                         color: AppColors.barossa,
                       ),
@@ -187,7 +190,7 @@ class _CreateVaccinesState extends State<CreateVaccines> {
                     textInputAction: TextInputAction.next,
                     decoration: InputDecoration(
                       contentPadding: const EdgeInsets.all(16),
-                      labelText: "Dia da vacina",
+                      labelText: FlutterI18n.translate(context, "pages.vaccines.create.day"),
                       labelStyle: const TextStyle(
                         color: AppColors.barossa,
                       ),
@@ -216,9 +219,9 @@ class _CreateVaccinesState extends State<CreateVaccines> {
                   onChanged: (value) {
                     _vaccinesMobx.setReapply(value);
                   },
-                  title: const Text(
-                    "Revacinar?",
-                    style: TextStyle(
+                  title: Text(
+                    FlutterI18n.translate(context, "pages.vaccines.create.reapply"),
+                    style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 20,
                     ),
@@ -242,7 +245,7 @@ class _CreateVaccinesState extends State<CreateVaccines> {
                           "Mês/Meses",
                           "Ano(s)",
                         ],
-                        label: "Perido para revacinar",
+                        label: FlutterI18n.translate(context, "pages.vaccines.create.type_time_label"),
                         selectedItem: _vaccinesMobx.typeTime,
                         onChanged: (value) {
                           _vaccinesMobx.setTypeTime(value.toString());
@@ -258,7 +261,7 @@ class _CreateVaccinesState extends State<CreateVaccines> {
                             child: ListTile(
                               title: Text(
                                 ( _vaccinesMobx.typeTime.trim().isEmpty )
-                                ? "Selecione o periodo de tempo para revacinar."
+                                ? FlutterI18n.translate(context, "pages.vaccines.create.type_time_empty")
                                 : _vaccinesMobx.typeTime,
                               ),
                             ),
@@ -292,7 +295,7 @@ class _CreateVaccinesState extends State<CreateVaccines> {
                       child: FindDropdown(
                         showSearchBox: false,
                         items: _vaccinesMobx.listTime,
-                        label: "Intervalo de tempo",
+                        label: FlutterI18n.translate(context, "pages.vaccines.create.interval"),
                         selectedItem: _vaccinesMobx.time,
                         onChanged: (value) {
                           String time = value.toString().split(" - ")[0];
@@ -309,7 +312,7 @@ class _CreateVaccinesState extends State<CreateVaccines> {
                             child: ListTile(
                               title: Text(
                                 ( _vaccinesMobx.time.trim().isEmpty )
-                                ? "Intervalo de tempo entre as vacinas."
+                                ? FlutterI18n.translate(context, "pages.vaccines.create.interval_empty")
                                 : _vaccinesMobx.time,
                               ),
                             ),
@@ -347,7 +350,7 @@ class _CreateVaccinesState extends State<CreateVaccines> {
                         textInputAction: TextInputAction.done,
                         decoration: InputDecoration(
                           contentPadding: const EdgeInsets.all(16),
-                          labelText: "Laboratorio de vabricação",
+                          labelText: FlutterI18n.translate(context, "pages.vaccines.create.laboratory"),
                           labelStyle: const TextStyle(
                             color: AppColors.barossa,
                           ),

@@ -1,5 +1,6 @@
 // pacotes nativos flutter
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 
 // import dos sources
 import 'package:meus_animais/data/sources/remote/services/services.dart';
@@ -52,7 +53,9 @@ class _PetsPageState extends State<PetsPage> {
 
         return Scaffold(
           appBar: AppBar(
-            title: const Text("Pets"),
+            title: Text(
+              FlutterI18n.translate(context, "pages.pets.pets.appbar"),
+            ),
           ),
 
           body: ( _connectionMobx.connectionStatus.toString() == "ConnectivityResult.none" )
@@ -79,7 +82,9 @@ class _PetsPageState extends State<PetsPage> {
                       });
                       return _petsMobx.getPets();
                     },
-                    child: const RefreshWidget( message: "Nenhum pet encontrado no momento!", ),
+                    child: RefreshWidget(
+                      message: FlutterI18n.translate(context, "pages.pets.pets.empty"),
+                    ),
                   );
                 } else if ( _petsMobx.listPets.isEmpty ) {
 
@@ -90,7 +95,9 @@ class _PetsPageState extends State<PetsPage> {
                       });
                       return _petsMobx.getPets();
                     },
-                    child: const RefreshWidget( message: "Nenhum pet encontrado no momento!", ),
+                    child: RefreshWidget(
+                      message: FlutterI18n.translate(context, "pages.pets.pets.empty"),
+                    ),
                   );
                 }
 

@@ -1,5 +1,6 @@
 // pacotes nativos flutter
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 
 // import dos sources
 import 'package:meus_animais/data/sources/local/injection/injection.dart';
@@ -28,9 +29,9 @@ class PopUpWidget extends StatelessWidget {
         contentPadding: const EdgeInsets.all(16),
         actions: [
           TextButton(
-            child: const Text(
-              "Não",
-              style: TextStyle(
+            child: Text(
+              FlutterI18n.translate(context, "widgets.pop_up.btn_no"),
+              style: const TextStyle(
                 color: Colors.green,
               ),
             ),
@@ -39,9 +40,9 @@ class PopUpWidget extends StatelessWidget {
             },
           ),
           TextButton(
-            child: const Text(
-              "confirmar",
-              style: TextStyle(
+            child: Text(
+              FlutterI18n.translate(context, "widgets.pop_up.btn_yes"),
+              style: const TextStyle(
                 color: Colors.red,
               ),
             ),

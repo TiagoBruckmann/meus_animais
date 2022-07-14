@@ -1,5 +1,6 @@
 // imports nativos do flutter
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 
 // import dos pacotes
 import 'package:shimmer_animation/shimmer_animation.dart';
@@ -58,10 +59,10 @@ class LoadingPetsWidget extends StatelessWidget {
                             colorOpacity: 0.8,
                             enabled: true,
                             direction: const ShimmerDirection.fromLTRB(),
-                            child: const Text(
-                              "Buscando pets",
+                            child: Text(
+                              FlutterI18n.translate(context, "widgets.pets.title"),
                               textAlign: TextAlign.center,
-                              style: TextStyle(
+                              style: const TextStyle(
                                 color: Colors.white,
                               ),
                             ),

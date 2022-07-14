@@ -14,14 +14,14 @@
       "btn_yes": "Confirmar"
     },
    "settings": {
+     "appbar": "Perfil",
      "title": "Nome do usuário",
      "subtitle": "E-mail do usuário",
      "main": "Geral",
      "rate": "Deixe sua opnião sobre o app",
      "logout": {
        "title": "Desconectar",
-       "text": "Deseja mesmo desconectar da sua conta?",
-       "logout": "Desconectar"
+       "text": "Deseja mesmo desconectar da sua conta?"
      },
      "faq": "FAQ",
      "destroy": {
@@ -45,7 +45,7 @@
     "vaccines": {
       "type": "Tipo: ",
       "reapply": "Reaplicar: ",
-      "time": "Sim, em {time} {typeTime}",
+      "time": "Sim, em {time} {type_time}",
       "create": {
         "appbar": "Cadastrar vacina",
         "name": "Nome",
@@ -71,7 +71,7 @@
         "type_time_empty": "Selecione o periodo de tempo para revacinar.",
         "interval": "Intervalo de tempo",
         "interval_empty": "Intervalo de tempo entre as vacinas.",
-        "laboratory": "Laboratorio de vabricação"
+        "laboratory": "Laboratorio de fabricação"
       }
     },
     "pets": {
@@ -134,8 +134,7 @@
         "appbar": "Cadastrar higiene",
         "category": "Categoria do serviço",
         "empty_category": "Nenhum serviço encontrado.",
-        "select_category": "Categoria de serviços.",
-        "day": "Dia do serviço",
+        "day": "Data do serviço",
         "establishment": "Estabelecimento",
         "value": "Valor"
       }
@@ -159,13 +158,45 @@
     },
     "register": {
       "success": "Cadastro efetuado com sucesso",
-      "error": "Houve um erro ao efetuar sua solicitação, tente novamente mais tarde!"
+      "error": "Houve um erro ao efetuar sua solicitação, tente novamente mais tarde!",
+      "validate": {
+        "name": "Nós informe seu nome.",
+        "email": "Preencha um e-mail válido.",
+        "password": "Preencha a sua senha."
+      }
     },
     "set_pet": {
-      "error": "Não foi possivel cadastrar o pet, tente novamente mais tarde"
+      "error": "Não foi possivel cadastrar o pet, tente novamente mais tarde",
+      "validate": {
+        "name": "Informe o nome do seu amiguinho!",
+        "weight": "Informe o peso do seu amiguinho!",
+        "birth": "Informe o aniversario do seu amiguinho!",
+        "day": "Informe uma data válida!",
+        "another": "Informe o nome do seu amiguinho!"
+      }
     },
     "update_pet": {
-      "error": "Não foi possivel atualizar o pet, tente novamente mais tarde."
+      "error": "Não foi possivel atualizar o pet, tente novamente mais tarde.",
+      "validate": {
+        "weight": "Informe um peso válido"
+      }
+    },
+    "vaccines": {
+      "validate": {
+        "name": "Insira um nome válido.",
+        "type": "Informe o tipo de vacina.",
+        "day": "Informe o dia de aplicação da vacina.",
+        "time": "Selecione o tempo estimado.",
+        "type_time": "Selecione o periodo de tempo."
+      }
+    },
+    "hygiene": {
+      "validate": {
+        "name": "Selecione uma categoria de serviços.",
+        "date": "Informe a data do serviço.",
+        "day": "Informe uma data válida!",
+        "place": "Informe o estabelecimento."
+      }
     }
   }
 }

@@ -1,5 +1,6 @@
 // pacotes nativos flutter
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 
 // import dos sources
 import 'package:meus_animais/data/sources/local/injection/injection.dart';
@@ -58,7 +59,9 @@ class _CreateHygieneState extends State<CreateHygiene> {
 
         return Scaffold(
           appBar: AppBar(
-            title: const Text("Cadastrar Higiene"),
+            title: Text(
+              FlutterI18n.translate(context, "pages.hygiene.create.appbar"),
+            ),
           ),
 
           body: ( _connectionMobx.connectionStatus.toString() == "ConnectivityResult.none" )
@@ -73,16 +76,16 @@ class _CreateHygieneState extends State<CreateHygiene> {
                   child: FindDropdown(
                     showSearchBox: false,
                     items: hygiene.listHygiene,
-                    label: "Categoria do serviço",
+                    label: FlutterI18n.translate(context, "pages.hygiene.create.category"),
                     selectedItem: _hygieneMobx.name,
                     onChanged: (value) {
                       _hygieneMobx.setName(value.toString());
                     },
                     errorBuilder: ( context, item ) {
-                      return const Center(
+                      return Center(
                         child: Text(
-                          "Nenhum serviço encontrado",
-                          style: TextStyle(
+                          FlutterI18n.translate(context, "pages.hygiene.create.empty_category"),
+                          style: const TextStyle(
                             color: Colors.black,
                             fontSize: 15,
                           ),
@@ -91,10 +94,10 @@ class _CreateHygieneState extends State<CreateHygiene> {
                       );
                     },
                     emptyBuilder: ( item ) {
-                      return const Center(
+                      return Center(
                         child: Text(
-                          "Nenhum serviço encontrado",
-                          style: TextStyle(
+                          FlutterI18n.translate(context, "pages.hygiene.create.empty_category"),
+                          style: const TextStyle(
                             color: Colors.black,
                             fontSize: 15,
                           ),
@@ -113,7 +116,7 @@ class _CreateHygieneState extends State<CreateHygiene> {
                         child: ListTile(
                           title: Text(
                             ( _hygieneMobx.name.trim().isEmpty )
-                            ? "Categoria de serviços."
+                            ? FlutterI18n.translate(context, "pages.hygiene.create.category")
                             : _hygieneMobx.name,
                           ),
                         ),
@@ -151,7 +154,7 @@ class _CreateHygieneState extends State<CreateHygiene> {
                     textInputAction: TextInputAction.next,
                     decoration: InputDecoration(
                       contentPadding: const EdgeInsets.all(16),
-                      labelText: "Data do serviço",
+                      labelText: FlutterI18n.translate(context, "pages.hygiene.create.day"),
                       labelStyle: const TextStyle(
                         color: AppColors.barossa,
                       ),
@@ -187,7 +190,7 @@ class _CreateHygieneState extends State<CreateHygiene> {
                     textInputAction: TextInputAction.next,
                     decoration: InputDecoration(
                       contentPadding: const EdgeInsets.all(16),
-                      labelText: "Estabelecimento",
+                      labelText: FlutterI18n.translate(context, "pages.hygiene.create.establishment"),
                       labelStyle: const TextStyle(
                         color: AppColors.barossa,
                       ),
@@ -223,7 +226,7 @@ class _CreateHygieneState extends State<CreateHygiene> {
                     textInputAction: TextInputAction.next,
                     decoration: InputDecoration(
                       contentPadding: const EdgeInsets.all(16),
-                      labelText: "Valor",
+                      labelText: FlutterI18n.translate(context, "pages.hygiene.create.value"),
                       labelStyle: const TextStyle(
                         color: AppColors.barossa,
                       ),
@@ -262,7 +265,7 @@ class _CreateHygieneState extends State<CreateHygiene> {
                       ),
                     ),
                     child: Text(
-                      "Cadastrar",
+                      FlutterI18n.translate(context, "btn_register"),
                       style: TextStyle(
                         color: Theme.of(context).primaryColor,
                         fontSize: 20,

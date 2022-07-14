@@ -1,5 +1,6 @@
 // pacotes nativos flutter
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 
 // import dos modelos
 import 'package:meus_animais/domain/models/hygiene/hygiene_pets.dart';
@@ -57,7 +58,7 @@ class Hygiene extends StatelessWidget {
 
                 Text.rich(
                   TextSpan(
-                    text: "Local: ",
+                    text: FlutterI18n.translate(context, "pages.hygiene.hygiene.place"),
                     style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 18,
@@ -86,7 +87,7 @@ class Hygiene extends StatelessWidget {
 
                 Text.rich(
                   TextSpan(
-                    text: "Valor: ",
+                    text: FlutterI18n.translate(context, "pages.hygiene.hygiene.value"),
                     style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 18,

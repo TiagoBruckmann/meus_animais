@@ -1,5 +1,6 @@
 // pacotes nativos do flutter
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'dart:async';
 
 // import dos estilos
@@ -77,12 +78,12 @@ class _LoadingConnectionState extends State<LoadingConnection> {
               ),
             ),
 
-            const Padding(
-              padding: EdgeInsets.fromLTRB(22, 60, 22, 10),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(22, 60, 22, 10),
               child: Text(
-                "Verifique sua conexão com a internet, para poder continuar utilizando o app.",
+                FlutterI18n.translate(context, "widgets.connection.title"),
                 textAlign: TextAlign.center,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 17,
                   color: AppColors.whiteSmoke,
                 ),

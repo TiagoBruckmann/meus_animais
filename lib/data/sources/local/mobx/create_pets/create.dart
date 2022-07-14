@@ -92,7 +92,7 @@ abstract class _CreateMobx with Store {
     if ( birth.trim().isEmpty || birth.length != 10 ) {
       CustomSnackBar(
         context,
-        "Informe a data de adoção/nascimento do seu amiguinho!",
+        "Informe o nome do seu amiguinho!",
         Colors.red,
       );
       return;
@@ -104,7 +104,7 @@ abstract class _CreateMobx with Store {
     if ( day > 31 && month > 12 && year > DateTime.now().year ) {
       CustomSnackBar(
         context,
-        "Informe uma data válida!",
+        "Informe o nome do seu amiguinho!",
         Colors.red,
       );
       return;
@@ -112,7 +112,7 @@ abstract class _CreateMobx with Store {
     if ( picture == null && sex.trim().isEmpty && specie.trim().isEmpty && breed.trim().isEmpty ) {
       CustomSnackBar(
         context,
-        "Existe campos não preenchidos, por favor preencha-os!",
+        "Informe o nome do seu amiguinho!",
         Colors.red,
       );
       return;

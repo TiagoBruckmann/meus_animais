@@ -38,7 +38,7 @@ abstract class _ForgotMobx with Store {
     String email = controllerEmail.text;
 
     if ( email.trim().isEmpty || !email.contains("@") ) {
-      setMessage("Preencha um e-mail valido");
+      setMessage("Preencha um e-mail válido");
       return;
     }
 

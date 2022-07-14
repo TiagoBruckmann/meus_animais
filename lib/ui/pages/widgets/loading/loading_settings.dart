@@ -1,5 +1,6 @@
 // imports nativos do flutter
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 
 // import dos pacotes
 import 'package:shimmer_animation/shimmer_animation.dart';
@@ -42,9 +43,9 @@ class LoadingSettings extends StatelessWidget {
                 colorOpacity: 0.6,
                 enabled: true,
                 direction: const ShimmerDirection.fromLTRB(),
-                child: const Text(
-                  "Nome do usuário",
-                  style: TextStyle(
+                child: Text(
+                  FlutterI18n.translate(context, "widgets.settings.title"),
+                  style: const TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.w500,
                   ),
@@ -56,9 +57,9 @@ class LoadingSettings extends StatelessWidget {
                 colorOpacity: 0.6,
                 enabled: true,
                 direction: const ShimmerDirection.fromLTRB(),
-                child: const Text(
-                  "E-mail do usuário",
-                  style: TextStyle(
+                child: Text(
+                  FlutterI18n.translate(context, "widgets.settings.subtitle"),
+                  style: const TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.w500,
                   ),
@@ -83,12 +84,12 @@ class LoadingSettings extends StatelessWidget {
 
             // geral
             Row(
-              children: const [
+              children: [
                 Padding(
-                  padding: EdgeInsets.symmetric( horizontal: 16 ),
+                  padding: const EdgeInsets.symmetric( horizontal: 16 ),
                   child: Text(
-                    "GERAL",
-                    style: TextStyle(
+                    FlutterI18n.translate(context, "widgets.settings.main"),
+                    style: const TextStyle(
                       fontSize: 22,
                       fontWeight: FontWeight.w800,
                     ),
@@ -114,12 +115,12 @@ class LoadingSettings extends StatelessWidget {
 
             // Sugestões
             Row(
-              children: const [
+              children: [
                 Padding(
-                  padding: EdgeInsets.fromLTRB(30, 0, 16, 0),
+                  padding: const EdgeInsets.fromLTRB(30, 0, 16, 0),
                   child: Text(
-                    "Deixe sua opnião sobre o app",
-                    style: TextStyle(
+                    FlutterI18n.translate(context, "widgets.settings.rate"),
+                    style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w500,
                     ),
@@ -145,12 +146,12 @@ class LoadingSettings extends StatelessWidget {
 
             // desconectar
             Row(
-              children: const [
+              children: [
                 Padding(
-                  padding: EdgeInsets.fromLTRB(30, 0, 16, 0),
+                  padding: const EdgeInsets.fromLTRB(30, 0, 16, 0),
                   child: Text(
-                    "Desconectar",
-                    style: TextStyle(
+                    FlutterI18n.translate(context, "widgets.settings.logout.title"),
+                    style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w500,
                     ),
@@ -176,12 +177,12 @@ class LoadingSettings extends StatelessWidget {
 
             // FAQ
             Row(
-              children: const [
+              children: [
                 Padding(
-                  padding: EdgeInsets.symmetric( horizontal: 16 ),
+                  padding: const EdgeInsets.symmetric( horizontal: 16 ),
                   child: Text(
-                    "FAQ",
-                    style: TextStyle(
+                    FlutterI18n.translate(context, "widgets.settings.faq"),
+                    style: const TextStyle(
                       fontSize: 22,
                       fontWeight: FontWeight.w800,
                     ),
@@ -276,9 +277,9 @@ class LoadingSettings extends StatelessWidget {
                     colorOpacity: 0.6,
                     enabled: true,
                     direction: const ShimmerDirection.fromLTRB(),
-                    child: const Text(
-                      "Excluir minha conta",
-                      style: TextStyle(
+                    child: Text(
+                      FlutterI18n.translate(context, "widgets.settings.destroy.destroy"),
+                      style: const TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w500,
                       ),

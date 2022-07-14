@@ -1,5 +1,6 @@
 // pacotes nativos flutter
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 
 // import dos sources
 import 'package:meus_animais/data/sources/local/injection/injection.dart';
@@ -52,7 +53,9 @@ class _SettingsPageState extends State<SettingsPage> {
 
         return Scaffold(
           appBar: AppBar(
-            title: const Text("Perfil"),
+            title: Text(
+              FlutterI18n.translate(context, "widgets.settings.appbar"),
+            ),
           ),
 
           body: ( _connectionMobx.connectionStatus.toString() == "ConnectivityResult.none" )
@@ -102,12 +105,12 @@ class _SettingsPageState extends State<SettingsPage> {
 
                   // geral
                   Row(
-                    children: const [
+                    children: [
                       Padding(
-                        padding: EdgeInsets.symmetric( horizontal: 16 ),
+                        padding: const EdgeInsets.symmetric( horizontal: 16 ),
                         child: Text(
-                          "GERAL",
-                          style: TextStyle(
+                          FlutterI18n.translate(context, "widgets.settings.main"),
+                          style: const TextStyle(
                             fontSize: 22,
                             fontWeight: FontWeight.w800,
                           ),
@@ -131,11 +134,11 @@ class _SettingsPageState extends State<SettingsPage> {
                         onTap: () {
                           Services().rateApp();
                         },
-                        child: const Padding(
-                          padding: EdgeInsets.fromLTRB(30, 0, 16, 0),
+                        child: Padding(
+                          padding: const EdgeInsets.fromLTRB(30, 0, 16, 0),
                           child: Text(
-                            "Deixe sua opnião sobre o app",
-                            style: TextStyle(
+                            FlutterI18n.translate(context, "widgets.settings.rate"),
+                            style: const TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w500,
                             ),
@@ -161,16 +164,16 @@ class _SettingsPageState extends State<SettingsPage> {
                           onTap: () {
                             showDialog(
                               context: context,
-                              builder: (builder) => const PopUpWidget(
+                              builder: (builder) => PopUpWidget(
                                 type: "Logout",
-                                title: "Desconectar",
-                                text: "Deseja mesmo desconectar da sua conta?",
+                                title: FlutterI18n.translate(context, "widgets.settings.logout.title"),
+                                text: FlutterI18n.translate(context, "widgets.settings.logout.text"),
                               ),
                             );
                           },
-                          child: const Text(
-                            "Desconectar",
-                            style: TextStyle(
+                          child: Text(
+                            FlutterI18n.translate(context, "widgets.settings.logout.title"),
+                            style: const TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w500,
                             ),
@@ -190,12 +193,12 @@ class _SettingsPageState extends State<SettingsPage> {
 
                   // FAQ
                   Row(
-                    children: const [
+                    children: [
                       Padding(
-                        padding: EdgeInsets.symmetric( horizontal: 16 ),
+                        padding: const EdgeInsets.symmetric( horizontal: 16 ),
                         child: Text(
-                          "FAQ",
-                          style: TextStyle(
+                          FlutterI18n.translate(context, "widgets.settings.faq"),
+                          style: const TextStyle(
                             fontSize: 22,
                             fontWeight: FontWeight.w800,
                           ),
@@ -281,16 +284,16 @@ class _SettingsPageState extends State<SettingsPage> {
                           onTap: () {
                             showDialog(
                               context: context,
-                              builder: (builder) => const PopUpWidget(
+                              builder: (builder) => PopUpWidget(
                                 type: "Destroy",
-                                title: "Deletar sua conta?",
-                                text: "Deseja mesmo confirmar a exclusão da sua conta? esta ação não poderá ser desfeita!",
+                                title: FlutterI18n.translate(context, "widgets.settings.destroy.title"),
+                                text: FlutterI18n.translate(context, "widgets.settings.destroy.text"),
                               ),
                             );
                           },
-                          child: const Text(
-                            "Excluir minha conta",
-                            style: TextStyle(
+                          child: Text(
+                            FlutterI18n.translate(context, "widgets.settings.destroy.destroy"),
+                            style: const TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w500,
                             ),

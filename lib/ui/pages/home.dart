@@ -1,6 +1,7 @@
 // pacotes nativos flutter
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 
 // import das telas
 import 'package:meus_animais/ui/pages/settings/settings.dart';
@@ -72,7 +73,7 @@ class _HomePageState extends State<HomePage> {
                   iconColor: AppColors.turbo,
                   icon: Icons.pets,
                   iconSize: 25,
-                  text: "Pets",
+                  text: FlutterI18n.translate(context, "home.main"),
                 ),
 
                 GButton(
@@ -80,7 +81,7 @@ class _HomePageState extends State<HomePage> {
                   backgroundColor: AppColors.turbo,
                   iconColor: AppColors.turbo,
                   icon: FontAwesomeIcons.circlePlus,
-                  text: "novo Pet",
+                  text: FlutterI18n.translate(context, "home.new"),
                 ),
 
                 GButton(
@@ -89,7 +90,7 @@ class _HomePageState extends State<HomePage> {
                   iconColor: AppColors.turbo,
                   icon: Icons.person,
                   iconSize: 25,
-                  text: "Configurações",
+                  text: FlutterI18n.translate(context, "home.settings"),
                 ),
               ],
               selectedIndex: _selectedIndex,

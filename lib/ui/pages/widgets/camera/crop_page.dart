@@ -1,5 +1,6 @@
 // pacotes nativos flutter
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 
 // import dos sources
 import 'package:meus_animais/data/sources/remote/services/services.dart';
@@ -48,7 +49,7 @@ class _CropPageState extends State<CropPage> {
 
               TextButton(
                 child: Text(
-                  'Nova imagem',
+                  FlutterI18n.translate(context, "widgets.crop.new"),
                   style: Theme.of(context).textTheme.button!.copyWith(color: Colors.white),
                 ),
                 onPressed: () {
@@ -58,7 +59,7 @@ class _CropPageState extends State<CropPage> {
 
               TextButton(
                 child: Text(
-                  'Salvar imagem',
+                  FlutterI18n.translate(context, "widgets.crop.save"),
                   style: Theme.of(context).textTheme.button!.copyWith(color: Colors.white),
                 ),
                 onPressed: () {

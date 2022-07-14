@@ -1,5 +1,6 @@
 // pacotes nativos flutter
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'dart:io';
 
 // import dos sources
@@ -102,7 +103,9 @@ class _CreatePetPageState extends State<CreatePetPage> {
 
         return Scaffold(
           appBar: AppBar(
-            title: const Text("Cadastrar pet"),
+            title: Text(
+              FlutterI18n.translate(context, "pages.pets.create.appbar"),
+            ),
           ),
 
           body: ( _connectionMobx.connectionStatus.toString() == "ConnectivityResult.none" )
@@ -147,16 +150,16 @@ class _CreatePetPageState extends State<CreatePetPage> {
 
                 SizedBox(
                   width: MediaQuery.of(context).size.width,
-                  child: const Card(
+                  child: Card(
                     color: AppColors.barossa,
                     elevation: 0,
                     child: Padding(
-                      padding: EdgeInsets.symmetric( vertical: 15 ),
+                      padding: const EdgeInsets.symmetric( vertical: 15 ),
                       child: Text(
-                        "Dados do pet",
+                        FlutterI18n.translate(context, "pages.pets.edit.detail"),
                         overflow: TextOverflow.fade,
                         textAlign: TextAlign.center,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 17,
                           color: AppColors.whiteSmoke,
                         ),
@@ -177,7 +180,7 @@ class _CreatePetPageState extends State<CreatePetPage> {
                     textInputAction: TextInputAction.next,
                     decoration: InputDecoration(
                       contentPadding: const EdgeInsets.all(16),
-                      labelText: "Nome",
+                      labelText: FlutterI18n.translate(context, "pages.pets.edit.name"),
                       labelStyle: const TextStyle(
                         color: AppColors.barossa,
                       ),
@@ -213,7 +216,7 @@ class _CreatePetPageState extends State<CreatePetPage> {
                     textInputAction: TextInputAction.done,
                     decoration: InputDecoration(
                       contentPadding: const EdgeInsets.all(16),
-                      labelText: "Peso",
+                      labelText: FlutterI18n.translate(context, "pages.pets.edit.weight"),
                       labelStyle: const TextStyle(
                         color: AppColors.barossa,
                       ),
@@ -246,7 +249,7 @@ class _CreatePetPageState extends State<CreatePetPage> {
                       "Macho",
                       "Femea",
                     ],
-                    label: "Sexo do animal",
+                    label: FlutterI18n.translate(context, "pages.pets.create.sex_empty"),
                     selectedItem: _createMobx.sex,
                     onChanged: (value) {
                       _createMobx.setSex(value.toString());
@@ -262,7 +265,7 @@ class _CreatePetPageState extends State<CreatePetPage> {
                         child: ListTile(
                           title: Text(
                             ( _createMobx.sex.trim().isEmpty )
-                            ? "Selecione o sexo do animal"
+                            ? FlutterI18n.translate(context, "pages.pets.create.sex_empty")
                             : _createMobx.sex,
                           ),
                         ),
@@ -294,12 +297,16 @@ class _CreatePetPageState extends State<CreatePetPage> {
                   child: FindDropdown<ModelLifeTime>(
                     items: _lifeTimeManager.list,
                     showSearchBox: false,
-                    label: "Especie do animal",
+                    label: FlutterI18n.translate(context, "pages.pets.create.specie_empty"),
                     errorBuilder: ( context, item ) {
-                      return const DropdownError(text: "Nenhuma especie encontrada.");
+                      return DropdownError(
+                        text: FlutterI18n.translate(context, "pages.pets.create.specie_error"),
+                      );
                     },
                     emptyBuilder: ( item ) {
-                      return const DropdownError(text: "Nenhuma especie encontrada.");
+                      return DropdownError(
+                        text: FlutterI18n.translate(context, "pages.pets.create.specie_error"),
+                      );
                     },
                     onChanged: (value) {
                       _createMobx.setSpecie(value!.name);
@@ -315,7 +322,7 @@ class _CreatePetPageState extends State<CreatePetPage> {
                         child: ListTile(
                           title: Text(
                             ( _createMobx.specie.trim().isEmpty )
-                            ? "Selecione a especie do animal"
+                            ? FlutterI18n.translate(context, "pages.pets.create.specie_empty")
                             : _createMobx.specie,
                           ),
                         ),
@@ -353,7 +360,7 @@ class _CreatePetPageState extends State<CreatePetPage> {
                     textInputAction: TextInputAction.next,
                     decoration: InputDecoration(
                       contentPadding: const EdgeInsets.all(16),
-                      labelText: "Raça",
+                      labelText: FlutterI18n.translate(context, "pages.pets.edit.breed"),
                       labelStyle: const TextStyle(
                         color: AppColors.barossa,
                       ),
@@ -389,7 +396,7 @@ class _CreatePetPageState extends State<CreatePetPage> {
                     textInputAction: TextInputAction.done,
                     decoration: InputDecoration(
                       contentPadding: const EdgeInsets.all(16),
-                      labelText: "Nascimento/Adoção",
+                      labelText: FlutterI18n.translate(context, "pages.pets.edit.birth"),
                       labelStyle: const TextStyle(
                         color: AppColors.barossa,
                       ),
@@ -427,11 +434,11 @@ class _CreatePetPageState extends State<CreatePetPage> {
 
                           const Text(""),
 
-                          const Text(
-                            "Vacinas",
+                          Text(
+                            FlutterI18n.translate(context, "pages.pets.edit.vaccines"),
                             overflow: TextOverflow.fade,
                             textAlign: TextAlign.center,
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 17,
                               color: AppColors.whiteSmoke,
                             ),
@@ -475,11 +482,11 @@ class _CreatePetPageState extends State<CreatePetPage> {
 
                           const Text(""),
 
-                          const Text(
-                            "Higiene",
+                          Text(
+                            FlutterI18n.translate(context, "pages.pets.edit.hygiene"),
                             overflow: TextOverflow.fade,
                             textAlign: TextAlign.center,
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 17,
                               color: AppColors.whiteSmoke,
                             ),
@@ -528,8 +535,8 @@ class _CreatePetPageState extends State<CreatePetPage> {
                     ),
                     child: Text(
                       ( _createMobx.clicked == false )
-                      ? "Cadastrar"
-                      : "Aguarde...",
+                      ? FlutterI18n.translate(context, "btn_register")
+                      : FlutterI18n.translate(context, "btn_await"),
                       style: TextStyle(
                         color: Theme.of(context).primaryColor,
                         fontSize: 20,

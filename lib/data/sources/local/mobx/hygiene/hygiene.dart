@@ -78,14 +78,6 @@ abstract class _HygieneMobx with Store {
       );
       return;
     }
-    if ( value == "0,00" ) {
-      CustomSnackBar(
-        context,
-        "Insira um valor válido",
-        Colors.red,
-      );
-      return;
-    }
 
     hygieneManager.listHygiene.add(
       ModelHygienePets(

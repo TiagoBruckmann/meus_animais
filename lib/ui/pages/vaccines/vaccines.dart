@@ -1,5 +1,6 @@
 // pacotes nativos flutter
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 
 // import dos modelos
 import 'package:meus_animais/domain/models/vaccines/vaccines.dart';
@@ -57,7 +58,7 @@ class Vaccines extends StatelessWidget {
 
                 Text.rich(
                   TextSpan(
-                    text: "Tipo: ",
+                    text: FlutterI18n.translate(context, "pages.vaccines.type"),
                     style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 18,
@@ -87,14 +88,14 @@ class Vaccines extends StatelessWidget {
 
                 Text.rich(
                   TextSpan(
-                    text: "reaplicar: ",
+                    text: FlutterI18n.translate(context, "pages.vaccines.reapply"),
                     style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 18,
                     ),
                     children: [
                       TextSpan(
-                        text: "Sim, em ${modelVaccines.time} ${modelVaccines.typeTime}",
+                        text: FlutterI18n.translate(context, "pages.vaccines.reapply", translationParams: <String, String>{"time": modelVaccines.time!, "type_time": modelVaccines.typeTime!}),
                         style: const TextStyle(
                           fontWeight: FontWeight.w300,
                           fontSize: 18,

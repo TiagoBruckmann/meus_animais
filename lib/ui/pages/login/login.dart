@@ -1,5 +1,6 @@
 // pacotes nativos do flutter
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 
 // import dos data
 import 'package:meus_animais/data/sources/remote/services/services.dart';
@@ -75,12 +76,12 @@ class _LoginPageState extends State<LoginPage> {
                       height: 100,
                     ),
                     */
-                    const Padding(
-                      padding: EdgeInsets.all(30),
+                    Padding(
+                      padding: const EdgeInsets.all(30),
                       child: Center(
                         child: Text(
-                          "Autenticação",
-                          style: TextStyle(
+                          FlutterI18n.translate(context, "pages.login.title"),
+                          style: const TextStyle(
                             fontSize: 25,
                           ),
                         ),
@@ -98,7 +99,7 @@ class _LoginPageState extends State<LoginPage> {
                         textInputAction: TextInputAction.next,
                         decoration: InputDecoration(
                           contentPadding: const EdgeInsets.all(16),
-                          labelText: "E-mail",
+                          labelText: FlutterI18n.translate(context, "pages.login.email"),
                           labelStyle: const TextStyle(
                             color: AppColors.barossa,
                           ),
@@ -132,7 +133,7 @@ class _LoginPageState extends State<LoginPage> {
                       style: const TextStyle(fontSize: 20),
                       decoration: InputDecoration(
                         contentPadding: const EdgeInsets.fromLTRB( 16, 16, 0, 16),
-                        labelText: "Senha",
+                        labelText: FlutterI18n.translate(context, "pages.login.password"),
                         labelStyle: TextStyle(
                           color: Theme.of(context).primaryColor,
                         ),
@@ -180,19 +181,19 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
-                          children: const [
-                            Icon(
+                          children: [
+                            const Icon(
                               Icons.login,
                               color: Colors.white,
                             ),
                             Padding(
-                              padding: EdgeInsets.only(right: 5),
-                            ),
-                            Text(
-                              "Entrar",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 20,
+                              padding: const EdgeInsets.only(right: 5),
+                              child: Text(
+                                FlutterI18n.translate(context, "btn_login"),
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 20,
+                                ),
                               ),
                             ),
                           ],
@@ -211,11 +212,11 @@ class _LoginPageState extends State<LoginPage> {
                               "/register",
                             );
                           },
-                          child: const Padding(
-                            padding: EdgeInsets.fromLTRB(20, 15, 20, 10),
+                          child: Padding(
+                            padding: const EdgeInsets.fromLTRB(20, 15, 20, 10),
                             child: Text(
-                              "Cadastrar",
-                              style: TextStyle(
+                              FlutterI18n.translate(context, "btn_register"),
+                              style: const TextStyle(
                                 color: Colors.black,
                                 fontWeight: FontWeight.w700,
                                 fontSize: 16,
@@ -231,11 +232,11 @@ class _LoginPageState extends State<LoginPage> {
                               "/forgot_password",
                             );
                           },
-                          child: const Padding(
-                            padding: EdgeInsets.fromLTRB(20, 15, 20, 10),
+                          child: Padding(
+                            padding: const EdgeInsets.fromLTRB(20, 15, 20, 10),
                             child: Text(
-                              "Esqueceu\nsua senha?",
-                              style: TextStyle(
+                              FlutterI18n.translate(context, "pages.login.login.forgot"),
+                              style: const TextStyle(
                                 color: Colors.black,
                                 fontWeight: FontWeight.w700,
                                 fontSize: 16,
