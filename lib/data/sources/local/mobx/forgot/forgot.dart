@@ -8,6 +8,7 @@ import 'package:meus_animais/data/sources/remote/services/services.dart';
 import 'package:meus_animais/domain/models/users/login.dart';
 
 // import dos pacotes
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:mobx/mobx.dart';
 part 'forgot.g.dart';
 
@@ -38,8 +39,7 @@ abstract class _ForgotMobx with Store {
     String email = controllerEmail.text;
 
     if ( email.trim().isEmpty || !email.contains("@") ) {
-      setMessage("Preencha um e-mail válido");
-      return;
+      return setMessage(FlutterI18n.translate(context, "custom_message.register.validate.email"));
     }
 
     forgotManager.modelLogin = ModelLogin(email, "", context: context);

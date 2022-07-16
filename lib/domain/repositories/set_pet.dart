@@ -1,6 +1,5 @@
 // imports nativos
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 
 // import dos sources
 import 'package:meus_animais/data/sources/local/manager/set_vaccines.dart';
@@ -13,6 +12,8 @@ import 'package:meus_animais/domain/models/pets/pets.dart';
 import 'package:meus_animais/ui/pages/widgets/message.dart';
 
 // import dos pacotes
+import 'package:flutter_i18n/flutter_i18n.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:injectable/injectable.dart';
 
 abstract class SetPetRepository {
@@ -45,7 +46,7 @@ class SetPetFirebase implements SetPetRepository {
     }).onError((error, stackTrace) {
       CustomSnackBar(
         context,
-        "não foi possivel cadastrar o pet, tente novamente mais tarde",
+        FlutterI18n.translate(context, "custom_message.set_pet.error"),
         Colors.red,
       );
       crash.recordError(error, stackTrace);

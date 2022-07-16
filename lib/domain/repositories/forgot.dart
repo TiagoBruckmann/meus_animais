@@ -11,6 +11,7 @@ import 'package:meus_animais/domain/models/users/login.dart';
 import 'package:meus_animais/ui/pages/widgets/message.dart';
 
 // import dos pacotes
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:injectable/injectable.dart';
 
 abstract class ForgotRepository {
@@ -25,19 +26,23 @@ class ForgotFirebase implements ForgotRepository {
     await auth.sendPasswordResetEmail(
       email: modelLogin.email,
     ).then(( data ) async {
+
       emailVerified = true;
       CustomSnackBar(
         modelLogin.context,
-        "Link de redefinição enviado com sucesso!",
+        FlutterI18n.translate(modelLogin.context, "custom_message.forgot.success"),
         Colors.green,
       );
+
     }).onError((error, stackTrace) {
+
       emailVerified = false;
       CustomSnackBar(
         modelLogin.context,
-        "Não foi possivel enviar sua senha de redefinição, tente novamente!",
+        FlutterI18n.translate(modelLogin.context, "custom_message.forgot.error"),
         Colors.red,
       );
+
       crash.recordError(error, stackTrace);
       crash.log(error.toString());
     });

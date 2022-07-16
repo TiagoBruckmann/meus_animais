@@ -1,6 +1,5 @@
 // pacotes nativos flutter
 import 'package:flutter/material.dart';
-import 'package:flutter_i18n/flutter_i18n.dart';
 
 // import dos sources
 import 'package:meus_animais/data/sources/local/injection/injection.dart';
@@ -14,6 +13,7 @@ import 'package:meus_animais/ui/styles/app_colors.dart';
 // import dos pacotes
 import 'package:find_dropdown/find_dropdown.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:provider/provider.dart';
 
 // gerencia de estado
@@ -223,7 +223,7 @@ class _CreateHygieneState extends State<CreateHygiene> {
                     style: const TextStyle(
                       fontSize: 20,
                     ),
-                    textInputAction: TextInputAction.next,
+                    textInputAction: TextInputAction.done,
                     decoration: InputDecoration(
                       contentPadding: const EdgeInsets.all(16),
                       labelText: FlutterI18n.translate(context, "pages.hygiene.create.value"),

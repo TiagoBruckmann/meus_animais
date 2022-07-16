@@ -9,6 +9,7 @@ import 'package:meus_animais/domain/models/pets/pets.dart';
 import 'package:meus_animais/ui/pages/widgets/message.dart';
 
 // import dos pacotes
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:injectable/injectable.dart';
 
 abstract class UpdatePetRepository {
@@ -32,7 +33,7 @@ class UpdatePetFirebase implements UpdatePetRepository {
     }).onError((error, stackTrace) {
       CustomSnackBar(
         context,
-        "não foi possivel atualizar o pet, tente novamente mais tarde",
+        FlutterI18n.translate(context, "custom_message.update_pet.error"),
         Colors.red,
       );
       crash.recordError(error, stackTrace);

@@ -13,8 +13,8 @@ mixin _$PetsMobx on _PetsMobx, Store {
       AsyncAction('_PetsMobx.getPets', context: context);
 
   @override
-  Future<List<ModelPets>> getPets() {
-    return _$getPetsAsyncAction.run(() => super.getPets());
+  Future<List<ModelPets>> getPets(dynamic context) {
+    return _$getPetsAsyncAction.run(() => super.getPets(context));
   }
 
   late final _$refreshAsyncAction =
@@ -34,17 +34,6 @@ mixin _$PetsMobx on _PetsMobx, Store {
         _$_PetsMobxActionController.startAction(name: '_PetsMobx.setPets');
     try {
       return super.setPets(iterable);
-    } finally {
-      _$_PetsMobxActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  void clear() {
-    final _$actionInfo =
-        _$_PetsMobxActionController.startAction(name: '_PetsMobx.clear');
-    try {
-      return super.clear();
     } finally {
       _$_PetsMobxActionController.endAction(_$actionInfo);
     }

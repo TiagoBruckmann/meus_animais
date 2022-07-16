@@ -1,6 +1,5 @@
 // pacotes nativos flutter
 import 'package:flutter/material.dart';
-import 'package:flutter_i18n/flutter_i18n.dart';
 
 // import dos sources
 import 'package:meus_animais/data/sources/remote/services/services.dart';
@@ -16,6 +15,7 @@ import 'package:meus_animais/ui/styles/app_images.dart';
 // import dos pacotes
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:provider/provider.dart';
 
 // gerencia de estado
@@ -115,11 +115,11 @@ class _EditPetsState extends State<EditPets> {
                       alignment: AlignmentDirectional.center,
                       children: [
 
-                        ( widget.modelPets.picture.trim().isEmpty )
-                        ? Image.asset(
+                        Image.asset(
                           AppImages.loading,
-                        )
-                        : Image.network(
+                        ),
+
+                        Image.network(
                           widget.modelPets.picture,
                         ),
 
@@ -508,7 +508,7 @@ class _EditPetsState extends State<EditPets> {
                   width: width,
                   child: ElevatedButton(
                     onPressed: () {
-                      _editMobx.validateFields(widget.modelPets, context);
+                      _editMobx.validateFields(context);
                     },
                     style: ElevatedButton.styleFrom(
                       primary: Theme.of(context).cardColor,

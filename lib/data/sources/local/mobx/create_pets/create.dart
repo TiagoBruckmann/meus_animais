@@ -17,6 +17,7 @@ import 'package:meus_animais/ui/pages/widgets/message.dart';
 // import dos pacotes
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:mobx/mobx.dart';
 import 'package:intl/intl.dart';
 part 'create.g.dart';
@@ -42,7 +43,7 @@ abstract class _CreateMobx with Store {
   TextEditingController controllerBreed = TextEditingController();
 
   @observable
-  MoneyMaskedTextController controllerWeight = MoneyMaskedTextController(decimalSeparator: ".", precision: 2);
+  MoneyMaskedTextController controllerWeight = MoneyMaskedTextController(leftSymbol: "KG ", decimalSeparator: ".", precision: 2);
 
   @observable
   MaskedTextController controllerBirth = MaskedTextController(mask: "00/00/0000");
@@ -69,53 +70,48 @@ abstract class _CreateMobx with Store {
     analytics.logEvent(name: "validate_pet");
     String userId = userManager.modelUser!.id;
     String name = controllerName.text;
-    double weight = double.parse(controllerWeight.text);
+    double weight = double.parse(controllerWeight.text.replaceAll("KG ", ""));
     String birth = controllerBirth.text;
     String breed = controllerBreed.text;
 
     if ( name.trim().isEmpty && name.trim().length < 3 ) {
-      CustomSnackBar(
+      return CustomSnackBar(
         context,
-        "Informe o nome do seu amiguinho!",
+        FlutterI18n.translate(context, "custom_message.set_pet.validate.name"),
         Colors.red,
       );
-      return;
     }
     if ( weight == 0.0 ) {
-      CustomSnackBar(
+      return CustomSnackBar(
         context,
-        "Informe o peso do seu amiguinho!",
+        FlutterI18n.translate(context, "custom_message.set_pet.validate.weight"),
         Colors.red,
       );
-      return;
     }
     if ( birth.trim().isEmpty || birth.length != 10 ) {
-      CustomSnackBar(
+      return CustomSnackBar(
         context,
-        "Informe o nome do seu amiguinho!",
+        FlutterI18n.translate(context, "custom_message.set_pet.validate.birth"),
         Colors.red,
       );
-      return;
     }
 
     int day = int.parse(birth.split("/")[0]);
     int month = int.parse(birth.split("/")[1]);
     int year = int.parse(birth.split("/")[2]);
     if ( day > 31 && month > 12 && year > DateTime.now().year ) {
-      CustomSnackBar(
+      return CustomSnackBar(
         context,
-        "Informe o nome do seu amiguinho!",
+        FlutterI18n.translate(context, "custom_message.set_pet.validate.day"),
         Colors.red,
       );
-      return;
     }
     if ( picture == null && sex.trim().isEmpty && specie.trim().isEmpty && breed.trim().isEmpty ) {
-      CustomSnackBar(
+      return CustomSnackBar(
         context,
-        "Informe o nome do seu amiguinho!",
+        FlutterI18n.translate(context, "custom_message.set_pet.validate.another"),
         Colors.red,
       );
-      return;
     }
 
     setClicked( true );
@@ -156,6 +152,8 @@ abstract class _CreateMobx with Store {
     controllerName.dispose();
     controllerWeight.dispose();
     controllerBirth.dispose();
+    listHygiene.clear();
+    listVaccines.clear();
   }
 
 }

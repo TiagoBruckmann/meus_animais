@@ -50,7 +50,9 @@ final Iterable<LocalizationsDelegate<dynamic>> localizationsDelegate = [
     translationLoader: FileTranslationLoader(
       useCountryCode: false,
       basePath: "assets/languages",
-      fallbackFile: Platform.localeName,
+      fallbackFile: ( Platform.localeName == "pt_BR" )
+      ? "pt_BR"
+      : "en_US",
     ),
   ),
 ];

@@ -8,6 +8,7 @@ import 'package:meus_animais/data/sources/remote/services/services.dart';
 import 'package:meus_animais/domain/models/users/login.dart';
 
 // import dos pacotes
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:mobx/mobx.dart';
 part 'register.g.dart';
 
@@ -47,13 +48,13 @@ abstract class _RegisterMobx with Store {
     String passwd = controllerPasswd.text;
 
     if ( name.trim().isEmpty || name.trim().length < 2 ) {
-      return setMessage("Nós informe seu nome");
+      return setMessage(FlutterI18n.translate(context, "custom_message.register.validate.name"));
     }
     if ( email.trim().isEmpty || !email.contains("@") ) {
-      return setMessage("Preencha um e-mail válido");
+      return setMessage(FlutterI18n.translate(context, "custom_message.vaccines.validate.email"));
     }
     if ( passwd.trim().isEmpty && passwd.trim().length < 5 ) {
-      return setMessage("Preencha a sua senha");
+      return setMessage(FlutterI18n.translate(context, "custom_message.vaccines.validate.password"));
     }
 
     setMessage("");

@@ -1,6 +1,5 @@
 // pacotes nativos flutter
 import 'package:flutter/material.dart';
-import 'package:flutter_i18n/flutter_i18n.dart';
 import 'dart:io';
 
 // import dos sources
@@ -21,6 +20,7 @@ import 'package:meus_animais/ui/styles/app_images.dart';
 // import dos pacotes
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:find_dropdown/find_dropdown.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
@@ -92,6 +92,12 @@ class _CreatePetPageState extends State<CreatePetPage> {
     _connectionMobx = Provider.of<ConnectionMobx>(context);
     await _connectionMobx.verifyConnection();
     _connectionMobx.connectivity.onConnectivityChanged.listen(_connectionMobx.updateConnectionStatus);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _createMobx.clear();
   }
 
   @override
@@ -527,7 +533,9 @@ class _CreatePetPageState extends State<CreatePetPage> {
                       }
                     },
                     style: ElevatedButton.styleFrom(
-                      primary: Theme.of(context).cardColor,
+                      primary: ( _createMobx.clicked == false )
+                      ? Theme.of(context).cardColor
+                      : Theme.of(context).primaryColor,
                       padding: const EdgeInsets.symmetric( vertical: 16, horizontal: 36 ),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
@@ -538,7 +546,9 @@ class _CreatePetPageState extends State<CreatePetPage> {
                       ? FlutterI18n.translate(context, "btn_register")
                       : FlutterI18n.translate(context, "btn_await"),
                       style: TextStyle(
-                        color: Theme.of(context).primaryColor,
+                        color: ( _createMobx.clicked == false )
+                        ? Theme.of(context).primaryColor
+                        : Theme.of(context).cardColor,
                         fontSize: 20,
                       ),
                     ),

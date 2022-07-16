@@ -1,6 +1,9 @@
 // import dos sources
 import 'package:flutter/material.dart';
 
+// import das telas
+import 'package:meus_animais/ui/pages/widgets/message.dart';
+
 // import dos sources
 import 'package:meus_animais/data/sources/remote/services/services.dart';
 
@@ -9,8 +12,8 @@ import 'package:meus_animais/domain/models/users/login.dart';
 import 'package:meus_animais/domain/models/users/user.dart';
 
 // import dos pacotes
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:injectable/injectable.dart';
-import 'package:meus_animais/ui/pages/widgets/message.dart';
 
 abstract class RegisterRepository {
   register( ModelLogin modelLogin );
@@ -37,7 +40,7 @@ class RegisterFirebase implements RegisterRepository {
 
       CustomSnackBar(
         modelLogin.context,
-        "Cadastro efetuado com sucesso.",
+        FlutterI18n.translate(modelLogin.context, "custom_message.register.success"),
         Colors.green,
       );
 
@@ -50,7 +53,7 @@ class RegisterFirebase implements RegisterRepository {
     }).catchError((error) {
       CustomSnackBar(
         modelLogin.context,
-        "Houve um erro ao efetuar sua solicitação, tente novamente mais tarde!",
+        FlutterI18n.translate(modelLogin.context, "custom_message.register.error"),
         Colors.red,
       );
       crash.log(error.toString());

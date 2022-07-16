@@ -17,8 +17,9 @@ abstract class _PetsMobx with Store {
   ObservableList<ModelPets> listPets = ObservableList();
 
   @action
-  Future<List<ModelPets>> getPets() async {
+  Future<List<ModelPets>> getPets( context ) async {
     analytics.logEvent(name: "get_pets");
+    _petsManager.context = context;
     Iterable<ModelPets> iterable = await _petsManager.getPets();
     listPets.clear();
     setPets(iterable);
@@ -33,10 +34,6 @@ abstract class _PetsMobx with Store {
     analytics.logEvent(name: "refresh_pets");
     await Future.delayed(const Duration(seconds: 1, milliseconds: 500));
     listPets.clear();
-  }
-
-  @action
-  void clear() {
   }
 
 }

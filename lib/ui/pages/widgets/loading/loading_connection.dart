@@ -1,10 +1,12 @@
 // pacotes nativos do flutter
 import 'package:flutter/material.dart';
-import 'package:flutter_i18n/flutter_i18n.dart';
 import 'dart:async';
 
 // import dos estilos
 import 'package:meus_animais/ui/styles/app_colors.dart';
+
+// import dos pacotes
+import 'package:flutter_i18n/flutter_i18n.dart';
 
 class LoadingConnection extends StatefulWidget {
   const LoadingConnection({ Key? key }) : super(key: key);

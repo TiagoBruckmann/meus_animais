@@ -1,16 +1,19 @@
 // imports nativos do flutter
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 // import dos sources
+import 'package:meus_animais/data/sources/remote/services/services.dart';
 import 'package:meus_animais/data/sources/local/manager/set_hygiene.dart';
 import 'package:meus_animais/data/sources/local/injection/injection.dart';
+import 'package:meus_animais/domain/models/hygiene/hygiene_pets.dart';
+
+// import das telas
+import 'package:meus_animais/ui/pages/widgets/message.dart';
 
 // import dos pacotes
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
-import 'package:meus_animais/data/sources/remote/services/services.dart';
-import 'package:meus_animais/domain/models/hygiene/hygiene_pets.dart';
-import 'package:meus_animais/ui/pages/widgets/message.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
+import 'package:intl/intl.dart';
 import 'package:mobx/mobx.dart';
 part 'hygiene.g.dart';
 
@@ -47,36 +50,32 @@ abstract class _HygieneMobx with Store {
     int year = int.parse(date.split("/")[2]);
 
     if ( name.trim().isEmpty ) {
-      CustomSnackBar(
+      return CustomSnackBar(
         context,
-        "Selecione uma categoria de serviços.",
+        FlutterI18n.translate(context, "custom_message.hygiene.validate.name"),
         Colors.red,
       );
-      return;
     }
     if ( date.isEmpty && date.length != 10 ) {
-      CustomSnackBar(
+      return CustomSnackBar(
         context,
-        "Informe a data do serviço.",
+        FlutterI18n.translate(context, "custom_message.hygiene.validate.date"),
         Colors.red,
       );
-      return;
     }
     if ( day > 31 && month > 12 && year > DateTime.now().year ) {
-      CustomSnackBar(
+      return CustomSnackBar(
         context,
-        "Informe uma data válida!",
+        FlutterI18n.translate(context, "custom_message.hygiene.validate.day"),
         Colors.red,
       );
-      return;
     }
     if ( place.trim().isEmpty ) {
-      CustomSnackBar(
+      return CustomSnackBar(
         context,
-        "Informe o estabelecimento.",
+        FlutterI18n.translate(context, "custom_message.hygiene.validate.place"),
         Colors.red,
       );
-      return;
     }
 
     hygieneManager.listHygiene.add(

@@ -8,6 +8,7 @@ import 'package:meus_animais/data/sources/remote/services/services.dart';
 import 'package:meus_animais/domain/models/users/login.dart';
 
 // import dos pacotes
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:mobx/mobx.dart';
 part 'login.g.dart';
 
@@ -43,13 +44,11 @@ abstract class _LoginMobx with Store {
     String passwd = controllerPasswd.text;
 
     if ( email.trim().isEmpty || !email.contains("@") ) {
-      setMessage("Preencha um e-mail válido");
-      return;
+      return setMessage(FlutterI18n.translate(context, "custom_message.register.validate.email"));
     }
 
     if ( passwd.trim().isEmpty || passwd.trim().length < 5 ) {
-      setMessage("Preencha a sua senha");
-      return;
+      return setMessage(FlutterI18n.translate(context, "custom_message.register.validate.password"));
     }
 
     setMessage("");

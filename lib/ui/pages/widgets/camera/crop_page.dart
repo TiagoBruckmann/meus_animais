@@ -1,11 +1,11 @@
 // pacotes nativos flutter
 import 'package:flutter/material.dart';
-import 'package:flutter_i18n/flutter_i18n.dart';
 
 // import dos sources
 import 'package:meus_animais/data/sources/remote/services/services.dart';
 
 // import dos pacotes
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:image_crop/image_crop.dart';
 
 // gerencia de estado

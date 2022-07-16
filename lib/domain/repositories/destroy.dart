@@ -12,6 +12,7 @@ import 'package:meus_animais/ui/pages/widgets/message.dart';
 
 // import dos pacotes
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:injectable/injectable.dart';
 
 abstract class DestroyRepository {
@@ -29,8 +30,8 @@ class DestroyFirebase implements DestroyRepository {
       if ( user == null ) {
         CustomSnackBar(
           context,
-          "Não foi possível deletar sua conta, tente novamente!",
-          Colors.green,
+          FlutterI18n.translate(context, "custom_message.destroy.error"),
+          Colors.red,
         );
         return;
       }
@@ -47,7 +48,7 @@ class DestroyFirebase implements DestroyRepository {
 
         CustomSnackBar(
           context,
-          "Conta deletada com sucesso!",
+          FlutterI18n.translate(context, "custom_message.destroy.success"),
           Colors.green,
         );
 

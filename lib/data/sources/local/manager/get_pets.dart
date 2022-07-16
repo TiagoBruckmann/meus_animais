@@ -15,9 +15,10 @@ class GetPetsManager {
   final GetPetsRepository getPetsRepository;
 
   List<ModelPets> listPets = [];
+  dynamic context;
 
   Future<List<ModelPets>> getPets() async {
-    Iterable<ModelPets> iterable = await getPetsRepository.getPets();
+    Iterable<ModelPets> iterable = await getPetsRepository.getPets( context );
     listPets.clear();
     listPets.addAll(iterable);
     return listPets;

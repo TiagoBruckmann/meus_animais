@@ -1,7 +1,6 @@
 // pacotes nativos flutter
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_i18n/flutter_i18n.dart';
 
 // import das telas
 import 'package:meus_animais/ui/pages/settings/settings.dart';
@@ -12,6 +11,7 @@ import 'package:meus_animais/ui/pages/pets/pets.dart';
 // import dos pacotes
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);

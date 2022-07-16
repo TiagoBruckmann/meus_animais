@@ -10,13 +10,13 @@ import 'package:meus_animais/domain/models/pets/pets.dart';
 import 'package:injectable/injectable.dart';
 
 abstract class GetPetsRepository {
-  getPets();
+  getPets( context );
 }
 
 @Injectable(as: GetPetsRepository, env: ["firebase"])
 class GetPetsFirebase implements GetPetsRepository {
   @override
-  getPets() async {
+  getPets( context ) async {
 
     List<ModelPets> listPets = [];
 
@@ -26,7 +26,7 @@ class GetPetsFirebase implements GetPetsRepository {
           .get();
 
       for ( dynamic item in data.docs ) {
-        listPets.add(ModelPets.fromJson(item));
+        listPets.add(ModelPets.fromJson(item, context));
       }
     }
     return listPets;
@@ -36,7 +36,7 @@ class GetPetsFirebase implements GetPetsRepository {
 @Injectable(as: GetPetsRepository, env: ["api"])
 class GetPetsApi implements GetPetsRepository {
   @override
-  getPets() async {
+  getPets( context ) async {
     List<ModelPets> list = [
       ModelPets(
         "5",

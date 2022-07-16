@@ -1,12 +1,14 @@
 // pacotes nativos flutter
 import 'package:flutter/material.dart';
-import 'package:flutter_i18n/flutter_i18n.dart';
 
 // import dos modelos
 import 'package:meus_animais/domain/models/hygiene/hygiene_pets.dart';
 
 // imports das telas
 import 'package:meus_animais/ui/styles/app_colors.dart';
+
+// import dos pacotes
+import 'package:flutter_i18n/flutter_i18n.dart';
 
 class Hygiene extends StatelessWidget {
 

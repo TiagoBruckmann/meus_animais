@@ -8,6 +8,7 @@ import 'package:meus_animais/data/sources/remote/services/services.dart';
 import 'package:meus_animais/ui/pages/widgets/message.dart';
 
 // import dos pacotes
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:injectable/injectable.dart';
 
 abstract class LogoutRepository {
@@ -31,14 +32,14 @@ class LogoutFirebase implements LogoutRepository {
 
       CustomSnackBar(
         context,
-        "Desconectado com sucesso!",
+        FlutterI18n.translate(context, "custom_message.logout.success"),
         Colors.green,
       );
 
     }).onError((error, stackTrace) {
       CustomSnackBar(
         context,
-        "Não foi possivel efetuar o logout, tente novamente!",
+        FlutterI18n.translate(context, "custom_message.logout.error"),
         Colors.red,
       );
       crash.recordError(error, stackTrace);

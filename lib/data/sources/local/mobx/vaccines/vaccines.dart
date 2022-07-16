@@ -1,6 +1,9 @@
 // imports nativos do flutter
 import 'package:flutter/material.dart';
 
+// import das telas
+import 'package:meus_animais/ui/pages/widgets/message.dart';
+
 // import dos sources
 import 'package:meus_animais/data/sources/local/manager/set_vaccines.dart';
 import 'package:meus_animais/data/sources/local/injection/injection.dart';
@@ -9,7 +12,7 @@ import 'package:meus_animais/domain/models/vaccines/vaccines.dart';
 
 // import dos pacotes
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
-import 'package:meus_animais/ui/pages/widgets/message.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:mobx/mobx.dart';
 import 'package:intl/intl.dart';
 part 'vaccines.g.dart';
@@ -81,7 +84,7 @@ abstract class _VaccinesMobx with Store {
     if ( name.isEmpty && name.trim().length < 3 ) {
       CustomSnackBar(
         context,
-        "Insira um nome válido.",
+        FlutterI18n.translate(context, "custom_message.vaccines.validate.name"),
         Colors.red,
       );
       return;
@@ -89,7 +92,7 @@ abstract class _VaccinesMobx with Store {
     if ( type.isEmpty && type.trim().length < 3 ) {
       CustomSnackBar(
         context,
-        "Informe o tipo de vacina.",
+        FlutterI18n.translate(context, "custom_message.vaccines.validate.type"),
         Colors.red,
       );
       return;
@@ -97,7 +100,7 @@ abstract class _VaccinesMobx with Store {
     if ( day.isEmpty && day.length != 10 ) {
       CustomSnackBar(
         context,
-        "Informe o dia de aplicação da vacina.",
+        FlutterI18n.translate(context, "custom_message.vaccines.validate.day"),
         Colors.red,
       );
       return;
@@ -124,7 +127,7 @@ abstract class _VaccinesMobx with Store {
         } else {
           CustomSnackBar(
             context,
-            "Selecione o tempo estimado.",
+            FlutterI18n.translate(context, "custom_message.vaccines.validate.time"),
             Colors.red,
           );
           return;
@@ -132,7 +135,7 @@ abstract class _VaccinesMobx with Store {
       } else {
         CustomSnackBar(
           context,
-          "Selecione o periodo de tempo.",
+          FlutterI18n.translate(context, "custom_message.vaccines.validate.type_time"),
           Colors.red,
         );
         return;

@@ -1,9 +1,9 @@
 // imports nativos do flutter
 import 'package:flutter/material.dart';
-import 'package:flutter_i18n/flutter_i18n.dart';
 
 // import dos pacotes
 import 'package:shimmer_animation/shimmer_animation.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 
 // import das telas
 import 'package:meus_animais/ui/styles/app_images.dart';

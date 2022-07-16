@@ -1,10 +1,10 @@
 // import dos sources
 import 'package:flutter/material.dart';
-import 'package:meus_animais/data/sources/local/injection/injection.dart';
-import 'package:meus_animais/data/sources/local/manager/get_user.dart';
 
 // import dos sources
+import 'package:meus_animais/data/sources/local/injection/injection.dart';
 import 'package:meus_animais/data/sources/remote/services/services.dart';
+import 'package:meus_animais/data/sources/local/manager/get_user.dart';
 
 // import dos modelos
 import 'package:meus_animais/domain/models/users/login.dart';
@@ -13,6 +13,7 @@ import 'package:meus_animais/domain/models/users/login.dart';
 import 'package:meus_animais/ui/pages/widgets/message.dart';
 
 // import dos pacotes
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:injectable/injectable.dart';
 
 abstract class LoginRepository {
@@ -41,7 +42,7 @@ class LoginFirebase implements LoginRepository {
     }).catchError((error){
       CustomSnackBar(
         modelLogin.context,
-        "Houve um erro ao efetuar sua solicitação, tente novamente mais tarde!",
+        FlutterI18n.translate(modelLogin.context, "custom_message.register.error"),
         Colors.red,
       );
       crash.log(error.toString());

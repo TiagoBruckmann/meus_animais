@@ -1,6 +1,5 @@
 // pacotes nativos flutter
 import 'package:flutter/material.dart';
-import 'package:flutter_i18n/flutter_i18n.dart';
 
 // import dos sources
 import 'package:meus_animais/data/sources/remote/services/services.dart';
@@ -14,6 +13,7 @@ import 'package:meus_animais/ui/styles/app_images.dart';
 
 // import dos pacotes
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:provider/provider.dart';
 
 // gerencia de estado
@@ -65,10 +65,10 @@ class _PetsPageState extends State<PetsPage> {
               setState(() {
                 _petsMobx.refresh();
               });
-              return _petsMobx.getPets();
+              return _petsMobx.getPets( context );
             },
             child: FutureBuilder<List<ModelPets>>(
-              future: _petsMobx.getPets(),
+              future: _petsMobx.getPets( context ),
               builder: ( context, snapshot ) {
 
                 if ( snapshot.connectionState == ConnectionState.waiting ) {
@@ -80,20 +80,19 @@ class _PetsPageState extends State<PetsPage> {
                       setState(() {
                         _petsMobx.refresh();
                       });
-                      return _petsMobx.getPets();
+                      return _petsMobx.getPets( context );
                     },
                     child: RefreshWidget(
                       message: FlutterI18n.translate(context, "pages.pets.pets.empty"),
                     ),
                   );
                 } else if ( _petsMobx.listPets.isEmpty ) {
-
                   return RefreshIndicator(
                     onRefresh: () {
                       setState(() {
                         _petsMobx.refresh();
                       });
-                      return _petsMobx.getPets();
+                      return _petsMobx.getPets( context );
                     },
                     child: RefreshWidget(
                       message: FlutterI18n.translate(context, "pages.pets.pets.empty"),

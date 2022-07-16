@@ -1,12 +1,12 @@
 // pacotes nativos do flutter
 import 'package:flutter/material.dart';
-import 'package:flutter_i18n/flutter_i18n.dart';
 
 // import dos data
 import 'package:meus_animais/data/sources/remote/services/services.dart';
 
 // import dos pacotes
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:provider/provider.dart';
 
 // import das telas

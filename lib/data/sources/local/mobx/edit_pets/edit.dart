@@ -19,6 +19,7 @@ import 'package:meus_animais/data/sources/local/manager/get_vaccines.dart';
 
 // import dos pacotes
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:mobx/mobx.dart';
 part 'edit.g.dart';
 
@@ -44,7 +45,7 @@ abstract class _EditMobx with Store {
   TextEditingController controllerBreed = TextEditingController();
 
   @observable
-  MoneyMaskedTextController controllerWeight = MoneyMaskedTextController(decimalSeparator: ".", precision: 2);
+  MoneyMaskedTextController controllerWeight = MoneyMaskedTextController(leftSymbol: "KG ", decimalSeparator: ".", precision: 2);
 
   @observable
   TextEditingController controllerBirth = TextEditingController();
@@ -71,7 +72,7 @@ abstract class _EditMobx with Store {
     controllerSex.text = modelPets.sex;
     controllerSpecie.text = modelPets.specie;
     controllerBreed.text = modelPets.breed;
-    controllerWeight = MoneyMaskedTextController(decimalSeparator: ".", precision: 2, initialValue: modelPets.weight! );
+    controllerWeight = MoneyMaskedTextController(leftSymbol: "KG ", decimalSeparator: ".", precision: 2, initialValue: modelPets.weight! );
     controllerBirth.text = modelPets.birth;
     
     await lifeTimeManager.getData();
@@ -86,21 +87,20 @@ abstract class _EditMobx with Store {
   }
 
   @action
-  validateFields( ModelPets modelPets, context ) async {
+  validateFields( context ) async {
 
     analytics.logEvent(name: "validate_update_pet");
-    double weight = double.parse(controllerWeight.text);
+    double weight = double.parse(controllerWeight.text.replaceAll("KG ", ""));
     
     if ( weight == 0.0 ) {
-      CustomSnackBar(
+      return CustomSnackBar(
         context,
-        "Informe um peso válido",
+        FlutterI18n.translate(context, "custom_message.update_pet.validate.weight"),
         Colors.red,
       );
-      return;
     }
 
-    updatePetManager.modelPets = modelPets;
+    updatePetManager.modelPets!.weight = weight;
     updatePetManager.context = context;
     updatePetManager.setData();
 

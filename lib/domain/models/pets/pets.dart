@@ -13,7 +13,7 @@ class ModelPets {
     this.picture, this.age, this.birth, this.weight, this.createdAt, this.updatedAt
   );
 
-  factory ModelPets.fromJson(dynamic json) {
+  factory ModelPets.fromJson(dynamic json, context) {
     return ModelPets(
       json["id"],
       json["user_id"],
@@ -23,7 +23,7 @@ class ModelPets {
       json["breed"],
       json["picture"],
       json["age"],
-      PetsFunctions().calculateBirth(json["age"]),
+      PetsFunctions().calculateBirth(json["age"], context),
       json["weight"],
       json["created_at"],
       json["updated_at"],
@@ -49,6 +49,7 @@ class ModelPets {
   }
 
   Map<String, dynamic> updateToMap() {
+    print('weight => $weight');
     Map<String, dynamic> map = {
       "picture": picture,
       "weight": weight,
