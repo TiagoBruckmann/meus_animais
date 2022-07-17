@@ -5,6 +5,9 @@ import 'package:flutter/services.dart';
 import 'dart:io' show Platform;
 import 'dart:async';
 
+// import dos services
+import 'package:meus_animais/data/sources/remote/services/services.dart';
+
 // import dos estilos
 import 'package:meus_animais/ui/styles/app_colors.dart';
 
@@ -23,7 +26,7 @@ import 'package:provider/provider.dart';
 import 'package:meus_animais/data/sources/local/mobx/connection/connection.dart';
 import 'data/sources/local/injection/injection.dart';
 
-final ThemeData themeDefault = ThemeData(
+final ThemeData lightTheme = ThemeData(
   primaryColor: AppColors.barossa,
   secondaryHeaderColor: AppColors.cinnabar,
   cardColor: AppColors.turbo,
@@ -35,7 +38,17 @@ final ThemeData themeDefault = ThemeData(
   ),
 );
 
+final ThemeData darkTheme = ThemeData(
+  primaryColor: AppColors.barossa,
+  secondaryHeaderColor: AppColors.cinnabar,
+  cardColor: AppColors.turbo,
+  fontFamily: 'Ubuntu',
 
+  // altera a cor do texto da status bar
+  appBarTheme: const AppBarTheme(
+    backgroundColor: AppColors.barossa,
+  ),
+);
 
 const Iterable<Locale> supportedLocale = [
   Locale("en", "US"),
@@ -97,6 +110,7 @@ Future<void> main() async {
   FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
   FirebasePerformance.instance;
   configureDependencies();
+  final theme = await Services().getToken("dark_theme");
 
   // função para alterar a cor da barra de status
   SystemChrome.setSystemUIOverlayStyle(
@@ -115,7 +129,9 @@ Future<void> main() async {
       ],
       child: MaterialApp(
         title: "Meus animais",
-        theme: themeDefault,
+        theme: ( theme == "true" )
+        ? darkTheme
+        : lightTheme,
         initialRoute: "/splash",
         onGenerateRoute: Routes.generateRoutes,
         debugShowCheckedModeBanner: false,

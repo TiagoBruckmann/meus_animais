@@ -78,16 +78,18 @@ abstract class _HygieneMobx with Store {
       );
     }
 
+    ModelHygienePets modelHygienePets = ModelHygienePets(
+      DateFormat('yyyyMMddkkmmss').format(DateTime.now()),
+      petId,
+      name,
+      date,
+      place,
+      value,
+      DateTime.now().toString(),
+    );
+
     hygieneManager.listHygiene.add(
-      ModelHygienePets(
-        DateFormat('yyyyMMddkkmmss').format(DateTime.now()),
-        petId,
-        name,
-        date,
-        place,
-        value,
-        DateTime.now().toString(),
-      ),
+      modelHygienePets,
     );
 
     if ( updatePet == true ) {
@@ -96,7 +98,7 @@ abstract class _HygieneMobx with Store {
 
     Navigator.pop(
       context,
-      hygieneManager.listHygiene,
+      modelHygienePets,
     );
   }
 

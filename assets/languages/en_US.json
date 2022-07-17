@@ -18,6 +18,7 @@
       "title": "User name",
       "subtitle": "User e-mail",
       "main": "General",
+      "dark_mode": "Dark mode",
       "rate": "Let your opinion about the app",
       "logout": {
         "title": "Disconnect",

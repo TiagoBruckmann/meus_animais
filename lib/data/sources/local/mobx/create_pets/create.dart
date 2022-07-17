@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 
 // import dos sources
 import 'package:meus_animais/data/sources/local/injection/injection.dart';
+import 'package:meus_animais/data/sources/remote/services/services.dart';
 import 'package:meus_animais/data/sources/local/manager/get_pets.dart';
 import 'package:meus_animais/data/sources/local/manager/get_user.dart';
 import 'package:meus_animais/data/sources/local/manager/set_pet.dart';
-import 'package:meus_animais/data/sources/remote/services/services.dart';
 import 'package:meus_animais/domain/models/hygiene/hygiene_pets.dart';
 import 'package:meus_animais/domain/models/vaccines/vaccines.dart';
 import 'package:meus_animais/domain/models/pets/pets.dart';
@@ -65,7 +65,7 @@ abstract class _CreateMobx with Store {
   void setClicked( bool value ) => clicked = value;
 
   @action
-  validateFields( XFile? picture, context ) async {
+  validateFields( String petId, XFile? picture, context ) async {
 
     analytics.logEvent(name: "validate_pet");
     String userId = userManager.modelUser!.id;
@@ -119,7 +119,7 @@ abstract class _CreateMobx with Store {
     setPetManager.picture = picture;
     setPetManager.context = context;
     setPetManager.modelPets = ModelPets(
-      DateFormat('yyyyMMddkkmmss').format(DateTime.now()),
+      petId,
       userId,
       name,
       sex,
@@ -140,10 +140,10 @@ abstract class _CreateMobx with Store {
   }
 
   @action
-  void setVaccine( value ) => listVaccines.addAll(value);
+  void setVaccine( ModelVaccines modelVaccines ) => listVaccines.add(modelVaccines);
 
   @action
-  void setHygiene( value ) => listHygiene.addAll(value);
+  void setHygiene( ModelHygienePets modelHygienePets ) => listHygiene.add(modelHygienePets);
 
   @action
   void clear() {

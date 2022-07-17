@@ -81,6 +81,8 @@ abstract class _VaccinesMobx with Store {
     String type = controllerType.text;
     String day = controllerDay.text;
 
+    ModelVaccines modelVaccines;
+
     if ( name.isEmpty && name.trim().length < 3 ) {
       CustomSnackBar(
         context,
@@ -108,20 +110,18 @@ abstract class _VaccinesMobx with Store {
     if ( reapply == true ) {
       if ( typeTime.isNotEmpty ) {
         if ( time.isNotEmpty ) {
-          vaccineManager.listVaccines.add(
-            ModelVaccines(
-              DateFormat('yyyyMMddkkmmss').format(DateTime.now()),
-              petId,
-              name,
-              type,
-              controllerDescription.text,
-              day,
-              reapply,
-              DateTime.now().toString(),
-              typeTime: typeTime,
-              time: time,
-              laboratory: controllerLaboratory.text,
-            ),
+          modelVaccines = ModelVaccines(
+            DateFormat('yyyyMMddkkmmss').format(DateTime.now()),
+            petId,
+            name,
+            type,
+            controllerDescription.text,
+            day,
+            reapply,
+            DateTime.now().toString(),
+            typeTime: typeTime,
+            time: time,
+            laboratory: controllerLaboratory.text,
           );
 
         } else {
@@ -141,19 +141,22 @@ abstract class _VaccinesMobx with Store {
         return;
       }
     } else {
-      vaccineManager.listVaccines.add(
-        ModelVaccines(
-          DateFormat('yyyyMMddkkmmss').format(DateTime.now()),
-          petId,
-          name,
-          type,
-          controllerDescription.text,
-          day,
-          reapply,
-          DateTime.now().toString(),
-        ),
+
+      modelVaccines = ModelVaccines(
+        DateFormat('yyyyMMddkkmmss').format(DateTime.now()),
+        petId,
+        name,
+        type,
+        controllerDescription.text,
+        day,
+        reapply,
+        DateTime.now().toString(),
       );
     }
+
+    print("modelVaccines.time => ${modelVaccines.time}");
+    print("modelVaccines.typeTime => ${modelVaccines.typeTime}");
+    vaccineManager.listVaccines.add( modelVaccines );
 
     if ( updatePet == true ) {
       vaccineManager.setData();
@@ -161,7 +164,7 @@ abstract class _VaccinesMobx with Store {
 
     return Navigator.pop(
       context,
-      vaccineManager.listVaccines,
+      modelVaccines,
     );
 
   }

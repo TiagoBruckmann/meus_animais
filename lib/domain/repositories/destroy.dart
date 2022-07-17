@@ -36,20 +36,22 @@ class DestroyFirebase implements DestroyRepository {
         return;
       }
 
-      await db.collection("users").doc(modelUser.id).update(modelUser.deleteToMap());
       await user.delete().then((value) async {
 
         Services().deleteAllTokens();
-        Navigator.pushNamedAndRemoveUntil(
-          context,
-          "/login",
-          (route) => false,
-        );
+
+        await db.collection("users").doc(modelUser.id).update(modelUser.deleteToMap());
 
         CustomSnackBar(
           context,
           FlutterI18n.translate(context, "custom_message.destroy.success"),
           Colors.green,
+        );
+
+        Navigator.pushNamedAndRemoveUntil(
+          context,
+          "/login",
+          (route) => false,
         );
 
       }).onError((error, stackTrace) {

@@ -123,9 +123,9 @@ mixin _$CreateMobx on _CreateMobx, Store {
       AsyncAction('_CreateMobx.validateFields', context: context);
 
   @override
-  Future validateFields(XFile? picture, dynamic context) {
+  Future validateFields(String petId, XFile? picture, dynamic context) {
     return _$validateFieldsAsyncAction
-        .run(() => super.validateFields(picture, context));
+        .run(() => super.validateFields(petId, picture, context));
   }
 
   late final _$_CreateMobxActionController =
@@ -165,22 +165,22 @@ mixin _$CreateMobx on _CreateMobx, Store {
   }
 
   @override
-  void setVaccine(dynamic value) {
+  void setVaccine(ModelVaccines modelVaccines) {
     final _$actionInfo = _$_CreateMobxActionController.startAction(
         name: '_CreateMobx.setVaccine');
     try {
-      return super.setVaccine(value);
+      return super.setVaccine(modelVaccines);
     } finally {
       _$_CreateMobxActionController.endAction(_$actionInfo);
     }
   }
 
   @override
-  void setHygiene(dynamic value) {
+  void setHygiene(ModelHygienePets modelHygienePets) {
     final _$actionInfo = _$_CreateMobxActionController.startAction(
         name: '_CreateMobx.setHygiene');
     try {
-      return super.setHygiene(value);
+      return super.setHygiene(modelHygienePets);
     } finally {
       _$_CreateMobxActionController.endAction(_$actionInfo);
     }

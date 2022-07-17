@@ -97,7 +97,7 @@ class Vaccines extends StatelessWidget {
                     ),
                     children: [
                       TextSpan(
-                        text: FlutterI18n.translate(context, "pages.vaccines.reapply", translationParams: <String, String>{"time": modelVaccines.time!, "type_time": modelVaccines.typeTime!}),
+                        text: FlutterI18n.translate(context, "pages.vaccines.time", translationParams: <String, String>{"time": modelVaccines.time!, "type_time": modelVaccines.typeTime!}),
                         style: const TextStyle(
                           fontWeight: FontWeight.w300,
                           fontSize: 18,

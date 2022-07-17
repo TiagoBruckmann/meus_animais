@@ -11,10 +11,11 @@ import 'package:flutter_i18n/flutter_i18n.dart';
 
 class PopUpWidget extends StatelessWidget {
 
+  final dynamic mainContext;
   final String type;
   final String title;
   final String text;
-  const PopUpWidget({ Key? key, required this.type, required this.title, required this.text }) : super(key: key);
+  const PopUpWidget({ Key? key, required this.mainContext, required this.type, required this.title, required this.text }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -49,17 +50,19 @@ class PopUpWidget extends StatelessWidget {
               ),
             ),
             onPressed: () {
+              Navigator.pop( context );
               switch ( type ) {
                 case "Destroy":
-                  getIt.get<DestroyManager>();
+                  final destroy = getIt.get<DestroyManager>();
+                  destroy.context = mainContext;
+                  destroy.destroy();
                   break;
                 case "Logout":
                   final logout = getIt.get<LogoutManager>();
-                  logout.context = context;
+                  logout.context = mainContext;
                   logout.disconnect();
                   break;
               }
-              Navigator.pop( context );
             },
           ),
         ],

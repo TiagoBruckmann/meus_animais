@@ -37,6 +37,7 @@ class GetUserApi implements GetUserRepository {
       "5",
       "Tiago Api",
       "tiagobruckmann@gmail.com",
+      true,
     );
   }
 }

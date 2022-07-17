@@ -45,6 +45,10 @@ class Services {
     analytics.logEvent(name: "delete_all_tokens");
   }
 
+  getToken( String name ) async {
+    return await storage.read(key: name);
+  }
+
   // deletar token especifico
   void deleteOnlyToken( String keyName ) async {
     await storage.delete(key: keyName);

@@ -34,6 +34,7 @@ class RegisterFirebase implements RegisterRepository {
         firebaseUser.user!.uid,
         modelLogin.name!,
         modelLogin.email,
+        false,
       );
       await db.collection("users").doc(firebaseUser.user!.uid).set(user.toMap());
       Services().setToken("apiToken", firebaseUser.user!.uid);

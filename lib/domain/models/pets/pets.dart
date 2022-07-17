@@ -49,7 +49,6 @@ class ModelPets {
   }
 
   Map<String, dynamic> updateToMap() {
-    print('weight => $weight');
     Map<String, dynamic> map = {
       "picture": picture,
       "weight": weight,

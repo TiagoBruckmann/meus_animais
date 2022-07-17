@@ -18,6 +18,7 @@
      "title": "Nome do usuário",
      "subtitle": "E-mail do usuário",
      "main": "Geral",
+     "dark_mode": "Modo escuro",
      "rate": "Deixe sua opnião sobre o app",
      "logout": {
        "title": "Desconectar",

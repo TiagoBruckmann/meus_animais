@@ -33,11 +33,20 @@ abstract class _RegisterMobx with Store {
   @observable
   bool passwdVisible = false;
 
+  @observable
+  bool darkTheme = false;
+
   @action
   void setMessage(String value ) => message = value;
 
   @action
   void changeVisible() => passwdVisible = !passwdVisible;
+
+  @action
+  void setDarkTheme() {
+    darkTheme = !darkTheme;
+    Services().setToken("dark_theme", darkTheme.toString());
+  }
 
   @action
   validateFields( context ) {

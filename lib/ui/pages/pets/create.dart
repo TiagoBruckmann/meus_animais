@@ -6,7 +6,9 @@ import 'dart:io';
 import 'package:meus_animais/data/sources/remote/services/services.dart';
 import 'package:meus_animais/data/sources/local/manager/life_time.dart';
 import 'package:meus_animais/data/sources/local/mobx/crop/crop.dart';
+import 'package:meus_animais/domain/models/hygiene/hygiene_pets.dart';
 import 'package:meus_animais/domain/models/life_time/life_time.dart';
+import 'package:meus_animais/domain/models/vaccines/vaccines.dart';
 
 // import das telas
 import 'package:meus_animais/ui/pages/widgets/loading/loading_connection.dart';
@@ -59,7 +61,8 @@ class _CreatePetPageState extends State<CreatePetPage> {
     );
 
     if ( vaccines != null ) {
-      _createMobx.setVaccine( vaccines );
+      ModelVaccines modelVaccines = vaccines as ModelVaccines;
+      _createMobx.setVaccine( modelVaccines );
     }
   }
 
@@ -76,7 +79,8 @@ class _CreatePetPageState extends State<CreatePetPage> {
     );
 
     if ( hygiene != null ) {
-      _createMobx.setHygiene( hygiene );
+      ModelHygienePets modelHygienePets = hygiene as ModelHygienePets;
+      _createMobx.setHygiene( modelHygienePets );
     }
   }
 
@@ -529,7 +533,7 @@ class _CreatePetPageState extends State<CreatePetPage> {
                   child: ElevatedButton(
                     onPressed: () {
                       if ( _createMobx.clicked == false ) {
-                        _createMobx.validateFields( _cropMobx.image, context );
+                        _createMobx.validateFields( _petId, _cropMobx.image, context );
                       }
                     },
                     style: ElevatedButton.styleFrom(

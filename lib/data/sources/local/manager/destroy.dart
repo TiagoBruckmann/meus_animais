@@ -11,13 +11,13 @@ import 'package:injectable/injectable.dart';
 class DestroyManager {
 
   DestroyManager(this.destroyRepository) {
-    _destroy();
+    destroy();
   }
 
   final DestroyRepository destroyRepository;
   dynamic context;
 
-  void _destroy() async {
+  void destroy() async {
     final getUser = getIt.get<GetUserManager>();
     if ( context != null ) {
       destroyRepository.destroy( getUser.modelUser!, context );
