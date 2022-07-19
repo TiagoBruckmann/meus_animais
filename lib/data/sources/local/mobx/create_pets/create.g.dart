@@ -1,0 +1,205 @@
+// GENERATED CODE - DO NOT MODIFY BY HAND
+
+part of 'create.dart';
+
+// **************************************************************************
+// StoreGenerator
+// **************************************************************************
+
+// ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
+
+mixin _$CreateMobx on _CreateMobx, Store {
+  final _$controllerNameAtom = Atom(name: '_CreateMobx.controllerName');
+
+  @override
+  TextEditingController get controllerName {
+    _$controllerNameAtom.reportRead();
+    return super.controllerName;
+  }
+
+  @override
+  set controllerName(TextEditingController value) {
+    _$controllerNameAtom.reportWrite(value, super.controllerName, () {
+      super.controllerName = value;
+    });
+  }
+
+  final _$sexAtom = Atom(name: '_CreateMobx.sex');
+
+  @override
+  String get sex {
+    _$sexAtom.reportRead();
+    return super.sex;
+  }
+
+  @override
+  set sex(String value) {
+    _$sexAtom.reportWrite(value, super.sex, () {
+      super.sex = value;
+    });
+  }
+
+  final _$specieAtom = Atom(name: '_CreateMobx.specie');
+
+  @override
+  String get specie {
+    _$specieAtom.reportRead();
+    return super.specie;
+  }
+
+  @override
+  set specie(String value) {
+    _$specieAtom.reportWrite(value, super.specie, () {
+      super.specie = value;
+    });
+  }
+
+  final _$controllerBreedAtom = Atom(name: '_CreateMobx.controllerBreed');
+
+  @override
+  TextEditingController get controllerBreed {
+    _$controllerBreedAtom.reportRead();
+    return super.controllerBreed;
+  }
+
+  @override
+  set controllerBreed(TextEditingController value) {
+    _$controllerBreedAtom.reportWrite(value, super.controllerBreed, () {
+      super.controllerBreed = value;
+    });
+  }
+
+  final _$controllerWeightAtom = Atom(name: '_CreateMobx.controllerWeight');
+
+  @override
+  MoneyMaskedTextController get controllerWeight {
+    _$controllerWeightAtom.reportRead();
+    return super.controllerWeight;
+  }
+
+  @override
+  set controllerWeight(MoneyMaskedTextController value) {
+    _$controllerWeightAtom.reportWrite(value, super.controllerWeight, () {
+      super.controllerWeight = value;
+    });
+  }
+
+  final _$controllerBirthAtom = Atom(name: '_CreateMobx.controllerBirth');
+
+  @override
+  MaskedTextController get controllerBirth {
+    _$controllerBirthAtom.reportRead();
+    return super.controllerBirth;
+  }
+
+  @override
+  set controllerBirth(MaskedTextController value) {
+    _$controllerBirthAtom.reportWrite(value, super.controllerBirth, () {
+      super.controllerBirth = value;
+    });
+  }
+
+  final _$clickedAtom = Atom(name: '_CreateMobx.clicked');
+
+  @override
+  bool get clicked {
+    _$clickedAtom.reportRead();
+    return super.clicked;
+  }
+
+  @override
+  set clicked(bool value) {
+    _$clickedAtom.reportWrite(value, super.clicked, () {
+      super.clicked = value;
+    });
+  }
+
+  final _$validateFieldsAsyncAction = AsyncAction('_CreateMobx.validateFields');
+
+  @override
+  Future validateFields(String petId, File picture, dynamic context) {
+    return _$validateFieldsAsyncAction
+        .run(() => super.validateFields(petId, picture, context));
+  }
+
+  final _$_CreateMobxActionController = ActionController(name: '_CreateMobx');
+
+  @override
+  void setSex(String value) {
+    final _$actionInfo =
+        _$_CreateMobxActionController.startAction(name: '_CreateMobx.setSex');
+    try {
+      return super.setSex(value);
+    } finally {
+      _$_CreateMobxActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void setSpecie(String value) {
+    final _$actionInfo = _$_CreateMobxActionController.startAction(
+        name: '_CreateMobx.setSpecie');
+    try {
+      return super.setSpecie(value);
+    } finally {
+      _$_CreateMobxActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void setClicked(bool value) {
+    final _$actionInfo = _$_CreateMobxActionController.startAction(
+        name: '_CreateMobx.setClicked');
+    try {
+      return super.setClicked(value);
+    } finally {
+      _$_CreateMobxActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void setVaccine(ModelVaccines modelVaccines) {
+    final _$actionInfo = _$_CreateMobxActionController.startAction(
+        name: '_CreateMobx.setVaccine');
+    try {
+      return super.setVaccine(modelVaccines);
+    } finally {
+      _$_CreateMobxActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void setHygiene(ModelHygienePets modelHygienePets) {
+    final _$actionInfo = _$_CreateMobxActionController.startAction(
+        name: '_CreateMobx.setHygiene');
+    try {
+      return super.setHygiene(modelHygienePets);
+    } finally {
+      _$_CreateMobxActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void clear() {
+    final _$actionInfo =
+        _$_CreateMobxActionController.startAction(name: '_CreateMobx.clear');
+    try {
+      return super.clear();
+    } finally {
+      _$_CreateMobxActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  String toString() {
+    return '''
+controllerName: ${controllerName},
+sex: ${sex},
+specie: ${specie},
+controllerBreed: ${controllerBreed},
+controllerWeight: ${controllerWeight},
+controllerBirth: ${controllerBirth},
+clicked: ${clicked}
+    ''';
+  }
+}

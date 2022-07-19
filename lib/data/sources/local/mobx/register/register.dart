@@ -1,0 +1,83 @@
+// imports nativos do flutter
+import 'package:flutter/material.dart';
+
+// import dos sources
+import 'package:meus_pets/data/sources/local/injection/injection.dart';
+import 'package:meus_pets/data/sources/local/manager/register.dart';
+import 'package:meus_pets/data/sources/remote/services/services.dart';
+import 'package:meus_pets/domain/models/users/login.dart';
+
+// import dos pacotes
+import 'package:flutter_i18n/flutter_i18n.dart';
+import 'package:mobx/mobx.dart';
+part 'register.g.dart';
+
+class RegisterMobx = _RegisterMobx with _$RegisterMobx;
+
+abstract class _RegisterMobx with Store {
+
+  final registerManager = getIt.get<RegisterManager>();
+
+  @observable
+  TextEditingController controllerName = TextEditingController(text: "tiago B");
+
+  @observable
+  TextEditingController controllerEmail = TextEditingController(text: "tiagobruckmann@gmail.com");
+
+  @observable
+  TextEditingController controllerPasswd = TextEditingController(text: "Teste12345");
+
+  @observable
+  String message = "";
+
+  @observable
+  bool passwdVisible = false;
+
+  @observable
+  bool darkTheme = false;
+
+  @action
+  void setMessage(String value ) => message = value;
+
+  @action
+  void changeVisible() => passwdVisible = !passwdVisible;
+
+  @action
+  void setDarkTheme() {
+    darkTheme = !darkTheme;
+    Services().setToken("dark_theme", darkTheme.toString());
+  }
+
+  @action
+  validateFields( context ) {
+
+    analytics.logEvent(name: "validate_register-v1");
+    String name = controllerName.text;
+    String email = controllerEmail.text;
+    String passwd = controllerPasswd.text;
+
+    if ( name.trim().isEmpty || name.trim().length < 2 ) {
+      return setMessage(FlutterI18n.translate(context, "custom_message.register.validate.name"));
+    }
+    if ( email.trim().isEmpty || !email.contains("@") ) {
+      return setMessage(FlutterI18n.translate(context, "custom_message.vaccines.validate.email"));
+    }
+    if ( passwd.trim().isEmpty && passwd.trim().length < 5 ) {
+      return setMessage(FlutterI18n.translate(context, "custom_message.vaccines.validate.password"));
+    }
+
+    setMessage("");
+    registerManager.modelLogin = ModelLogin( email, passwd, name: name, context: context );
+    registerManager.setCredentials();
+
+  }
+
+  @action
+  void clear() {
+    controllerName.dispose();
+    controllerEmail.dispose();
+    controllerPasswd.dispose();
+    setMessage("");
+  }
+
+}

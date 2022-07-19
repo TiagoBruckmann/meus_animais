@@ -1,0 +1,80 @@
+// import dos sources
+import 'package:flutter/material.dart';
+
+// import dos sources
+import 'package:meus_pets/data/sources/remote/services/services.dart';
+
+// import dos modelos
+import 'package:meus_pets/domain/models/users/user.dart';
+
+// import das telas
+import 'package:meus_pets/ui/pages/widgets/message.dart';
+
+// import dos pacotes
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
+import 'package:injectable/injectable.dart';
+
+abstract class DestroyRepository {
+  destroy( ModelUser modelUser, context );
+}
+
+@Injectable(as: DestroyRepository, env: ["firebase"])
+class DestroyFirebase implements DestroyRepository {
+
+  @override
+  destroy( ModelUser modelUser, context ) async {
+
+    try {
+      User user = auth.currentUser;
+      if ( user == null ) {
+        CustomSnackBar(
+          context,
+          FlutterI18n.translate(context, "custom_message.destroy.error"),
+          Colors.red,
+        );
+        return;
+      }
+
+      await user.delete().then((value) async {
+
+        Services().deleteAllTokens();
+
+        await db.collection("users").doc(modelUser.id).update(modelUser.deleteToMap());
+
+        CustomSnackBar(
+          context,
+          FlutterI18n.translate(context, "custom_message.destroy.success"),
+          Colors.green,
+        );
+
+        Navigator.pushNamedAndRemoveUntil(
+          context,
+          "/login",
+          (route) => false,
+        );
+
+      }).catchError((onError) {
+        crash.log(onError.toString());
+      });
+
+    } catch ( error ) {
+      crash.log(error.toString());
+    }
+
+  }
+}
+
+@Injectable(as: DestroyRepository, env: ["api"])
+class DestroyApi implements DestroyRepository {
+
+  @override
+  destroy( ModelUser modelUser, context ) async {
+    Services().deleteAllTokens();
+    Navigator.pushNamedAndRemoveUntil(
+      context,
+      "/login",
+      (route) => false,
+    );
+  }
+}

@@ -1,0 +1,57 @@
+// imports nativos
+import 'package:flutter/material.dart';
+
+// import dos sources
+import 'package:meus_pets/data/sources/remote/services/services.dart';
+import 'package:meus_pets/domain/models/pets/pets.dart';
+
+// import das telas
+import 'package:meus_pets/ui/pages/widgets/message.dart';
+
+// import dos pacotes
+import 'package:flutter_i18n/flutter_i18n.dart';
+import 'package:injectable/injectable.dart';
+
+abstract class UpdatePetRepository {
+  updatePet( ModelPets modelPets, context );
+}
+
+@Injectable(as: UpdatePetRepository, env: ["firebase"])
+class UpdatePetFirebase implements UpdatePetRepository {
+
+  @override
+  updatePet( ModelPets modelPets, context ) async {
+
+    await db.collection("pets").doc(modelPets.id).update(modelPets.updateToMap()).then((value) async {
+
+      Navigator.pushNamedAndRemoveUntil(
+        context,
+        "/",
+        (route) => false,
+      );
+
+    }).catchError((onError) {
+      CustomSnackBar(
+        context,
+        FlutterI18n.translate(context, "custom_message.update_pet.error"),
+        Colors.red,
+      );
+      crash.log(onError.toString());
+    });
+
+  }
+}
+
+@Injectable(as: UpdatePetRepository, env: ["api"])
+class UpdatePetApi implements UpdatePetRepository {
+
+  @override
+  updatePet( ModelPets modelPets, context ) async {
+
+    /*
+    final vaccineManager = getIt.get<SetVaccineManager>();
+    final hygieneManager = getIt.get<SetHygieneManager>();
+    */
+
+  }
+}
