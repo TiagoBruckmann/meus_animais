@@ -59,6 +59,7 @@ class _LoginPageState extends State<LoginPage> {
       builder: ( builder ) {
 
         return Scaffold(
+          backgroundColor: Theme.of(context).backgroundColor,
           body: ( _connectionMobx.connectionStatus.toString() == "ConnectivityResult.none" )
           ? const LoadingConnection()
           : Container(
@@ -100,11 +101,11 @@ class _LoginPageState extends State<LoginPage> {
                         decoration: InputDecoration(
                           contentPadding: const EdgeInsets.all(16),
                           labelText: FlutterI18n.translate(context, "pages.login.email"),
-                          labelStyle: const TextStyle(
-                            color: AppColors.barossa,
+                          labelStyle: TextStyle(
+                            color: Theme.of(context).unselectedWidgetColor,
                           ),
                           filled: true,
-                          fillColor: AppColors.blueSolitude,
+                          fillColor: Theme.of(context).cardColor,
                           enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(
                               color: Theme.of(context).primaryColor,
@@ -135,10 +136,10 @@ class _LoginPageState extends State<LoginPage> {
                         contentPadding: const EdgeInsets.fromLTRB( 16, 16, 0, 16),
                         labelText: FlutterI18n.translate(context, "pages.login.password"),
                         labelStyle: TextStyle(
-                          color: Theme.of(context).primaryColor,
+                          color: Theme.of(context).unselectedWidgetColor,
                         ),
                         filled: true,
-                        fillColor: AppColors.blueSolitude,
+                        fillColor: Theme.of(context).cardColor,
                         suffixIcon: TextButton(
                           onPressed: () {
                             _loginMobx.changeVisible();
@@ -147,7 +148,7 @@ class _LoginPageState extends State<LoginPage> {
                             ( _loginMobx.passwdVisible == false )
                             ? Icons.visibility_off
                             : Icons.visibility,
-                            color: Theme.of(context).primaryColor,
+                            color: Theme.of(context).secondaryHeaderColor,
                           ),
                         ),
                         enabledBorder: OutlineInputBorder(
@@ -182,16 +183,16 @@ class _LoginPageState extends State<LoginPage> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            const Icon(
+                            Icon(
                               Icons.login,
-                              color: Colors.white,
+                              color: Theme.of(context).secondaryHeaderColor,
                             ),
                             Padding(
                               padding: const EdgeInsets.only(right: 5),
                               child: Text(
                                 FlutterI18n.translate(context, "btn_login"),
-                                style: const TextStyle(
-                                  color: Colors.white,
+                                style: TextStyle(
+                                  color: Theme.of(context).secondaryHeaderColor,
                                   fontSize: 20,
                                 ),
                               ),
@@ -216,8 +217,8 @@ class _LoginPageState extends State<LoginPage> {
                             padding: const EdgeInsets.fromLTRB(20, 15, 20, 10),
                             child: Text(
                               FlutterI18n.translate(context, "btn_register"),
-                              style: const TextStyle(
-                                color: Colors.black,
+                              style: TextStyle(
+                                color: Theme.of(context).unselectedWidgetColor,
                                 fontWeight: FontWeight.w700,
                                 fontSize: 16,
                               ),
@@ -236,8 +237,8 @@ class _LoginPageState extends State<LoginPage> {
                             padding: const EdgeInsets.fromLTRB(20, 15, 20, 10),
                             child: Text(
                               FlutterI18n.translate(context, "pages.login.login.forgot"),
-                              style: const TextStyle(
-                                color: Colors.black,
+                              style: TextStyle(
+                                color: Theme.of(context).unselectedWidgetColor,
                                 fontWeight: FontWeight.w700,
                                 fontSize: 16,
                               ),

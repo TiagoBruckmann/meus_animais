@@ -1,10 +1,8 @@
 class AppImages {
 
   static String get defaultUser => "assets/img/default_user.png";
-  static String get background => "assets/img/background.jpg";
-  static String get loading => "assets/img/loading.jpg";
-  static String get banner => "assets/img/banner.jpg";
-  static String get logo => "assets/img/logo_app.png";
-  static String get logo2 => "assets/img/logo2.jpg";
+  static String get logoSplash => "assets/img/logo_splash.png";
+  static String get banner => "assets/img/loading.jpg";
+  static String get logo1 => "assets/img/logo1.jpg";
 
 }

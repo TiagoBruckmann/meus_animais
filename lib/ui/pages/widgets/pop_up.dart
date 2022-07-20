@@ -35,7 +35,7 @@ class PopUpWidget extends StatelessWidget {
             child: Text(
               FlutterI18n.translate(context, "widgets.pop_up.btn_no"),
               style: const TextStyle(
-                color: Colors.green,
+                color: Colors.red,
               ),
             ),
             onPressed: () {
@@ -46,7 +46,7 @@ class PopUpWidget extends StatelessWidget {
             child: Text(
               FlutterI18n.translate(context, "widgets.pop_up.btn_yes"),
               style: const TextStyle(
-                color: Colors.red,
+                color: Colors.green,
               ),
             ),
             onPressed: () {

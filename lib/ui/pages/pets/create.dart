@@ -112,9 +112,13 @@ class _CreatePetPageState extends State<CreatePetPage> {
         double width = MediaQuery.of(context).size.width;
 
         return Scaffold(
+          backgroundColor: Theme.of(context).backgroundColor,
           appBar: AppBar(
             title: Text(
               FlutterI18n.translate(context, "pages.pets.create.appbar"),
+              style: TextStyle(
+                color: Theme.of(context).secondaryHeaderColor,
+              ),
             ),
           ),
 
@@ -140,7 +144,7 @@ class _CreatePetPageState extends State<CreatePetPage> {
                             ScaffoldMessenger.of(context).showSnackBar( _cropMobx.settingCamera() );
                           },
                           child: Image.asset(
-                            AppImages.loading,
+                            AppImages.banner,
                           ),
                         ),
 
@@ -149,7 +153,7 @@ class _CreatePetPageState extends State<CreatePetPage> {
                             ScaffoldMessenger.of(context).showSnackBar( _cropMobx.settingCamera() );
                           },
                           child: ( _cropMobx.image == null )
-                          ? Image.asset(AppImages.loading)
+                          ? Image.asset(AppImages.banner)
                           : Image.file(File(_cropMobx.image!.path)),
                         ),
 
@@ -161,7 +165,7 @@ class _CreatePetPageState extends State<CreatePetPage> {
                 SizedBox(
                   width: MediaQuery.of(context).size.width,
                   child: Card(
-                    color: AppColors.barossa,
+                    color: Theme.of(context).primaryColor,
                     elevation: 0,
                     child: Padding(
                       padding: const EdgeInsets.symmetric( vertical: 15 ),
@@ -169,9 +173,10 @@ class _CreatePetPageState extends State<CreatePetPage> {
                         FlutterI18n.translate(context, "pages.pets.edit.detail"),
                         overflow: TextOverflow.fade,
                         textAlign: TextAlign.center,
-                        style: const TextStyle(
+                        style: TextStyle(
+                          color: Theme.of(context).secondaryHeaderColor,
+                          fontWeight: FontWeight.bold,
                           fontSize: 17,
-                          color: AppColors.whiteSmoke,
                         ),
                       ),
                     ),
@@ -191,11 +196,11 @@ class _CreatePetPageState extends State<CreatePetPage> {
                     decoration: InputDecoration(
                       contentPadding: const EdgeInsets.all(16),
                       labelText: FlutterI18n.translate(context, "pages.pets.edit.name"),
-                      labelStyle: const TextStyle(
-                        color: AppColors.barossa,
+                      labelStyle: TextStyle(
+                        color: Theme.of(context).unselectedWidgetColor,
                       ),
                       filled: true,
-                      fillColor: AppColors.blueSolitude,
+                      fillColor: Theme.of(context).cardColor,
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(
                           color: Theme.of(context).primaryColor,
@@ -227,11 +232,11 @@ class _CreatePetPageState extends State<CreatePetPage> {
                     decoration: InputDecoration(
                       contentPadding: const EdgeInsets.all(16),
                       labelText: FlutterI18n.translate(context, "pages.pets.edit.weight"),
-                      labelStyle: const TextStyle(
-                        color: AppColors.barossa,
+                      labelStyle: TextStyle(
+                        color: Theme.of(context).unselectedWidgetColor,
                       ),
                       filled: true,
-                      fillColor: AppColors.blueSolitude,
+                      fillColor: Theme.of(context).cardColor,
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(
                           color: Theme.of(context).primaryColor,
@@ -270,7 +275,7 @@ class _CreatePetPageState extends State<CreatePetPage> {
                         decoration: BoxDecoration(
                           border: Border.all(color: Theme.of(context).primaryColor),
                           borderRadius: BorderRadius.circular(5),
-                          color: AppColors.blueSolitude,
+                          color: Theme.of(context).cardColor,
                         ),
                         child: ListTile(
                           title: Text(
@@ -327,7 +332,7 @@ class _CreatePetPageState extends State<CreatePetPage> {
                         decoration: BoxDecoration(
                           border: Border.all(color: Theme.of(context).primaryColor),
                           borderRadius: BorderRadius.circular(5),
-                          color: AppColors.blueSolitude,
+                          color: Theme.of(context).cardColor,
                         ),
                         child: ListTile(
                           title: Text(
@@ -371,11 +376,11 @@ class _CreatePetPageState extends State<CreatePetPage> {
                     decoration: InputDecoration(
                       contentPadding: const EdgeInsets.all(16),
                       labelText: FlutterI18n.translate(context, "pages.pets.edit.breed"),
-                      labelStyle: const TextStyle(
-                        color: AppColors.barossa,
+                      labelStyle: TextStyle(
+                        color: Theme.of(context).unselectedWidgetColor,
                       ),
                       filled: true,
-                      fillColor: AppColors.blueSolitude,
+                      fillColor: Theme.of(context).cardColor,
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(
                           color: Theme.of(context).primaryColor,
@@ -407,11 +412,11 @@ class _CreatePetPageState extends State<CreatePetPage> {
                     decoration: InputDecoration(
                       contentPadding: const EdgeInsets.all(16),
                       labelText: FlutterI18n.translate(context, "pages.pets.edit.birth"),
-                      labelStyle: const TextStyle(
-                        color: AppColors.barossa,
+                      labelStyle: TextStyle(
+                        color: Theme.of(context).unselectedWidgetColor,
                       ),
                       filled: true,
-                      fillColor: AppColors.blueSolitude,
+                      fillColor: Theme.of(context).cardColor,
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(
                           color: Theme.of(context).primaryColor,
@@ -434,7 +439,7 @@ class _CreatePetPageState extends State<CreatePetPage> {
                 SizedBox(
                   width: MediaQuery.of(context).size.width,
                   child: Card(
-                    color: AppColors.barossa,
+                    color: Theme.of(context).primaryColor,
                     elevation: 0,
                     child: Padding(
                       padding: const EdgeInsets.symmetric( vertical: 15 ),
@@ -448,9 +453,10 @@ class _CreatePetPageState extends State<CreatePetPage> {
                             FlutterI18n.translate(context, "pages.pets.edit.vaccines"),
                             overflow: TextOverflow.fade,
                             textAlign: TextAlign.center,
-                            style: const TextStyle(
+                            style: TextStyle(
+                              color: Theme.of(context).secondaryHeaderColor,
+                              fontWeight: FontWeight.bold,
                               fontSize: 17,
-                              color: AppColors.whiteSmoke,
                             ),
                           ),
 
@@ -458,11 +464,11 @@ class _CreatePetPageState extends State<CreatePetPage> {
                             onTap: () {
                               _goToVaccines();
                             },
-                            child: const Padding(
-                              padding: EdgeInsets.only( right: 10 ),
+                            child: Padding(
+                              padding: const EdgeInsets.only( right: 10 ),
                               child: FaIcon(
                                 FontAwesomeIcons.circlePlus,
-                                color: AppColors.whiteSmoke,
+                                color: Theme.of(context).secondaryHeaderColor,
                               ),
                             ),
                           ),
@@ -482,7 +488,7 @@ class _CreatePetPageState extends State<CreatePetPage> {
                 SizedBox(
                   width: MediaQuery.of(context).size.width,
                   child: Card(
-                    color: AppColors.barossa,
+                    color: Theme.of(context).primaryColor,
                     elevation: 0,
                     child: Padding(
                       padding: const EdgeInsets.symmetric( vertical: 15 ),
@@ -496,9 +502,10 @@ class _CreatePetPageState extends State<CreatePetPage> {
                             FlutterI18n.translate(context, "pages.pets.edit.hygiene"),
                             overflow: TextOverflow.fade,
                             textAlign: TextAlign.center,
-                            style: const TextStyle(
+                            style: TextStyle(
+                              color: Theme.of(context).secondaryHeaderColor,
+                              fontWeight: FontWeight.bold,
                               fontSize: 17,
-                              color: AppColors.whiteSmoke,
                             ),
                           ),
 
@@ -506,11 +513,11 @@ class _CreatePetPageState extends State<CreatePetPage> {
                             onTap: () {
                               _goToHygiene();
                             },
-                            child: const Padding(
-                              padding: EdgeInsets.only( right: 10 ),
+                            child: Padding(
+                              padding: const EdgeInsets.only( right: 10 ),
                               child: FaIcon(
                                 FontAwesomeIcons.circlePlus,
-                                color: AppColors.whiteSmoke,
+                                color: Theme.of(context).secondaryHeaderColor,
                               ),
                             ),
                           ),
@@ -538,8 +545,8 @@ class _CreatePetPageState extends State<CreatePetPage> {
                     },
                     style: ElevatedButton.styleFrom(
                       primary: ( _createMobx.clicked == false )
-                      ? Theme.of(context).cardColor
-                      : Theme.of(context).primaryColor,
+                      ? Theme.of(context).primaryColor
+                      : Theme.of(context).unselectedWidgetColor,
                       padding: const EdgeInsets.symmetric( vertical: 16, horizontal: 36 ),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
@@ -551,8 +558,8 @@ class _CreatePetPageState extends State<CreatePetPage> {
                       : FlutterI18n.translate(context, "btn_await"),
                       style: TextStyle(
                         color: ( _createMobx.clicked == false )
-                        ? Theme.of(context).primaryColor
-                        : Theme.of(context).cardColor,
+                        ? Theme.of(context).secondaryHeaderColor
+                        : Theme.of(context).unselectedWidgetColor,
                         fontSize: 20,
                       ),
                     ),

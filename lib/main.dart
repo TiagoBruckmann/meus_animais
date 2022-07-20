@@ -5,9 +5,6 @@ import 'package:flutter/services.dart';
 import 'dart:io' show Platform;
 import 'dart:async';
 
-// import dos services
-import 'package:meus_animais/data/sources/remote/services/services.dart';
-
 // import dos estilos
 import 'package:meus_animais/ui/styles/app_colors.dart';
 
@@ -27,26 +24,46 @@ import 'package:meus_animais/data/sources/local/mobx/connection/connection.dart'
 import 'data/sources/local/injection/injection.dart';
 
 final ThemeData lightTheme = ThemeData(
-  primaryColor: AppColors.barossa,
-  secondaryHeaderColor: AppColors.cinnabar,
-  cardColor: AppColors.turbo,
+  backgroundColor: AppColors.white,
+  primaryColor: AppColors.amber,
+  secondaryHeaderColor: AppColors.barossa,
+  focusColor: AppColors.white,
+  unselectedWidgetColor: AppColors.balticSea,
+  cardColor: AppColors.blueSolitude,
   fontFamily: 'Ubuntu',
 
   // altera a cor do texto da status bar
   appBarTheme: const AppBarTheme(
-    backgroundColor: AppColors.barossa,
+    backgroundColor: AppColors.amber,
+    iconTheme: IconThemeData(
+      color: AppColors.barossa,
+    ),
+    systemOverlayStyle: SystemUiOverlayStyle(
+      statusBarColor: AppColors.amber,
+      statusBarIconBrightness: Brightness.dark,
+    ),
   ),
 );
 
 final ThemeData darkTheme = ThemeData(
+  backgroundColor: AppColors.white,
   primaryColor: AppColors.barossa,
-  secondaryHeaderColor: AppColors.cinnabar,
-  cardColor: AppColors.turbo,
+  secondaryHeaderColor: AppColors.whiteSmoke,
+  focusColor: AppColors.cinnabar,
+  unselectedWidgetColor: AppColors.balticSea,
+  cardColor: AppColors.blueSolitude,
   fontFamily: 'Ubuntu',
 
   // altera a cor do texto da status bar
   appBarTheme: const AppBarTheme(
     backgroundColor: AppColors.barossa,
+    iconTheme: IconThemeData(
+      color: AppColors.whiteSmoke,
+    ),
+    systemOverlayStyle: SystemUiOverlayStyle(
+      statusBarColor: AppColors.barossa,
+      statusBarIconBrightness: Brightness.light,
+    ),
   ),
 );
 
@@ -110,15 +127,6 @@ Future<void> main() async {
   FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
   FirebasePerformance.instance;
   configureDependencies();
-  final theme = await Services().getToken("dark_theme");
-
-  // função para alterar a cor da barra de status
-  SystemChrome.setSystemUIOverlayStyle(
-    const SystemUiOverlayStyle(
-      statusBarColor: AppColors.barossa,
-      statusBarIconBrightness: Brightness.light,
-    ),
-  );
 
   runApp(
     MultiProvider(
@@ -129,9 +137,8 @@ Future<void> main() async {
       ],
       child: MaterialApp(
         title: "Meus animais",
-        theme: ( theme == "true" )
-        ? darkTheme
-        : lightTheme,
+        theme: lightTheme,
+        darkTheme: darkTheme,
         initialRoute: "/splash",
         onGenerateRoute: Routes.generateRoutes,
         debugShowCheckedModeBanner: false,

@@ -46,8 +46,8 @@ class LoadingSettings extends StatelessWidget {
                 child: Text(
                   FlutterI18n.translate(context, "widgets.settings.title"),
                   style: const TextStyle(
-                    fontSize: 20,
                     fontWeight: FontWeight.w500,
+                    fontSize: 20,
                   ),
                 ),
               ),
@@ -60,8 +60,8 @@ class LoadingSettings extends StatelessWidget {
                 child: Text(
                   FlutterI18n.translate(context, "widgets.settings.subtitle"),
                   style: const TextStyle(
-                    fontSize: 18,
                     fontWeight: FontWeight.w500,
+                    fontSize: 18,
                   ),
                 ),
               ),
@@ -73,10 +73,10 @@ class LoadingSettings extends StatelessWidget {
               colorOpacity: 0.6,
               enabled: true,
               direction: const ShimmerDirection.fromLTRB(),
-              child: const Divider(
+              child: Divider(
                 height: 30,
                 thickness: 1,
-                color: Colors.black,
+                color: Theme.of(context).unselectedWidgetColor,
                 indent: 16,
                 endIndent: 16,
               ),
@@ -104,10 +104,10 @@ class LoadingSettings extends StatelessWidget {
               colorOpacity: 0.6,
               enabled: true,
               direction: const ShimmerDirection.fromLTRB(),
-              child: const Divider(
+              child: Divider(
                 height: 30,
                 thickness: 1,
-                color: Colors.black,
+                color: Theme.of(context).unselectedWidgetColor,
                 indent: 16,
                 endIndent: 16,
               ),
@@ -121,8 +121,8 @@ class LoadingSettings extends StatelessWidget {
                   child: Text(
                     FlutterI18n.translate(context, "widgets.settings.rate"),
                     style: const TextStyle(
-                      fontSize: 16,
                       fontWeight: FontWeight.w500,
+                      fontSize: 16,
                     ),
                   ),
                 ),
@@ -135,10 +135,10 @@ class LoadingSettings extends StatelessWidget {
               colorOpacity: 0.6,
               enabled: true,
               direction: const ShimmerDirection.fromLTRB(),
-              child: const Divider(
+              child: Divider(
                 height: 30,
                 thickness: 1,
-                color: Colors.black,
+                color: Theme.of(context).unselectedWidgetColor,
                 indent: 16,
                 endIndent: 16,
               ),
@@ -166,10 +166,10 @@ class LoadingSettings extends StatelessWidget {
               colorOpacity: 0.6,
               enabled: true,
               direction: const ShimmerDirection.fromLTRB(),
-              child: const Divider(
+              child: Divider(
                 height: 30,
                 thickness: 1,
-                color: Colors.black,
+                color: Theme.of(context).unselectedWidgetColor,
                 indent: 16,
                 endIndent: 16,
               ),
@@ -192,10 +192,10 @@ class LoadingSettings extends StatelessWidget {
             ),
 
             /*
-            const Divider(
+            Divider(
               height: 30,
               thickness: 1,
-              color: Colors.black,
+              color: Theme.of(context).unselectedWidgetColor,
               indent: 16,
               endIndent: 16,
             ),
@@ -221,11 +221,11 @@ class LoadingSettings extends StatelessWidget {
               ),
             ),
 
-            const Divider(
+            Divider(
               height: 30,
               thickness: 1,
-              color: Colors.black,
-              indent: 25,
+              color: Theme.of(context).unselectedWidgetColor,
+              indent: 16,
               endIndent: 16,
             ),
 
@@ -257,10 +257,10 @@ class LoadingSettings extends StatelessWidget {
               colorOpacity: 0.6,
               enabled: true,
               direction: const ShimmerDirection.fromLTRB(),
-              child: const Divider(
+              child: Divider(
                 height: 30,
                 thickness: 1,
-                color: Colors.black,
+                color: Theme.of(context).unselectedWidgetColor,
                 indent: 16,
                 endIndent: 16,
               ),

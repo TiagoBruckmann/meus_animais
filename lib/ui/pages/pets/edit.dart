@@ -97,8 +97,14 @@ class _EditPetsState extends State<EditPets> {
         double width = MediaQuery.of(context).size.width;
 
         return Scaffold(
+          backgroundColor: Theme.of(context).backgroundColor,
           appBar: AppBar(
-            title: Text(widget.modelPets.name),
+            title: Text(
+              widget.modelPets.name,
+              style: TextStyle(
+                color: Theme.of(context).secondaryHeaderColor,
+              ),
+            ),
           ),
 
           body: ( _connectionMobx.connectionStatus.toString() == "ConnectivityResult.none" )
@@ -116,7 +122,7 @@ class _EditPetsState extends State<EditPets> {
                       children: [
 
                         Image.asset(
-                          AppImages.loading,
+                          AppImages.banner,
                         ),
 
                         Image.network(
@@ -131,7 +137,7 @@ class _EditPetsState extends State<EditPets> {
                 SizedBox(
                   width: MediaQuery.of(context).size.width,
                   child: Card(
-                    color: AppColors.barossa,
+                    color: Theme.of(context).primaryColor,
                     elevation: 0,
                     child: Padding(
                       padding: const EdgeInsets.symmetric( vertical: 15 ),
@@ -139,9 +145,10 @@ class _EditPetsState extends State<EditPets> {
                         FlutterI18n.translate(context, "pages.pets.edit.detail"),
                         overflow: TextOverflow.fade,
                         textAlign: TextAlign.center,
-                        style: const TextStyle(
+                        style: TextStyle(
+                          color: Theme.of(context).secondaryHeaderColor,
+                          fontWeight: FontWeight.bold,
                           fontSize: 17,
-                          color: AppColors.whiteSmoke,
                         ),
                       ),
                     ),
@@ -162,11 +169,11 @@ class _EditPetsState extends State<EditPets> {
                     decoration: InputDecoration(
                       contentPadding: const EdgeInsets.all(16),
                       labelText: FlutterI18n.translate(context, "pages.pets.edit.name"),
-                      labelStyle: const TextStyle(
-                        color: AppColors.barossa,
+                      labelStyle: TextStyle(
+                        color: Theme.of(context).unselectedWidgetColor,
                       ),
                       filled: true,
-                      fillColor: AppColors.blueSolitude,
+                      fillColor: Theme.of(context).cardColor,
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(
                           color: Theme.of(context).primaryColor,
@@ -198,11 +205,11 @@ class _EditPetsState extends State<EditPets> {
                     decoration: InputDecoration(
                       contentPadding: const EdgeInsets.all(16),
                       labelText: FlutterI18n.translate(context, "pages.pets.edit.weight"),
-                      labelStyle: const TextStyle(
-                        color: AppColors.barossa,
+                      labelStyle: TextStyle(
+                        color: Theme.of(context).unselectedWidgetColor,
                       ),
                       filled: true,
-                      fillColor: AppColors.blueSolitude,
+                      fillColor: Theme.of(context).cardColor,
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(
                           color: Theme.of(context).primaryColor,
@@ -235,11 +242,11 @@ class _EditPetsState extends State<EditPets> {
                     decoration: InputDecoration(
                       contentPadding: const EdgeInsets.all(16),
                       labelText: FlutterI18n.translate(context, "pages.pets.edit.sex"),
-                      labelStyle: const TextStyle(
-                        color: AppColors.barossa,
+                      labelStyle: TextStyle(
+                        color: Theme.of(context).unselectedWidgetColor,
                       ),
                       filled: true,
-                      fillColor: AppColors.blueSolitude,
+                      fillColor: Theme.of(context).cardColor,
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(
                           color: Theme.of(context).primaryColor,
@@ -272,11 +279,11 @@ class _EditPetsState extends State<EditPets> {
                     decoration: InputDecoration(
                       contentPadding: const EdgeInsets.all(16),
                       labelText: FlutterI18n.translate(context, "pages.pets.edit.specie"),
-                      labelStyle: const TextStyle(
-                        color: AppColors.barossa,
+                      labelStyle: TextStyle(
+                        color: Theme.of(context).unselectedWidgetColor,
                       ),
                       filled: true,
-                      fillColor: AppColors.blueSolitude,
+                      fillColor: Theme.of(context).cardColor,
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(
                           color: Theme.of(context).primaryColor,
@@ -309,11 +316,11 @@ class _EditPetsState extends State<EditPets> {
                     decoration: InputDecoration(
                       contentPadding: const EdgeInsets.all(16),
                       labelText: FlutterI18n.translate(context, "pages.pets.edit.breed"),
-                      labelStyle: const TextStyle(
-                        color: AppColors.barossa,
+                      labelStyle: TextStyle(
+                        color: Theme.of(context).unselectedWidgetColor,
                       ),
                       filled: true,
-                      fillColor: AppColors.blueSolitude,
+                      fillColor: Theme.of(context).cardColor,
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(
                           color: Theme.of(context).primaryColor,
@@ -346,11 +353,11 @@ class _EditPetsState extends State<EditPets> {
                     decoration: InputDecoration(
                       contentPadding: const EdgeInsets.all(16),
                       labelText: FlutterI18n.translate(context, "pages.pets.edit.birth"),
-                      labelStyle: const TextStyle(
-                        color: AppColors.barossa,
+                      labelStyle: TextStyle(
+                        color: Theme.of(context).unselectedWidgetColor,
                       ),
                       filled: true,
-                      fillColor: AppColors.blueSolitude,
+                      fillColor: Theme.of(context).cardColor,
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(
                           color: Theme.of(context).primaryColor,
@@ -383,11 +390,11 @@ class _EditPetsState extends State<EditPets> {
                     decoration: InputDecoration(
                       contentPadding: const EdgeInsets.all(16),
                       labelText: FlutterI18n.translate(context, "pages.pets.edit.life_time"),
-                      labelStyle: const TextStyle(
-                        color: AppColors.barossa,
+                      labelStyle: TextStyle(
+                        color: Theme.of(context).unselectedWidgetColor,
                       ),
                       filled: true,
-                      fillColor: AppColors.blueSolitude,
+                      fillColor: Theme.of(context).cardColor,
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(
                           color: Theme.of(context).primaryColor,
@@ -410,7 +417,7 @@ class _EditPetsState extends State<EditPets> {
                 SizedBox(
                   width: MediaQuery.of(context).size.width,
                   child: Card(
-                    color: AppColors.barossa,
+                    color: Theme.of(context).primaryColor,
                     elevation: 0,
                     child: Padding(
                       padding: const EdgeInsets.symmetric( vertical: 15 ),
@@ -424,9 +431,10 @@ class _EditPetsState extends State<EditPets> {
                             FlutterI18n.translate(context, "pages.pets.edit.vaccines"),
                             overflow: TextOverflow.fade,
                             textAlign: TextAlign.center,
-                            style: const TextStyle(
+                            style: TextStyle(
+                              color: Theme.of(context).secondaryHeaderColor,
+                              fontWeight: FontWeight.bold,
                               fontSize: 17,
-                              color: AppColors.whiteSmoke,
                             ),
                           ),
 
@@ -434,11 +442,11 @@ class _EditPetsState extends State<EditPets> {
                             onTap: () {
                               _goToVaccines();
                             },
-                            child: const Padding(
-                              padding: EdgeInsets.only( right: 10 ),
+                            child: Padding(
+                              padding: const EdgeInsets.only( right: 10 ),
                               child: FaIcon(
                                 FontAwesomeIcons.circlePlus,
-                                color: AppColors.whiteSmoke,
+                                color: Theme.of(context).secondaryHeaderColor,
                               ),
                             ),
                           ),
@@ -458,7 +466,7 @@ class _EditPetsState extends State<EditPets> {
                 SizedBox(
                   width: MediaQuery.of(context).size.width,
                   child: Card(
-                    color: AppColors.barossa,
+                    color: Theme.of(context).primaryColor,
                     elevation: 0,
                     child: Padding(
                       padding: const EdgeInsets.symmetric( vertical: 15 ),
@@ -472,9 +480,10 @@ class _EditPetsState extends State<EditPets> {
                             FlutterI18n.translate(context, "pages.pets.edit.hygiene"),
                             overflow: TextOverflow.fade,
                             textAlign: TextAlign.center,
-                            style: const TextStyle(
+                            style: TextStyle(
+                              color: Theme.of(context).secondaryHeaderColor,
+                              fontWeight: FontWeight.bold,
                               fontSize: 17,
-                              color: AppColors.whiteSmoke,
                             ),
                           ),
 
@@ -482,11 +491,11 @@ class _EditPetsState extends State<EditPets> {
                             onTap: () {
                               _goToHygiene();
                             },
-                            child: const Padding(
-                              padding: EdgeInsets.only( right: 10 ),
+                            child: Padding(
+                              padding: const EdgeInsets.only( right: 10 ),
                               child: FaIcon(
                                 FontAwesomeIcons.circlePlus,
-                                color: AppColors.whiteSmoke,
+                                color: Theme.of(context).secondaryHeaderColor,
                               ),
                             ),
                           ),
@@ -511,7 +520,7 @@ class _EditPetsState extends State<EditPets> {
                       _editMobx.validateFields(context);
                     },
                     style: ElevatedButton.styleFrom(
-                      primary: Theme.of(context).cardColor,
+                      primary: Theme.of(context).primaryColor,
                       padding: const EdgeInsets.symmetric( vertical: 16, horizontal: 36 ),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
@@ -520,7 +529,7 @@ class _EditPetsState extends State<EditPets> {
                     child: Text(
                       FlutterI18n.translate(context, "btn_update"),
                       style: TextStyle(
-                        color: Theme.of(context).primaryColor,
+                        color: Theme.of(context).secondaryHeaderColor,
                         fontSize: 20,
                       ),
                     ),

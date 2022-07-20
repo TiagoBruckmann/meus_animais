@@ -38,13 +38,13 @@ class _SplashPageState extends State<SplashPage> {
   @override
   void didChangeDependencies() async {
     super.didChangeDependencies();
+    splashManager.context = context;
     _connectionMobx = Provider.of<ConnectionMobx>(context);
     await _connectionMobx.verifyConnection();
     _connectionMobx.connectivity.onConnectivityChanged.listen(_connectionMobx.updateConnectionStatus);
 
     Timer(const Duration(seconds: 3), () {
        splashManager.mobx = _connectionMobx;
-       splashManager.context = context;
        splashManager.setData();
     });
   }
@@ -61,7 +61,7 @@ class _SplashPageState extends State<SplashPage> {
         padding: const EdgeInsets.all(16),
         child: Center(
           child: Image.asset(
-            AppImages.loading,
+            AppImages.logoSplash,
             width: 200,
           ),
         ),

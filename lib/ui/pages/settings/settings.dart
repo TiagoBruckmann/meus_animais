@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 
 // import dos sources
 import 'package:meus_animais/data/sources/local/injection/injection.dart';
-import 'package:meus_animais/data/sources/local/mobx/register/register.dart';
 import 'package:meus_animais/data/sources/remote/services/services.dart';
 import 'package:meus_animais/data/sources/local/manager/get_user.dart';
 
@@ -30,7 +29,6 @@ class SettingsPage extends StatefulWidget {
 
 class _SettingsPageState extends State<SettingsPage> {
 
-  final RegisterMobx _registerMobx = RegisterMobx();
   final _getUser = getIt.get<GetUserManager>();
   late ConnectionMobx _connectionMobx;
 
@@ -54,9 +52,13 @@ class _SettingsPageState extends State<SettingsPage> {
       builder: ( builder ) {
 
         return Scaffold(
+          backgroundColor: Theme.of(context).backgroundColor,
           appBar: AppBar(
             title: Text(
               FlutterI18n.translate(context, "widgets.settings.appbar"),
+              style: TextStyle(
+                color: Theme.of(context).secondaryHeaderColor,
+              ),
             ),
           ),
 
@@ -72,7 +74,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   ListTile(
                     leading: CircleAvatar(
                     radius: 35,
-                      backgroundColor: Colors.grey,
+                      backgroundColor: Theme.of(context).unselectedWidgetColor,
                       child: CircleAvatar(
                         radius: 45,
                         backgroundColor: Theme.of(context).primaryColor,
@@ -84,23 +86,23 @@ class _SettingsPageState extends State<SettingsPage> {
                     title: Text(
                       _getUser.modelUser!.name,
                       style: const TextStyle(
-                        fontSize: 20,
                         fontWeight: FontWeight.w500,
+                        fontSize: 20,
                       ),
                     ),
                     subtitle: Text(
                       _getUser.modelUser!.email,
                       style: const TextStyle(
-                        fontSize: 18,
                         fontWeight: FontWeight.w500,
+                        fontSize: 18,
                       ),
                     ),
                   ),
 
-                  const Divider(
+                  Divider(
                     height: 30,
                     thickness: 1,
-                    color: Colors.black,
+                    color: Theme.of(context).unselectedWidgetColor,
                     indent: 16,
                     endIndent: 16,
                   ),
@@ -121,34 +123,10 @@ class _SettingsPageState extends State<SettingsPage> {
                     ],
                   ),
 
-                  const Divider(
+                  Divider(
                     height: 30,
                     thickness: 1,
-                    color: Colors.black,
-                    indent: 16,
-                    endIndent: 16,
-                  ),
-
-                  // dark_theme
-                  SwitchListTile(
-                    value: _registerMobx.darkTheme,
-                    onChanged: ( value ) {
-                      _registerMobx.setDarkTheme();
-                    },
-                    title: Text(
-                      FlutterI18n.translate(context, "widgets.settings.dark_mode"),
-                      style: const TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                    activeColor: Theme.of(context).secondaryHeaderColor,
-                  ),
-
-                  const Divider(
-                    height: 30,
-                    thickness: 1,
-                    color: Colors.black,
+                    color: Theme.of(context).unselectedWidgetColor,
                     indent: 16,
                     endIndent: 16,
                   ),
@@ -173,11 +151,12 @@ class _SettingsPageState extends State<SettingsPage> {
                       ),
                     ],
                   ),
-                  const Divider(
+
+                  Divider(
                     height: 30,
                     thickness: 1,
-                    color: Colors.black,
-                    indent: 25,
+                    color: Theme.of(context).unselectedWidgetColor,
+                    indent: 16,
                     endIndent: 16,
                   ),
 
@@ -210,10 +189,10 @@ class _SettingsPageState extends State<SettingsPage> {
                     ],
                   ),
 
-                  const Divider(
+                  Divider(
                     height: 30,
                     thickness: 1,
-                    color: Colors.black,
+                    color: Theme.of(context).unselectedWidgetColor,
                     indent: 16,
                     endIndent: 16,
                   ),
@@ -235,10 +214,10 @@ class _SettingsPageState extends State<SettingsPage> {
                   ),
 
                   /*
-                  const Divider(
+                  Divider(
                     height: 30,
                     thickness: 1,
-                    color: Colors.black,
+                    color: Theme.of(context).unselectedWidgetColor,
                     indent: 16,
                     endIndent: 16,
                   ),
@@ -264,11 +243,11 @@ class _SettingsPageState extends State<SettingsPage> {
                     ),
                   ),
 
-                  const Divider(
+                  Divider(
                     height: 30,
                     thickness: 1,
-                    color: Colors.black,
-                    indent: 25,
+                    color: Theme.of(context).unselectedWidgetColor,
+                    indent: 16,
                     endIndent: 16,
                   ),
 
@@ -294,11 +273,11 @@ class _SettingsPageState extends State<SettingsPage> {
                   ),
 
                    */
-                  const Divider(
+                  Divider(
                     height: 30,
                     thickness: 1,
-                    color: Colors.black,
-                    indent: 25,
+                    color: Theme.of(context).unselectedWidgetColor,
+                    indent: 16,
                     endIndent: 16,
                   ),
 

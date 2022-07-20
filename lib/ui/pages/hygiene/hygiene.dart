@@ -18,7 +18,7 @@ class Hygiene extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: AppColors.blueSolitude,
+      color: Theme.of(context).cardColor,
       child: Column(
         children: [
 

@@ -52,9 +52,13 @@ class _PetsPageState extends State<PetsPage> {
       builder: ( builder ) {
 
         return Scaffold(
+          backgroundColor: Theme.of(context).backgroundColor,
           appBar: AppBar(
             title: Text(
               FlutterI18n.translate(context, "pages.pets.pets.appbar"),
+              style: TextStyle(
+                color: Theme.of(context).secondaryHeaderColor,
+              ),
             ),
           ),
 
@@ -127,7 +131,7 @@ class _PetsPageState extends State<PetsPage> {
                                   alignment: AlignmentDirectional.center,
                                   children: [
                                     Image.asset(
-                                      AppImages.loading,
+                                      AppImages.banner,
                                     ),
 
                                     // ao carregar a imagem, sobrepor com o loading com a imagem do pet
@@ -148,8 +152,9 @@ class _PetsPageState extends State<PetsPage> {
                                           child: Text(
                                             modelPets.name,
                                             textAlign: TextAlign.center,
-                                            style: const TextStyle(
-                                              color: Colors.white,
+                                            style: TextStyle(
+                                              color: Theme.of(context).secondaryHeaderColor,
+                                              fontWeight: FontWeight.bold,
                                             ),
                                           ),
                                         ),

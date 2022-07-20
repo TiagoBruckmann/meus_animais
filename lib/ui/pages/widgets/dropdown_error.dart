@@ -1,6 +1,9 @@
 // pacotes nativos flutter
 import 'package:flutter/material.dart';
 
+// import dos estilos
+import 'package:meus_animais/ui/styles/app_colors.dart';
+
 class DropdownError extends StatelessWidget {
 
   final String text;
@@ -12,7 +15,7 @@ class DropdownError extends StatelessWidget {
       child: Text(
         text,
         style: const TextStyle(
-          color: Colors.black,
+          color: AppColors.bossanova,
           fontSize: 15,
         ),
         textAlign: TextAlign.center,

@@ -57,9 +57,13 @@ class _ForgotPasswordState extends State<ForgotPassword> {
       builder: ( builder ) {
 
         return Scaffold(
+          backgroundColor: Theme.of(context).backgroundColor,
           appBar: AppBar(
             title: Text(
               FlutterI18n.translate(context, "pages.login.forgot.appbar"),
+              style: TextStyle(
+                color: Theme.of(context).secondaryHeaderColor,
+              ),
             ),
           ),
           body: ( _connectionMobx.connectionStatus.toString() == "ConnectivityResult.none" )
@@ -103,11 +107,11 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                         decoration: InputDecoration(
                           contentPadding: const EdgeInsets.all(16),
                           labelText: FlutterI18n.translate(context, "pages.login.email"),
-                          labelStyle: const TextStyle(
-                            color: AppColors.barossa,
+                          labelStyle: TextStyle(
+                            color: Theme.of(context).unselectedWidgetColor,
                           ),
                           filled: true,
-                          fillColor: AppColors.blueSolitude,
+                          fillColor: Theme.of(context).cardColor,
                           enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(
                               color: Theme.of(context).primaryColor,
@@ -143,8 +147,8 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                           ( _forgotMobx.emailVerified == false )
                           ? FlutterI18n.translate(context, "pages.login.forgot.btn_email")
                           : FlutterI18n.translate(context, "pages.login.forgot.btn_unreceived"),
-                          style: const TextStyle(
-                            color: Colors.white,
+                          style: TextStyle(
+                            color: Theme.of(context).secondaryHeaderColor,
                             fontSize: 20,
                           ),
                         ),

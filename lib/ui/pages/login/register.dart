@@ -59,9 +59,13 @@ class _RegisterPageState extends State<RegisterPage> {
       builder: ( builder ) {
 
         return Scaffold(
+          backgroundColor: Theme.of(context).backgroundColor,
           appBar: AppBar(
             title: Text(
               FlutterI18n.translate(context, "pages.login.register.appbar"),
+              style: TextStyle(
+                color: Theme.of(context).secondaryHeaderColor,
+              ),
             ),
           ),
           body: ( _connectionMobx.connectionStatus.toString() == "ConnectivityResult.none" )
@@ -104,11 +108,11 @@ class _RegisterPageState extends State<RegisterPage> {
                       decoration: InputDecoration(
                         contentPadding: const EdgeInsets.all(16),
                         labelText: FlutterI18n.translate(context, "pages.login.register.appbar"),
-                        labelStyle: const TextStyle(
-                          color: AppColors.barossa,
+                        labelStyle: TextStyle(
+                          color: Theme.of(context).unselectedWidgetColor,
                         ),
                         filled: true,
-                        fillColor: AppColors.blueSolitude,
+                        fillColor: Theme.of(context).cardColor,
                         enabledBorder: OutlineInputBorder(
                           borderSide: BorderSide(
                             color: Theme.of(context).primaryColor,
@@ -139,11 +143,11 @@ class _RegisterPageState extends State<RegisterPage> {
                         decoration: InputDecoration(
                           contentPadding: const EdgeInsets.all(16),
                           labelText: FlutterI18n.translate(context, "pages.login.email"),
-                          labelStyle: const TextStyle(
-                            color: AppColors.barossa,
+                          labelStyle: TextStyle(
+                            color: Theme.of(context).unselectedWidgetColor,
                           ),
                           filled: true,
-                          fillColor: AppColors.blueSolitude,
+                          fillColor: Theme.of(context).cardColor,
                           enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(
                               color: Theme.of(context).primaryColor,
@@ -174,10 +178,10 @@ class _RegisterPageState extends State<RegisterPage> {
                         contentPadding: const EdgeInsets.fromLTRB( 16, 16, 0, 16),
                         labelText: FlutterI18n.translate(context, "pages.login.password"),
                         labelStyle: TextStyle(
-                          color: Theme.of(context).primaryColor,
+                          color: Theme.of(context).unselectedWidgetColor,
                         ),
                         filled: true,
-                        fillColor: AppColors.blueSolitude,
+                        fillColor: Theme.of(context).cardColor,
                         suffixIcon: TextButton(
                           onPressed: () {
                             _registerMobx.changeVisible();
@@ -186,7 +190,7 @@ class _RegisterPageState extends State<RegisterPage> {
                             ( _registerMobx.passwdVisible == false )
                             ? Icons.visibility_off
                             : Icons.visibility,
-                            color: Theme.of(context).primaryColor,
+                            color: Theme.of(context).secondaryHeaderColor,
                           ),
                         ),
                         enabledBorder: OutlineInputBorder(
@@ -221,8 +225,8 @@ class _RegisterPageState extends State<RegisterPage> {
                         ),
                         child: Text(
                           FlutterI18n.translate(context, "btn_register"),
-                          style: const TextStyle(
-                            color: Colors.white,
+                          style: TextStyle(
+                            color: Theme.of(context).secondaryHeaderColor,
                             fontSize: 20,
                           ),
                         ),

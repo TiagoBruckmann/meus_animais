@@ -1,5 +1,6 @@
 // imports nativos do flutter
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 
 // import dos modelos
 import 'package:meus_animais/domain/models/pets/pets.dart';
@@ -78,14 +79,18 @@ class Routes {
     return MaterialPageRoute(
       builder: (_) {
         return Scaffold(
+          backgroundColor: Theme.of(_).backgroundColor,
           appBar: AppBar(
-            title: const Text(
-              "Tela não encontrada!",
+            title: Text(
+              FlutterI18n.translate(_, "routes.appbar"),
+              style: TextStyle(
+                color: Theme.of(_).secondaryHeaderColor,
+              ),
             ),
           ),
-          body: const Center(
+          body: Center(
             child: Text(
-              "Tela não encontrada!",
+              FlutterI18n.translate(_, "routes.appbar"),
             ),
           ),
         );

@@ -1,6 +1,9 @@
 // imports nativos do flutter
 import 'package:flutter/material.dart';
 
+// import dos estilos
+import 'package:meus_animais/ui/styles/app_colors.dart';
+
 class CustomSnackBar {
 
   CustomSnackBar( context, text, color ) {
@@ -8,7 +11,7 @@ class CustomSnackBar {
       content: Text(
         text,
         style: const TextStyle(
-          color: Colors.white,
+          color: AppColors.whiteSmoke,
         ),
       ),
       backgroundColor: color,

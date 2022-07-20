@@ -6,7 +6,6 @@ import 'package:meus_animais/data/sources/remote/services/services.dart';
 
 // import das telas
 import 'package:meus_animais/ui/pages/widgets/loading/loading_connection.dart';
-import 'package:meus_animais/ui/styles/app_colors.dart';
 
 // import dos pacotes
 import 'package:find_dropdown/find_dropdown.dart';
@@ -55,9 +54,13 @@ class _CreateVaccinesState extends State<CreateVaccines> {
         double width = MediaQuery.of(context).size.width;
 
         return Scaffold(
+          backgroundColor: Theme.of(context).backgroundColor,
           appBar: AppBar(
             title: Text(
               FlutterI18n.translate(context, "pages.vaccines.create.appbar"),
+              style: TextStyle(
+                color: Theme.of(context).secondaryHeaderColor,
+              ),
             ),
           ),
 
@@ -81,11 +84,11 @@ class _CreateVaccinesState extends State<CreateVaccines> {
                     decoration: InputDecoration(
                       contentPadding: const EdgeInsets.all(16),
                       labelText: FlutterI18n.translate(context, "pages.vaccines.create.name"),
-                      labelStyle: const TextStyle(
-                        color: AppColors.barossa,
+                      labelStyle: TextStyle(
+                        color: Theme.of(context).unselectedWidgetColor,
                       ),
                       filled: true,
-                      fillColor: AppColors.blueSolitude,
+                      fillColor: Theme.of(context).cardColor,
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(
                           color: Theme.of(context).primaryColor,
@@ -117,11 +120,11 @@ class _CreateVaccinesState extends State<CreateVaccines> {
                     decoration: InputDecoration(
                       contentPadding: const EdgeInsets.all(16),
                       labelText: FlutterI18n.translate(context, "pages.vaccines.create.type"),
-                      labelStyle: const TextStyle(
-                        color: AppColors.barossa,
+                      labelStyle: TextStyle(
+                        color: Theme.of(context).unselectedWidgetColor,
                       ),
                       filled: true,
-                      fillColor: AppColors.blueSolitude,
+                      fillColor: Theme.of(context).cardColor,
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(
                           color: Theme.of(context).primaryColor,
@@ -155,11 +158,11 @@ class _CreateVaccinesState extends State<CreateVaccines> {
                     decoration: InputDecoration(
                       contentPadding: const EdgeInsets.all(16),
                       labelText: FlutterI18n.translate(context, "pages.vaccines.create.description"),
-                      labelStyle: const TextStyle(
-                        color: AppColors.barossa,
+                      labelStyle: TextStyle(
+                        color: Theme.of(context).unselectedWidgetColor,
                       ),
                       filled: true,
-                      fillColor: AppColors.blueSolitude,
+                      fillColor: Theme.of(context).cardColor,
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(
                           color: Theme.of(context).primaryColor,
@@ -191,11 +194,11 @@ class _CreateVaccinesState extends State<CreateVaccines> {
                     decoration: InputDecoration(
                       contentPadding: const EdgeInsets.all(16),
                       labelText: FlutterI18n.translate(context, "pages.vaccines.create.day"),
-                      labelStyle: const TextStyle(
-                        color: AppColors.barossa,
+                      labelStyle: TextStyle(
+                        color: Theme.of(context).unselectedWidgetColor,
                       ),
                       filled: true,
-                      fillColor: AppColors.blueSolitude,
+                      fillColor: Theme.of(context).cardColor,
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(
                           color: Theme.of(context).primaryColor,
@@ -226,7 +229,7 @@ class _CreateVaccinesState extends State<CreateVaccines> {
                       fontSize: 20,
                     ),
                   ),
-                  activeColor: AppColors.cinnabar,
+                  activeColor: Theme.of(context).primaryColor,
                 ),
 
                 ( _vaccinesMobx.reapply == false )
@@ -256,7 +259,7 @@ class _CreateVaccinesState extends State<CreateVaccines> {
                             decoration: BoxDecoration(
                               border: Border.all(color: Theme.of(context).primaryColor),
                               borderRadius: BorderRadius.circular(5),
-                              color: AppColors.blueSolitude,
+                              color: Theme.of(context).cardColor,
                             ),
                             child: ListTile(
                               title: Text(
@@ -307,7 +310,7 @@ class _CreateVaccinesState extends State<CreateVaccines> {
                             decoration: BoxDecoration(
                               border: Border.all(color: Theme.of(context).primaryColor),
                               borderRadius: BorderRadius.circular(5),
-                              color: AppColors.blueSolitude,
+                              color: Theme.of(context).cardColor,
                             ),
                             child: ListTile(
                               title: Text(
@@ -351,11 +354,11 @@ class _CreateVaccinesState extends State<CreateVaccines> {
                         decoration: InputDecoration(
                           contentPadding: const EdgeInsets.all(16),
                           labelText: FlutterI18n.translate(context, "pages.vaccines.create.laboratory"),
-                          labelStyle: const TextStyle(
-                            color: AppColors.barossa,
+                          labelStyle: TextStyle(
+                            color: Theme.of(context).unselectedWidgetColor,
                           ),
                           filled: true,
-                          fillColor: AppColors.blueSolitude,
+                          fillColor: Theme.of(context).cardColor,
                           enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(
                               color: Theme.of(context).primaryColor,
@@ -385,16 +388,16 @@ class _CreateVaccinesState extends State<CreateVaccines> {
                       _vaccinesMobx.validateFields( context, widget.petId, widget.update );
                     },
                     style: ElevatedButton.styleFrom(
-                      primary: Theme.of(context).cardColor,
+                      primary: Theme.of(context).primaryColor,
                       padding: const EdgeInsets.symmetric( vertical: 16, horizontal: 36 ),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
                     ),
                     child: Text(
-                      "Cadastrar",
+                      FlutterI18n.translate(context, "btn_register"),
                       style: TextStyle(
-                        color: Theme.of(context).primaryColor,
+                        color: Theme.of(context).secondaryHeaderColor,
                         fontSize: 20,
                       ),
                     ),

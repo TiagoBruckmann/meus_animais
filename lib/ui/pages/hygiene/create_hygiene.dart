@@ -58,9 +58,13 @@ class _CreateHygieneState extends State<CreateHygiene> {
         double width = MediaQuery.of(context).size.width;
 
         return Scaffold(
+          backgroundColor: Theme.of(context).backgroundColor,
           appBar: AppBar(
             title: Text(
               FlutterI18n.translate(context, "pages.hygiene.create.appbar"),
+              style: TextStyle(
+                color: Theme.of(context).secondaryHeaderColor,
+              ),
             ),
           ),
 
@@ -111,7 +115,7 @@ class _CreateHygieneState extends State<CreateHygiene> {
                         decoration: BoxDecoration(
                           border: Border.all(color: Theme.of(context).primaryColor),
                           borderRadius: BorderRadius.circular(5),
-                          color: AppColors.blueSolitude,
+                          color: Theme.of(context).cardColor,
                         ),
                         child: ListTile(
                           title: Text(
@@ -155,11 +159,11 @@ class _CreateHygieneState extends State<CreateHygiene> {
                     decoration: InputDecoration(
                       contentPadding: const EdgeInsets.all(16),
                       labelText: FlutterI18n.translate(context, "pages.hygiene.create.day"),
-                      labelStyle: const TextStyle(
-                        color: AppColors.barossa,
+                      labelStyle: TextStyle(
+                        color: Theme.of(context).unselectedWidgetColor,
                       ),
                       filled: true,
-                      fillColor: AppColors.blueSolitude,
+                      fillColor: Theme.of(context).cardColor,
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(
                           color: Theme.of(context).primaryColor,
@@ -191,11 +195,11 @@ class _CreateHygieneState extends State<CreateHygiene> {
                     decoration: InputDecoration(
                       contentPadding: const EdgeInsets.all(16),
                       labelText: FlutterI18n.translate(context, "pages.hygiene.create.establishment"),
-                      labelStyle: const TextStyle(
-                        color: AppColors.barossa,
+                      labelStyle: TextStyle(
+                        color: Theme.of(context).unselectedWidgetColor,
                       ),
                       filled: true,
-                      fillColor: AppColors.blueSolitude,
+                      fillColor: Theme.of(context).cardColor,
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(
                           color: Theme.of(context).primaryColor,
@@ -227,11 +231,11 @@ class _CreateHygieneState extends State<CreateHygiene> {
                     decoration: InputDecoration(
                       contentPadding: const EdgeInsets.all(16),
                       labelText: FlutterI18n.translate(context, "pages.hygiene.create.value"),
-                      labelStyle: const TextStyle(
-                        color: AppColors.barossa,
+                      labelStyle: TextStyle(
+                        color: Theme.of(context).unselectedWidgetColor,
                       ),
                       filled: true,
-                      fillColor: AppColors.blueSolitude,
+                      fillColor: Theme.of(context).cardColor,
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(
                           color: Theme.of(context).primaryColor,
@@ -258,7 +262,7 @@ class _CreateHygieneState extends State<CreateHygiene> {
                       _hygieneMobx.validateFields( context, widget.petId, widget.update );
                     },
                     style: ElevatedButton.styleFrom(
-                      primary: Theme.of(context).cardColor,
+                      primary: Theme.of(context).primaryColor,
                       padding: const EdgeInsets.symmetric( vertical: 16, horizontal: 36 ),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
@@ -267,7 +271,7 @@ class _CreateHygieneState extends State<CreateHygiene> {
                     child: Text(
                       FlutterI18n.translate(context, "btn_register"),
                       style: TextStyle(
-                        color: Theme.of(context).primaryColor,
+                        color: Theme.of(context).secondaryHeaderColor,
                         fontSize: 20,
                       ),
                     ),

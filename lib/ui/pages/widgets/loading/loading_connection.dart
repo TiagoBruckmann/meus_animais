@@ -75,7 +75,7 @@ class _LoadingConnectionState extends State<LoadingConnection> {
                   ? Icons.wifi
                   : Icons.wifi_off,
                   size: 80,
-                  color: AppColors.turbo,
+                  color: AppColors.amber,
                 ),
               ),
             ),

@@ -33,7 +33,7 @@ class LoadingPetsWidget extends StatelessWidget {
                     enabled: true,
                     direction: const ShimmerDirection.fromLTRB(),
                     child: Image.asset(
-                      AppImages.loading,
+                      AppImages.banner,
                     ),
                   ),
 
@@ -62,8 +62,8 @@ class LoadingPetsWidget extends StatelessWidget {
                             child: Text(
                               FlutterI18n.translate(context, "widgets.pets.title"),
                               textAlign: TextAlign.center,
-                              style: const TextStyle(
-                                color: Colors.white,
+                              style: TextStyle(
+                                color: Theme.of(context).secondaryHeaderColor,
                               ),
                             ),
                           ),

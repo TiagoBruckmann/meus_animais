@@ -1,6 +1,9 @@
 // pacotes nativos do flutter
 import 'package:flutter/material.dart';
 
+// import dos estilos
+import 'package:meus_animais/ui/styles/app_colors.dart';
+
 class CopyrightWidget extends StatelessWidget {
   const CopyrightWidget({Key? key}) : super(key: key);
 
@@ -12,8 +15,8 @@ class CopyrightWidget extends StatelessWidget {
         "Copyright © 2022 | Meus animais",
         textAlign: TextAlign.center,
         style: TextStyle(
+          color: AppColors.bossanova,
           fontSize: 18,
-          color: Colors.black,
         ),
       ),
     );

@@ -89,22 +89,6 @@ mixin _$RegisterMobx on _RegisterMobx, Store {
     });
   }
 
-  late final _$darkThemeAtom =
-      Atom(name: '_RegisterMobx.darkTheme', context: context);
-
-  @override
-  bool get darkTheme {
-    _$darkThemeAtom.reportRead();
-    return super.darkTheme;
-  }
-
-  @override
-  set darkTheme(bool value) {
-    _$darkThemeAtom.reportWrite(value, super.darkTheme, () {
-      super.darkTheme = value;
-    });
-  }
-
   late final _$_RegisterMobxActionController =
       ActionController(name: '_RegisterMobx', context: context);
 
@@ -125,17 +109,6 @@ mixin _$RegisterMobx on _RegisterMobx, Store {
         name: '_RegisterMobx.changeVisible');
     try {
       return super.changeVisible();
-    } finally {
-      _$_RegisterMobxActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  void setDarkTheme() {
-    final _$actionInfo = _$_RegisterMobxActionController.startAction(
-        name: '_RegisterMobx.setDarkTheme');
-    try {
-      return super.setDarkTheme();
     } finally {
       _$_RegisterMobxActionController.endAction(_$actionInfo);
     }
@@ -170,8 +143,7 @@ controllerName: ${controllerName},
 controllerEmail: ${controllerEmail},
 controllerPasswd: ${controllerPasswd},
 message: ${message},
-passwdVisible: ${passwdVisible},
-darkTheme: ${darkTheme}
+passwdVisible: ${passwdVisible}
     ''';
   }
 }
