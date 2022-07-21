@@ -1,3 +1,6 @@
+// imports nativos
+import 'dart:io' show Platform;
+
 // import dos sources
 import 'package:meus_animais/data/sources/remote/services/services.dart';
 import 'package:meus_animais/domain/models/life_time/life_time.dart';
@@ -15,7 +18,11 @@ class LifeTimeFirebase implements LifeTimeRepository {
   @override
   getLifeTime() async {
 
-    final data = await db.collection("life_time").get();
+    String locale = "en_US";
+    if ( Platform.localeName == "pt_BR" ) {
+      locale = Platform.localeName;
+    }
+    final data = await db.collection("life_time_$locale").get();
 
     List<ModelLifeTime> list = [];
     for ( var item in data.docs ) {

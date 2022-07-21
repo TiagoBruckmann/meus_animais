@@ -154,8 +154,6 @@ abstract class _VaccinesMobx with Store {
       );
     }
 
-    print("modelVaccines.time => ${modelVaccines.time}");
-    print("modelVaccines.typeTime => ${modelVaccines.typeTime}");
     vaccineManager.listVaccines.add( modelVaccines );
 
     if ( updatePet == true ) {

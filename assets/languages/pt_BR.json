@@ -54,21 +54,11 @@
         "description": "Descrição",
         "day": "Dia da vacina",
         "reapply": "Revacinar?",
-        "type_time": [
-          {
-            "name": "Dia(s)"
-          },
-          {
-            "name": "Semana(s)"
-          },
-          {
-            "name": "Mês/Meses"
-          },
-          {
-            "name": "Ano(s)"
-          }
-        ],
-        "type_time_label": "Perido para revacinar",
+        "type_time_day": "Dia(s)",
+        "type_time_week": "Semana(s)",
+        "type_time_month": "Mês/Meses",
+        "type_time_year": "Ano(s)",
+        "type_time_label": "Periodo para revacinar",
         "type_time_empty": "Selecione o periodo de tempo para revacinar.",
         "interval": "Intervalo de tempo",
         "interval_empty": "Intervalo de tempo entre as vacinas.",
@@ -95,14 +85,8 @@
       },
       "create": {
         "appbar": "Cadastrar pet",
-        "sex": [
-          {
-            "name": "Macho"
-          },
-          {
-            "name": "Femea"
-          }
-        ],
+        "male": "Macho",
+        "female": "Femea",
         "sex_empty": "Selecione o sexo do animal",
         "specie_error": "Nenhuma especie encontrada.",
         "specie_empty": "Selecione a especie do animal"

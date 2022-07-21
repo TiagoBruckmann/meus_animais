@@ -260,9 +260,9 @@ class _CreatePetPageState extends State<CreatePetPage> {
                   padding: const EdgeInsets.symmetric( vertical: 12, horizontal: 10 ),
                   child: FindDropdown(
                     showSearchBox: false,
-                    items: const [
-                      "Macho",
-                      "Femea",
+                    items: [
+                      FlutterI18n.translate(context, "pages.pets.create.male"),
+                      FlutterI18n.translate(context, "pages.pets.create.female"),
                     ],
                     label: FlutterI18n.translate(context, "pages.pets.create.sex_empty"),
                     selectedItem: _createMobx.sex,

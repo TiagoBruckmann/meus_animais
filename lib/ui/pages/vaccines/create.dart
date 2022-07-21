@@ -242,11 +242,11 @@ class _CreateVaccinesState extends State<CreateVaccines> {
                       padding: const EdgeInsets.symmetric( vertical: 12, horizontal: 10 ),
                       child: FindDropdown(
                         showSearchBox: false,
-                        items: const [
-                          "Dia(s)",
-                          "Semana(s)",
-                          "Mês/Meses",
-                          "Ano(s)",
+                        items: [
+                          FlutterI18n.translate(context, "pages.vaccines.create.type_time_day"),
+                          FlutterI18n.translate(context, "pages.vaccines.create.type_time_week"),
+                          FlutterI18n.translate(context, "pages.vaccines.create.type_time_month"),
+                          FlutterI18n.translate(context, "pages.vaccines.create.type_time_year"),
                         ],
                         label: FlutterI18n.translate(context, "pages.vaccines.create.type_time_label"),
                         selectedItem: _vaccinesMobx.typeTime,

@@ -54,20 +54,10 @@
         "description": "Description",
         "day": "Day of vaccine",
         "reapply": "Revaccinate?",
-        "type_time": [
-          {
-            "name": "Day(s)"
-          },
-          {
-            "name": "Week(s)"
-          },
-          {
-            "name": "Month(s)"
-          },
-          {
-            "name": "Year(s)"
-          }
-        ],
+        "type_time_day": "Day(s)",
+        "type_time_week": "Week(s)",
+        "type_time_month": "Month(s)",
+        "type_time_year": "Year(s)",
         "type_time_label": "Period to revaccinate.",
         "type_time_empty": "Select period of time to revaccinate.",
         "interval": "Interval of time.",
@@ -95,14 +85,8 @@
       },
       "create": {
         "appbar": "Register pet",
-        "sex": [
-          {
-            "name": "Male"
-          },
-          {
-            "name": "Female"
-          }
-        ],
+        "male": "Male",
+        "female": "Female",
         "sex_empty": "Select sex of animal.",
         "specie_error": "Not found any specie.",
         "specie_empty": "Select breed of animal."
