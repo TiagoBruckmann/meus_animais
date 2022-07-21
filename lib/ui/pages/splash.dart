@@ -1,15 +1,16 @@
 // pacotes nativos flutter
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:meus_animais/data/sources/local/injection/injection.dart';
-import 'package:meus_animais/data/sources/local/manager/splash.dart';
 import 'dart:async';
 
 // import dos sources
+import 'package:meus_animais/data/sources/local/injection/injection.dart';
 import 'package:meus_animais/data/sources/remote/services/services.dart';
+import 'package:meus_animais/data/sources/local/manager/splash.dart';
 
 // import das telas
 import 'package:meus_animais/ui/styles/app_images.dart';
+import 'package:meus_animais/ui/styles/app_colors.dart';
 
 // import dos pacotes
 import 'package:provider/provider.dart';
@@ -57,7 +58,7 @@ class _SplashPageState extends State<SplashPage> {
 
     return Scaffold(
       body: Container(
-        color: Theme.of(context).primaryColor,
+        color: AppColors.amber,
         padding: const EdgeInsets.all(16),
         child: Center(
           child: Image.asset(
