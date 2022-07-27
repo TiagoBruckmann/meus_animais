@@ -19,6 +19,7 @@ Versão inicial do app: Versão publicada dia ??/??/2022
     <li>Utilização de base do firestore.</li>    
     <li>Utilização de rotas de API.</li>
     <li>Integração do performance.</li>
+    <li>Forçar atualização do app.</li>    
     <li>Inversão de dependencias.</li>
     <li>Configuração do README.</li>
     <li>Criação do CHANGELOG.</li>

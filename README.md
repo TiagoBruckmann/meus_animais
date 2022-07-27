@@ -90,6 +90,7 @@ FIRDebugDisabled
     <li>build_runner</li>
     <li>flutter_lints</li>
     <li>mobx_codegen</li>
+    <li>new_version</li>    
     <li>injectable</li>
     <li>image_crop</li>
     <li>provider</li>
