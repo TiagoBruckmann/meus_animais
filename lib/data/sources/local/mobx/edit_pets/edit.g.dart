@@ -133,30 +133,31 @@ mixin _$EditMobx on _EditMobx, Store {
       AsyncAction('_EditMobx.validateFields', context: context);
 
   @override
-  Future validateFields(dynamic context) {
-    return _$validateFieldsAsyncAction.run(() => super.validateFields(context));
+  Future validateFields(ModelPets modelPets, dynamic context) {
+    return _$validateFieldsAsyncAction
+        .run(() => super.validateFields(modelPets, context));
   }
 
   late final _$_EditMobxActionController =
       ActionController(name: '_EditMobx', context: context);
 
   @override
-  dynamic setVaccines(dynamic value) {
+  dynamic setVaccines(Iterable<ModelVaccines> modelVaccines) {
     final _$actionInfo =
         _$_EditMobxActionController.startAction(name: '_EditMobx.setVaccines');
     try {
-      return super.setVaccines(value);
+      return super.setVaccines(modelVaccines);
     } finally {
       _$_EditMobxActionController.endAction(_$actionInfo);
     }
   }
 
   @override
-  dynamic setHygiene(dynamic value) {
+  dynamic setHygiene(Iterable<ModelHygienePets> modelHygienePets) {
     final _$actionInfo =
         _$_EditMobxActionController.startAction(name: '_EditMobx.setHygiene');
     try {
-      return super.setHygiene(value);
+      return super.setHygiene(modelHygienePets);
     } finally {
       _$_EditMobxActionController.endAction(_$actionInfo);
     }

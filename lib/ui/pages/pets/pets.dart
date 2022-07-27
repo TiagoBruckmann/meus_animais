@@ -36,6 +36,7 @@ class _PetsPageState extends State<PetsPage> {
   void initState() {
     super.initState();
     Services().sendScreen("Pets");
+    Services().verifyVersion(context);
   }
 
   @override

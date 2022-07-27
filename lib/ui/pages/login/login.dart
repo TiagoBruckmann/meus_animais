@@ -37,6 +37,7 @@ class _LoginPageState extends State<LoginPage> {
   void initState() {
     super.initState();
     Services().sendScreen("login");
+    Services().verifyVersion(context);
   }
 
   @override
@@ -148,7 +149,7 @@ class _LoginPageState extends State<LoginPage> {
                             ( _loginMobx.passwdVisible == false )
                             ? Icons.visibility_off
                             : Icons.visibility,
-                            color: Theme.of(context).secondaryHeaderColor,
+                            color: Theme.of(context).unselectedWidgetColor,
                           ),
                         ),
                         enabledBorder: OutlineInputBorder(

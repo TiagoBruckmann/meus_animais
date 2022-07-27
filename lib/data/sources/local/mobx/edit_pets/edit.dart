@@ -87,10 +87,18 @@ abstract class _EditMobx with Store {
   }
 
   @action
-  validateFields( context ) async {
+  validateFields( ModelPets modelPets, context ) async {
 
     analytics.logEvent(name: "validate_update_pet");
-    double weight = double.parse(controllerWeight.text.replaceAll("KG ", ""));
+    String removedKg = controllerWeight.text.replaceAll("KG ", "");
+    if ( removedKg.length > 6 ) {
+      return CustomSnackBar(
+        context,
+        FlutterI18n.translate(context, "custom_message.update_pet.validate.weight"),
+        Colors.red,
+      );
+    }
+    double weight = double.parse(removedKg);
     
     if ( weight == 0.0 ) {
       return CustomSnackBar(
@@ -100,6 +108,7 @@ abstract class _EditMobx with Store {
       );
     }
 
+    updatePetManager.modelPets = modelPets;
     updatePetManager.modelPets!.weight = weight;
     updatePetManager.context = context;
     updatePetManager.setData();
@@ -107,10 +116,10 @@ abstract class _EditMobx with Store {
   }
 
   @action
-  setVaccines( value ) => listVaccines.addAll(value);
+  setVaccines( Iterable<ModelVaccines> modelVaccines ) => listVaccines.addAll(modelVaccines);
 
   @action
-  setHygiene( value ) => listHygiene.addAll(value);
+  setHygiene( Iterable<ModelHygienePets> modelHygienePets ) => listHygiene.addAll(modelHygienePets);
 
   @action
   void clear() {

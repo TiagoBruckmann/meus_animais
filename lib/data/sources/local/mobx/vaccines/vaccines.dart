@@ -51,13 +51,13 @@ abstract class _VaccinesMobx with Store {
   @computed
   List<String> get listTime {
 
-    int length = 2;
+    int length = 3;
     if ( typeTime == "Dia(s)" ) {
       length = 32;
     } else if ( typeTime == "Semana(s)" ) {
       length = 4;
     } else if ( typeTime == "Mês/Meses" ) {
-      length = 11;
+      length = 12;
     }
 
     List<String> list = [];

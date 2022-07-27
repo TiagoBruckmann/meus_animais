@@ -19,7 +19,7 @@ abstract class _ForgotMobx with Store {
   final forgotManager = getIt.get<ForgotManager>();
 
   @observable
-  TextEditingController controllerEmail = TextEditingController( text: "tiagobruckmann@gmail.com" );
+  TextEditingController controllerEmail = TextEditingController();
 
   @observable
   String message = "";

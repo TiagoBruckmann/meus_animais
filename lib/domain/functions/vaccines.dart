@@ -72,14 +72,19 @@ class VaccinesFunctions {
       }
     } else if ( typeTime == "Mês/Meses" ) {
       month += time;
-      if ( month == 1 ) {
+      if ( month > 12 ) {
+        month = month - 12;
         year += 1;
       }
     } else {
-      year += 1;
+      year += time;
     }
 
-    if ( month < 10 ) {
+    if ( day < 10 && month < 10 ) {
+      return "0$day/0$month/$year";
+    } else if ( day < 10 ) {
+      return "0$day/$month/$year";
+    } else if ( month < 10 ) {
       return "$day/0$month/$year";
     }
     return "$day/$month/$year";

@@ -165,7 +165,7 @@ mixin _$CreateMobx on _CreateMobx, Store {
   }
 
   @override
-  void setVaccine(ModelVaccines modelVaccines) {
+  void setVaccine(Iterable<ModelVaccines> modelVaccines) {
     final _$actionInfo = _$_CreateMobxActionController.startAction(
         name: '_CreateMobx.setVaccine');
     try {
@@ -176,7 +176,7 @@ mixin _$CreateMobx on _CreateMobx, Store {
   }
 
   @override
-  void setHygiene(ModelHygienePets modelHygienePets) {
+  void setHygiene(Iterable<ModelHygienePets> modelHygienePets) {
     final _$actionInfo = _$_CreateMobxActionController.startAction(
         name: '_CreateMobx.setHygiene');
     try {

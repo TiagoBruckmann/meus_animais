@@ -69,9 +69,18 @@ abstract class _CreateMobx with Store {
     analytics.logEvent(name: "validate_pet");
     String userId = userManager.modelUser!.id;
     String name = controllerName.text;
-    double weight = double.parse(controllerWeight.text.replaceAll("KG ", ""));
     String birth = controllerBirth.text;
     String breed = controllerBreed.text;
+    String removedKg = controllerWeight.text.replaceAll("KG ", "");
+
+    if ( removedKg.length > 6 ) {
+      return CustomSnackBar(
+        context,
+        FlutterI18n.translate(context, "custom_message.update_pet.validate.weight"),
+        Colors.red,
+      );
+    }
+    double weight = double.parse(removedKg);
 
     if ( name.trim().isEmpty && name.trim().length < 3 ) {
       return CustomSnackBar(
@@ -139,10 +148,10 @@ abstract class _CreateMobx with Store {
   }
 
   @action
-  void setVaccine( ModelVaccines modelVaccines ) => listVaccines.add(modelVaccines);
+  void setVaccine( Iterable<ModelVaccines> modelVaccines ) => listVaccines.addAll(modelVaccines);
 
   @action
-  void setHygiene( ModelHygienePets modelHygienePets ) => listHygiene.add(modelHygienePets);
+  void setHygiene( Iterable<ModelHygienePets> modelHygienePets ) => listHygiene.addAll(modelHygienePets);
 
   @action
   void clear() {

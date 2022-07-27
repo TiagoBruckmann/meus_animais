@@ -190,7 +190,7 @@ class _RegisterPageState extends State<RegisterPage> {
                             ( _registerMobx.passwdVisible == false )
                             ? Icons.visibility_off
                             : Icons.visibility,
-                            color: Theme.of(context).secondaryHeaderColor,
+                            color: Theme.of(context).unselectedWidgetColor,
                           ),
                         ),
                         enabledBorder: OutlineInputBorder(

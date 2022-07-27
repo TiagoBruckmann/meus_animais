@@ -186,5 +186,9 @@
   },
   "routes": {
     "appbar": "Tela não encontrada."
+  },
+  "update": {
+    "title": "Nova versão do aplicativo disponível!",
+    "body": "A versão {store_version} está disponível para download."
   }
 }

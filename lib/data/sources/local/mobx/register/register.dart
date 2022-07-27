@@ -19,13 +19,13 @@ abstract class _RegisterMobx with Store {
   final registerManager = getIt.get<RegisterManager>();
 
   @observable
-  TextEditingController controllerName = TextEditingController(text: "tiago B");
+  TextEditingController controllerName = TextEditingController();
 
   @observable
-  TextEditingController controllerEmail = TextEditingController(text: "tiagobruckmann@gmail.com");
+  TextEditingController controllerEmail = TextEditingController();
 
   @observable
-  TextEditingController controllerPasswd = TextEditingController(text: "Teste12345");
+  TextEditingController controllerPasswd = TextEditingController();
 
   @observable
   String message = "";

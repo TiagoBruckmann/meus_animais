@@ -78,17 +78,20 @@ abstract class _HygieneMobx with Store {
       );
     }
 
-    ModelHygienePets modelHygienePets = ModelHygienePets(
-      DateFormat('yyyyMMddkkmmss').format(DateTime.now()),
-      name,
-      date,
-      place,
-      value,
-      DateTime.now().toString(),
-      petId: petId,
+    List<ModelHygienePets> modelHygienePets = [];
+    modelHygienePets.add(
+      ModelHygienePets(
+        DateFormat('yyyyMMddkkmmss').format(DateTime.now()),
+        name,
+        date,
+        place,
+        value,
+        DateTime.now().toString(),
+        petId: petId,
+      ),
     );
 
-    hygieneManager.listHygiene.add(
+    hygieneManager.listHygiene.addAll(
       modelHygienePets,
     );
 

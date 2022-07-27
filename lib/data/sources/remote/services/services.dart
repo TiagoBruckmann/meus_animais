@@ -4,12 +4,14 @@ import 'dart:io' show Platform;
 // import dos pacotes
 import 'package:firebase_performance/firebase_performance.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:new_version/new_version.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 // import dos sources
@@ -26,7 +28,6 @@ const storage = FlutterSecureStorage();
 
 class Services {
 
-  // enviar tela atual para o analytics
   Future<void> sendScreen( String screenName ) async {
     await analytics.setCurrentScreen(
       screenName: screenName,
@@ -39,7 +40,6 @@ class Services {
     await storage.write( key: keyToken, value: token );
   }
 
-  // deletar todos os tokens
   void deleteAllTokens() async {
     await storage.deleteAll();
     analytics.logEvent(name: "delete_all_tokens");
@@ -49,7 +49,6 @@ class Services {
     return await storage.read(key: name);
   }
 
-  // deletar token especifico
   void deleteOnlyToken( String keyName ) async {
     await storage.delete(key: keyName);
     analytics.logEvent(name: "delete_only_token");
@@ -86,7 +85,6 @@ class Services {
   }
 
   rateApp() async {
-
     analytics.logEvent(name: "rateApp");
     Uri url;
     if ( Platform.isAndroid ) {
@@ -95,7 +93,44 @@ class Services {
       url = Uri.https("www.apple.com", "/br/app-store/");
     }
 
-    await launchUrl(url);
+    if ( await canLaunchUrl(url) ) {
+      await launchUrl(
+        url,
+        mode: LaunchMode.externalNonBrowserApplication,
+      );
+    } else {
+      crash.log("Could not launch appStoreLink");
+      throw 'Could not launch appStoreLink';
+    }
+  }
+
+  verifyVersion( context ) async {
+
+    final newVersion = NewVersion();
+
+    final versionStatus = await newVersion.getVersionStatus();
+    if ( versionStatus != null ) {
+
+      int storeVersion = int.parse(versionStatus.storeVersion.replaceAll(".", ""));
+      int localVersion = int.parse(versionStatus.localVersion.replaceAll(".", ""));
+
+      if ( localVersion < storeVersion && versionStatus.canUpdate == true ) {
+
+        Map<String, String> params = {
+          "store_version": versionStatus.storeVersion,
+        };
+
+        newVersion.showUpdateDialog(
+          context: context,
+          versionStatus: versionStatus,
+          dialogTitle: FlutterI18n.translate(context, "update.title"),
+          dialogText: FlutterI18n.translate(context, "update.body", translationParams: params),
+          updateButtonText: FlutterI18n.translate(context, "btn_update"),
+          allowDismissal: false,
+        );
+      }
+    }
+
   }
 
 }

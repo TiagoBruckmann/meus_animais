@@ -60,7 +60,7 @@ class _CreatePetPageState extends State<CreatePetPage> {
     );
 
     if ( vaccines != null ) {
-      ModelVaccines modelVaccines = vaccines as ModelVaccines;
+      Iterable<ModelVaccines> modelVaccines = vaccines as Iterable<ModelVaccines>;
       _createMobx.setVaccine( modelVaccines );
     }
   }
@@ -78,7 +78,7 @@ class _CreatePetPageState extends State<CreatePetPage> {
     );
 
     if ( hygiene != null ) {
-      ModelHygienePets modelHygienePets = hygiene as ModelHygienePets;
+      Iterable<ModelHygienePets> modelHygienePets = hygiene as Iterable<ModelHygienePets>;
       _createMobx.setHygiene( modelHygienePets );
     }
   }
@@ -537,28 +537,22 @@ class _CreatePetPageState extends State<CreatePetPage> {
                   padding: const EdgeInsets.fromLTRB(10, 16, 10, 10),
                   width: width,
                   child: ElevatedButton(
-                    onPressed: () {
-                      if ( _createMobx.clicked == false ) {
-                        _createMobx.validateFields( _petId, _cropMobx.image, context );
-                      }
-                    },
+                    onPressed: ( _createMobx.clicked == false )
+                    ? () {
+                      _createMobx.validateFields( _petId, _cropMobx.image, context );
+                    }
+                    : null,
                     style: ElevatedButton.styleFrom(
-                      primary: ( _createMobx.clicked == false )
-                      ? Theme.of(context).primaryColor
-                      : Theme.of(context).unselectedWidgetColor,
+                      primary: Theme.of(context).primaryColor,
                       padding: const EdgeInsets.symmetric( vertical: 16, horizontal: 36 ),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
                     ),
                     child: Text(
-                      ( _createMobx.clicked == false )
-                      ? FlutterI18n.translate(context, "btn_register")
-                      : FlutterI18n.translate(context, "btn_await"),
+                      FlutterI18n.translate(context, "btn_register"),
                       style: TextStyle(
-                        color: ( _createMobx.clicked == false )
-                        ? Theme.of(context).secondaryHeaderColor
-                        : Theme.of(context).unselectedWidgetColor,
+                        color: Theme.of(context).secondaryHeaderColor,
                         fontSize: 20,
                       ),
                     ),

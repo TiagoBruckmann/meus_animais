@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 
 // import dos sources
 import 'package:meus_animais/data/sources/remote/services/services.dart';
+import 'package:meus_animais/domain/models/hygiene/hygiene_pets.dart';
 import 'package:meus_animais/domain/models/pets/pets.dart';
+import 'package:meus_animais/domain/models/vaccines/vaccines.dart';
 
 // import das telas
 import 'package:meus_animais/ui/pages/widgets/loading/loading_connection.dart';
@@ -51,7 +53,8 @@ class _EditPetsState extends State<EditPets> {
     );
 
     if ( vaccines != null ) {
-      _editMobx.setVaccines(vaccines);
+      Iterable<ModelVaccines> listVaccines = vaccines as Iterable<ModelVaccines>;
+      _editMobx.setVaccines(listVaccines);
     }
   }
 
@@ -69,7 +72,8 @@ class _EditPetsState extends State<EditPets> {
     );
 
     if ( hygiene != null ) {
-      _editMobx.setHygiene(hygiene);
+      Iterable<ModelHygienePets> listHygiene = hygiene as Iterable<ModelHygienePets>;
+      _editMobx.setHygiene(listHygiene);
     }
   }
 
@@ -516,7 +520,7 @@ class _EditPetsState extends State<EditPets> {
                   width: width,
                   child: ElevatedButton(
                     onPressed: () {
-                      _editMobx.validateFields(context);
+                      _editMobx.validateFields( widget.modelPets, context);
                     },
                     style: ElevatedButton.styleFrom(
                       primary: Theme.of(context).primaryColor,
