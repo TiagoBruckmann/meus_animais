@@ -146,6 +146,15 @@ mixin _$VaccinesMobx on _VaccinesMobx, Store {
     });
   }
 
+  late final _$validateFieldsAsyncAction =
+      AsyncAction('_VaccinesMobx.validateFields', context: context);
+
+  @override
+  Future validateFields(dynamic context, String petId, bool updatePet) {
+    return _$validateFieldsAsyncAction
+        .run(() => super.validateFields(context, petId, updatePet));
+  }
+
   late final _$_VaccinesMobxActionController =
       ActionController(name: '_VaccinesMobx', context: context);
 
@@ -177,17 +186,6 @@ mixin _$VaccinesMobx on _VaccinesMobx, Store {
         name: '_VaccinesMobx.setTime');
     try {
       return super.setTime(value);
-    } finally {
-      _$_VaccinesMobxActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  dynamic validateFields(dynamic context, String petId, bool updatePet) {
-    final _$actionInfo = _$_VaccinesMobxActionController.startAction(
-        name: '_VaccinesMobx.validateFields');
-    try {
-      return super.validateFields(context, petId, updatePet);
     } finally {
       _$_VaccinesMobxActionController.endAction(_$actionInfo);
     }

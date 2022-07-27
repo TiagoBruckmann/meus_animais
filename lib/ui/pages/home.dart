@@ -4,7 +4,6 @@ import 'package:flutter/services.dart';
 
 // import das telas
 import 'package:meus_animais/ui/pages/settings/settings.dart';
-import 'package:meus_animais/ui/styles/app_colors.dart';
 import 'package:meus_animais/ui/pages/pets/create.dart';
 import 'package:meus_animais/ui/pages/pets/pets.dart';
 

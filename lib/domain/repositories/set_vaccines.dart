@@ -17,7 +17,7 @@ class SetVaccinesFirebase implements SetVaccinesRepository {
   setVaccines( List<ModelVaccines> list) async {
 
     for ( var item in list ) {
-      await db.collection("vaccines").doc(item.id).set(item.toMap());
+      await db.collection("pets").doc(item.petId).collection("vaccines").doc(item.id).set(item.toMap());
     }
 
   }
@@ -28,5 +28,15 @@ class SetVaccinesApi implements SetVaccinesRepository {
   @override
   setVaccines( List<ModelVaccines> list ) async {
 
+  }
+}
+
+@Injectable(as: SetVaccinesRepository, env: ["test"])
+class SetVaccinesTest implements SetVaccinesRepository {
+  @override
+  setVaccines( List<ModelVaccines> list ) async {
+    for ( var item in list ) {
+      Services().setToken("listVaccines", item.toMap().toString());
+    }
   }
 }

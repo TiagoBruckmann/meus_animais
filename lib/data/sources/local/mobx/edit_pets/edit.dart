@@ -72,7 +72,7 @@ abstract class _EditMobx with Store {
     controllerSex.text = modelPets.sex;
     controllerSpecie.text = modelPets.specie;
     controllerBreed.text = modelPets.breed;
-    controllerWeight = MoneyMaskedTextController(leftSymbol: "KG ", decimalSeparator: ".", precision: 2, initialValue: modelPets.weight! );
+    controllerWeight = MoneyMaskedTextController(leftSymbol: "KG ", decimalSeparator: ".", precision: 2, initialValue: modelPets.weight );
     controllerBirth.text = modelPets.birth;
     
     await lifeTimeManager.getData();

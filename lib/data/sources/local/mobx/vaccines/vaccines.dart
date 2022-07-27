@@ -1,5 +1,6 @@
 // imports nativos do flutter
 import 'package:flutter/material.dart';
+import 'package:meus_animais/domain/functions/vaccines.dart';
 
 // import das telas
 import 'package:meus_animais/ui/pages/widgets/message.dart';
@@ -50,8 +51,17 @@ abstract class _VaccinesMobx with Store {
   @computed
   List<String> get listTime {
 
+    int length = 2;
+    if ( typeTime == "Dia(s)" ) {
+      length = 32;
+    } else if ( typeTime == "Semana(s)" ) {
+      length = 4;
+    } else if ( typeTime == "Mês/Meses" ) {
+      length = 11;
+    }
+
     List<String> list = [];
-    for ( int i = 1; i < 32; i++ ) {
+    for ( int i = 1; i < length; i++ ) {
       list.add("$i - $typeTime");
     }
 
@@ -74,14 +84,14 @@ abstract class _VaccinesMobx with Store {
   void setTime( String value ) => time = value;
 
   @action
-  validateFields( context, String petId, bool updatePet ) {
+  validateFields( context, String petId, bool updatePet ) async {
 
     analytics.logEvent(name: "validate_vaccines");
     String name = controllerName.text;
     String type = controllerType.text;
     String day = controllerDay.text;
 
-    ModelVaccines modelVaccines;
+    List<ModelVaccines> listModelVaccines = [];
 
     if ( name.isEmpty && name.trim().length < 3 ) {
       CustomSnackBar(
@@ -110,18 +120,38 @@ abstract class _VaccinesMobx with Store {
     if ( reapply == true ) {
       if ( typeTime.isNotEmpty ) {
         if ( time.isNotEmpty ) {
-          modelVaccines = ModelVaccines(
-            DateFormat('yyyyMMddkkmmss').format(DateTime.now()),
-            petId,
-            name,
-            type,
-            controllerDescription.text,
-            day,
-            reapply,
-            DateTime.now().toString(),
-            typeTime: typeTime,
-            time: time,
-            laboratory: controllerLaboratory.text,
+
+          listModelVaccines.add(
+            ModelVaccines(
+              DateFormat('yyyyMMddkkmmss').format(DateTime.now()),
+              name,
+              type,
+              controllerDescription.text,
+              day,
+              reapply,
+              DateTime.now().toString(),
+              petId: petId,
+              typeTime: typeTime,
+              time: time,
+              laboratory: controllerLaboratory.text,
+            ),
+          );
+
+          await Future.delayed(const Duration(seconds: 1,));
+          listModelVaccines.add(
+            ModelVaccines(
+              DateFormat('yyyyMMddkkmmss').format(DateTime.now()),
+              name,
+              type,
+              controllerDescription.text,
+              VaccinesFunctions().calculateDate(day, time, typeTime),
+              false,
+              DateTime.now().toString(),
+              petId: petId,
+              typeTime: typeTime,
+              time: time,
+              laboratory: controllerLaboratory.text,
+            ),
           );
 
         } else {
@@ -142,19 +172,21 @@ abstract class _VaccinesMobx with Store {
       }
     } else {
 
-      modelVaccines = ModelVaccines(
-        DateFormat('yyyyMMddkkmmss').format(DateTime.now()),
-        petId,
-        name,
-        type,
-        controllerDescription.text,
-        day,
-        reapply,
-        DateTime.now().toString(),
+      listModelVaccines.add(
+        ModelVaccines(
+          DateFormat('yyyyMMddkkmmss').format(DateTime.now()),
+          name,
+          type,
+          controllerDescription.text,
+          day,
+          reapply,
+          DateTime.now().toString(),
+          petId: petId,
+        ),
       );
     }
 
-    vaccineManager.listVaccines.add( modelVaccines );
+    vaccineManager.listVaccines.addAll( listModelVaccines );
 
     if ( updatePet == true ) {
       vaccineManager.setData();
@@ -162,7 +194,7 @@ abstract class _VaccinesMobx with Store {
 
     return Navigator.pop(
       context,
-      modelVaccines,
+      listModelVaccines,
     );
 
   }

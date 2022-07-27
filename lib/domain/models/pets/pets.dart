@@ -4,13 +4,13 @@ class ModelPets {
 
   String id, userId, name, sex, specie, breed, picture, age, birth = "";
   String? createdAt, updatedAt;
-  double? weight = 0.0;
+  double weight = 0.0;
 
   dynamic context;
 
   ModelPets(
     this.id, this.userId, this.name, this.sex, this.specie, this.breed,
-    this.picture, this.age, this.birth, this.weight, this.createdAt, this.updatedAt
+    this.picture, this.age, this.birth, this.weight, this.createdAt, this.updatedAt,
   );
 
   factory ModelPets.fromJson(dynamic json, context) {

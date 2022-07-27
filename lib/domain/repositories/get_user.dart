@@ -20,6 +20,7 @@ class GetUserFirebase implements GetUserRepository {
 
       dynamic data = await db.collection("users").where("id", isEqualTo: userData.uid).get();
       for ( dynamic item in data.docs ) {
+        userData.updateDisplayName(item["name"]);
         modelUser = ModelUser.fromJson(item, uid: userData.uid);
       }
 
@@ -37,7 +38,22 @@ class GetUserApi implements GetUserRepository {
       "5",
       "Tiago Api",
       "tiagobruckmann@gmail.com",
-      true,
     );
+  }
+}
+
+@Injectable(as: GetUserRepository, env: ["test"])
+class GetUserTest implements GetUserRepository {
+
+  @override
+  Future<ModelUser> getUser( ModelUser? modelUser ) async {
+
+    modelUser ??= ModelUser(
+      "5",
+      "Tiago Teste",
+      "tiagobruckmann@gmail.com",
+    );
+
+    return modelUser;
   }
 }

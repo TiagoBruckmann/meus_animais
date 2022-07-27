@@ -8,7 +8,6 @@ import 'package:meus_animais/data/sources/remote/services/services.dart';
 
 // import das telas
 import 'package:meus_animais/ui/pages/widgets/loading/loading_connection.dart';
-import 'package:meus_animais/ui/styles/app_colors.dart';
 
 // import dos pacotes
 import 'package:find_dropdown/find_dropdown.dart';
@@ -34,7 +33,7 @@ class _CreateHygieneState extends State<CreateHygiene> {
 
   final HygieneMobx _hygieneMobx = HygieneMobx();
   late ConnectionMobx _connectionMobx;
-  final hygiene = getIt.get<GetHygieneManager>();
+  final _hygiene = getIt.get<GetHygieneManager>();
 
   @override
   void initState() {
@@ -79,7 +78,7 @@ class _CreateHygieneState extends State<CreateHygiene> {
                   padding: const EdgeInsets.symmetric( vertical: 8, horizontal: 10 ),
                   child: FindDropdown(
                     showSearchBox: false,
-                    items: hygiene.listHygiene,
+                    items: _hygiene.listHygiene,
                     label: FlutterI18n.translate(context, "pages.hygiene.create.category"),
                     selectedItem: _hygieneMobx.name,
                     onChanged: (value) {

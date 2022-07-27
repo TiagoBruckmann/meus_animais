@@ -56,3 +56,12 @@ class UpdatePetApi implements UpdatePetRepository {
 
   }
 }
+
+@Injectable(as: UpdatePetRepository, env: ["test"])
+class UpdatePetTest implements UpdatePetRepository {
+
+  @override
+  updatePet( ModelPets modelPets, context ) async {
+    return Services().setToken("pets", modelPets.updateToMap().toString());
+  }
+}

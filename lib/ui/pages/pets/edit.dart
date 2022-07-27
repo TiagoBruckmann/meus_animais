@@ -9,7 +9,6 @@ import 'package:meus_animais/domain/models/pets/pets.dart';
 import 'package:meus_animais/ui/pages/widgets/loading/loading_connection.dart';
 import 'package:meus_animais/ui/pages/vaccines/vaccines.dart';
 import 'package:meus_animais/ui/pages/hygiene/hygiene.dart';
-import 'package:meus_animais/ui/styles/app_colors.dart';
 import 'package:meus_animais/ui/styles/app_images.dart';
 
 // import dos pacotes

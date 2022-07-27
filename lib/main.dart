@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:io' show Platform;
-import 'dart:async';
 
 // import dos estilos
 import 'package:meus_animais/ui/styles/app_colors.dart';

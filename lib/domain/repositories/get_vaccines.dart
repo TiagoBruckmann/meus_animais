@@ -14,9 +14,7 @@ class GetVaccinesFirebase implements GetVaccinesRepository {
   @override
   getVaccines( String petId ) async {
 
-    final data = await db.collection("vaccines")
-        .where("pet_id", isEqualTo: petId)
-        .get();
+    final data = await db.collection("pets").doc(petId).collection("vaccines").get();
 
     List<ModelVaccines> listVaccines = [];
     for ( dynamic item in data.docs ) {
@@ -33,18 +31,39 @@ class GetVaccinesApi implements GetVaccinesRepository {
   Future<List<ModelVaccines>> getVaccines( String petId ) async {
     List<ModelVaccines> list = [
       ModelVaccines(
-        "5",
         "1",
-        "Anti-cria",
-        "castral",
-        "Para não engravidar",
+        "anti cio",
+        "Prevenção de gravidez",
+        "",
         "21/06/2022",
         true,
-        "02/07/2022",
-        typeTime: "mounth",
+        "2022-07-12 17:40:23.472719",
+        petId: "1",
         time: "3",
-        laboratory: "Sei la meo",
-      )
+        typeTime: "Mês/Meses",
+      ),
+    ];
+    return list;
+  }
+}
+
+@Injectable(as: GetVaccinesRepository, env: ["test"])
+class GetVaccinesTest implements GetVaccinesRepository {
+  @override
+  Future<List<ModelVaccines>> getVaccines( String petId ) async {
+    List<ModelVaccines> list = [
+      ModelVaccines(
+        "1",
+        "anti cio",
+        "Prevenção de gravidez",
+        "",
+        "21/06/2022",
+        true,
+        "2022-07-12 17:40:23.472719",
+        petId: "1",
+        time: "3",
+        typeTime: "Mês/Meses",
+      ),
     ];
     return list;
   }

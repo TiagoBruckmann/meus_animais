@@ -4,17 +4,15 @@ import 'package:intl/intl.dart';
 class ModelUser {
 
   String id, name, email = "";
-  bool darkTheme = false;
   String? password, picture;
 
-  ModelUser( this.id, this.name, this.email, this.darkTheme, { this.password, this.picture } );
+  ModelUser( this.id, this.name, this.email, { this.password, this.picture } );
 
   factory ModelUser.fromJson( dynamic json, { String? uid } ) {
     return ModelUser(
       uid ?? json["id"],
       json["name"],
       json["email"],
-      json["dark_theme"],
       picture: json["picture"],
     );
   }
@@ -24,7 +22,6 @@ class ModelUser {
       "id": id,
       "name": name,
       "email": email,
-      "dark_theme": darkTheme,
       "picture": picture,
     };
 

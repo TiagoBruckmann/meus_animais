@@ -69,3 +69,14 @@ class SetPetApi implements SetPetRepository {
 
   }
 }
+
+@Injectable(as: SetPetRepository, env: ["test"])
+class SetPetTest implements SetPetRepository {
+
+  @override
+  setPet( ModelPets modelPets, XFile picture, context ) async {
+
+    return Services().setToken("pets", modelPets.toMap().toString());
+
+  }
+}

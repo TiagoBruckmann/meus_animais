@@ -60,3 +60,18 @@ class ForgotApi implements ForgotRepository {
     return emailVerified;
   }
 }
+
+@Injectable(as: ForgotRepository, env: ["test"])
+class ForgotTest implements ForgotRepository {
+
+  @override
+  Future<bool> forgot( ModelLogin modelLogin, bool emailVerified ) async {
+
+    emailVerified = true;
+    if ( !modelLogin.email.contains("@") ) {
+      emailVerified = false;
+    }
+
+    return emailVerified;
+  }
+}

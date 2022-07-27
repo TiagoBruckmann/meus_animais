@@ -1,13 +1,13 @@
 class ModelHygienePets {
 
-  String id, petId, name, day, place, value, createdAt;
+  String id, name, day, place, value, createdAt;
+  String? petId = "";
 
-  ModelHygienePets( this.id, this.petId, this.name, this.day, this.place, this.value, this.createdAt );
+  ModelHygienePets( this.id, this.name, this.day, this.place, this.value, this.createdAt, { this.petId } );
 
   factory ModelHygienePets.fromJson(dynamic json) {
     return ModelHygienePets(
       json["id"].toString(),
-      json["pet_id"],
       json["name"],
       json["day"],
       json["place"],
@@ -19,7 +19,6 @@ class ModelHygienePets {
   Map<String, dynamic> toMap() {
     Map<String, dynamic> map = {
       "id": id,
-      "pet_id": petId,
       "name": name,
       "place": place,
       "day": day,

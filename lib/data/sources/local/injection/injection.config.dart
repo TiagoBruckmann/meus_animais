@@ -42,6 +42,7 @@ import '../manager/update_pets.dart' as _i34;
 
 const String _firebase = 'firebase';
 const String _api = 'api';
+const String _test = 'test';
 // ignore_for_file: unnecessary_lambdas
 // ignore_for_file: lines_longer_than_80_chars
 /// initializes the registration of provided dependencies inside of [GetIt]
@@ -52,9 +53,15 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
       registerFor: {_firebase});
   gh.factory<_i3.DestroyRepository>(() => _i3.DestroyApi(),
       registerFor: {_api});
+  gh.factory<_i3.DestroyRepository>(() => _i3.DestroyDest(),
+      registerFor: {_test});
   gh.factory<_i4.ForgotRepository>(() => _i4.ForgotFirebase(),
       registerFor: {_firebase});
   gh.factory<_i4.ForgotRepository>(() => _i4.ForgotApi(), registerFor: {_api});
+  gh.factory<_i4.ForgotRepository>(() => _i4.ForgotTest(),
+      registerFor: {_test});
+  gh.factory<_i5.GetHygienePetsRepository>(() => _i5.GetHygienePetsTest(),
+      registerFor: {_test});
   gh.factory<_i5.GetHygienePetsRepository>(() => _i5.GetHygienePetsFirebase(),
       registerFor: {_firebase});
   gh.factory<_i5.GetHygienePetsRepository>(() => _i5.GetHygienePetsApi(),
@@ -63,49 +70,71 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
       registerFor: {_firebase});
   gh.factory<_i6.GetHygieneRepository>(() => _i6.GetHygieneApi(),
       registerFor: {_api});
+  gh.factory<_i6.GetHygieneRepository>(() => _i6.GetHygieneTest(),
+      registerFor: {_test});
   gh.factory<_i7.GetPetsRepository>(() => _i7.GetPetsFirebase(),
       registerFor: {_firebase});
   gh.factory<_i7.GetPetsRepository>(() => _i7.GetPetsApi(),
       registerFor: {_api});
+  gh.factory<_i7.GetPetsRepository>(() => _i7.GetPetsTest(),
+      registerFor: {_test});
   gh.factory<_i8.GetUserRepository>(() => _i8.GetUserFirebase(),
       registerFor: {_firebase});
   gh.factory<_i8.GetUserRepository>(() => _i8.GetUserApi(),
       registerFor: {_api});
-  gh.factory<_i9.GetVaccinesRepository>(() => _i9.GetVaccinesApi(),
-      registerFor: {_api});
+  gh.factory<_i8.GetUserRepository>(() => _i8.GetUserTest(),
+      registerFor: {_test});
   gh.factory<_i9.GetVaccinesRepository>(() => _i9.GetVaccinesFirebase(),
       registerFor: {_firebase});
-  gh.factory<_i10.LifeTimeRepository>(() => _i10.LifeTimeFirebase(),
-      registerFor: {_firebase});
-  gh.factory<_i10.LifeTimeRepository>(() => _i10.LifeTimeApi(),
+  gh.factory<_i9.GetVaccinesRepository>(() => _i9.GetVaccinesApi(),
       registerFor: {_api});
+  gh.factory<_i9.GetVaccinesRepository>(() => _i9.GetVaccinesTest(),
+      registerFor: {_test});
+  gh.factory<_i10.LifeTimeRepository>(() => _i10.LifeTimeFirebase(),
+      registerFor: {_firebase, _api, _test});
+  gh.factory<_i11.LoginRepository>(() => _i11.LoginTest(),
+      registerFor: {_test});
   gh.factory<_i11.LoginRepository>(() => _i11.LoginFirebase(),
       registerFor: {_firebase});
   gh.factory<_i11.LoginRepository>(() => _i11.LoginApi(), registerFor: {_api});
+  gh.factory<_i12.LogoutRepository>(() => _i12.LogoutTest(),
+      registerFor: {_test});
   gh.factory<_i12.LogoutRepository>(() => _i12.LogoutApi(),
       registerFor: {_api});
   gh.factory<_i12.LogoutRepository>(() => _i12.LogoutFirebase(),
       registerFor: {_firebase});
-  gh.factory<_i13.RegisterRepository>(() => _i13.RegisterFirebase(),
-      registerFor: {_firebase});
   gh.factory<_i13.RegisterRepository>(() => _i13.RegisterApi(),
       registerFor: {_api});
+  gh.factory<_i13.RegisterRepository>(() => _i13.RegisterTest(),
+      registerFor: {_test});
+  gh.factory<_i13.RegisterRepository>(() => _i13.RegisterFirebase(),
+      registerFor: {_firebase});
+  gh.factory<_i14.SetHygieneRepository>(() => _i14.SetHygieneTest(),
+      registerFor: {_test});
   gh.factory<_i14.SetHygieneRepository>(() => _i14.SetHygieneApi(),
       registerFor: {_api});
   gh.factory<_i14.SetHygieneRepository>(() => _i14.SetHygieneFirebase(),
       registerFor: {_firebase});
-  gh.factory<_i15.SetPetRepository>(() => _i15.SetPetApi(),
-      registerFor: {_api});
+  gh.factory<_i15.SetPetRepository>(() => _i15.SetPetTest(),
+      registerFor: {_test});
   gh.factory<_i15.SetPetRepository>(() => _i15.SetPetFirebase(),
       registerFor: {_firebase});
+  gh.factory<_i15.SetPetRepository>(() => _i15.SetPetApi(),
+      registerFor: {_api});
   gh.factory<_i16.SetVaccinesRepository>(() => _i16.SetVaccinesFirebase(),
       registerFor: {_firebase});
+  gh.factory<_i16.SetVaccinesRepository>(() => _i16.SetVaccinesTest(),
+      registerFor: {_test});
   gh.factory<_i16.SetVaccinesRepository>(() => _i16.SetVaccinesApi(),
       registerFor: {_api});
+  gh.factory<_i17.SplashRepository>(() => _i17.SplashTest(),
+      registerFor: {_test});
   gh.factory<_i17.SplashRepository>(() => _i17.SplashApi(),
       registerFor: {_api});
   gh.factory<_i17.SplashRepository>(() => _i17.SplashFirebase(),
       registerFor: {_firebase});
+  gh.factory<_i18.UpdatePetRepository>(() => _i18.UpdatePetTest(),
+      registerFor: {_test});
   gh.factory<_i18.UpdatePetRepository>(() => _i18.UpdatePetApi(),
       registerFor: {_api});
   gh.factory<_i18.UpdatePetRepository>(() => _i18.UpdatePetFirebase(),

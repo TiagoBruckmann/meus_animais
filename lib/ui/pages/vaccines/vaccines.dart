@@ -4,9 +4,6 @@ import 'package:flutter/material.dart';
 // import dos modelos
 import 'package:meus_animais/domain/models/vaccines/vaccines.dart';
 
-// imports das telas
-import 'package:meus_animais/ui/styles/app_colors.dart';
-
 // import dos pacotes
 import 'package:flutter_i18n/flutter_i18n.dart';
 

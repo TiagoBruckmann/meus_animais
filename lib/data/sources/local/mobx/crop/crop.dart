@@ -2,11 +2,15 @@
 import 'package:flutter/material.dart';
 import 'dart:io';
 
+// import dos sources
+import 'package:meus_animais/data/sources/remote/services/services.dart';
+
+// import da ui
+import 'package:meus_animais/ui/styles/app_colors.dart';
+
 // import dos pacotes
 import 'package:image_picker/image_picker.dart';
 import 'package:image_crop/image_crop.dart';
-import 'package:meus_animais/data/sources/remote/services/services.dart';
-import 'package:meus_animais/ui/styles/app_colors.dart';
 import 'package:mobx/mobx.dart';
 part 'crop.g.dart';
 

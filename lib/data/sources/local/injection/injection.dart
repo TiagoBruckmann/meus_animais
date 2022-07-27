@@ -8,6 +8,7 @@ final getIt = GetIt.I;
 
 const String env = "firebase";
 // const String env = "api";
+// const String env = "test";
 
 @InjectableInit()
 void configureDependencies() => $initGetIt(getIt, environment: env);

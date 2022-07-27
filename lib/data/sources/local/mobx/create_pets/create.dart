@@ -19,7 +19,6 @@ import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:mobx/mobx.dart';
-import 'package:intl/intl.dart';
 part 'create.g.dart';
 
 class CreateMobx extends _CreateMobx with _$CreateMobx{}

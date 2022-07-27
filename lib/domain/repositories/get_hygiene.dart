@@ -40,3 +40,17 @@ class GetHygieneApi implements GetHygieneRepository {
     return list;
   }
 }
+
+@Injectable(as: GetHygieneRepository, env: ["test"])
+class GetHygieneTest implements GetHygieneRepository {
+  @override
+  Future<List<ModelHygiene>> getHygiene() async {
+    List<ModelHygiene> list = [
+      ModelHygiene(
+        "5",
+        "Banho e tosa",
+      )
+    ];
+    return list;
+  }
+}

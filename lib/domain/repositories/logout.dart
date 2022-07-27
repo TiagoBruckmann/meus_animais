@@ -61,3 +61,13 @@ class LogoutApi implements LogoutRepository {
     );
   }
 }
+
+@Injectable(as: LogoutRepository, env: ["test"])
+class LogoutTest implements LogoutRepository {
+
+  @override
+  logout( context ) async {
+    Services().deleteAllTokens();
+    return true;
+  }
+}

@@ -79,3 +79,13 @@ class DestroyApi implements DestroyRepository {
     );
   }
 }
+
+@Injectable(as: DestroyRepository, env: ["test"])
+class DestroyDest implements DestroyRepository {
+
+  @override
+  destroy( ModelUser modelUser, context ) async {
+    Services().deleteAllTokens();
+    return true;
+  }
+}

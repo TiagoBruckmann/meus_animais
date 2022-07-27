@@ -15,7 +15,7 @@ class SetHygieneFirebase implements SetHygieneRepository {
   setHygiene( List<ModelHygienePets> list ) async {
 
     for ( var item in list ) {
-      await db.collection("hygiene_pets").doc(item.id).set(item.toMap());
+      await db.collection("pets").doc(item.petId).collection("hygiene").doc(item.id).set(item.toMap());
     }
 
   }
@@ -26,5 +26,15 @@ class SetHygieneApi implements SetHygieneRepository {
   @override
   setHygiene( List<ModelHygienePets> list ) async {
 
+  }
+}
+
+@Injectable(as: SetHygieneRepository, env: ["test"])
+class SetHygieneTest implements SetHygieneRepository {
+  @override
+  setHygiene( List<ModelHygienePets> list ) async {
+    for ( var item in list ) {
+      Services().setToken("listHygiene", item.toMap().toString());
+    }
   }
 }

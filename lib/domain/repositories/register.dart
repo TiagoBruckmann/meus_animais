@@ -30,11 +30,11 @@ class RegisterFirebase implements RegisterRepository {
       password: modelLogin.password,
     ).then((firebaseUser) async {
 
+      firebaseUser.user!.updateDisplayName(modelLogin.name!);
       ModelUser user = ModelUser(
         firebaseUser.user!.uid,
         modelLogin.name!,
         modelLogin.email,
-        false,
       );
       await db.collection("users").doc(firebaseUser.user!.uid).set(user.toMap());
       Services().setToken("apiToken", firebaseUser.user!.uid);
@@ -68,5 +68,22 @@ class RegisterApi implements RegisterRepository {
   @override
   register( ModelLogin modelLogin ) async {
 
+  }
+}
+
+@Injectable(as: RegisterRepository, env: ["test"])
+class RegisterTest implements RegisterRepository {
+
+  @override
+  register( ModelLogin modelLogin ) async {
+
+    if ( !modelLogin.email.contains("@") ) {
+      return false;
+    }
+    if ( modelLogin.password.trim().isEmpty || modelLogin.password.trim().length < 5 ) {
+      return false;
+    }
+
+    return true;
   }
 }

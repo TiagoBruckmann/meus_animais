@@ -63,3 +63,13 @@ class LoginApi implements LoginRepository {
     );
   }
 }
+
+@Injectable(as: LoginRepository, env: ["test"])
+class LoginTest implements LoginRepository {
+
+  @override
+  login( ModelLogin modelLogin ) async {
+    Services().setToken("apiToken", "token_de_teste");
+    return true;
+  }
+}
