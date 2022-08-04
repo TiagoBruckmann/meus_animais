@@ -133,9 +133,9 @@ mixin _$EditMobx on _EditMobx, Store {
       AsyncAction('_EditMobx.validateFields', context: context);
 
   @override
-  Future validateFields(ModelPets modelPets, dynamic context) {
+  Future validateFields(ModelPets modelPets, XFile? picture, dynamic context) {
     return _$validateFieldsAsyncAction
-        .run(() => super.validateFields(modelPets, context));
+        .run(() => super.validateFields(modelPets, picture, context));
   }
 
   late final _$_EditMobxActionController =

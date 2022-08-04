@@ -32,6 +32,20 @@ class _SettingsPageState extends State<SettingsPage> {
   final _getUser = getIt.get<GetUserManager>();
   late ConnectionMobx _connectionMobx;
 
+  _goToTerms() {
+    Navigator.pushNamed(
+      context,
+      "/terms",
+    );
+  }
+
+  _goToPolicy() {
+    Navigator.pushNamed(
+      context,
+      "/policy",
+    );
+  }
+
   @override
   void initState() {
     super.initState();
@@ -131,7 +145,7 @@ class _SettingsPageState extends State<SettingsPage> {
                     endIndent: 16,
                   ),
 
-                  // Sugestões
+                  // avaliar
                   Row(
                     children: [
                       GestureDetector(
@@ -213,7 +227,6 @@ class _SettingsPageState extends State<SettingsPage> {
                     ],
                   ),
 
-                  /*
                   Divider(
                     height: 30,
                     thickness: 1,
@@ -222,18 +235,23 @@ class _SettingsPageState extends State<SettingsPage> {
                     endIndent: 16,
                   ),
 
-                  // Estou com duvidas
+                  // solicitar informacoes
                   GestureDetector(
                     onTap: () {
-                      // _questions();
+                      showDialog(
+                        context: context,
+                        builder: (builder) {
+                          return _getUser.infoAccountDialog( context );
+                        },
+                      );
                     },
                     child: Row(
-                      children: const [
+                      children: [
                         Padding(
-                          padding: EdgeInsets.fromLTRB(30, 0, 16, 0),
+                          padding: const EdgeInsets.fromLTRB(30, 0, 16, 0),
                           child: Text(
-                            "Estou com duvidas",
-                            style: TextStyle(
+                            FlutterI18n.translate(context, "widgets.settings.info_account.name"),
+                            style: const TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w500,
                             ),
@@ -251,28 +269,56 @@ class _SettingsPageState extends State<SettingsPage> {
                     endIndent: 16,
                   ),
 
-                  // perguntas frequentes
-                  Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(30, 0, 16, 0),
-                        child: GestureDetector(
-                          onTap: () {
-                            // RoutesApp().goToFrequently( context );
-                          },
-                          child: const Text(
-                            "Perguntas frequentes",
-                            style: TextStyle(
+                  // Termos de uso
+                  GestureDetector(
+                    onTap: () {
+                      _goToTerms();
+                    },
+                    child: Row(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(30, 0, 16, 0),
+                          child: Text(
+                            FlutterI18n.translate(context, "widgets.settings.terms.terms"),
+                            style: const TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w500,
                             ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
 
-                   */
+                  Divider(
+                    height: 30,
+                    thickness: 1,
+                    color: Theme.of(context).unselectedWidgetColor,
+                    indent: 16,
+                    endIndent: 16,
+                  ),
+
+                  // politica de privacidade
+                  GestureDetector(
+                    onTap: () {
+                      _goToPolicy();
+                    },
+                    child: Row(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(30, 0, 16, 0),
+                          child: Text(
+                            FlutterI18n.translate(context, "widgets.settings.terms.policy"),
+                            style: const TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+
                   Divider(
                     height: 30,
                     thickness: 1,

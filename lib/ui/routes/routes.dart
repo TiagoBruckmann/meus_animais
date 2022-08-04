@@ -10,6 +10,8 @@ import 'package:meus_animais/ui/pages/hygiene/create_hygiene.dart';
 import 'package:meus_animais/ui/pages/login/forgot_password.dart';
 import 'package:meus_animais/ui/pages/pets/edit.dart';
 import 'package:meus_animais/ui/pages/settings/settings.dart';
+import 'package:meus_animais/ui/pages/terms/policy.dart';
+import 'package:meus_animais/ui/pages/terms/terms.dart';
 import 'package:meus_animais/ui/pages/vaccines/create.dart';
 import 'package:meus_animais/ui/pages/login/register.dart';
 import 'package:meus_animais/ui/pages/login/login.dart';
@@ -66,6 +68,14 @@ class Routes {
       case "/settings" :
         return MaterialPageRoute(
           builder: (_) => const SettingsPage(),
+        );
+      case "/terms" :
+        return MaterialPageRoute(
+          builder: (_) => const TermsPage(),
+        );
+      case "/policy" :
+        return MaterialPageRoute(
+          builder: (_) => const PolicyPage(),
         );
       default:
         _errorRoute();

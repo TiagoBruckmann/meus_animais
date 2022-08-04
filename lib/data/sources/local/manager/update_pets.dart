@@ -1,4 +1,5 @@
 // import dos pacotes
+import 'package:image_picker/image_picker.dart';
 import 'package:injectable/injectable.dart';
 import 'package:meus_animais/data/sources/remote/services/services.dart';
 
@@ -16,6 +17,7 @@ class UpdatePetManager {
   final UpdatePetRepository updatePetRepository;
 
   ModelPets? modelPets;
+  XFile? picture;
   dynamic context;
 
   setData() {
@@ -25,7 +27,7 @@ class UpdatePetManager {
   }
 
   _updatePet() async {
-    await updatePetRepository.updatePet( modelPets!, context );
+    await updatePetRepository.updatePet( modelPets!, picture, context );
     analytics.logEvent(name: "update_pet");
   }
 

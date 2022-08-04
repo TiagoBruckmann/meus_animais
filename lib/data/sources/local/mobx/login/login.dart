@@ -19,12 +19,12 @@ abstract class _LoginMobx with Store {
   final loginManager = getIt.get<LoginManager>();
 
   @observable
-  TextEditingController controllerEmail = TextEditingController();
-  // TextEditingController controllerEmail = TextEditingController(text: "tiagobruckmann@gmail.com");
+  // TextEditingController controllerEmail = TextEditingController();
+  TextEditingController controllerEmail = TextEditingController(text: "tiagobruckmann@gmail.com");
 
   @observable
-  TextEditingController controllerPasswd = TextEditingController();
-  // TextEditingController controllerPasswd = TextEditingController(text: "Teste12345");
+  // TextEditingController controllerPasswd = TextEditingController();
+  TextEditingController controllerPasswd = TextEditingController(text: "Teste12345");
 
   @observable
   String message = "";

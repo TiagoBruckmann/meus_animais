@@ -1,5 +1,6 @@
 // import nativos do flutter
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 // import dos sources
 import 'package:meus_animais/data/sources/local/injection/injection.dart';
@@ -87,7 +88,7 @@ abstract class _EditMobx with Store {
   }
 
   @action
-  validateFields( ModelPets modelPets, context ) async {
+  validateFields( ModelPets modelPets, XFile? picture, context ) async {
 
     analytics.logEvent(name: "validate_update_pet");
     String removedKg = controllerWeight.text.replaceAll("KG ", "");
@@ -108,7 +109,11 @@ abstract class _EditMobx with Store {
       );
     }
 
+    updatePetManager.picture = picture;
     updatePetManager.modelPets = modelPets;
+    if ( picture != null ) {
+      updatePetManager.modelPets!.picture = picture.name;
+    }
     updatePetManager.modelPets!.weight = weight;
     updatePetManager.context = context;
     updatePetManager.setData();

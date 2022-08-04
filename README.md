@@ -42,7 +42,7 @@ flutter test test/pasta/nome_do_arquivo.dart
 Para que os dados do firebase não sejam poluidos com dados do desenvolvimento precisa ser utilizado o comando abaixo para que todos os logs e ações dentro do app de desenvolvimento seja realocada no setor de dev do proprio firebase. Este comando ativará o modo depuração do analytics até que seja desativado.
 
 ```
-adb shell setprop debug.firebase.analytics.app br.com.pechinchadahoraadmin
+adb shell setprop debug.firebase.analytics.app br.com.meus_animais
 ```
 
 #### Desativar depuração

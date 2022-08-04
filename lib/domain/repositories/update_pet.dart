@@ -10,19 +10,24 @@ import 'package:meus_animais/ui/pages/widgets/message.dart';
 
 // import dos pacotes
 import 'package:flutter_i18n/flutter_i18n.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:injectable/injectable.dart';
 
 abstract class UpdatePetRepository {
-  updatePet( ModelPets modelPets, context );
+  updatePet( ModelPets modelPets, XFile? picture, context );
 }
 
 @Injectable(as: UpdatePetRepository, env: ["firebase"])
 class UpdatePetFirebase implements UpdatePetRepository {
 
   @override
-  updatePet( ModelPets modelPets, context ) async {
+  updatePet( ModelPets modelPets, XFile? picture, context ) async {
 
     await db.collection("pets").doc(modelPets.id).update(modelPets.updateToMap()).then((value) async {
+
+      if ( picture != null ) {
+        await Services().uploadPicture(modelPets, picture, context);
+      }
 
       Navigator.pushNamedAndRemoveUntil(
         context,
@@ -47,7 +52,7 @@ class UpdatePetFirebase implements UpdatePetRepository {
 class UpdatePetApi implements UpdatePetRepository {
 
   @override
-  updatePet( ModelPets modelPets, context ) async {
+  updatePet( ModelPets modelPets, XFile? picture, context ) async {
 
     /*
     final vaccineManager = getIt.get<SetVaccineManager>();
@@ -61,7 +66,7 @@ class UpdatePetApi implements UpdatePetRepository {
 class UpdatePetTest implements UpdatePetRepository {
 
   @override
-  updatePet( ModelPets modelPets, context ) async {
+  updatePet( ModelPets modelPets, XFile? picture, context ) async {
     return Services().setToken("pets", modelPets.updateToMap().toString());
   }
 }

@@ -191,56 +191,35 @@ class LoadingSettings extends StatelessWidget {
               ],
             ),
 
-            /*
-            Divider(
-              height: 30,
-              thickness: 1,
-              color: Theme.of(context).unselectedWidgetColor,
-              indent: 16,
-              endIndent: 16,
-            ),
-
-            // Estou com duvidas
-            GestureDetector(
-              onTap: () {
-                // _questions();
-              },
-              child: Row(
-                children: const [
-                  Padding(
-                    padding: EdgeInsets.fromLTRB(30, 0, 16, 0),
-                    child: Text(
-                      "Estou com duvidas",
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  ),
-                ],
+            Shimmer(
+              duration: const Duration(seconds: 5),
+              color: Colors.grey,
+              colorOpacity: 0.6,
+              enabled: true,
+              direction: const ShimmerDirection.fromLTRB(),
+              child: Divider(
+                height: 30,
+                thickness: 1,
+                color: Theme.of(context).unselectedWidgetColor,
+                indent: 16,
+                endIndent: 16,
               ),
             ),
 
-            Divider(
-              height: 30,
-              thickness: 1,
-              color: Theme.of(context).unselectedWidgetColor,
-              indent: 16,
-              endIndent: 16,
-            ),
-
-            // perguntas frequentes
+            // solicitar conta
             Row(
               children: [
                 Padding(
                   padding: const EdgeInsets.fromLTRB(30, 0, 16, 0),
-                  child: GestureDetector(
-                    onTap: () {
-                      // RoutesApp().goToFrequently( context );
-                    },
-                    child: const Text(
-                      "Perguntas frequentes",
-                      style: TextStyle(
+                  child: Shimmer(
+                    duration: const Duration(seconds: 5),
+                    color: Colors.grey,
+                    colorOpacity: 0.6,
+                    enabled: true,
+                    direction: const ShimmerDirection.fromLTRB(),
+                    child: Text(
+                      FlutterI18n.translate(context, "widgets.settings.info_account.name"),
+                      style: const TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w500,
                       ),
@@ -249,7 +228,6 @@ class LoadingSettings extends StatelessWidget {
                 ),
               ],
             ),
-           */
 
             Shimmer(
               duration: const Duration(seconds: 5),
@@ -266,7 +244,83 @@ class LoadingSettings extends StatelessWidget {
               ),
             ),
 
-            // excluir conta
+            // termos
+            Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(30, 0, 16, 0),
+                  child: Shimmer(
+                    duration: const Duration(seconds: 5),
+                    color: Colors.grey,
+                    colorOpacity: 0.6,
+                    enabled: true,
+                    direction: const ShimmerDirection.fromLTRB(),
+                    child: Text(
+                      FlutterI18n.translate(context, "widgets.settings.terms.terms"),
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+
+            Shimmer(
+              duration: const Duration(seconds: 5),
+              color: Colors.grey,
+              colorOpacity: 0.6,
+              enabled: true,
+              direction: const ShimmerDirection.fromLTRB(),
+              child: Divider(
+                height: 30,
+                thickness: 1,
+                color: Theme.of(context).unselectedWidgetColor,
+                indent: 16,
+                endIndent: 16,
+              ),
+            ),
+
+            // politica de privacidade
+            Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(30, 0, 16, 0),
+                  child: Shimmer(
+                    duration: const Duration(seconds: 5),
+                    color: Colors.grey,
+                    colorOpacity: 0.6,
+                    enabled: true,
+                    direction: const ShimmerDirection.fromLTRB(),
+                    child: Text(
+                      FlutterI18n.translate(context, "widgets.settings.terms.policy"),
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+
+            Shimmer(
+              duration: const Duration(seconds: 5),
+              color: Colors.grey,
+              colorOpacity: 0.6,
+              enabled: true,
+              direction: const ShimmerDirection.fromLTRB(),
+              child: Divider(
+                height: 30,
+                thickness: 1,
+                color: Theme.of(context).unselectedWidgetColor,
+                indent: 16,
+                endIndent: 16,
+              ),
+            ),
+
+            // deletar conta
             Row(
               children: [
                 Padding(

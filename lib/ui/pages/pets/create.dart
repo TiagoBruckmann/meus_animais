@@ -5,7 +5,6 @@ import 'dart:io';
 // import dos sources
 import 'package:meus_animais/data/sources/remote/services/services.dart';
 import 'package:meus_animais/data/sources/local/manager/life_time.dart';
-import 'package:meus_animais/data/sources/local/mobx/crop/crop.dart';
 import 'package:meus_animais/domain/models/hygiene/hygiene_pets.dart';
 import 'package:meus_animais/domain/models/life_time/life_time.dart';
 import 'package:meus_animais/domain/models/vaccines/vaccines.dart';
@@ -30,6 +29,7 @@ import 'package:intl/intl.dart';
 import 'package:meus_animais/data/sources/local/mobx/connection/connection.dart';
 import 'package:meus_animais/data/sources/local/mobx/create_pets/create.dart';
 import 'package:meus_animais/data/sources/local/injection/injection.dart';
+import 'package:meus_animais/data/sources/local/mobx/crop/crop.dart';
 
 class CreatePetPage extends StatefulWidget {
   const CreatePetPage({Key? key}) : super(key: key);

@@ -1,4 +1,6 @@
 // pacotes nativos flutter
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
 // import dos sources
@@ -22,6 +24,7 @@ import 'package:provider/provider.dart';
 // gerencia de estado
 import 'package:meus_animais/data/sources/local/mobx/connection/connection.dart';
 import 'package:meus_animais/data/sources/local/mobx/edit_pets/edit.dart';
+import 'package:meus_animais/data/sources/local/mobx/crop/crop.dart';
 
 class EditPets extends StatefulWidget {
 
@@ -34,11 +37,10 @@ class EditPets extends StatefulWidget {
 
 class _EditPetsState extends State<EditPets> {
 
-  final EditMobx _editMobx = EditMobx();
-  late ConnectionMobx _connectionMobx;
-
   // injecoes de dependencia
-
+  final EditMobx _editMobx = EditMobx();
+  final CropMobx _cropMobx = CropMobx();
+  late ConnectionMobx _connectionMobx;
 
   _goToVaccines() async {
     Map params = {
@@ -128,8 +130,13 @@ class _EditPetsState extends State<EditPets> {
                           AppImages.banner,
                         ),
 
-                        Image.network(
-                          widget.modelPets.picture,
+                        GestureDetector(
+                          onTap: () {
+                            ScaffoldMessenger.of(context).showSnackBar( _cropMobx.settingCamera() );
+                          },
+                          child: ( _cropMobx.image == null )
+                          ? Image.network( widget.modelPets.picture )
+                          : Image.file(File(_cropMobx.image!.path)),
                         ),
 
                       ],
@@ -520,7 +527,7 @@ class _EditPetsState extends State<EditPets> {
                   width: width,
                   child: ElevatedButton(
                     onPressed: () {
-                      _editMobx.validateFields( widget.modelPets, context);
+                      _editMobx.validateFields( widget.modelPets, _cropMobx.image, context);
                     },
                     style: ElevatedButton.styleFrom(
                       primary: Theme.of(context).primaryColor,

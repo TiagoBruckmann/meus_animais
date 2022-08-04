@@ -88,7 +88,7 @@ class Services {
     analytics.logEvent(name: "rateApp");
     Uri url;
     if ( Platform.isAndroid ) {
-      url = Uri.https("play.google.com", "/store/apps/details", {"id": "com.sega.sprint"});
+      url = Uri.https("play.google.com", "/store/apps/details", {"id": "br.com.meus_animais"});
     } else {
       url = Uri.https("www.apple.com", "/br/app-store/");
     }
