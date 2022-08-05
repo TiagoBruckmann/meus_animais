@@ -1,12 +1,10 @@
 // import nativos do flutter
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 
 // import dos sources
 import 'package:meus_animais/data/sources/local/injection/injection.dart';
-import 'package:meus_animais/data/sources/local/manager/update_pets.dart';
-import 'package:meus_animais/data/sources/local/manager/life_time.dart';
 import 'package:meus_animais/data/sources/remote/services/services.dart';
+import 'package:meus_animais/data/sources/local/manager/life_time.dart';
 import 'package:meus_animais/domain/models/hygiene/hygiene_pets.dart';
 import 'package:meus_animais/domain/models/vaccines/vaccines.dart';
 import 'package:meus_animais/domain/models/pets/pets.dart';
@@ -20,6 +18,7 @@ import 'package:meus_animais/data/sources/local/manager/get_vaccines.dart';
 
 // import dos pacotes
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:mobx/mobx.dart';
 part 'edit.g.dart';
@@ -28,7 +27,6 @@ class EditMobx extends _EditMobx with _$EditMobx{}
 
 abstract class _EditMobx with Store {
 
-  final updatePetManager = getIt.get<UpdatePetManager>();
   final lifeTimeManager = getIt.get<LifeTimeManager>();
   final _getVaccineManager = getIt.get<GetVaccinesManager>();
   final _getHygienePetManager = getIt.get<GetHygienePetsManager>();
@@ -109,14 +107,11 @@ abstract class _EditMobx with Store {
       );
     }
 
-    updatePetManager.picture = picture;
-    updatePetManager.modelPets = modelPets;
+    modelPets.weight = weight;
     if ( picture != null ) {
-      updatePetManager.modelPets!.picture = picture.name;
+      modelPets.picture = picture.name;
     }
-    updatePetManager.modelPets!.weight = weight;
-    updatePetManager.context = context;
-    updatePetManager.setData();
+    await Services().uploadPicture(modelPets, picture, context);
 
   }
 

@@ -17,7 +17,6 @@ class UpdatePetManager {
   final UpdatePetRepository updatePetRepository;
 
   ModelPets? modelPets;
-  XFile? picture;
   dynamic context;
 
   setData() {
@@ -27,7 +26,7 @@ class UpdatePetManager {
   }
 
   _updatePet() async {
-    await updatePetRepository.updatePet( modelPets!, picture, context );
+    await updatePetRepository.updatePet( modelPets!, context );
     analytics.logEvent(name: "update_pet");
   }
 

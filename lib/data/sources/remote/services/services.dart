@@ -54,34 +54,40 @@ class Services {
     analytics.logEvent(name: "delete_only_token");
   }
 
-  uploadPicture( ModelPets modelPets, XFile picture, context ) async {
+  uploadPicture( ModelPets modelPets, XFile? picture, context ) async {
 
-    firebase_storage.UploadTask uploadTask;
-    firebase_storage.Reference archive = firebase_storage
-        .FirebaseStorage.instance
-        .ref()
-        .child("documents/pets/${modelPets.id}/")
-        .child(picture.name);
+    final updatePet = getIt.get<UpdatePetManager>();
 
-    final metadata = firebase_storage.SettableMetadata(
-      contentType: '${picture.mimeType}',
-      customMetadata: {'picked-file-path': picture.path},
-    );
+    if ( picture != null ) {
+      firebase_storage.UploadTask uploadTask;
+      firebase_storage.Reference archive = firebase_storage
+          .FirebaseStorage.instance
+          .ref()
+          .child("documents/pets/${modelPets.id}/")
+          .child(picture.name);
 
-    uploadTask = archive.putData(await picture.readAsBytes(), metadata);
+      final metadata = firebase_storage.SettableMetadata(
+        contentType: '${picture.mimeType}',
+        customMetadata: {'picked-file-path': picture.path},
+      );
 
-    uploadTask.snapshotEvents.listen((event) async {
-      event.ref.getDownloadURL().then((value) async {
+      uploadTask = archive.putData(await picture.readAsBytes(), metadata);
 
-        modelPets.picture = value;
-        final updatePet = getIt.get<UpdatePetManager>();
-        updatePet.context = context;
-        updatePet.modelPets = modelPets;
-        updatePet.setData();
+      uploadTask.snapshotEvents.listen((event) async {
+        event.ref.getDownloadURL().then((value) async {
 
+          modelPets.picture = value;
+          updatePet.context = context;
+          updatePet.modelPets = modelPets;
+          updatePet.setData();
+
+        });
       });
-    });
-
+    } else {
+      updatePet.context = context;
+      updatePet.modelPets = modelPets;
+      updatePet.setData();
+    }
   }
 
   rateApp() async {

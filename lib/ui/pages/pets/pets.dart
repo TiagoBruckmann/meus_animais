@@ -1,4 +1,6 @@
 // pacotes nativos flutter
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
 // import dos sources
@@ -135,10 +137,9 @@ class _PetsPageState extends State<PetsPage> {
                                       AppImages.banner,
                                     ),
 
-                                    // ao carregar a imagem, sobrepor com o loading com a imagem do pet
-                                    Image.network(
-                                      modelPets.picture,
-                                    ),
+                                    ( modelPets.picture.contains("file://") )
+                                    ? Image.file(File(modelPets.picture))
+                                    : Image.network(modelPets.picture),
 
                                     Positioned(
                                       bottom: 0,

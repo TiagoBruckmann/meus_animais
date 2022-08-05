@@ -27,9 +27,22 @@ Versão inicial do app: Versão publicada dia ??/08/2022
 
 ### :gear: Versão 1.0.1
 
+O foco da versão foi fazer a plataforma voltar a funcionar após remover algumas chaves e credenciais do console de Google.
+Assim como uma breve atualização de campos referentes ao usuário.
+
+Versão publicada dia ??/08/2022
+
+**:bug: Correções de funcionalidades já existentes**
+
+<ul>
+    <li>Adicionado alguns campos referentes ao usuário.</li>
+</ul>
+
+### :gear: Versão 1.1.0
+
 O foco da versão foi referentes a questões legais e a algumas novas configurações ou possibilidades dentro da plataforma.  
 
-Versão inicial do app: Versão publicada dia ??/08/2022
+Versão publicada dia ??/08/2022
 
 **:bulb: Novas funcionalidades**
 
@@ -43,5 +56,5 @@ Versão inicial do app: Versão publicada dia ??/08/2022
 **:bug: Correções de funcionalidades já existentes**
 
 <ul>
-    <li>Link correto na opção de avalição.</li>
+    <li>Link correto na opção de avaliação.</li>
 </ul>

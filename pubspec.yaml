@@ -2,7 +2,8 @@ name: meus_animais
 description: Cuide de seus create_pets, desde os dias que tomam vacinas até a quantidade de banhos que tomam.
 
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
-version: 1.0.1+1
+version: 1.1.0+1
+# version: 1.0.1+1
 # version: 1.0.0+17
 
 environment:

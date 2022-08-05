@@ -1,16 +1,16 @@
 // pacotes nativos flutter
-import 'dart:io';
-
 import 'package:flutter/material.dart';
+import 'dart:io';
 
 // import dos sources
 import 'package:meus_animais/data/sources/remote/services/services.dart';
 import 'package:meus_animais/domain/models/hygiene/hygiene_pets.dart';
-import 'package:meus_animais/domain/models/pets/pets.dart';
 import 'package:meus_animais/domain/models/vaccines/vaccines.dart';
+import 'package:meus_animais/domain/models/pets/pets.dart';
 
 // import das telas
 import 'package:meus_animais/ui/pages/widgets/loading/loading_connection.dart';
+import 'package:meus_animais/ui/pages/widgets/camera/crop_page.dart';
 import 'package:meus_animais/ui/pages/vaccines/vaccines.dart';
 import 'package:meus_animais/ui/pages/hygiene/hygiene.dart';
 import 'package:meus_animais/ui/styles/app_images.dart';
@@ -114,6 +114,10 @@ class _EditPetsState extends State<EditPets> {
 
           body: ( _connectionMobx.connectionStatus.toString() == "ConnectivityResult.none" )
           ? const LoadingConnection()
+          : ( _cropMobx.sampleImage != null )
+          ? CropPage(
+            cropMobx: _cropMobx,
+          )
           : SingleChildScrollView(
             child: Column(
               children: [
@@ -126,9 +130,7 @@ class _EditPetsState extends State<EditPets> {
                       alignment: AlignmentDirectional.center,
                       children: [
 
-                        Image.asset(
-                          AppImages.banner,
-                        ),
+                        Image.asset( AppImages.banner ),
 
                         GestureDetector(
                           onTap: () {
