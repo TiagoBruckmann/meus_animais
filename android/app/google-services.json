@@ -7,12 +7,20 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:360544205843:android:6af17e143d231e3ddb53e6",
+        "mobilesdk_app_id": "1:360544205843:android:4f4d766c5548f320db53e6",
         "android_client_info": {
           "package_name": "br.com.meus_animais"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "360544205843-15q8m3o50vn9ff6erddile9a9s3h9tsj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "br.com.meus_animais",
+            "certificate_hash": "58350a243e0e23ceccf5a136ecfd0f18c94b7334"
+          }
+        },
         {
           "client_id": "360544205843-ke6e5a8kkrf77t4sjmnjbidbj4r28m40.apps.googleusercontent.com",
           "client_type": 3
@@ -20,7 +28,7 @@
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBgcSuvcTYcMK4EoAxxP3mJzRFQWafA3s4"
+          "current_key": "AIzaSyD0ZZUNTxskk0kF11UPCNRMTJ2-WNPO_b4"
         }
       ],
       "services": {
