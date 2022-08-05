@@ -39,12 +39,13 @@ class LoginFirebase implements LoginRepository {
         (route) => false,
       );
 
-    }).catchError((error){
+    }).onError((error, stackTrace) {
       CustomSnackBar(
         modelLogin.context,
         FlutterI18n.translate(modelLogin.context, "custom_message.register.error"),
         Colors.red,
       );
+      crash.recordError(error, stackTrace);
       crash.log(error.toString());
     });
   }
