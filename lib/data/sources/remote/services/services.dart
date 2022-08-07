@@ -2,17 +2,17 @@
 import 'dart:io' show Platform;
 
 // import dos pacotes
-import 'package:firebase_performance/firebase_performance.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
-import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:firebase_performance/firebase_performance.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:new_version/new_version.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:new_version/new_version.dart';
 
 // import dos sources
 import 'package:meus_animais/data/sources/local/injection/injection.dart';
@@ -138,5 +138,4 @@ class Services {
     }
 
   }
-
 }

@@ -7,6 +7,9 @@ import 'package:meus_animais/ui/pages/settings/settings.dart';
 import 'package:meus_animais/ui/pages/pets/create.dart';
 import 'package:meus_animais/ui/pages/pets/pets.dart';
 
+// import do domain
+import 'package:meus_animais/domain/functions/notifications.dart';
+
 // import dos pacotes
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
@@ -28,6 +31,12 @@ class _HomePageState extends State<HomePage> {
     CreatePetPage(),
     SettingsPage(),
   ];
+
+  @override
+  void initState() {
+    super.initState();
+    Notifications().initOneSignal();
+  }
 
   @override
   Widget build(BuildContext context) {
