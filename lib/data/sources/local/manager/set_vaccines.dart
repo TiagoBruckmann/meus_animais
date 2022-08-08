@@ -16,15 +16,17 @@ class SetVaccineManager {
   final SetVaccinesRepository setVaccinesRepository;
 
   List<ModelVaccines> listVaccines = [];
+  String? userName;
+  String? petName;
 
   setData() {
-    if ( listVaccines.isNotEmpty ) {
+    if ( listVaccines.isNotEmpty && userName != null && petName != null ) {
       _setVaccines();
     }
   }
 
   _setVaccines() async {
-    await setVaccinesRepository.setVaccines( listVaccines );
+    await setVaccinesRepository.setVaccines( listVaccines, userName!, petName! );
     analytics.logEvent(name: "create_vaccines");
   }
 

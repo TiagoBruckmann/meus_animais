@@ -7,12 +7,18 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_performance/firebase_performance.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:meus_animais/domain/functions/shared.dart';
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:new_version/new_version.dart';
+
+// import dos domains
+import 'package:meus_animais/domain/models/vaccines/vaccines.dart';
+import 'package:meus_animais/domain/credentials.dart';
 
 // import dos sources
 import 'package:meus_animais/data/sources/local/injection/injection.dart';
@@ -137,5 +143,56 @@ class Services {
       }
     }
 
+  }
+
+  sendNotification( String user, ModelVaccines modelVaccines, String pet ) async {
+
+    String day = SharedFunctions().formatDay(int.parse(modelVaccines.day.split("/")[0]));
+    String month = SharedFunctions().convertMonth(int.parse(modelVaccines.day.split("/")[1]));
+    String year = modelVaccines.day.split("/")[2];
+    DateTime dateTime = DateTime.now();
+    String periodTime = "am";
+    if ( dateTime.hour > 12 ) {
+      periodTime = "pm";
+    }
+
+    final deviceData = await OneSignal.shared.getDeviceState();
+    final userId = deviceData?.userId;
+
+    Map<String, dynamic> params = {
+      "app_id": Credentials().onesignalAppId,
+      "api_key": Credentials().onesignalApiKey,
+      "headings": {
+        "en": "Revaccination day",
+        "pt": "Dia de revacinar",
+      },
+      "contents": {
+        "en": "Hello $user, reapply a vaccine ${modelVaccines.name} in $pet today.",
+        "pt": "Olá $user, chegou o dia de reaplicar a vacina ${modelVaccines.name} na $pet.",
+      },
+      "include_player_ids": [userId],
+      "data": {
+        "pet_id": modelVaccines.petId,
+      },
+      "template_id": Credentials().reapplyTemplateId,
+      "buttons": [
+        {
+          "id": "btn_ok",
+          "text": "Ok",
+        },
+        {
+          "id": "btn_reapply",
+          "text": "Obrigado, reaplicar",
+        }
+      ],
+      "send_after": "$month ${day}th $year, ${dateTime.hour}:${dateTime.minute}:00 $periodTime UTC${dateTime.timeZoneName}:00"
+    };
+    await OneSignal.shared.postNotificationWithJson(params)
+      .then((value) {
+        analytics.logEvent(name: "register_notification");
+      }).onError((error, stackTrace) {
+        crash.recordError(error, stackTrace);
+        crash.log(error.toString());
+      });
   }
 }

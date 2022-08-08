@@ -124,6 +124,7 @@ abstract class _CreateMobx with Store {
 
     setClicked( true );
 
+    setPetManager.userName = userManager.modelUser!.name;
     setPetManager.picture = picture;
     setPetManager.context = context;
     setPetManager.modelPets = ModelPets(

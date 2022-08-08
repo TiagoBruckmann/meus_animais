@@ -150,9 +150,10 @@ mixin _$VaccinesMobx on _VaccinesMobx, Store {
       AsyncAction('_VaccinesMobx.validateFields', context: context);
 
   @override
-  Future validateFields(dynamic context, String petId, bool updatePet) {
-    return _$validateFieldsAsyncAction
-        .run(() => super.validateFields(context, petId, updatePet));
+  Future validateFields(dynamic context, String petId, bool updatePet,
+      String? petName, String? userName) {
+    return _$validateFieldsAsyncAction.run(() =>
+        super.validateFields(context, petId, updatePet, petName, userName));
   }
 
   late final _$_VaccinesMobxActionController =

@@ -17,14 +17,14 @@ import 'package:image_picker/image_picker.dart';
 import 'package:injectable/injectable.dart';
 
 abstract class SetPetRepository {
-  setPet( ModelPets modelPets, XFile picture, context );
+  setPet( ModelPets modelPets, XFile picture, String userName, context );
 }
 
 @Injectable(as: SetPetRepository, env: ["firebase"])
 class SetPetFirebase implements SetPetRepository {
 
   @override
-  setPet( ModelPets modelPets, XFile picture, context ) async {
+  setPet( ModelPets modelPets, XFile picture, String userName, context ) async {
 
     await db.collection("pets")
     .doc(modelPets.id)
@@ -35,6 +35,8 @@ class SetPetFirebase implements SetPetRepository {
       final hygieneManager = getIt.get<SetHygieneManager>();
 
       if ( vaccineManager.listVaccines.isNotEmpty ) {
+        vaccineManager.userName = userName;
+        vaccineManager.petName = modelPets.name;
         await vaccineManager.setData();
       }
       if ( hygieneManager.listHygiene.isNotEmpty ) {
@@ -60,7 +62,7 @@ class SetPetFirebase implements SetPetRepository {
 class SetPetApi implements SetPetRepository {
 
   @override
-  setPet( ModelPets modelPets, XFile picture, context ) async {
+  setPet( ModelPets modelPets, XFile picture, String userName, context ) async {
 
     /*
     final vaccineManager = getIt.get<SetVaccineManager>();
@@ -74,7 +76,7 @@ class SetPetApi implements SetPetRepository {
 class SetPetTest implements SetPetRepository {
 
   @override
-  setPet( ModelPets modelPets, XFile picture, context ) async {
+  setPet( ModelPets modelPets, XFile picture, String userName, context ) async {
 
     return Services().setToken("pets", modelPets.toMap().toString());
 

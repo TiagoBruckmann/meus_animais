@@ -8,16 +8,19 @@ import 'package:meus_animais/domain/models/vaccines/vaccines.dart';
 import 'package:injectable/injectable.dart';
 
 abstract class SetVaccinesRepository {
-  setVaccines( List<ModelVaccines> list );
+  setVaccines( List<ModelVaccines> list, String userName, String petName );
 }
 
 @Injectable(as: SetVaccinesRepository, env: ["firebase"])
 class SetVaccinesFirebase implements SetVaccinesRepository {
   @override
-  setVaccines( List<ModelVaccines> list) async {
+  setVaccines( List<ModelVaccines> list, String userName, String petName ) async {
 
     for ( var item in list ) {
       await db.collection("pets").doc(item.petId).collection("vaccines").doc(item.id).set(item.toMap());
+      if ( !item.reapply ) {
+        await Services().sendNotification(userName, item, petName);
+      }
     }
 
   }
@@ -26,7 +29,7 @@ class SetVaccinesFirebase implements SetVaccinesRepository {
 @Injectable(as: SetVaccinesRepository, env: ["api"])
 class SetVaccinesApi implements SetVaccinesRepository {
   @override
-  setVaccines( List<ModelVaccines> list ) async {
+  setVaccines( List<ModelVaccines> list, String userName, String petName  ) async {
 
   }
 }
@@ -34,7 +37,7 @@ class SetVaccinesApi implements SetVaccinesRepository {
 @Injectable(as: SetVaccinesRepository, env: ["test"])
 class SetVaccinesTest implements SetVaccinesRepository {
   @override
-  setVaccines( List<ModelVaccines> list ) async {
+  setVaccines( List<ModelVaccines> list, String userName, String petName  ) async {
     for ( var item in list ) {
       Services().setToken("listVaccines", item.toMap().toString());
     }

@@ -21,15 +21,16 @@ class SetPetManager {
   ModelPets? modelPets;
   dynamic context;
   XFile? picture;
+  String? userName;
 
   setData() {
-    if ( modelPets != null && context != null && picture != null ) {
+    if ( modelPets != null && context != null && picture != null && userName != null ) {
       _setPet();
     }
   }
 
   _setPet() async {
-    await setPetRepository.setPet( modelPets!, picture!, context );
+    await setPetRepository.setPet( modelPets!, picture!, userName!, context );
     analytics.logEvent(name: "create_pet");
   }
 

@@ -8,13 +8,10 @@ class Notifications {
 
   void initOneSignal() async {
 
-    // await OneSignal.shared.setLogLevel(OSLogLevel.debug, OSLogLevel.debug);
+    // await OneSignal.shared.setLogLevel(OSLogLevel.verbose, OSLogLevel.none);
 
     await OneSignal.shared.setAppId("44ace734-623b-4022-98e6-a6fb254aebce");
-    /*
-    await OneSignal.shared.setLogLevel(OSLogLevel.verbose, OSLogLevel.none);
-    OneSignal.shared.setRequiresUserPrivacyConsent(_requireConsent);
-     */
+    // OneSignal.shared.setRequiresUserPrivacyConsent(_requireConsent);
 
     OneSignal.shared.setNotificationOpenedHandler((OSNotificationOpenedResult result) {
       print('NOTIFICATION OPENED HANDLER CALLED WITH: $result');

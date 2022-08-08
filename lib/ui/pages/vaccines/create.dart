@@ -1,5 +1,7 @@
 // pacotes nativos flutter
 import 'package:flutter/material.dart';
+import 'package:meus_animais/data/sources/local/injection/injection.dart';
+import 'package:meus_animais/data/sources/local/manager/get_user.dart';
 
 // import dos sources
 import 'package:meus_animais/data/sources/remote/services/services.dart';
@@ -21,7 +23,8 @@ class CreateVaccines extends StatefulWidget {
 
   final String petId;
   final bool update;
-  const CreateVaccines({ Key? key, required this.petId, required this.update }) : super(key: key);
+  final String? petName;
+  const CreateVaccines({ Key? key, required this.petId, required this.update, this.petName }) : super(key: key);
 
   @override
   State<CreateVaccines> createState() => _CreateVaccinesState();
@@ -30,6 +33,7 @@ class CreateVaccines extends StatefulWidget {
 class _CreateVaccinesState extends State<CreateVaccines> {
 
   final VaccinesMobx _vaccinesMobx = VaccinesMobx();
+  final _userManager = getIt.get<GetUserManager>();
   late ConnectionMobx _connectionMobx;
 
   @override
@@ -385,7 +389,7 @@ class _CreateVaccinesState extends State<CreateVaccines> {
                   width: width,
                   child: ElevatedButton(
                     onPressed: () {
-                      _vaccinesMobx.validateFields( context, widget.petId, widget.update );
+                      _vaccinesMobx.validateFields( context, widget.petId, widget.update, widget.petName, _userManager.modelUser!.name );
                     },
                     style: ElevatedButton.styleFrom(
                       primary: Theme.of(context).primaryColor,

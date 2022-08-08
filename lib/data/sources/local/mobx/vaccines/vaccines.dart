@@ -84,7 +84,7 @@ abstract class _VaccinesMobx with Store {
   void setTime( String value ) => time = value;
 
   @action
-  validateFields( context, String petId, bool updatePet ) async {
+  validateFields( context, String petId, bool updatePet, String? petName, String? userName ) async {
 
     analytics.logEvent(name: "validate_vaccines");
     String name = controllerName.text;
@@ -189,6 +189,8 @@ abstract class _VaccinesMobx with Store {
     vaccineManager.listVaccines.addAll( listModelVaccines );
 
     if ( updatePet == true ) {
+      vaccineManager.petName = petName;
+      vaccineManager.userName = userName;
       vaccineManager.setData();
     }
 

@@ -46,6 +46,7 @@ class _EditPetsState extends State<EditPets> {
     Map params = {
       "pet_id": widget.modelPets.id,
       "update": true,
+      "pet_name": widget.modelPets.name,
     };
 
     final vaccines = await Navigator.pushNamed(

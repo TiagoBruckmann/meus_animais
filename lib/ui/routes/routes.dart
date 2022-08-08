@@ -46,8 +46,11 @@ class Routes {
           builder: (_) => const HomePage(),
         );
       case "/detail_pet" :
+        final Map params = args as Map;
         return MaterialPageRoute(
-          builder: (_) => EditPets(modelPets: args as ModelPets),
+          builder: (_) => EditPets(
+            modelPets: params["model_pets"],
+          ),
         );
       case "/vaccines" :
         final Map params = args as Map;
@@ -55,6 +58,7 @@ class Routes {
           builder: (_) => CreateVaccines(
             petId: params["pet_id"],
             update: params["update"],
+            petName: params["pet_name"],
           ),
         );
       case "/hygiene" :

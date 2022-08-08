@@ -117,10 +117,13 @@ class _PetsPageState extends State<PetsPage> {
                       padding: const EdgeInsets.symmetric( horizontal: 5, vertical: 8 ),
                       child: GestureDetector(
                         onTap: () {
+                          Map<String, dynamic> params = {
+                            "model_pets": modelPets,
+                          };
                           Navigator.pushNamed(
                             context,
                             "/detail_pet",
-                            arguments: modelPets,
+                            arguments: params,
                           );
                         },
                         child: SizedBox(
