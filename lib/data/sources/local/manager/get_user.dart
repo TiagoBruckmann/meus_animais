@@ -1,6 +1,7 @@
 // import dos dominios
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
+import 'package:meus_animais/data/sources/remote/services/services.dart';
 import 'package:meus_animais/domain/repositories/get_user.dart';
 import 'package:meus_animais/domain/models/users/user.dart';
 
@@ -55,6 +56,7 @@ class GetUserManager {
             ),
             onPressed: () {
               Navigator.pop( context );
+              Services().sendEmail( modelUser! );
             },
           ),
         ],

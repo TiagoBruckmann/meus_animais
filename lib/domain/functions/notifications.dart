@@ -1,17 +1,20 @@
 // import dos pacotes
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 
+// import dos sources
+import 'package:meus_animais/data/sources/local/manager/show_notification.dart';
+import 'package:meus_animais/data/sources/local/injection/injection.dart';
+
 class Notifications {
 
-  final bool _requireConsent = true;
   String _debugLabelString = "";
 
   void initOneSignal() async {
 
+    final showNotification = getIt.get<ShowNotificationManager>();
     // await OneSignal.shared.setLogLevel(OSLogLevel.verbose, OSLogLevel.none);
 
     await OneSignal.shared.setAppId("44ace734-623b-4022-98e6-a6fb254aebce");
-    // OneSignal.shared.setRequiresUserPrivacyConsent(_requireConsent);
 
     OneSignal.shared.setNotificationOpenedHandler((OSNotificationOpenedResult result) {
       print('NOTIFICATION OPENED HANDLER CALLED WITH: $result');
@@ -20,23 +23,11 @@ class Notifications {
     });
 
     OneSignal.shared.setNotificationWillShowInForegroundHandler((OSNotificationReceivedEvent event) {
-      print('FOREGROUND HANDLER CALLED WITH: $event');
-      /// Display Notification, send null to not display
-      /*
-      showDialog(
-        context: context,
-        builder: (builder) {
-          return const NotifyPopUpWidget(
-            title: "Dia de revacinar",
-            message: "Olá Tiago, chegou o dia de revacinar a Meg",
-          );
-
-        },
-      );
-      */
+      if ( event.notification.rawPayload != null && showNotification.context != null ) {
+        showNotification.notification = event.notification.rawPayload!;
+        showNotification.setData();
+      }
       event.complete(null);
-      _debugLabelString = "Notification received in foreground notification: \n${event.notification.jsonRepresentation().replaceAll("\\n", "\n")}";
-      print("_debugLabelString 2 => $_debugLabelString");
     });
 
     OneSignal.shared.setInAppMessageClickedHandler((OSInAppMessageAction action) {
@@ -68,22 +59,5 @@ class Notifications {
       print("ON DID DISMISS IN APP MESSAGE ${message.messageId}");
     });
 
-    // iOS-only method to open launch URLs in Safari when set to false
-    // OneSignal.shared.setLaunchURLsInApp(false);
-
-    bool requiresConsent = await OneSignal.shared.requiresUserPrivacyConsent();
-
-    print("requiresConsent => $requiresConsent");
-
-    OneSignal.shared.disablePush(false);
-
-    bool userProvidedPrivacyConsent = await OneSignal.shared.userProvidedPrivacyConsent();
-    print("USER PROVIDED PRIVACY CONSENT: $userProvidedPrivacyConsent");
-
-    /*
-    OneSignal.shared.promptUserForPushNotificationPermission().then((accepted) {
-      print("Accepted permission => $accepted");
-    });
-    */
   }
 }

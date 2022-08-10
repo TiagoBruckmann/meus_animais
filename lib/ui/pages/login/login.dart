@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 
 // import dos data
 import 'package:meus_animais/data/sources/remote/services/services.dart';
-import 'package:meus_animais/data/sources/local/injection/injection.dart';
-import 'package:meus_animais/data/sources/local/manager/login.dart';
 
 // import dos pacotes
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -29,9 +27,8 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
 
-  late ConnectionMobx _connectionMobx;
   final LoginMobx _loginMobx = LoginMobx();
-  final loginManager = getIt.get<LoginManager>();
+  late ConnectionMobx _connectionMobx;
 
   @override
   void initState() {

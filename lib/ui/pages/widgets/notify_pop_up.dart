@@ -1,14 +1,16 @@
 // pacotes nativos flutter
 import 'package:flutter/material.dart';
 
-// import dos pacotes
-import 'package:flutter_i18n/flutter_i18n.dart';
-
 class NotifyPopUpWidget extends StatelessWidget {
 
   final String title;
   final String message;
-  const NotifyPopUpWidget({ Key? key, required this.title, required this.message }) : super(key: key);
+  final String petId;
+  final String petName;
+  final String leftButton;
+  final String? rightButton;
+  final BuildContext oldContext;
+  const NotifyPopUpWidget({ Key? key, required this.title, required this.message, required this.petId, required this.petName, required this.leftButton, this.rightButton, required this.oldContext }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,10 +26,11 @@ class NotifyPopUpWidget extends StatelessWidget {
         ),
         contentPadding: const EdgeInsets.all(16),
         actions: [
+
           TextButton(
             child: Text(
-              // FlutterI18n.translate(context, "widgets.pop_up.btn_no"),
-              "Ok",
+              leftButton,
+              textAlign: TextAlign.left,
               style: const TextStyle(
                 color: Colors.red,
               ),
@@ -36,18 +39,33 @@ class NotifyPopUpWidget extends StatelessWidget {
               Navigator.pop( context );
             },
           ),
-          TextButton(
+
+          ( rightButton == null )
+          ? const Padding(padding: EdgeInsets.zero)
+          : TextButton(
             child: Text(
-              // FlutterI18n.translate(context, "widgets.pop_up.btn_yes"),
-              "Obrigado, reaplicado",
+              rightButton!,
               style: const TextStyle(
                 color: Colors.green,
               ),
             ),
             onPressed: () {
+
               Navigator.pop( context );
+              Map<String, dynamic> params = {
+                "pet_id": petId,
+                "update": true,
+                "pet_name": petName,
+              };
+
+              Navigator.pushNamed(
+                context,
+                "/vaccines",
+                arguments: params,
+              );
             },
           ),
+
         ],
       ),
     );

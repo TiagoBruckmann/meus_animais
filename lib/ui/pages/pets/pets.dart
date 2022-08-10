@@ -1,9 +1,9 @@
 // pacotes nativos flutter
+import 'package:flutter/material.dart';
 import 'dart:io';
 
-import 'package:flutter/material.dart';
-
 // import dos sources
+import 'package:meus_animais/data/sources/local/injection/injection.dart';
 import 'package:meus_animais/data/sources/remote/services/services.dart';
 import 'package:meus_animais/domain/models/pets/pets.dart';
 
@@ -20,6 +20,7 @@ import 'package:provider/provider.dart';
 
 // gerencia de estado
 import 'package:meus_animais/data/sources/local/mobx/connection/connection.dart';
+import 'package:meus_animais/data/sources/local/manager/show_notification.dart';
 import 'package:meus_animais/data/sources/local/mobx/pets/pets.dart';
 
 class PetsPage extends StatefulWidget {
@@ -31,6 +32,7 @@ class PetsPage extends StatefulWidget {
 
 class _PetsPageState extends State<PetsPage> {
 
+  final _showNotification = getIt.get<ShowNotificationManager>();
   final PetsMobx _petsMobx = PetsMobx();
   late ConnectionMobx _connectionMobx;
 
@@ -39,6 +41,7 @@ class _PetsPageState extends State<PetsPage> {
     super.initState();
     Services().sendScreen("Pets");
     Services().verifyVersion(context);
+    _showNotification.context = context;
   }
 
   @override

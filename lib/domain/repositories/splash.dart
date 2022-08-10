@@ -27,7 +27,6 @@ class SplashFirebase implements SplashRepository {
 
       if ( auth.currentUser != null ) {
 
-        /*
         final getUser = getIt.get<GetUserManager>();
         ModelUser modelUser = ModelUser(
           auth.currentUser!.uid,
@@ -35,7 +34,6 @@ class SplashFirebase implements SplashRepository {
           auth.currentUser!.email!,
         );
         getUser.setCredentials(modelUser);
-        */
         Navigator.pushNamedAndRemoveUntil(
           context,
           "/",

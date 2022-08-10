@@ -27,7 +27,7 @@ class SplashPage extends StatefulWidget {
 
 class _SplashPageState extends State<SplashPage> {
 
-  final splashManager = getIt.get<SplashManager>();
+  final _splashManager = getIt.get<SplashManager>();
   late ConnectionMobx _connectionMobx;
 
   @override
@@ -39,14 +39,14 @@ class _SplashPageState extends State<SplashPage> {
   @override
   void didChangeDependencies() async {
     super.didChangeDependencies();
-    splashManager.context = context;
     _connectionMobx = Provider.of<ConnectionMobx>(context);
     await _connectionMobx.verifyConnection();
     _connectionMobx.connectivity.onConnectivityChanged.listen(_connectionMobx.updateConnectionStatus);
 
     Timer(const Duration(seconds: 3), () {
-       splashManager.mobx = _connectionMobx;
-       splashManager.setData();
+      _splashManager.context = context;
+      _splashManager.mobx = _connectionMobx;
+      _splashManager.setData();
     });
   }
 

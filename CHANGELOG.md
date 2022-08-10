@@ -4,7 +4,7 @@
 
 ### :gear: Versão 1.0.0
 
-Versão inicial do app: Versão publicada dia ??/08/2022
+Versão inicial do app: Versão publicada dia 07/08/2022
 
 <ul>
     <li>Integração do Analytics com eventos, telas, traces.</li>
@@ -35,6 +35,7 @@ Versão publicada dia ??/08/2022
 **:bug: Correções de funcionalidades já existentes**
 
 <ul>
+    <li>Alterado os tokens do google que foram atualizados.</li>
     <li>Adicionado alguns campos referentes ao usuário.</li>
 </ul>
 
@@ -49,6 +50,7 @@ Versão publicada dia ??/08/2022
 <ul>
     <li>Solicitar informações da conta.(Por enquanto apenas visual).</li>
     <li>Adicionado termos e politicas de uso.</li>    
+    <li>Envio e recebimento de notificações.</li>    
     <li>Configuração do CI/CD do Flutter.</li> 
     <li>Edição de foto do pet.</li>
 </ul>
