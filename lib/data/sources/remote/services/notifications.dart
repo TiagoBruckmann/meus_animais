@@ -1,9 +1,11 @@
 // import dos pacotes
 import 'package:onesignal_flutter/onesignal_flutter.dart';
+import 'dart:convert';
 
 // import dos sources
 import 'package:meus_animais/data/sources/local/manager/show_notification.dart';
 import 'package:meus_animais/data/sources/local/injection/injection.dart';
+import 'package:meus_animais/data/sources/remote/credentials.dart';
 
 class Notifications {
 
@@ -14,7 +16,7 @@ class Notifications {
     final showNotification = getIt.get<ShowNotificationManager>();
     // await OneSignal.shared.setLogLevel(OSLogLevel.verbose, OSLogLevel.none);
 
-    await OneSignal.shared.setAppId("44ace734-623b-4022-98e6-a6fb254aebce");
+    await OneSignal.shared.setAppId(Credentials().onesignalAppId);
 
     OneSignal.shared.setNotificationOpenedHandler((OSNotificationOpenedResult result) {
       print('NOTIFICATION OPENED HANDLER CALLED WITH: $result');
@@ -24,8 +26,11 @@ class Notifications {
 
     OneSignal.shared.setNotificationWillShowInForegroundHandler((OSNotificationReceivedEvent event) {
       if ( event.notification.rawPayload != null && showNotification.context != null ) {
-        showNotification.notification = event.notification.rawPayload!;
-        showNotification.setData();
+        final custom = jsonDecode(event.notification.rawPayload!["custom"]);
+        if ( custom["ti"] == Credentials().reapplyTemplateId ) {
+          showNotification.notification = event.notification.rawPayload!;
+          showNotification.setData();
+        }
       }
       event.complete(null);
     });

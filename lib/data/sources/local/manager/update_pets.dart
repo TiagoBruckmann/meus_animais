@@ -1,9 +1,8 @@
 // import dos pacotes
-import 'package:image_picker/image_picker.dart';
 import 'package:injectable/injectable.dart';
-import 'package:meus_animais/data/sources/remote/services/services.dart';
 
-// import dos modelos
+// import dos sources
+import 'package:meus_animais/data/sources/remote/services/services.dart';
 import 'package:meus_animais/domain/repositories/update_pet.dart';
 import 'package:meus_animais/domain/models/pets/pets.dart';
 

@@ -107,7 +107,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       textInputAction: TextInputAction.next,
                       decoration: InputDecoration(
                         contentPadding: const EdgeInsets.all(16),
-                        labelText: FlutterI18n.translate(context, "pages.login.register.appbar"),
+                        labelText: FlutterI18n.translate(context, "pages.login.register.name"),
                         labelStyle: TextStyle(
                           color: Theme.of(context).unselectedWidgetColor,
                         ),

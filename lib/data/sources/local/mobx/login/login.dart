@@ -54,6 +54,7 @@ abstract class _LoginMobx with Store {
     }
 
     setMessage("");
+    Services().setEmail( email );
     loginManager.modelLogin = ModelLogin(email, passwd, context: context);
     loginManager.setCredentials();
 

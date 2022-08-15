@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 // import dos sources
 import 'package:meus_animais/data/sources/local/injection/injection.dart';
 import 'package:meus_animais/data/sources/remote/services/services.dart';
-import 'package:meus_animais/data/sources/local/manager/get_user.dart';
+import 'package:meus_animais/data/sources/local/manager/destroy.dart';
+import 'package:meus_animais/data/sources/local/manager/logout.dart';
 
 // import das telas
 import 'package:meus_animais/ui/pages/widgets/loading/loading_connection.dart';
@@ -19,6 +20,7 @@ import 'package:provider/provider.dart';
 
 // gerencia de estado
 import 'package:meus_animais/data/sources/local/mobx/connection/connection.dart';
+import 'package:meus_animais/data/sources/local/manager/get_user.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({Key? key}) : super(key: key);
@@ -184,10 +186,13 @@ class _SettingsPageState extends State<SettingsPage> {
                             showDialog(
                               context: context,
                               builder: (builder) => PopUpWidget(
-                                mainContext: context,
-                                type: "Logout",
                                 title: FlutterI18n.translate(context, "widgets.settings.logout.title"),
                                 text: FlutterI18n.translate(context, "widgets.settings.logout.text"),
+                                function: () {
+                                  final logout = getIt.get<LogoutManager>();
+                                  logout.context = context;
+                                  logout.disconnect();
+                                },
                               ),
                             );
                           },
@@ -337,10 +342,13 @@ class _SettingsPageState extends State<SettingsPage> {
                             showDialog(
                               context: context,
                               builder: (builder) => PopUpWidget(
-                                mainContext: context,
-                                type: "Destroy",
                                 title: FlutterI18n.translate(context, "widgets.settings.destroy.title"),
                                 text: FlutterI18n.translate(context, "widgets.settings.destroy.text"),
+                                function: () {
+                                  final destroy = getIt.get<DestroyManager>();
+                                  destroy.context = context;
+                                  destroy.destroy();
+                                },
                               ),
                             );
                           },

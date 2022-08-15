@@ -8,7 +8,7 @@ import 'package:meus_animais/ui/pages/pets/create.dart';
 import 'package:meus_animais/ui/pages/pets/pets.dart';
 
 // import do domain
-import 'package:meus_animais/domain/functions/notifications.dart';
+import 'package:meus_animais/data/sources/remote/services/notifications.dart';
 
 // import dos pacotes
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';

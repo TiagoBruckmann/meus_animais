@@ -1,11 +1,13 @@
 // import dos dominios
 import 'package:flutter/material.dart';
-import 'package:flutter_i18n/flutter_i18n.dart';
-import 'package:meus_animais/data/sources/remote/services/services.dart';
+
+// import dos sources
+import 'package:meus_animais/data/sources/remote/routes/routes_api.dart';
 import 'package:meus_animais/domain/repositories/get_user.dart';
 import 'package:meus_animais/domain/models/users/user.dart';
 
 // import dos pacotes
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:injectable/injectable.dart';
 
 @lazySingleton
@@ -56,7 +58,7 @@ class GetUserManager {
             ),
             onPressed: () {
               Navigator.pop( context );
-              Services().sendEmail( modelUser! );
+              RoutesApi().sendInfoData( modelUser! );
             },
           ),
         ],

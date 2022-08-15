@@ -48,15 +48,19 @@ Versão publicada dia ??/08/2022
 **:bulb: Novas funcionalidades**
 
 <ul>
-    <li>Solicitar informações da conta.(Por enquanto apenas visual).</li>
+    <li>Solicitar informações da conta.(Vai enviar uma notificação para mim).</li>
     <li>Adicionado termos e politicas de uso.</li>    
     <li>Envio e recebimento de notificações.</li>    
     <li>Configuração do CI/CD do Flutter.</li> 
+    <li>Configuração do app check.</li>
+    <li>Atualização de pacotes.</li>
     <li>Edição de foto do pet.</li>
 </ul>
 
 **:bug: Correções de funcionalidades já existentes**
 
 <ul>
+    <li>Corrigido o problema de armazenamento de dados após o logout.</li>    
     <li>Link correto na opção de avaliação.</li>
+    <li>Correção no texto de cadastro.</li>
 </ul>

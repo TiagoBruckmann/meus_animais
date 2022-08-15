@@ -1,7 +1,6 @@
 // imports nativos
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
+import 'dart:convert';
 
 // import das telas
 import 'package:meus_animais/ui/pages/widgets/notify_pop_up.dart';

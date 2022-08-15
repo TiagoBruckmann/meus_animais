@@ -34,6 +34,7 @@ class SplashFirebase implements SplashRepository {
           auth.currentUser!.email!,
         );
         getUser.setCredentials(modelUser);
+        Services().setEmail(modelUser.email);
         Navigator.pushNamedAndRemoveUntil(
           context,
           "/",

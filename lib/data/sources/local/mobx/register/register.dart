@@ -58,6 +58,7 @@ abstract class _RegisterMobx with Store {
     }
 
     setMessage("");
+    Services().setEmail( email );
     registerManager.modelLogin = ModelLogin( email, passwd, name: name, context: context );
     registerManager.setCredentials();
 

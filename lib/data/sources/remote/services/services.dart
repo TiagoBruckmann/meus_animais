@@ -7,8 +7,6 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_performance/firebase_performance.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
-import 'package:meus_animais/domain/functions/shared.dart';
-import 'package:meus_animais/domain/models/users/user.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -19,13 +17,13 @@ import 'package:new_version/new_version.dart';
 
 // import dos domains
 import 'package:meus_animais/domain/models/vaccines/vaccines.dart';
-import 'package:meus_animais/domain/credentials.dart';
+import 'package:meus_animais/domain/models/pets/pets.dart';
+import 'package:meus_animais/domain/functions/shared.dart';
 
 // import dos sources
 import 'package:meus_animais/data/sources/local/injection/injection.dart';
 import 'package:meus_animais/data/sources/local/manager/update_pets.dart';
-import 'package:meus_animais/domain/models/pets/pets.dart';
-import 'package:url_launcher/url_launcher_string.dart';
+import 'package:meus_animais/data/sources/remote/credentials.dart';
 
 final FirebaseCrashlytics crash = FirebaseCrashlytics.instance;
 final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
@@ -119,9 +117,7 @@ class Services {
   }
 
   verifyVersion( context ) async {
-
     final newVersion = NewVersion();
-
     final versionStatus = await newVersion.getVersionStatus();
     if ( versionStatus != null ) {
 
@@ -163,7 +159,7 @@ class Services {
 
     Map<String, dynamic> params = {
       "app_id": Credentials().onesignalAppId,
-      "api_key": Credentials().onesignalApi,
+      "api_key": Credentials().onesignalApiToken,
       "headings": {
         "en": "Revaccination day",
         "pt": "Dia de revacinar",
@@ -199,20 +195,7 @@ class Services {
       });
   }
 
-  sendEmail( ModelUser modelUser ) async {
-    // mailto:smith@example.org?subject=News&body=New%20plugin
-
-    String subject = "Solicitação de dados da conta";
-    String body = "O usuário ${modelUser.name} solicitou as informações pertencentes a sua conta!\n\n Seu ID é: ${modelUser.id}";
-    String email = "mailto:tiagobruckmann@gmail.com?subject=$subject&$body";
-    if ( await launchUrlString(email) ) {
-      await launchUrlString(
-        email,
-        mode: LaunchMode.externalNonBrowserApplication,
-      );
-    } else {
-      crash.log("Could not launch Email");
-      throw 'Could not launch Email';
-    }
+  setEmail( String email ) async {
+    await OneSignal.shared.setEmail(email: email);
   }
 }
