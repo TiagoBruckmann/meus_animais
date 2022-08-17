@@ -1,15 +1,16 @@
+// imports nativos
+import 'dart:convert';
+
 // import dos pacotes
 import 'package:onesignal_flutter/onesignal_flutter.dart';
-import 'dart:convert';
 
 // import dos sources
 import 'package:meus_animais/data/sources/local/manager/show_notification.dart';
 import 'package:meus_animais/data/sources/local/injection/injection.dart';
+import 'package:meus_animais/data/sources/remote/services/services.dart';
 import 'package:meus_animais/data/sources/remote/credentials.dart';
 
 class Notifications {
-
-  String _debugLabelString = "";
 
   void initOneSignal() async {
 
@@ -18,10 +19,14 @@ class Notifications {
 
     await OneSignal.shared.setAppId(Credentials().onesignalAppId);
 
-    OneSignal.shared.setNotificationOpenedHandler((OSNotificationOpenedResult result) {
-      print('NOTIFICATION OPENED HANDLER CALLED WITH: $result');
-      _debugLabelString = "Opened notification: \n${result.notification.jsonRepresentation().replaceAll("\\n", "\n")}";
-      print("_debugLabelString 1 => $_debugLabelString");
+    OneSignal.shared.setNotificationOpenedHandler((OSNotificationOpenedResult result) async {
+      final custom = jsonDecode(result.notification.rawPayload!["custom"]);
+      if ( custom["ti"] == Credentials().reapplyTemplateId ) {
+        showNotification.notification = result.notification.rawPayload!;
+        showNotification.setData();
+      } else if ( custom["ti"] == Credentials().infoDataTemplateId ) {
+        await Services().sendWppMessage(result.notification.rawPayload!["title"], result.notification.rawPayload!["alert"]);
+      }
     });
 
     OneSignal.shared.setNotificationWillShowInForegroundHandler((OSNotificationReceivedEvent event) {
@@ -35,6 +40,7 @@ class Notifications {
       event.complete(null);
     });
 
+    /*
     OneSignal.shared.setInAppMessageClickedHandler((OSInAppMessageAction action) {
       _debugLabelString = "In App Message Clicked: \n${action.jsonRepresentation().replaceAll("\\n", "\n")}";
       print("_debugLabelString 3 => $_debugLabelString");
@@ -63,6 +69,7 @@ class Notifications {
     OneSignal.shared.setOnDidDismissInAppMessageHandler((message) {
       print("ON DID DISMISS IN APP MESSAGE ${message.messageId}");
     });
+    */
 
   }
 }

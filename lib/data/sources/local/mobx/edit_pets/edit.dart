@@ -50,11 +50,19 @@ abstract class _EditMobx with Store {
   TextEditingController controllerBirth = TextEditingController();
 
   @observable
+  bool willPopUp = true;
+
+  @observable
   TextEditingController controllerLifeTime = TextEditingController();
 
   ObservableList<ModelVaccines> listVaccines = ObservableList();
 
   ObservableList<ModelHygienePets> listHygiene = ObservableList();
+
+  @action
+  changeWillPopUp( bool value ) {
+    willPopUp = value;
+  }
 
   @action
   setAllData( ModelPets modelPets ) async {
@@ -91,6 +99,7 @@ abstract class _EditMobx with Store {
     analytics.logEvent(name: "validate_update_pet");
     String removedKg = controllerWeight.text.replaceAll("KG ", "");
     if ( removedKg.length > 6 ) {
+      changeWillPopUp( true );
       return CustomSnackBar(
         context,
         FlutterI18n.translate(context, "custom_message.update_pet.validate.weight"),
@@ -100,6 +109,7 @@ abstract class _EditMobx with Store {
     double weight = double.parse(removedKg);
     
     if ( weight == 0.0 ) {
+      changeWillPopUp( true );
       return CustomSnackBar(
         context,
         FlutterI18n.translate(context, "custom_message.update_pet.validate.weight"),

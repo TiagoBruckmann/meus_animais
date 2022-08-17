@@ -24,6 +24,7 @@ import 'package:meus_animais/domain/functions/shared.dart';
 import 'package:meus_animais/data/sources/local/injection/injection.dart';
 import 'package:meus_animais/data/sources/local/manager/update_pets.dart';
 import 'package:meus_animais/data/sources/remote/credentials.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 final FirebaseCrashlytics crash = FirebaseCrashlytics.instance;
 final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
@@ -197,5 +198,21 @@ class Services {
 
   setEmail( String email ) async {
     await OneSignal.shared.setEmail(email: email);
+  }
+
+  sendWppMessage( String title, String body ) async {
+    analytics.logEvent(name: "send_wpp_message");
+    String message = "$title\n\n$body";
+    final whatsappUrl = "whatsapp://send?phone=+5549989006507&text=$message";
+
+    if ( await canLaunchUrlString(whatsappUrl) ) {
+      await launchUrlString(
+        whatsappUrl,
+        mode: LaunchMode.externalNonBrowserApplication,
+      );
+    } else {
+      crash.log("Could not launch WhatsApp");
+      throw 'Could not launch WhatsApp';
+    }
   }
 }
