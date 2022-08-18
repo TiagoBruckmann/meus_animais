@@ -49,6 +49,7 @@ Versão publicada dia ??/08/2022
 
 <ul>
     <li>Solicitar informações da conta.(Vai enviar uma notificação para mim).</li>
+    <li>Configuração dos dados e analises do Facebook.</li>    
     <li>Adicionado termos e politicas de uso.</li>    
     <li>Envio e recebimento de notificações.</li>    
     <li>Configuração do CI/CD do Flutter.</li> 
