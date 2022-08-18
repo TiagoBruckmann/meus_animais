@@ -35,7 +35,8 @@ class RoutesApi {
 
     await http.post(url, headers: header, body: jsonEncode(body)).then((value) {
       if ( value.statusCode == 200 ) {
-        analytics.logEvent(name: "info_data_requested");
+        Services().analyticsEvent("info_data_requested");
+        Services().facebookEvent("info_data_requested");
       } else {
         crash.log("${value.statusCode} - ${value.body}");
       }

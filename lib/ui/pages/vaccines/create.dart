@@ -40,6 +40,7 @@ class _CreateVaccinesState extends State<CreateVaccines> {
   void initState() {
     super.initState();
     Services().sendScreen("Vaccines");
+    Services().facebookEvent("Vaccines");
   }
 
   @override

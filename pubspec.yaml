@@ -2,7 +2,7 @@ name: meus_animais
 description: Cuide de seus create_pets, desde os dias que tomam vacinas até a quantidade de banhos que tomam.
 
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
-version: 1.1.0+7
+version: 1.1.0+9
 # version: 1.0.1+1
 # version: 1.0.0+17
 
@@ -21,6 +21,8 @@ dependencies:
   firebase_app_check: ^0.0.6+19
   firebase_crashlytics: ^2.8.2
   flutter_masked_text2: ^0.9.1
+  # flutter_facebook_sdk: ^1.0.0
+  facebook_app_events: ^0.17.0
   shimmer_animation: ^2.1.0+1
   firebase_analytics: ^9.3.1
   firebase_storage: ^10.2.18

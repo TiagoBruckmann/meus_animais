@@ -6,8 +6,10 @@ import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_performance/firebase_performance.dart';
+import 'package:facebook_app_events/facebook_app_events.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:image_picker/image_picker.dart';
@@ -24,7 +26,6 @@ import 'package:meus_animais/domain/functions/shared.dart';
 import 'package:meus_animais/data/sources/local/injection/injection.dart';
 import 'package:meus_animais/data/sources/local/manager/update_pets.dart';
 import 'package:meus_animais/data/sources/remote/credentials.dart';
-import 'package:url_launcher/url_launcher_string.dart';
 
 final FirebaseCrashlytics crash = FirebaseCrashlytics.instance;
 final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
@@ -35,10 +36,28 @@ const storage = FlutterSecureStorage();
 
 class Services {
 
+  static final faceSDK = FacebookAppEvents();
+
   Future<void> sendScreen( String screenName ) async {
     await analytics.setCurrentScreen(
       screenName: screenName,
       screenClassOverride: screenName,
+    );
+  }
+
+  Future<void> analyticsEvent( String eventName, { Map<String, dynamic>? parameters } ) async {
+    await analytics.logEvent(
+      name: eventName,
+      parameters: parameters,
+    );
+  }
+
+  Future<void> facebookEvent( String eventName, { double? valueToSum, Map<String, dynamic>? parameters }) async {
+    // late FacebookAppEvents faceSDK = FacebookAppEvents();
+    await faceSDK.logEvent(
+      name: eventName,
+      valueToSum: valueToSum,
+      parameters: parameters,
     );
   }
 
@@ -49,7 +68,8 @@ class Services {
 
   void deleteAllTokens() async {
     await storage.deleteAll();
-    analytics.logEvent(name: "delete_all_tokens");
+    analyticsEvent("delete_all_tokens");
+    facebookEvent("delete_all_tokens");
   }
 
   getToken( String name ) async {
@@ -58,7 +78,8 @@ class Services {
 
   void deleteOnlyToken( String keyName ) async {
     await storage.delete(key: keyName);
-    analytics.logEvent(name: "delete_only_token");
+    analyticsEvent("delete_only_token");
+    facebookEvent("delete_only_token");
   }
 
   uploadPicture( ModelPets modelPets, XFile? picture, context ) async {
@@ -98,7 +119,8 @@ class Services {
   }
 
   rateApp() async {
-    analytics.logEvent(name: "rateApp");
+    analyticsEvent("rateApp");
+    facebookEvent("rateApp");
     Uri url;
     if ( Platform.isAndroid ) {
       url = Uri.https("play.google.com", "/store/apps/details", {"id": "br.com.meus_animais"});
@@ -119,7 +141,11 @@ class Services {
 
   verifyVersion( context ) async {
     final newVersion = NewVersion();
+    print("newVersion => ${newVersion.androidId}");
+    print("newVersion => ${newVersion.forceAppVersion}");
+    print("getVersion => ${await newVersion.getVersionStatus()}");
     final versionStatus = await newVersion.getVersionStatus();
+    print("versionStatus => $versionStatus");
     if ( versionStatus != null ) {
 
       int storeVersion = int.parse(versionStatus.storeVersion.replaceAll(".", ""));
@@ -189,7 +215,8 @@ class Services {
     };
     await OneSignal.shared.postNotificationWithJson(params)
       .then((value) {
-        analytics.logEvent(name: "register_notification");
+        analyticsEvent("register_notification");
+        facebookEvent("register_notification");
       }).onError((error, stackTrace) {
         crash.recordError(error, stackTrace);
         crash.log(error.toString());
@@ -201,7 +228,8 @@ class Services {
   }
 
   sendWppMessage( String title, String body ) async {
-    analytics.logEvent(name: "send_wpp_message");
+    analyticsEvent("send_wpp_message");
+    facebookEvent("send_wpp_message");
     String message = "$title\n\n$body";
     final whatsappUrl = "whatsapp://send?phone=+5549989006507&text=$message";
 

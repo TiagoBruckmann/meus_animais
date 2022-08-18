@@ -35,7 +35,8 @@ abstract class _ForgotMobx with Store {
 
   @action
   validateEmail( context ) async {
-    analytics.logEvent(name: "validate_email");
+    Services().analyticsEvent("validate_email");
+    Services().facebookEvent("validate_email");
     String email = controllerEmail.text;
 
     if ( email.trim().isEmpty || !email.contains("@") ) {

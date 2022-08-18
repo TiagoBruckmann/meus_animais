@@ -42,7 +42,8 @@ abstract class _RegisterMobx with Store {
   @action
   validateFields( context ) {
 
-    analytics.logEvent(name: "validate_register");
+    Services().analyticsEvent("validate_register");
+    Services().facebookEvent("validate_register");
     String name = controllerName.text;
     String email = controllerEmail.text;
     String passwd = controllerPasswd.text;

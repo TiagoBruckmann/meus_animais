@@ -37,6 +37,7 @@ class _RegisterPageState extends State<RegisterPage> {
   void initState() {
     super.initState();
     Services().sendScreen("Register");
+    Services().facebookEvent("Register");
   }
 
   @override

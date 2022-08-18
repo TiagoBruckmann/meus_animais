@@ -96,7 +96,8 @@ abstract class _EditMobx with Store {
   @action
   validateFields( ModelPets modelPets, XFile? picture, context ) async {
 
-    analytics.logEvent(name: "validate_update_pet");
+    Services().analyticsEvent("validate_update_pet");
+    Services().facebookEvent("validate_update_pet");
     String removedKg = controllerWeight.text.replaceAll("KG ", "");
     if ( removedKg.length > 6 ) {
       changeWillPopUp( true );

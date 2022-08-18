@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Meus animais</string>
+    <string name="facebook_app_id">1278762559563061</string>
+    <string name="facebook_client_token">395e9e0edc9772814ced90de00424542</string>
+    <string name="fb_login_protocol_scheme">fb1278762559563061</string>
+</resources>

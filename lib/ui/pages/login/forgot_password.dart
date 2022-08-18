@@ -35,6 +35,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
   void initState() {
     super.initState();
     Services().sendScreen("forgot_password");
+    Services().facebookEvent("forgot_password");
   }
 
   @override

@@ -87,6 +87,7 @@ class _CreatePetPageState extends State<CreatePetPage> {
   void initState() {
     super.initState();
     Services().sendScreen("Create-pet");
+    Services().facebookEvent("Create-pet");
   }
 
   @override

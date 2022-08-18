@@ -21,7 +21,8 @@ class DestroyManager {
     final getUser = getIt.get<GetUserManager>();
     if ( context != null ) {
       destroyRepository.destroy( getUser.modelUser!, context );
-      analytics.logEvent(name: "destroy");
+      Services().analyticsEvent("destroy");
+      Services().facebookEvent("destroy");
     }
   }
 

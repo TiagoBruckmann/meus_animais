@@ -26,6 +26,7 @@ class _CropPageState extends State<CropPage> {
   void initState() {
     super.initState();
     Services().sendScreen("Crop-page");
+    Services().facebookEvent("Crop-page");
   }
 
   @override

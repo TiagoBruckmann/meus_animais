@@ -41,7 +41,8 @@ abstract class _LoginMobx with Store {
   @action
   validateFields( context ) {
 
-    analytics.logEvent(name: "validate_login");
+    Services().analyticsEvent("validate_login");
+    Services().facebookEvent("validate_login");
     String email = controllerEmail.text;
     String passwd = controllerPasswd.text;
 

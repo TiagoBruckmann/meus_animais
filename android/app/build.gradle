@@ -4,7 +4,7 @@ buildscript {
     }
     dependencies {
         // classpath 'gradle.plugin.com.onesignal:onesignal-gradle-plugin:0.14.0'
-        classpath 'gradle.plugin.com.onesignal:onesignal-gradle-plugin:[0.12.10, 0.99.99]'
+        classpath 'gradle.plugin.com.onesignal:onesignal-gradle-plugin:0.14.0'
     }
 }
 
@@ -95,6 +95,7 @@ flutter {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'com.facebook.android:facebook-android-sdk:[4,5)'
     implementation platform('com.google.firebase:firebase-bom:30.3.0')
     implementation 'com.google.firebase:firebase-appcheck-safetynet:16.0.0'
     implementation 'com.google.android.gms:play-services-safetynet:18.0.1'

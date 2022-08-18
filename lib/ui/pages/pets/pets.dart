@@ -40,6 +40,7 @@ class _PetsPageState extends State<PetsPage> {
   void initState() {
     super.initState();
     Services().sendScreen("Pets");
+    Services().facebookEvent("Pets");
     Services().verifyVersion(context);
     _showNotification.context = context;
   }

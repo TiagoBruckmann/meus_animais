@@ -28,7 +28,8 @@ class ShowNotificationManager {
   }
 
   _showNotification() async {
-    analytics.logEvent(name: "show_notification");
+    Services().analyticsEvent("show_notification");
+    Services().facebookEvent("show_notification");
     showNotificationRepository.setNotification(notification!, context!);
   }
 

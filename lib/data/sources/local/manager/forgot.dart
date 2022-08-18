@@ -21,7 +21,8 @@ class ForgotManager {
   Future<bool> forgot() async {
     if ( modelLogin != null ) {
       _emailVerified = await forgotRepository.forgot( modelLogin!, _emailVerified );
-      analytics.logEvent(name: "email_verified");
+      Services().analyticsEvent("email_verified");
+      Services().facebookEvent("email_verified");
     }
     return _emailVerified;
   }

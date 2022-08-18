@@ -25,7 +25,8 @@ class RegisterManager {
 
   _register() async {
     modelLogin = await registerRepository.register(modelLogin!);
-    analytics.logEvent(name: "register_successful");
+    Services().analyticsEvent("register_successful");
+    Services().facebookEvent("register_successful");
   }
 
 }

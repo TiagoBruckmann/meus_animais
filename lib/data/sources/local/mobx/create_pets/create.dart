@@ -66,7 +66,8 @@ abstract class _CreateMobx with Store {
   @action
   validateFields( String petId, XFile? picture, context ) async {
 
-    analytics.logEvent(name: "validate_pet");
+    Services().analyticsEvent("validate_pet");
+    Services().facebookEvent("validate_pet");
     String userId = userManager.modelUser!.id;
     String name = controllerName.text;
     String birth = controllerBirth.text;

@@ -34,6 +34,7 @@ class _LoginPageState extends State<LoginPage> {
   void initState() {
     super.initState();
     Services().sendScreen("login");
+    Services().facebookEvent("login");
     Services().verifyVersion(context);
   }
 

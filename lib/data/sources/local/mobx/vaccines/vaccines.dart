@@ -86,7 +86,8 @@ abstract class _VaccinesMobx with Store {
   @action
   validateFields( context, String petId, bool updatePet, String? petName, String? userName ) async {
 
-    analytics.logEvent(name: "validate_vaccines");
+    Services().analyticsEvent("validate_vaccines");
+    Services().facebookEvent("validate_vaccines");
     String name = controllerName.text;
     String type = controllerType.text;
     String day = controllerDay.text;

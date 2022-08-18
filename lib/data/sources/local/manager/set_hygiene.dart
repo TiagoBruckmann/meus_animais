@@ -25,7 +25,8 @@ class SetHygieneManager {
 
   _setHygiene() async {
     await setHygieneRepository.setHygiene(listHygiene);
-    analytics.logEvent(name: "create_hygiene");
+    Services().analyticsEvent("create_hygiene");
+    Services().facebookEvent("create_hygiene");
   }
 
 }

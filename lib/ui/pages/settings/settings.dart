@@ -52,6 +52,8 @@ class _SettingsPageState extends State<SettingsPage> {
   void initState() {
     super.initState();
     Services().sendScreen("settings");
+    Services().facebookEvent("settings");
+
   }
 
   @override

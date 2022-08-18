@@ -27,7 +27,8 @@ class SetVaccineManager {
 
   _setVaccines() async {
     await setVaccinesRepository.setVaccines( listVaccines, userName!, petName! );
-    analytics.logEvent(name: "create_vaccines");
+    Services().analyticsEvent("create_vaccines");
+    Services().facebookEvent("create_vaccines");
   }
 
 }

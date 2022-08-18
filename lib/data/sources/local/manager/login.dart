@@ -25,7 +25,8 @@ class LoginManager {
 
   _login() async {
     modelLogin = await loginRepository.login( modelLogin! );
-    analytics.logEvent(name: "login_successful");
+    Services().analyticsEvent("login_successful");
+    Services().facebookEvent("login_successful");
   }
 
 }

@@ -31,7 +31,8 @@ class SetPetManager {
 
   _setPet() async {
     await setPetRepository.setPet( modelPets!, picture!, userName!, context );
-    analytics.logEvent(name: "create_pet");
+    Services().analyticsEvent("create_pet");
+    Services().facebookEvent("create_pet");
   }
 
 }

@@ -41,7 +41,8 @@ abstract class _HygieneMobx with Store {
   @action
   validateFields( context, String petId, bool updatePet ) {
 
-    analytics.logEvent(name: "validate_hygiene");
+    Services().analyticsEvent("validate_hygiene");
+    Services().facebookEvent("validate_hygiene");
     String date = controllerDay.text;
     String place = controllerPlace.text;
     String value = controllerValue.text;

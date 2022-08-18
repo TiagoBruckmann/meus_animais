@@ -84,6 +84,7 @@ class _EditPetsState extends State<EditPets> {
   void initState() {
     super.initState();
     Services().sendScreen("Edit-pet");
+    Services().facebookEvent("Edit-pet");
     _editMobx.setAllData( widget.modelPets );
   }
 

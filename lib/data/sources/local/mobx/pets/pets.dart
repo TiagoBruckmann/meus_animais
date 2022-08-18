@@ -18,7 +18,8 @@ abstract class _PetsMobx with Store {
 
   @action
   Future<List<ModelPets>> getPets( context ) async {
-    analytics.logEvent(name: "get_pets");
+    Services().analyticsEvent("get_pets");
+    Services().facebookEvent("get_pets");
     _petsManager.context = context;
     Iterable<ModelPets> iterable = await _petsManager.getPets();
     listPets.clear();
@@ -31,7 +32,8 @@ abstract class _PetsMobx with Store {
 
   @action
   refresh() async {
-    analytics.logEvent(name: "refresh_pets");
+    Services().analyticsEvent("refresh_pets");
+    Services().facebookEvent("refresh_pets");
     await Future.delayed(const Duration(seconds: 1, milliseconds: 500));
     listPets.clear();
   }

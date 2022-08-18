@@ -26,7 +26,8 @@ class UpdatePetManager {
 
   _updatePet() async {
     await updatePetRepository.updatePet( modelPets!, context );
-    analytics.logEvent(name: "update_pet");
+    Services().analyticsEvent("update_pet");
+    Services().facebookEvent("update_pet");
   }
 
 }

@@ -39,6 +39,7 @@ class _CreateHygieneState extends State<CreateHygiene> {
   void initState() {
     super.initState();
     Services().sendScreen("Vaccines");
+    Services().facebookEvent("Vaccines");
   }
 
   @override

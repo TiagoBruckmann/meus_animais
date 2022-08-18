@@ -34,6 +34,7 @@ class _SplashPageState extends State<SplashPage> {
   void initState() {
     super.initState();
     Services().sendScreen("Splash");
+    Services().facebookEvent("Splash");
   }
 
   @override
