@@ -1,5 +1,6 @@
 // imports nativos do flutter
 import 'package:flutter/material.dart';
+import 'package:meus_animais/data/sources/remote/services/events.dart';
 import 'dart:io';
 
 // import dos sources
@@ -54,21 +55,18 @@ abstract class _CropMobx with Store {
   setLastCropped( value ) => lastCropped = value;
 
   @action
-  settingCamera() {
+  settingCamera( String prefEvent ) {
+    EventsApp().sharedEvent("${prefEvent}_settings_camera");
     final snackBar = SnackBar(
       backgroundColor: AppColors.barossa,
       content: ListTile(
         title: TextButton(
           child: const Text("Camera"),
-          onPressed: () {
-            _selectImage("camera");
-          },
+          onPressed: () => _selectImage("camera"),
         ),
         subtitle: TextButton(
           child: const Text("Galeria"),
-          onPressed: () {
-            _selectImage("gallery");
-          },
+          onPressed: () => _selectImage("gallery"),
         ),
       ),
     );
@@ -78,6 +76,7 @@ abstract class _CropMobx with Store {
 
   @action
   Future _selectImage( String imageSource ) async {
+    EventsApp().logCameraOption(imageSource);
     try {
 
       XFile? image;

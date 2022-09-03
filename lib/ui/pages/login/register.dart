@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 
 // import dos data
 import 'package:meus_animais/data/sources/local/injection/injection.dart';
-import 'package:meus_animais/data/sources/remote/services/services.dart';
 import 'package:meus_animais/data/sources/local/manager/register.dart';
+import 'package:meus_animais/data/sources/remote/services/events.dart';
 
 // import dos pacotes
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -36,7 +36,7 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   void initState() {
     super.initState();
-    Services().sendScreen("Register");
+    EventsApp().sendScreen("register");
   }
 
   @override
@@ -78,13 +78,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    /*
-                    Image.asset(
-                      AppImages.logo2,
-                      width: 100,
-                      height: 100,
-                    ),
-                    */
+
                     Padding(
                       padding: const EdgeInsets.all(30),
                       child: Center(
@@ -107,7 +101,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       textInputAction: TextInputAction.next,
                       decoration: InputDecoration(
                         contentPadding: const EdgeInsets.all(16),
-                        labelText: FlutterI18n.translate(context, "pages.login.register.appbar"),
+                        labelText: FlutterI18n.translate(context, "pages.login.register.name"),
                         labelStyle: TextStyle(
                           color: Theme.of(context).unselectedWidgetColor,
                         ),
@@ -184,6 +178,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         fillColor: Theme.of(context).cardColor,
                         suffixIcon: TextButton(
                           onPressed: () {
+                            EventsApp().sharedEvent("register_change_visible_password");
                             _registerMobx.changeVisible();
                           },
                           child: Icon(
@@ -213,9 +208,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     Padding(
                       padding: const EdgeInsets.only(top: 16, bottom: 10),
                       child: ElevatedButton(
-                        onPressed: () {
-                          _registerMobx.validateFields( context );
-                        },
+                        onPressed: () => _registerMobx.validateFields( context ),
                         style: ElevatedButton.styleFrom(
                           primary: Theme.of(context).primaryColor,
                           padding: const EdgeInsets.symmetric( vertical: 16, horizontal: 36 ),

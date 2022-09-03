@@ -1,8 +1,11 @@
 // pacotes nativos flutter
 import 'package:flutter/material.dart';
+import 'dart:io';
 
 // import dos sources
+import 'package:meus_animais/data/sources/local/injection/injection.dart';
 import 'package:meus_animais/data/sources/remote/services/services.dart';
+import 'package:meus_animais/data/sources/remote/services/events.dart';
 import 'package:meus_animais/domain/models/pets/pets.dart';
 
 // import das telas
@@ -18,6 +21,7 @@ import 'package:provider/provider.dart';
 
 // gerencia de estado
 import 'package:meus_animais/data/sources/local/mobx/connection/connection.dart';
+import 'package:meus_animais/data/sources/local/manager/show_notification.dart';
 import 'package:meus_animais/data/sources/local/mobx/pets/pets.dart';
 
 class PetsPage extends StatefulWidget {
@@ -29,14 +33,28 @@ class PetsPage extends StatefulWidget {
 
 class _PetsPageState extends State<PetsPage> {
 
+  final _showNotification = getIt.get<ShowNotificationManager>();
   final PetsMobx _petsMobx = PetsMobx();
   late ConnectionMobx _connectionMobx;
+
+  _detailPet( ModelPets modelPets ) {
+    EventsApp().logDetailPet(modelPets.id);
+    Map<String, dynamic> params = {
+      "model_pets": modelPets,
+    };
+    Navigator.pushNamed(
+      context,
+      "/detail_pet",
+      arguments: params,
+    );
+  }
 
   @override
   void initState() {
     super.initState();
-    Services().sendScreen("Pets");
+    EventsApp().sendScreen("pets");
     Services().verifyVersion(context);
+    _showNotification.context = context;
   }
 
   @override
@@ -67,6 +85,7 @@ class _PetsPageState extends State<PetsPage> {
           ? const LoadingConnection()
           : RefreshIndicator(
             onRefresh: () {
+              EventsApp().sharedEvent("pets_refresh");
               setState(() {
                 _petsMobx.refresh();
               });
@@ -82,6 +101,7 @@ class _PetsPageState extends State<PetsPage> {
 
                   return RefreshIndicator(
                     onRefresh: () {
+                      EventsApp().sharedEvent("pets_refresh_has_error");
                       setState(() {
                         _petsMobx.refresh();
                       });
@@ -94,6 +114,7 @@ class _PetsPageState extends State<PetsPage> {
                 } else if ( _petsMobx.listPets.isEmpty ) {
                   return RefreshIndicator(
                     onRefresh: () {
+                      EventsApp().sharedEvent("pets_refresh_has_empty");
                       setState(() {
                         _petsMobx.refresh();
                       });
@@ -114,13 +135,7 @@ class _PetsPageState extends State<PetsPage> {
                     return Padding(
                       padding: const EdgeInsets.symmetric( horizontal: 5, vertical: 8 ),
                       child: GestureDetector(
-                        onTap: () {
-                          Navigator.pushNamed(
-                            context,
-                            "/detail_pet",
-                            arguments: modelPets,
-                          );
-                        },
+                        onTap: () => _detailPet( modelPets ),
                         child: SizedBox(
                           width: MediaQuery.of(context).size.width,
                           child: Padding(
@@ -135,10 +150,9 @@ class _PetsPageState extends State<PetsPage> {
                                       AppImages.banner,
                                     ),
 
-                                    // ao carregar a imagem, sobrepor com o loading com a imagem do pet
-                                    Image.network(
-                                      modelPets.picture,
-                                    ),
+                                    ( modelPets.picture.contains("file://") )
+                                    ? Image.file(File(modelPets.picture))
+                                    : Image.network(modelPets.picture),
 
                                     Positioned(
                                       bottom: 0,

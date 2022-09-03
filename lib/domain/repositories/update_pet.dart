@@ -1,5 +1,7 @@
 // imports nativos
 import 'package:flutter/material.dart';
+import 'package:meus_animais/data/sources/remote/credentials.dart';
+import 'package:meus_animais/data/sources/remote/routes/requests.dart';
 
 // import dos sources
 import 'package:meus_animais/data/sources/remote/services/services.dart';
@@ -49,10 +51,8 @@ class UpdatePetApi implements UpdatePetRepository {
   @override
   updatePet( ModelPets modelPets, context ) async {
 
-    /*
-    final vaccineManager = getIt.get<SetVaccineManager>();
-    final hygieneManager = getIt.get<SetHygieneManager>();
-    */
+    Uri url = Uri.https(Credentials().apiUrl, Credentials().petsRoute);
+    await Requests().httpPutDefault(url, modelPets.updateToMap());
 
   }
 }

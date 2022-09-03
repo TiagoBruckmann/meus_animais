@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 
 // import dos sources
-import 'package:meus_animais/data/sources/remote/services/services.dart';
+import 'package:meus_animais/data/sources/remote/services/events.dart';
 
 // import dos pacotes
 import 'package:flutter_i18n/flutter_i18n.dart';
@@ -25,7 +25,7 @@ class _CropPageState extends State<CropPage> {
   @override
   void initState() {
     super.initState();
-    Services().sendScreen("Crop-page");
+    EventsApp().sendScreen("crop_page");
   }
 
   @override
@@ -53,7 +53,8 @@ class _CropPageState extends State<CropPage> {
                   style: Theme.of(context).textTheme.button!.copyWith(color: Colors.white),
                 ),
                 onPressed: () {
-                  ScaffoldMessenger.of(context).showSnackBar( widget.cropMobx.settingCamera() );
+                  EventsApp().sharedEvent("crop_image_new_image");
+                  ScaffoldMessenger.of(context).showSnackBar( widget.cropMobx.settingCamera("crop_image") );
                 },
               ),
 
@@ -63,6 +64,7 @@ class _CropPageState extends State<CropPage> {
                   style: Theme.of(context).textTheme.button!.copyWith(color: Colors.white),
                 ),
                 onPressed: () {
+                  EventsApp().sharedEvent("crop_image_save_image");
                   widget.cropMobx.cropImage();
                   widget.cropMobx.setSample(null);
                 },

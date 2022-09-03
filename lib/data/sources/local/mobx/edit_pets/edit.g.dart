@@ -105,6 +105,22 @@ mixin _$EditMobx on _EditMobx, Store {
     });
   }
 
+  late final _$willPopUpAtom =
+      Atom(name: '_EditMobx.willPopUp', context: context);
+
+  @override
+  bool get willPopUp {
+    _$willPopUpAtom.reportRead();
+    return super.willPopUp;
+  }
+
+  @override
+  set willPopUp(bool value) {
+    _$willPopUpAtom.reportWrite(value, super.willPopUp, () {
+      super.willPopUp = value;
+    });
+  }
+
   late final _$controllerLifeTimeAtom =
       Atom(name: '_EditMobx.controllerLifeTime', context: context);
 
@@ -133,13 +149,24 @@ mixin _$EditMobx on _EditMobx, Store {
       AsyncAction('_EditMobx.validateFields', context: context);
 
   @override
-  Future validateFields(ModelPets modelPets, dynamic context) {
+  Future validateFields(ModelPets modelPets, XFile? picture, dynamic context) {
     return _$validateFieldsAsyncAction
-        .run(() => super.validateFields(modelPets, context));
+        .run(() => super.validateFields(modelPets, picture, context));
   }
 
   late final _$_EditMobxActionController =
       ActionController(name: '_EditMobx', context: context);
+
+  @override
+  dynamic changeWillPopUp(bool value) {
+    final _$actionInfo = _$_EditMobxActionController.startAction(
+        name: '_EditMobx.changeWillPopUp');
+    try {
+      return super.changeWillPopUp(value);
+    } finally {
+      _$_EditMobxActionController.endAction(_$actionInfo);
+    }
+  }
 
   @override
   dynamic setVaccines(Iterable<ModelVaccines> modelVaccines) {
@@ -164,17 +191,6 @@ mixin _$EditMobx on _EditMobx, Store {
   }
 
   @override
-  void clear() {
-    final _$actionInfo =
-        _$_EditMobxActionController.startAction(name: '_EditMobx.clear');
-    try {
-      return super.clear();
-    } finally {
-      _$_EditMobxActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
   String toString() {
     return '''
 controllerName: ${controllerName},
@@ -183,6 +199,7 @@ controllerSpecie: ${controllerSpecie},
 controllerBreed: ${controllerBreed},
 controllerWeight: ${controllerWeight},
 controllerBirth: ${controllerBirth},
+willPopUp: ${willPopUp},
 controllerLifeTime: ${controllerLifeTime}
     ''';
   }

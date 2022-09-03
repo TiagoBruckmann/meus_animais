@@ -2,7 +2,9 @@
 import 'package:flutter/material.dart';
 
 // import dos sources
-import 'package:meus_animais/data/sources/remote/services/services.dart';
+import 'package:meus_animais/data/sources/local/injection/injection.dart';
+import 'package:meus_animais/data/sources/remote/services/events.dart';
+import 'package:meus_animais/data/sources/local/manager/get_user.dart';
 
 // import das telas
 import 'package:meus_animais/ui/pages/widgets/loading/loading_connection.dart';
@@ -21,7 +23,8 @@ class CreateVaccines extends StatefulWidget {
 
   final String petId;
   final bool update;
-  const CreateVaccines({ Key? key, required this.petId, required this.update }) : super(key: key);
+  final String? petName;
+  const CreateVaccines({ Key? key, required this.petId, required this.update, this.petName }) : super(key: key);
 
   @override
   State<CreateVaccines> createState() => _CreateVaccinesState();
@@ -30,12 +33,13 @@ class CreateVaccines extends StatefulWidget {
 class _CreateVaccinesState extends State<CreateVaccines> {
 
   final VaccinesMobx _vaccinesMobx = VaccinesMobx();
+  final _userManager = getIt.get<GetUserManager>();
   late ConnectionMobx _connectionMobx;
 
   @override
   void initState() {
     super.initState();
-    Services().sendScreen("Vaccines");
+    EventsApp().sendScreen("create_vaccines");
   }
 
   @override
@@ -251,6 +255,7 @@ class _CreateVaccinesState extends State<CreateVaccines> {
                         label: FlutterI18n.translate(context, "pages.vaccines.create.type_time_label"),
                         selectedItem: _vaccinesMobx.typeTime,
                         onChanged: (value) {
+                          EventsApp().logTypeTime("create_vaccines", value.toString());
                           _vaccinesMobx.setTypeTime(value.toString());
                         },
                         dropdownBuilder: (context, typeTime) {
@@ -302,6 +307,7 @@ class _CreateVaccinesState extends State<CreateVaccines> {
                         selectedItem: _vaccinesMobx.time,
                         onChanged: (value) {
                           String time = value.toString().split(" - ")[0];
+                          EventsApp().logTime("create_vaccines", time);
                           _vaccinesMobx.setTime(time);
                         },
                         dropdownBuilder: (context, time) {
@@ -384,9 +390,7 @@ class _CreateVaccinesState extends State<CreateVaccines> {
                   padding: const EdgeInsets.fromLTRB(10, 16, 10, 10),
                   width: width,
                   child: ElevatedButton(
-                    onPressed: () {
-                      _vaccinesMobx.validateFields( context, widget.petId, widget.update );
-                    },
+                    onPressed: () => _vaccinesMobx.validateFields( context, widget.petId, widget.update, widget.petName, _userManager.modelUser!.name ),
                     style: ElevatedButton.styleFrom(
                       primary: Theme.of(context).primaryColor,
                       padding: const EdgeInsets.symmetric( vertical: 16, horizontal: 36 ),

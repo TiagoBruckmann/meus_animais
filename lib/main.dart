@@ -14,6 +14,7 @@ import 'package:meus_animais/ui/routes/routes.dart';
 import 'package:flutter_i18n/loaders/file_translation_loader.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_performance/firebase_performance.dart';
+import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:flutter_i18n/flutter_i18n_delegate.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
@@ -122,6 +123,7 @@ Future<void> main() async {
 
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  await FirebaseAppCheck.instance.activate( webRecaptchaSiteKey: 'recaptcha-v3-site-key' );
   await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
   FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
   FirebasePerformance.instance;

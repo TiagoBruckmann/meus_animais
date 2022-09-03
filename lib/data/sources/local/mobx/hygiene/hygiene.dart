@@ -2,9 +2,9 @@
 import 'package:flutter/material.dart';
 
 // import dos sources
-import 'package:meus_animais/data/sources/remote/services/services.dart';
 import 'package:meus_animais/data/sources/local/manager/set_hygiene.dart';
 import 'package:meus_animais/data/sources/local/injection/injection.dart';
+import 'package:meus_animais/data/sources/remote/services/events.dart';
 import 'package:meus_animais/domain/models/hygiene/hygiene_pets.dart';
 
 // import das telas
@@ -41,7 +41,7 @@ abstract class _HygieneMobx with Store {
   @action
   validateFields( context, String petId, bool updatePet ) {
 
-    analytics.logEvent(name: "validate_hygiene");
+    EventsApp().sharedEvent("hygiene_validate_fields");
     String date = controllerDay.text;
     String place = controllerPlace.text;
     String value = controllerValue.text;
@@ -95,6 +95,7 @@ abstract class _HygieneMobx with Store {
       modelHygienePets,
     );
 
+    EventsApp().logSetHygiene(hygieneManager.listHygiene, updatePet);
     if ( updatePet == true ) {
       hygieneManager.setData();
     }
@@ -107,6 +108,7 @@ abstract class _HygieneMobx with Store {
 
   @action
   void clear() {
+    EventsApp().sharedEvent("create_hygiene_clear");
     setName("");
     controllerDay.dispose();
     controllerPlace.dispose();

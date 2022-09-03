@@ -18,13 +18,21 @@
      "title": "Nome do usuário",
      "subtitle": "E-mail do usuário",
      "main": "Geral",
-     "dark_mode": "Modo escuro",
      "rate": "Deixe sua opnião sobre o app",
      "logout": {
        "title": "Desconectar",
        "text": "Deseja mesmo desconectar da sua conta?"
      },
      "faq": "FAQ",
+     "info_account": {
+       "name": "Solicitar informações da conta",
+       "title": "Deseja solicitar suas informações?",
+       "description": "Iremos buscar suas informações em nosso sistema, e em até 48 horas enviaremos para você através deste e-mail."
+     },
+     "terms": {
+       "terms": "Termos de uso",
+       "policy": "Política de privacidade"
+     },
      "destroy": {
        "title": "Deletar sua conta?",
        "text": "Deseja mesmo confirmar a exclusão da sua conta? esta ação não poderá ser desfeita!",

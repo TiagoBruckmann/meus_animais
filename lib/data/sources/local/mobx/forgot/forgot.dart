@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 
 // import dos sources
 import 'package:meus_animais/data/sources/local/injection/injection.dart';
+import 'package:meus_animais/data/sources/remote/services/events.dart';
 import 'package:meus_animais/data/sources/local/manager/forgot.dart';
-import 'package:meus_animais/data/sources/remote/services/services.dart';
 import 'package:meus_animais/domain/models/users/login.dart';
 
 // import dos pacotes
@@ -35,7 +35,7 @@ abstract class _ForgotMobx with Store {
 
   @action
   validateEmail( context ) async {
-    analytics.logEvent(name: "validate_email");
+    EventsApp().sharedEvent("forgot_validate_email");
     String email = controllerEmail.text;
 
     if ( email.trim().isEmpty || !email.contains("@") ) {
@@ -49,6 +49,7 @@ abstract class _ForgotMobx with Store {
 
   @action
   void clear() {
+    EventsApp().sharedEvent("forgot_clear");
     controllerEmail.dispose();
     verifyEmail( false );
     setMessage("");

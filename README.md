@@ -73,7 +73,9 @@ FIRDebugDisabled
     <li>firebase_crashlytics</li>
     <li>flutter_masked_text2</li>
     <li>injectable_generator</li>
+    <li>facebook_app_events</li>
     <li>firebase_analytics</li>
+    <li>firebase_app_check</li>    
     <li>shimmer_animation</li>
     <li>connectivity_plus</li>
     <li>firebase_storage</li>

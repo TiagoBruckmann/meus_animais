@@ -1,5 +1,11 @@
-// import dos sources
+// imports nativos
 import 'package:flutter/material.dart';
+
+// import dos sources
+import 'package:meus_animais/data/sources/local/injection/injection.dart';
+import 'package:meus_animais/data/sources/local/manager/get_user.dart';
+import 'package:meus_animais/data/sources/remote/routes/requests.dart';
+import 'package:meus_animais/data/sources/remote/credentials.dart';
 
 // import dos sources
 import 'package:meus_animais/data/sources/remote/services/services.dart';
@@ -24,6 +30,7 @@ class LogoutFirebase implements LogoutRepository {
     auth.signOut().then(( data ) async {
 
       Services().deleteAllTokens();
+      getIt.resetLazySingleton<GetUserManager>();
       Navigator.pushNamedAndRemoveUntil(
         context,
         "/login",
@@ -54,11 +61,9 @@ class LogoutApi implements LogoutRepository {
   @override
   logout( context ) async {
     Services().deleteAllTokens();
-    Navigator.pushNamedAndRemoveUntil(
-      context,
-      "/login",
-      (route) => false,
-    );
+    getIt.resetLazySingleton<GetUserManager>();
+    Uri url = Uri.https(Credentials().apiUrl, Credentials().authRoute);
+    await Requests().httpGetDefault(url);
   }
 }
 
@@ -68,6 +73,7 @@ class LogoutTest implements LogoutRepository {
   @override
   logout( context ) async {
     Services().deleteAllTokens();
+    getIt.resetLazySingleton<GetUserManager>();
     return true;
   }
 }

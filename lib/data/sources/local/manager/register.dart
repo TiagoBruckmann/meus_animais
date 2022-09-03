@@ -1,5 +1,5 @@
 // import dos dominios
-import 'package:meus_animais/data/sources/remote/services/services.dart';
+import 'package:meus_animais/data/sources/remote/services/events.dart';
 import 'package:meus_animais/domain/repositories/register.dart';
 import 'package:meus_animais/domain/models/users/login.dart';
 
@@ -25,7 +25,7 @@ class RegisterManager {
 
   _register() async {
     modelLogin = await registerRepository.register(modelLogin!);
-    analytics.logEvent(name: "register_successful");
+    EventsApp().sharedEvent("register_successful");
   }
 
 }

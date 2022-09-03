@@ -2,7 +2,8 @@ name: meus_animais
 description: Cuide de seus create_pets, desde os dias que tomam vacinas até a quantidade de banhos que tomam.
 
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
-version: 1.0.1+18
+version: 1.1.0+29
+# version: 1.1.0+11
 # version: 1.0.1+1
 # version: 1.0.0+17
 
@@ -15,14 +16,17 @@ dependencies:
     sdk: flutter
 
   # Use with the CupertinoIcons class for iOS style icons.
-  firebase_performance: ^0.8.0+14
-  flutter_secure_storage: ^5.0.2
+  firebase_performance: ^0.8.2+3
+  flutter_secure_storage: ^6.0.0
   font_awesome_flutter: ^10.1.0
+  firebase_app_check: ^0.0.6+20
   firebase_crashlytics: ^2.8.2
   flutter_masked_text2: ^0.9.1
-  firebase_analytics: ^9.1.10
+  facebook_app_events: ^0.17.0
   shimmer_animation: ^2.1.0+1
+  firebase_analytics: ^9.3.2
   firebase_storage: ^10.2.18
+  onesignal_flutter: ^3.4.0
   connectivity_plus: ^2.3.5
   cloud_firestore: ^3.1.18
   cupertino_icons: ^1.0.2
@@ -36,11 +40,12 @@ dependencies:
   url_launcher: ^6.1.4
   new_version: ^0.3.1
   injectable: ^1.5.3
-  image_crop: ^0.4.0
+  image_crop: ^0.4.1
   provider: ^6.0.3
   get_it: ^7.2.0
   mobx: ^2.0.7+4
   intl: ^0.17.0
+  http: ^0.13.5
 
 dev_dependencies:
   flutter_test:

@@ -1,15 +1,16 @@
 // imports nativos do flutter
 import 'package:flutter/material.dart';
-import 'package:flutter_i18n/flutter_i18n.dart';
 
-// import dos modelos
-import 'package:meus_animais/domain/models/pets/pets.dart';
+// import dos pacotes
+import 'package:flutter_i18n/flutter_i18n.dart';
 
 // import das telas
 import 'package:meus_animais/ui/pages/hygiene/create_hygiene.dart';
 import 'package:meus_animais/ui/pages/login/forgot_password.dart';
 import 'package:meus_animais/ui/pages/pets/edit.dart';
 import 'package:meus_animais/ui/pages/settings/settings.dart';
+import 'package:meus_animais/ui/pages/terms/policy.dart';
+import 'package:meus_animais/ui/pages/terms/terms.dart';
 import 'package:meus_animais/ui/pages/vaccines/create.dart';
 import 'package:meus_animais/ui/pages/login/register.dart';
 import 'package:meus_animais/ui/pages/login/login.dart';
@@ -44,8 +45,11 @@ class Routes {
           builder: (_) => const HomePage(),
         );
       case "/detail_pet" :
+        final Map params = args as Map;
         return MaterialPageRoute(
-          builder: (_) => EditPets(modelPets: args as ModelPets),
+          builder: (_) => EditPets(
+            modelPets: params["model_pets"],
+          ),
         );
       case "/vaccines" :
         final Map params = args as Map;
@@ -53,6 +57,7 @@ class Routes {
           builder: (_) => CreateVaccines(
             petId: params["pet_id"],
             update: params["update"],
+            petName: params["pet_name"],
           ),
         );
       case "/hygiene" :
@@ -66,6 +71,14 @@ class Routes {
       case "/settings" :
         return MaterialPageRoute(
           builder: (_) => const SettingsPage(),
+        );
+      case "/terms" :
+        return MaterialPageRoute(
+          builder: (_) => const TermsPage(),
+        );
+      case "/policy" :
+        return MaterialPageRoute(
+          builder: (_) => const PolicyPage(),
         );
       default:
         _errorRoute();

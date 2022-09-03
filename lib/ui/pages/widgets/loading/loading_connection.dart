@@ -1,5 +1,6 @@
 // pacotes nativos do flutter
 import 'package:flutter/material.dart';
+import 'package:meus_animais/data/sources/remote/services/events.dart';
 import 'dart:async';
 
 // import dos estilos
@@ -40,6 +41,7 @@ class _LoadingConnectionState extends State<LoadingConnection> {
   @override
   void initState() {
     super.initState();
+    EventsApp().sendScreen("loading_connection");
     _changeStatus();
   }
 

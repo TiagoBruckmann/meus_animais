@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 
 // import dos sources
 import 'package:meus_animais/data/sources/local/injection/injection.dart';
-import 'package:meus_animais/data/sources/local/manager/update_pets.dart';
-import 'package:meus_animais/data/sources/local/manager/life_time.dart';
 import 'package:meus_animais/data/sources/remote/services/services.dart';
+import 'package:meus_animais/data/sources/local/manager/life_time.dart';
+import 'package:meus_animais/data/sources/remote/services/events.dart';
 import 'package:meus_animais/domain/models/hygiene/hygiene_pets.dart';
 import 'package:meus_animais/domain/models/vaccines/vaccines.dart';
 import 'package:meus_animais/domain/models/pets/pets.dart';
@@ -19,6 +19,7 @@ import 'package:meus_animais/data/sources/local/manager/get_vaccines.dart';
 
 // import dos pacotes
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:mobx/mobx.dart';
 part 'edit.g.dart';
@@ -27,7 +28,6 @@ class EditMobx extends _EditMobx with _$EditMobx{}
 
 abstract class _EditMobx with Store {
 
-  final updatePetManager = getIt.get<UpdatePetManager>();
   final lifeTimeManager = getIt.get<LifeTimeManager>();
   final _getVaccineManager = getIt.get<GetVaccinesManager>();
   final _getHygienePetManager = getIt.get<GetHygienePetsManager>();
@@ -51,11 +51,20 @@ abstract class _EditMobx with Store {
   TextEditingController controllerBirth = TextEditingController();
 
   @observable
+  bool willPopUp = true;
+
+  @observable
   TextEditingController controllerLifeTime = TextEditingController();
 
   ObservableList<ModelVaccines> listVaccines = ObservableList();
 
   ObservableList<ModelHygienePets> listHygiene = ObservableList();
+
+  @action
+  changeWillPopUp( bool value ) {
+    EventsApp().sharedEvent("edit_pet_change_will_pop_up");
+    willPopUp = value;
+  }
 
   @action
   setAllData( ModelPets modelPets ) async {
@@ -87,11 +96,12 @@ abstract class _EditMobx with Store {
   }
 
   @action
-  validateFields( ModelPets modelPets, context ) async {
+  validateFields( ModelPets modelPets, XFile? picture, context ) async {
 
-    analytics.logEvent(name: "validate_update_pet");
+    EventsApp().sharedEvent("edit_pet_validate_update");
     String removedKg = controllerWeight.text.replaceAll("KG ", "");
     if ( removedKg.length > 6 ) {
+      changeWillPopUp( true );
       return CustomSnackBar(
         context,
         FlutterI18n.translate(context, "custom_message.update_pet.validate.weight"),
@@ -101,6 +111,7 @@ abstract class _EditMobx with Store {
     double weight = double.parse(removedKg);
     
     if ( weight == 0.0 ) {
+      changeWillPopUp( true );
       return CustomSnackBar(
         context,
         FlutterI18n.translate(context, "custom_message.update_pet.validate.weight"),
@@ -108,10 +119,12 @@ abstract class _EditMobx with Store {
       );
     }
 
-    updatePetManager.modelPets = modelPets;
-    updatePetManager.modelPets!.weight = weight;
-    updatePetManager.context = context;
-    updatePetManager.setData();
+    modelPets.weight = weight;
+    if ( picture != null ) {
+      modelPets.picture = picture.name;
+    }
+    EventsApp().sharedEvent("edit_pet_upload_picture");
+    await Services().uploadPicture(modelPets, picture, context);
 
   }
 
@@ -121,11 +134,5 @@ abstract class _EditMobx with Store {
   @action
   setHygiene( Iterable<ModelHygienePets> modelHygienePets ) => listHygiene.addAll(modelHygienePets);
 
-  @action
-  void clear() {
-    controllerName.dispose();
-    controllerWeight.dispose();
-    controllerBirth.dispose();
-  }
 
 }

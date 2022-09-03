@@ -1,5 +1,6 @@
 // pacotes nativos flutter
 import 'package:flutter/material.dart';
+import 'package:meus_animais/data/sources/remote/services/events.dart';
 
 // import dos estilos
 import 'package:meus_animais/ui/styles/app_colors.dart';
@@ -11,6 +12,7 @@ class DropdownError extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    EventsApp().logDropDownError(text);
     return Center(
       child: Text(
         text,

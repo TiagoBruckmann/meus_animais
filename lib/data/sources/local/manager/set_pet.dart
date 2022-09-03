@@ -1,5 +1,5 @@
 // import dos servicos
-import 'package:meus_animais/data/sources/remote/services/services.dart';
+import 'package:meus_animais/data/sources/remote/services/events.dart';
 
 // import dos pacotes
 import 'package:image_picker/image_picker.dart';
@@ -21,16 +21,17 @@ class SetPetManager {
   ModelPets? modelPets;
   dynamic context;
   XFile? picture;
+  String? userName;
 
   setData() {
-    if ( modelPets != null && context != null && picture != null ) {
+    if ( modelPets != null && context != null && picture != null && userName != null ) {
       _setPet();
     }
   }
 
   _setPet() async {
-    await setPetRepository.setPet( modelPets!, picture!, context );
-    analytics.logEvent(name: "create_pet");
+    await setPetRepository.setPet( modelPets!, picture!, userName!, context );
+    EventsApp().sharedEvent("create_pet");
   }
 
 }

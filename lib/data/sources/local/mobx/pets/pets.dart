@@ -1,7 +1,7 @@
 // import dos sources
 import 'package:meus_animais/data/sources/local/injection/injection.dart';
 import 'package:meus_animais/data/sources/local/manager/get_pets.dart';
-import 'package:meus_animais/data/sources/remote/services/services.dart';
+import 'package:meus_animais/data/sources/remote/services/events.dart';
 import 'package:meus_animais/domain/models/pets/pets.dart';
 
 // import dos pacotes
@@ -18,7 +18,7 @@ abstract class _PetsMobx with Store {
 
   @action
   Future<List<ModelPets>> getPets( context ) async {
-    analytics.logEvent(name: "get_pets");
+    EventsApp().sharedEvent("get_all_pets");
     _petsManager.context = context;
     Iterable<ModelPets> iterable = await _petsManager.getPets();
     listPets.clear();
@@ -31,7 +31,6 @@ abstract class _PetsMobx with Store {
 
   @action
   refresh() async {
-    analytics.logEvent(name: "refresh_pets");
     await Future.delayed(const Duration(seconds: 1, milliseconds: 500));
     listPets.clear();
   }

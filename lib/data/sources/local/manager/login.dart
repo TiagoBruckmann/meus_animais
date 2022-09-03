@@ -1,5 +1,6 @@
 // import dos dominios
-import 'package:meus_animais/data/sources/remote/services/services.dart';
+import 'package:meus_animais/data/sources/remote/services/events.dart';
+import 'package:meus_animais/data/sources/remote/credentials.dart';
 import 'package:meus_animais/domain/models/users/login.dart';
 import 'package:meus_animais/domain/repositories/login.dart';
 
@@ -17,6 +18,16 @@ class LoginManager {
 
   ModelLogin? modelLogin;
 
+  final headerOnesignal = {
+    "Authorization": "Basic ${Credentials().onesignalApiToken}",
+    "Content-Type": "application/json",
+  };
+
+  late Map<String, String> defaultHeader = {
+    "content-type" : "application/json",
+    "Authorization": "Bearer ${modelLogin!.token}"
+  };
+
   void setCredentials() {
     if ( modelLogin != null ) {
       _login();
@@ -25,7 +36,7 @@ class LoginManager {
 
   _login() async {
     modelLogin = await loginRepository.login( modelLogin! );
-    analytics.logEvent(name: "login_successful");
+    EventsApp().sharedEvent("login_successful");
   }
 
 }

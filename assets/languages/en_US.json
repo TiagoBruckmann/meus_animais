@@ -18,13 +18,21 @@
       "title": "User name",
       "subtitle": "User e-mail",
       "main": "General",
-      "dark_mode": "Dark mode",
       "rate": "Let your opinion about the app",
       "logout": {
         "title": "Disconnect",
-        "text": "Do youy wish logout of your account?"
+        "text": "Do you wish logout of your account?"
       },
       "faq": "FAQ",
+      "info_account": {
+        "name": "Request account information",
+        "title": "Do you want request your information?",
+        "description": "We will find your information on we system, in 48 hours send to you through of this email."
+      },
+      "terms": {
+        "terms": "Terms of use",
+        "policy": "Policy of privacy"
+      },
       "destroy": {
         "title": "Delete your account?",
         "text": "Do you want to delete your account? you will not be able to undo this action!",

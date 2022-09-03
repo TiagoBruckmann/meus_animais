@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 // import dos sources
 import 'package:meus_animais/data/sources/local/injection/injection.dart';
 import 'package:meus_animais/data/sources/remote/services/services.dart';
-import 'package:meus_animais/data/sources/local/manager/get_user.dart';
+import 'package:meus_animais/data/sources/remote/services/events.dart';
+import 'package:meus_animais/data/sources/local/manager/destroy.dart';
+import 'package:meus_animais/data/sources/local/manager/logout.dart';
 
 // import das telas
 import 'package:meus_animais/ui/pages/widgets/loading/loading_connection.dart';
@@ -19,6 +21,7 @@ import 'package:provider/provider.dart';
 
 // gerencia de estado
 import 'package:meus_animais/data/sources/local/mobx/connection/connection.dart';
+import 'package:meus_animais/data/sources/local/manager/get_user.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({Key? key}) : super(key: key);
@@ -32,10 +35,26 @@ class _SettingsPageState extends State<SettingsPage> {
   final _getUser = getIt.get<GetUserManager>();
   late ConnectionMobx _connectionMobx;
 
+  _goToTerms() {
+    EventsApp().sharedEvent("settings_open_terms");
+    Navigator.pushNamed(
+      context,
+      "/terms",
+    );
+  }
+
+  _goToPolicy() {
+    EventsApp().sharedEvent("settings_open_policy");
+    Navigator.pushNamed(
+      context,
+      "/policy",
+    );
+  }
+
   @override
   void initState() {
     super.initState();
-    Services().sendScreen("settings");
+    EventsApp().sendScreen("settings");
   }
 
   @override
@@ -131,7 +150,7 @@ class _SettingsPageState extends State<SettingsPage> {
                     endIndent: 16,
                   ),
 
-                  // Sugestões
+                  // avaliar
                   Row(
                     children: [
                       GestureDetector(
@@ -170,10 +189,14 @@ class _SettingsPageState extends State<SettingsPage> {
                             showDialog(
                               context: context,
                               builder: (builder) => PopUpWidget(
-                                mainContext: context,
-                                type: "Logout",
                                 title: FlutterI18n.translate(context, "widgets.settings.logout.title"),
                                 text: FlutterI18n.translate(context, "widgets.settings.logout.text"),
+                                function: () {
+                                  EventsApp().sharedEvent("settings_logout");
+                                  final logout = getIt.get<LogoutManager>();
+                                  logout.context = context;
+                                  logout.disconnect();
+                                },
                               ),
                             );
                           },
@@ -213,7 +236,6 @@ class _SettingsPageState extends State<SettingsPage> {
                     ],
                   ),
 
-                  /*
                   Divider(
                     height: 30,
                     thickness: 1,
@@ -222,18 +244,24 @@ class _SettingsPageState extends State<SettingsPage> {
                     endIndent: 16,
                   ),
 
-                  // Estou com duvidas
+                  // solicitar informacoes
                   GestureDetector(
                     onTap: () {
-                      // _questions();
+                      showDialog(
+                        context: context,
+                        builder: (builder) {
+                          EventsApp().sharedEvent("settings_info_account");
+                          return _getUser.infoAccountDialog( context );
+                        },
+                      );
                     },
                     child: Row(
-                      children: const [
+                      children: [
                         Padding(
-                          padding: EdgeInsets.fromLTRB(30, 0, 16, 0),
+                          padding: const EdgeInsets.fromLTRB(30, 0, 16, 0),
                           child: Text(
-                            "Estou com duvidas",
-                            style: TextStyle(
+                            FlutterI18n.translate(context, "widgets.settings.info_account.name"),
+                            style: const TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w500,
                             ),
@@ -251,28 +279,56 @@ class _SettingsPageState extends State<SettingsPage> {
                     endIndent: 16,
                   ),
 
-                  // perguntas frequentes
-                  Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(30, 0, 16, 0),
-                        child: GestureDetector(
-                          onTap: () {
-                            // RoutesApp().goToFrequently( context );
-                          },
-                          child: const Text(
-                            "Perguntas frequentes",
-                            style: TextStyle(
+                  // Termos de uso
+                  GestureDetector(
+                    onTap: () {
+                      _goToTerms();
+                    },
+                    child: Row(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(30, 0, 16, 0),
+                          child: Text(
+                            FlutterI18n.translate(context, "widgets.settings.terms.terms"),
+                            style: const TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w500,
                             ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
 
-                   */
+                  Divider(
+                    height: 30,
+                    thickness: 1,
+                    color: Theme.of(context).unselectedWidgetColor,
+                    indent: 16,
+                    endIndent: 16,
+                  ),
+
+                  // politica de privacidade
+                  GestureDetector(
+                    onTap: () {
+                      _goToPolicy();
+                    },
+                    child: Row(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(30, 0, 16, 0),
+                          child: Text(
+                            FlutterI18n.translate(context, "widgets.settings.terms.policy"),
+                            style: const TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+
                   Divider(
                     height: 30,
                     thickness: 1,
@@ -288,13 +344,18 @@ class _SettingsPageState extends State<SettingsPage> {
                         padding: const EdgeInsets.fromLTRB(30, 0, 16, 0),
                         child: GestureDetector(
                           onTap: () {
+                            EventsApp().sharedEvent("settings_delete_account");
                             showDialog(
                               context: context,
                               builder: (builder) => PopUpWidget(
-                                mainContext: context,
-                                type: "Destroy",
                                 title: FlutterI18n.translate(context, "widgets.settings.destroy.title"),
                                 text: FlutterI18n.translate(context, "widgets.settings.destroy.text"),
+                                function: () {
+                                  EventsApp().sharedEvent("settings_delete_account_apply");
+                                  final destroy = getIt.get<DestroyManager>();
+                                  destroy.context = context;
+                                  destroy.destroy();
+                                },
                               ),
                             );
                           },

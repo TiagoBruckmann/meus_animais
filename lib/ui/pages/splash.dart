@@ -5,7 +5,7 @@ import 'dart:async';
 
 // import dos sources
 import 'package:meus_animais/data/sources/local/injection/injection.dart';
-import 'package:meus_animais/data/sources/remote/services/services.dart';
+import 'package:meus_animais/data/sources/remote/services/events.dart';
 import 'package:meus_animais/data/sources/local/manager/splash.dart';
 
 // import das telas
@@ -27,26 +27,26 @@ class SplashPage extends StatefulWidget {
 
 class _SplashPageState extends State<SplashPage> {
 
-  final splashManager = getIt.get<SplashManager>();
+  final _splashManager = getIt.get<SplashManager>();
   late ConnectionMobx _connectionMobx;
 
   @override
   void initState() {
     super.initState();
-    Services().sendScreen("Splash");
+    EventsApp().sendScreen("Splash");
   }
 
   @override
   void didChangeDependencies() async {
     super.didChangeDependencies();
-    splashManager.context = context;
     _connectionMobx = Provider.of<ConnectionMobx>(context);
     await _connectionMobx.verifyConnection();
     _connectionMobx.connectivity.onConnectivityChanged.listen(_connectionMobx.updateConnectionStatus);
 
     Timer(const Duration(seconds: 3), () {
-       splashManager.mobx = _connectionMobx;
-       splashManager.setData();
+      _splashManager.context = context;
+      _splashManager.mobx = _connectionMobx;
+      _splashManager.setData();
     });
   }
 
