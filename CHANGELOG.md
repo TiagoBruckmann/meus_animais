@@ -43,7 +43,7 @@ Versão publicada dia ??/08/2022
 
 O foco da versão foi referentes a questões legais e a algumas novas configurações ou possibilidades dentro da plataforma.  
 
-Versão publicada dia ??/08/2022
+Versão publicada dia 03/09/2022
 
 **:bulb: Novas funcionalidades**
 
@@ -64,4 +64,26 @@ Versão publicada dia ??/08/2022
     <li>Corrigido o problema de armazenamento de dados após o logout.</li>    
     <li>Link correto na opção de avaliação.</li>
     <li>Correção no texto de cadastro.</li>
+</ul>
+
+### :gear: Versão 1.1.1
+
+Versão com o objetivo de melhorias e implementações de alguns extras.
+
+Versão publicada dia ??/??/2022
+
+**:bulb: Novas funcionalidades**
+
+<ul>
+    <li>Tela de direitos sobre a LGPD.</li>    
+    <li>Edição de perfil do usuário.</li>
+    <li>Atualização de pacotes.</li>
+</ul>
+
+**:bug: Correções de funcionalidades já existentes**
+
+<ul>
+    <li>Utilização das rotas de API com a inversão de dependencia.</li>    
+    <li>Tração dos termos de uso e politica de privacidade.</li>
+    <li>Animação na transição das telas.</li>
 </ul>
