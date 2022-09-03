@@ -6,7 +6,6 @@ import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_performance/firebase_performance.dart';
-import 'package:facebook_app_events/facebook_app_events.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:url_launcher/url_launcher_string.dart';
@@ -25,6 +24,7 @@ import 'package:meus_animais/domain/functions/shared.dart';
 // import dos sources
 import 'package:meus_animais/data/sources/local/injection/injection.dart';
 import 'package:meus_animais/data/sources/local/manager/update_pets.dart';
+import 'package:meus_animais/data/sources/remote/services/events.dart';
 import 'package:meus_animais/data/sources/remote/credentials.dart';
 
 final FirebaseCrashlytics crash = FirebaseCrashlytics.instance;
@@ -36,31 +36,6 @@ const storage = FlutterSecureStorage();
 
 class Services {
 
-  static final faceSDK = FacebookAppEvents();
-
-  Future<void> sendScreen( String screenName ) async {
-    await analytics.setCurrentScreen(
-      screenName: screenName,
-      screenClassOverride: screenName,
-    );
-  }
-
-  Future<void> analyticsEvent( String eventName, { Map<String, dynamic>? parameters } ) async {
-    await analytics.logEvent(
-      name: eventName,
-      parameters: parameters,
-    );
-  }
-
-  Future<void> facebookEvent( String eventName, { double? valueToSum, Map<String, dynamic>? parameters }) async {
-    // late FacebookAppEvents faceSDK = FacebookAppEvents();
-    await faceSDK.logEvent(
-      name: eventName,
-      valueToSum: valueToSum,
-      parameters: parameters,
-    );
-  }
-
   void setToken( String tokenName, String token ) async {
     final String keyToken = tokenName;
     await storage.write( key: keyToken, value: token );
@@ -68,8 +43,7 @@ class Services {
 
   void deleteAllTokens() async {
     await storage.deleteAll();
-    analyticsEvent("delete_all_tokens");
-    facebookEvent("delete_all_tokens");
+    EventsApp().sharedEvent("delete_all_tokens");
   }
 
   getToken( String name ) async {
@@ -78,8 +52,7 @@ class Services {
 
   void deleteOnlyToken( String keyName ) async {
     await storage.delete(key: keyName);
-    analyticsEvent("delete_only_token");
-    facebookEvent("delete_only_token");
+    EventsApp().sharedEvent("delete_only_token");
   }
 
   uploadPicture( ModelPets modelPets, XFile? picture, context ) async {
@@ -119,8 +92,7 @@ class Services {
   }
 
   rateApp() async {
-    analyticsEvent("rateApp");
-    facebookEvent("rateApp");
+    EventsApp().sharedEvent("settings_rate_app");
     Uri url;
     if ( Platform.isAndroid ) {
       url = Uri.https("play.google.com", "/store/apps/details", {"id": "br.com.meus_animais"});
@@ -140,12 +112,9 @@ class Services {
   }
 
   verifyVersion( context ) async {
+    /*
     final newVersion = NewVersion();
-    print("newVersion => ${newVersion.androidId}");
-    print("newVersion => ${newVersion.forceAppVersion}");
-    print("getVersion => ${await newVersion.getVersionStatus()}");
     final versionStatus = await newVersion.getVersionStatus();
-    print("versionStatus => $versionStatus");
     if ( versionStatus != null ) {
 
       int storeVersion = int.parse(versionStatus.storeVersion.replaceAll(".", ""));
@@ -167,6 +136,7 @@ class Services {
         );
       }
     }
+     */
 
   }
 
@@ -213,14 +183,12 @@ class Services {
       ],
       "send_after": "$month ${day}th $year, ${dateTime.hour}:${dateTime.minute}:00 $periodTime UTC${dateTime.timeZoneName}:00"
     };
-    await OneSignal.shared.postNotificationWithJson(params)
-      .then((value) {
-        analyticsEvent("register_notification");
-        facebookEvent("register_notification");
-      }).onError((error, stackTrace) {
-        crash.recordError(error, stackTrace);
-        crash.log(error.toString());
-      });
+    await OneSignal.shared.postNotificationWithJson(params).then((value) {
+      EventsApp().sharedEvent("register_notification");
+    }).onError((error, stackTrace) {
+      crash.recordError(error, stackTrace);
+      crash.log(error.toString());
+    });
   }
 
   setEmail( String email ) async {
@@ -228,8 +196,7 @@ class Services {
   }
 
   sendWppMessage( String title, String body ) async {
-    analyticsEvent("send_wpp_message");
-    facebookEvent("send_wpp_message");
+    EventsApp().sharedEvent("send_wpp_message");
     String message = "$title\n\n$body";
     final whatsappUrl = "whatsapp://send?phone=+5549989006507&text=$message";
 

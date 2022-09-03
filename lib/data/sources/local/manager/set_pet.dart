@@ -1,5 +1,5 @@
 // import dos servicos
-import 'package:meus_animais/data/sources/remote/services/services.dart';
+import 'package:meus_animais/data/sources/remote/services/events.dart';
 
 // import dos pacotes
 import 'package:image_picker/image_picker.dart';
@@ -31,8 +31,7 @@ class SetPetManager {
 
   _setPet() async {
     await setPetRepository.setPet( modelPets!, picture!, userName!, context );
-    Services().analyticsEvent("create_pet");
-    Services().facebookEvent("create_pet");
+    EventsApp().sharedEvent("create_pet");
   }
 
 }

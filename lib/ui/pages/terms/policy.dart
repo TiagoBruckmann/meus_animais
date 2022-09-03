@@ -1,12 +1,16 @@
 // imports nativos
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/gestures.dart';
+
+// import dos eventos
+import 'package:meus_animais/data/sources/remote/services/events.dart';
 
 class PolicyPage extends StatelessWidget {
   const PolicyPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    EventsApp().sendScreen("policy");
     return Scaffold(
       appBar: AppBar(
         leading: null,
@@ -41,6 +45,7 @@ class PolicyPage extends StatelessWidget {
                       color: Colors.lightBlue,
                     ),
                     recognizer: TapGestureRecognizer()..onTap = () {
+                      EventsApp().sharedEvent("policy_open_terms");
                       Navigator.pushNamed(
                         context,
                         "/terms",

@@ -1,10 +1,10 @@
 // import dos pacotes
 import 'package:injectable/injectable.dart';
-import 'package:meus_animais/data/sources/remote/services/services.dart';
 
 // import dos domain
-import 'package:meus_animais/domain/models/vaccines/vaccines.dart';
+import 'package:meus_animais/data/sources/remote/services/events.dart';
 import 'package:meus_animais/domain/repositories/set_vaccines.dart';
+import 'package:meus_animais/domain/models/vaccines/vaccines.dart';
 
 @lazySingleton
 class SetVaccineManager {
@@ -27,8 +27,7 @@ class SetVaccineManager {
 
   _setVaccines() async {
     await setVaccinesRepository.setVaccines( listVaccines, userName!, petName! );
-    Services().analyticsEvent("create_vaccines");
-    Services().facebookEvent("create_vaccines");
+    EventsApp().sharedEvent("create_vaccines");
   }
 
 }

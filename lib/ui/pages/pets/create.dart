@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'dart:io';
 
 // import dos sources
-import 'package:meus_animais/data/sources/remote/services/services.dart';
 import 'package:meus_animais/data/sources/local/manager/life_time.dart';
+import 'package:meus_animais/data/sources/remote/services/events.dart';
 import 'package:meus_animais/domain/models/hygiene/hygiene_pets.dart';
 import 'package:meus_animais/domain/models/life_time/life_time.dart';
 import 'package:meus_animais/domain/models/vaccines/vaccines.dart';
@@ -48,6 +48,7 @@ class _CreatePetPageState extends State<CreatePetPage> {
   final String _petId = DateFormat('yyyyMMddkkmmss').format(DateTime.now());
 
   _goToVaccines() async {
+    EventsApp().sharedEvent("create_pet_open_vaccines");
     Map params = {
       "pet_id": _petId,
       "update": false,
@@ -66,6 +67,7 @@ class _CreatePetPageState extends State<CreatePetPage> {
   }
 
   _goToHygiene() async {
+    EventsApp().sharedEvent("create_pet_open_hygiene");
     Map params = {
       "pet_id": _petId,
       "update": false,
@@ -86,8 +88,7 @@ class _CreatePetPageState extends State<CreatePetPage> {
   @override
   void initState() {
     super.initState();
-    Services().sendScreen("Create-pet");
-    Services().facebookEvent("Create-pet");
+    EventsApp().sendScreen("create_pet");
   }
 
   @override
@@ -140,18 +141,14 @@ class _CreatePetPageState extends State<CreatePetPage> {
                       alignment: AlignmentDirectional.center,
                       children: [
                         GestureDetector(
-                          onTap: () {
-                            ScaffoldMessenger.of(context).showSnackBar( _cropMobx.settingCamera() );
-                          },
+                          onTap: () => ScaffoldMessenger.of(context).showSnackBar( _cropMobx.settingCamera("create_pet") ),
                           child: Image.asset(
                             AppImages.banner,
                           ),
                         ),
 
                         GestureDetector(
-                          onTap: () {
-                            ScaffoldMessenger.of(context).showSnackBar( _cropMobx.settingCamera() );
-                          },
+                          onTap: () => ScaffoldMessenger.of(context).showSnackBar( _cropMobx.settingCamera("create_pet") ),
                           child: ( _cropMobx.image == null )
                           ? Image.asset(AppImages.banner)
                           : Image.file(File(_cropMobx.image!.path)),
@@ -267,6 +264,7 @@ class _CreatePetPageState extends State<CreatePetPage> {
                     label: FlutterI18n.translate(context, "pages.pets.create.sex_empty"),
                     selectedItem: _createMobx.sex,
                     onChanged: (value) {
+                      EventsApp().logSex(value.toString());
                       _createMobx.setSex(value.toString());
                     },
                     dropdownBuilder: (context, sex) {
@@ -324,6 +322,7 @@ class _CreatePetPageState extends State<CreatePetPage> {
                       );
                     },
                     onChanged: (value) {
+                      EventsApp().logSpecie(value.toString());
                       _createMobx.setSpecie(value!.name);
                     },
                     dropdownBuilder: (context, specie) {

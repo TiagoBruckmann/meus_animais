@@ -2,7 +2,7 @@
 import 'package:injectable/injectable.dart';
 
 // import dos sources
-import 'package:meus_animais/data/sources/remote/services/services.dart';
+import 'package:meus_animais/data/sources/remote/services/events.dart';
 import 'package:meus_animais/domain/repositories/update_pet.dart';
 import 'package:meus_animais/domain/models/pets/pets.dart';
 
@@ -26,8 +26,7 @@ class UpdatePetManager {
 
   _updatePet() async {
     await updatePetRepository.updatePet( modelPets!, context );
-    Services().analyticsEvent("update_pet");
-    Services().facebookEvent("update_pet");
+    EventsApp().sharedEvent("update_pet");
   }
 
 }

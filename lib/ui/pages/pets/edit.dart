@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'dart:io';
 
 // import dos sources
-import 'package:meus_animais/data/sources/remote/services/services.dart';
+import 'package:meus_animais/data/sources/remote/services/events.dart';
 import 'package:meus_animais/domain/models/hygiene/hygiene_pets.dart';
 import 'package:meus_animais/domain/models/vaccines/vaccines.dart';
 import 'package:meus_animais/domain/models/pets/pets.dart';
@@ -43,6 +43,7 @@ class _EditPetsState extends State<EditPets> {
   late ConnectionMobx _connectionMobx;
 
   _goToVaccines() async {
+    EventsApp().sharedEvent("edit_pet_open_vaccines");
     Map params = {
       "pet_id": widget.modelPets.id,
       "update": true,
@@ -63,6 +64,7 @@ class _EditPetsState extends State<EditPets> {
 
   _goToHygiene() async {
 
+    EventsApp().sharedEvent("edit_pet_open_hygiene");
     Map params = {
       "pet_id": widget.modelPets.id,
       "update": true,
@@ -83,8 +85,7 @@ class _EditPetsState extends State<EditPets> {
   @override
   void initState() {
     super.initState();
-    Services().sendScreen("Edit-pet");
-    Services().facebookEvent("Edit-pet");
+    EventsApp().sendScreen("edit_pet");
     _editMobx.setAllData( widget.modelPets );
   }
 
@@ -121,9 +122,7 @@ class _EditPetsState extends State<EditPets> {
             body: ( _connectionMobx.connectionStatus.toString() == "ConnectivityResult.none" )
             ? const LoadingConnection()
             : ( _cropMobx.sampleImage != null )
-            ? CropPage(
-              cropMobx: _cropMobx,
-            )
+            ? CropPage( cropMobx: _cropMobx )
             : SingleChildScrollView(
               child: Column(
                 children: [
@@ -140,7 +139,7 @@ class _EditPetsState extends State<EditPets> {
 
                           GestureDetector(
                             onTap: () {
-                              ScaffoldMessenger.of(context).showSnackBar( _cropMobx.settingCamera() );
+                              ScaffoldMessenger.of(context).showSnackBar( _cropMobx.settingCamera("edit_pet") );
                             },
                             child: ( _cropMobx.image == null )
                             ? Image.network( widget.modelPets.picture )

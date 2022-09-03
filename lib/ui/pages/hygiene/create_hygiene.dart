@@ -2,9 +2,9 @@
 import 'package:flutter/material.dart';
 
 // import dos sources
-import 'package:meus_animais/data/sources/local/injection/injection.dart';
 import 'package:meus_animais/data/sources/local/manager/get_hygiene.dart';
-import 'package:meus_animais/data/sources/remote/services/services.dart';
+import 'package:meus_animais/data/sources/local/injection/injection.dart';
+import 'package:meus_animais/data/sources/remote/services/events.dart';
 
 // import das telas
 import 'package:meus_animais/ui/pages/widgets/loading/loading_connection.dart';
@@ -38,8 +38,7 @@ class _CreateHygieneState extends State<CreateHygiene> {
   @override
   void initState() {
     super.initState();
-    Services().sendScreen("Vaccines");
-    Services().facebookEvent("Vaccines");
+    EventsApp().sendScreen("create_hygiene");
   }
 
   @override
@@ -83,6 +82,7 @@ class _CreateHygieneState extends State<CreateHygiene> {
                     label: FlutterI18n.translate(context, "pages.hygiene.create.category"),
                     selectedItem: _hygieneMobx.name,
                     onChanged: (value) {
+                      EventsApp().logHygieneName(value.toString());
                       _hygieneMobx.setName(value.toString());
                     },
                     errorBuilder: ( context, item ) {
@@ -258,9 +258,7 @@ class _CreateHygieneState extends State<CreateHygiene> {
                   padding: const EdgeInsets.fromLTRB(10, 16, 10, 10),
                   width: width,
                   child: ElevatedButton(
-                    onPressed: () {
-                      _hygieneMobx.validateFields( context, widget.petId, widget.update );
-                    },
+                    onPressed: () => _hygieneMobx.validateFields( context, widget.petId, widget.update ),
                     style: ElevatedButton.styleFrom(
                       primary: Theme.of(context).primaryColor,
                       padding: const EdgeInsets.symmetric( vertical: 16, horizontal: 36 ),

@@ -5,6 +5,7 @@ import 'dart:io';
 // import dos sources
 import 'package:meus_animais/data/sources/local/injection/injection.dart';
 import 'package:meus_animais/data/sources/remote/services/services.dart';
+import 'package:meus_animais/data/sources/remote/services/events.dart';
 import 'package:meus_animais/domain/models/pets/pets.dart';
 
 // import das telas
@@ -36,11 +37,22 @@ class _PetsPageState extends State<PetsPage> {
   final PetsMobx _petsMobx = PetsMobx();
   late ConnectionMobx _connectionMobx;
 
+  _detailPet( ModelPets modelPets ) {
+    EventsApp().logDetailPet(modelPets.id);
+    Map<String, dynamic> params = {
+      "model_pets": modelPets,
+    };
+    Navigator.pushNamed(
+      context,
+      "/detail_pet",
+      arguments: params,
+    );
+  }
+
   @override
   void initState() {
     super.initState();
-    Services().sendScreen("Pets");
-    Services().facebookEvent("Pets");
+    EventsApp().sendScreen("pets");
     Services().verifyVersion(context);
     _showNotification.context = context;
   }
@@ -73,6 +85,7 @@ class _PetsPageState extends State<PetsPage> {
           ? const LoadingConnection()
           : RefreshIndicator(
             onRefresh: () {
+              EventsApp().sharedEvent("pets_refresh");
               setState(() {
                 _petsMobx.refresh();
               });
@@ -88,6 +101,7 @@ class _PetsPageState extends State<PetsPage> {
 
                   return RefreshIndicator(
                     onRefresh: () {
+                      EventsApp().sharedEvent("pets_refresh_has_error");
                       setState(() {
                         _petsMobx.refresh();
                       });
@@ -100,6 +114,7 @@ class _PetsPageState extends State<PetsPage> {
                 } else if ( _petsMobx.listPets.isEmpty ) {
                   return RefreshIndicator(
                     onRefresh: () {
+                      EventsApp().sharedEvent("pets_refresh_has_empty");
                       setState(() {
                         _petsMobx.refresh();
                       });
@@ -120,16 +135,7 @@ class _PetsPageState extends State<PetsPage> {
                     return Padding(
                       padding: const EdgeInsets.symmetric( horizontal: 5, vertical: 8 ),
                       child: GestureDetector(
-                        onTap: () {
-                          Map<String, dynamic> params = {
-                            "model_pets": modelPets,
-                          };
-                          Navigator.pushNamed(
-                            context,
-                            "/detail_pet",
-                            arguments: params,
-                          );
-                        },
+                        onTap: () => _detailPet( modelPets ),
                         child: SizedBox(
                           width: MediaQuery.of(context).size.width,
                           child: Padding(

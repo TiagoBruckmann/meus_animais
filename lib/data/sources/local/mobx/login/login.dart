@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 
 // import dos sources
 import 'package:meus_animais/data/sources/local/injection/injection.dart';
-import 'package:meus_animais/data/sources/local/manager/login.dart';
 import 'package:meus_animais/data/sources/remote/services/services.dart';
+import 'package:meus_animais/data/sources/remote/services/events.dart';
+import 'package:meus_animais/data/sources/local/manager/login.dart';
 import 'package:meus_animais/domain/models/users/login.dart';
 
 // import dos pacotes
@@ -19,12 +20,12 @@ abstract class _LoginMobx with Store {
   final loginManager = getIt.get<LoginManager>();
 
   @observable
-  // TextEditingController controllerEmail = TextEditingController();
-  TextEditingController controllerEmail = TextEditingController(text: "tiagobruckmann@gmail.com");
+  TextEditingController controllerEmail = TextEditingController();
+  // TextEditingController controllerEmail = TextEditingController(text: "tiagobruckmann@gmail.com");
 
   @observable
-  // TextEditingController controllerPasswd = TextEditingController();
-  TextEditingController controllerPasswd = TextEditingController(text: "Tiago12345");
+  TextEditingController controllerPasswd = TextEditingController();
+  // TextEditingController controllerPasswd = TextEditingController(text: "Tiago12345");
 
   @observable
   String message = "";
@@ -41,8 +42,7 @@ abstract class _LoginMobx with Store {
   @action
   validateFields( context ) {
 
-    Services().analyticsEvent("validate_login");
-    Services().facebookEvent("validate_login");
+    EventsApp().sharedEvent("login_validate_login");
     String email = controllerEmail.text;
     String passwd = controllerPasswd.text;
 
@@ -57,12 +57,14 @@ abstract class _LoginMobx with Store {
     setMessage("");
     Services().setEmail( email );
     loginManager.modelLogin = ModelLogin(email, passwd, context: context);
+    EventsApp().sharedEvent("login_access_account");
     loginManager.setCredentials();
 
   }
 
   @action
   void clear() {
+    EventsApp().sharedEvent("login_clear");
     controllerEmail.dispose();
     controllerPasswd.dispose();
     setMessage("");

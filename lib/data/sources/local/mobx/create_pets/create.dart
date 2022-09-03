@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 // import dos sources
 import 'package:meus_animais/data/sources/local/injection/injection.dart';
-import 'package:meus_animais/data/sources/remote/services/services.dart';
+import 'package:meus_animais/data/sources/remote/services/events.dart';
 import 'package:meus_animais/data/sources/local/manager/get_pets.dart';
 import 'package:meus_animais/data/sources/local/manager/get_user.dart';
 import 'package:meus_animais/data/sources/local/manager/set_pet.dart';
@@ -66,8 +66,7 @@ abstract class _CreateMobx with Store {
   @action
   validateFields( String petId, XFile? picture, context ) async {
 
-    Services().analyticsEvent("validate_pet");
-    Services().facebookEvent("validate_pet");
+    EventsApp().sharedEvent("create_pet_validate_pet");
     String userId = userManager.modelUser!.id;
     String name = controllerName.text;
     String birth = controllerBirth.text;
@@ -143,6 +142,7 @@ abstract class _CreateMobx with Store {
       null,
     );
 
+    EventsApp().sharedEvent("create_pet_register");
     await setPetManager.setData();
 
     getPets.listPets.add(setPetManager.modelPets!);
@@ -157,6 +157,7 @@ abstract class _CreateMobx with Store {
 
   @action
   void clear() {
+    EventsApp().sharedEvent("create_pet_close");
     setSex("");
     setSpecie("");
     controllerName.dispose();

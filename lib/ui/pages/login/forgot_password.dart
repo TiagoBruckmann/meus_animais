@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 
 // import dos data
-import 'package:meus_animais/data/sources/remote/services/services.dart';
+import 'package:meus_animais/data/sources/remote/services/events.dart';
 
 // import dos pacotes
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -34,8 +34,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
   @override
   void initState() {
     super.initState();
-    Services().sendScreen("forgot_password");
-    Services().facebookEvent("forgot_password");
+    EventsApp().sendScreen("forgot_password");
   }
 
   @override
@@ -77,13 +76,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    /*
-                    Image.asset(
-                      AppImages.logo2,
-                      width: 100,
-                      height: 100,
-                    ),
-                    */
+
                     Padding(
                       padding: const EdgeInsets.all(30),
                       child: Center(
@@ -134,9 +127,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                     Padding(
                       padding: const EdgeInsets.only(top: 16, bottom: 10),
                       child: ElevatedButton(
-                        onPressed: () {
-                          _forgotMobx.validateEmail( context );
-                        },
+                        onPressed: () => _forgotMobx.validateEmail( context ),
                         style: ElevatedButton.styleFrom(
                           primary: Theme.of(context).primaryColor,
                           padding: const EdgeInsets.symmetric( vertical: 16, horizontal: 36 ),

@@ -5,7 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:injectable/injectable.dart';
 
 // import dos sources
-import 'package:meus_animais/data/sources/remote/services/services.dart';
+import 'package:meus_animais/data/sources/remote/services/events.dart';
 
 // import dos domain
 import 'package:meus_animais/domain/repositories/show_notifications.dart';
@@ -28,8 +28,7 @@ class ShowNotificationManager {
   }
 
   _showNotification() async {
-    Services().analyticsEvent("show_notification");
-    Services().facebookEvent("show_notification");
+    EventsApp().sharedEvent("show_notification");
     showNotificationRepository.setNotification(notification!, context!);
   }
 

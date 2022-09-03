@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 // import dos pacotes
 import 'package:flutter_i18n/flutter_i18n.dart';
+import 'package:meus_animais/data/sources/remote/services/events.dart';
 
 class PopUpWidget extends StatelessWidget {
 
@@ -33,6 +34,7 @@ class PopUpWidget extends StatelessWidget {
               ),
             ),
             onPressed: () {
+              EventsApp().logPopUp("closed", title, text, false);
               Navigator.pop( context );
             },
           ),
@@ -44,6 +46,7 @@ class PopUpWidget extends StatelessWidget {
               ),
             ),
             onPressed: () {
+              EventsApp().logPopUp("accepted", title, text, true);
               Navigator.pop( context );
               function.call();
             },

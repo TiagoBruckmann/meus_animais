@@ -1,25 +1,50 @@
-// import dos pacotes
-import 'dart:convert';
-
-import 'package:http/http.dart' as http;
-
 // import dos domains
+import 'package:meus_animais/data/sources/local/injection/injection.dart';
+import 'package:meus_animais/data/sources/local/manager/login.dart';
 import 'package:meus_animais/domain/models/users/user.dart';
 
 // import dos sources
-import 'package:meus_animais/data/sources/remote/services/services.dart';
+import 'package:meus_animais/data/sources/remote/services/events.dart';
+import 'package:meus_animais/data/sources/remote/routes/requests.dart';
 import 'package:meus_animais/data/sources/remote/credentials.dart';
 
 class RoutesApi {
 
+  // rotas get
+  getUser() async {
+    Uri url = Uri.https(Credentials().apiUrl, Credentials().userRoute);
+    await Requests().httpGetDefault(url);
+  }
+
+  allPets() async {
+    Uri url = Uri.https(Credentials().apiUrl, Credentials().petsRoute);
+    await Requests().httpGetDefault(url);
+  }
+
+  detailPet( String petId ) async {
+    Uri url = Uri.https(Credentials().apiUrl, "${Credentials().petsRoute}/$petId");
+    await Requests().httpGetDefault(url);
+  }
+
+  createPet( String petId ) async {
+    Uri url = Uri.https(Credentials().apiUrl, "${Credentials().petsRoute}/$petId");
+    await Requests().httpGetDefault(url);
+  }
+
+  // rotas put
+  updatePet() async {
+    Map<String, String> body = {
+      "": "",
+    };
+
+
+  }
+
+  // rotas post
   sendInfoData( ModelUser modelUser ) async {
 
+    final user = getIt.get<LoginManager>();
     Uri url = Uri.https(Credentials().onesignalUrl, Credentials().createNotification);
-    final header = {
-      "Accept": "application/json",
-      "Authorization": "Basic ${Credentials().onesignalApiToken}",
-      "Content-Type": "application/json",
-    };
 
     final body = {
       "app_id": Credentials().onesignalAppId,
@@ -33,20 +58,11 @@ class RoutesApi {
       "template_id": Credentials().infoDataTemplateId,
     };
 
-    await http.post(url, headers: header, body: jsonEncode(body)).then((value) {
-      if ( value.statusCode == 200 ) {
-        Services().analyticsEvent("info_data_requested");
-        Services().facebookEvent("info_data_requested");
-      } else {
-        crash.log("${value.statusCode} - ${value.body}");
-      }
-    }).timeout(const Duration(seconds: 5), onTimeout: () {
-      crash.log("Error, timeout expended");
-    }).onError((error, stackTrace) {
-      crash.recordError(error, stackTrace);
-      crash.log(error.toString());
-    });
-
+    EventsApp().requestData( modelUser );
+    await Requests().httpPostDefault( url, body, customHeader: user.headerOnesignal );
   }
 
+  // rotas patch
+
+  // rotas delete
 }

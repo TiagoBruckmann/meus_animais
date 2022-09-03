@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 // import dos data
 import 'package:meus_animais/data/sources/remote/services/services.dart';
+import 'package:meus_animais/data/sources/remote/services/events.dart';
 
 // import dos pacotes
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -33,8 +34,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   void initState() {
     super.initState();
-    Services().sendScreen("login");
-    Services().facebookEvent("login");
+    EventsApp().sendScreen("login");
     Services().verifyVersion(context);
   }
 
@@ -69,13 +69,7 @@ class _LoginPageState extends State<LoginPage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    /*
-                    Image.asset(
-                      AppImages.logo2,
-                      width: 100,
-                      height: 100,
-                    ),
-                    */
+
                     Padding(
                       padding: const EdgeInsets.all(30),
                       child: Center(
@@ -141,6 +135,7 @@ class _LoginPageState extends State<LoginPage> {
                         fillColor: Theme.of(context).cardColor,
                         suffixIcon: TextButton(
                           onPressed: () {
+                            EventsApp().sharedEvent("login_change_visible_password");
                             _loginMobx.changeVisible();
                           },
                           child: Icon(
@@ -169,9 +164,7 @@ class _LoginPageState extends State<LoginPage> {
                     Padding(
                       padding: const EdgeInsets.only(top: 16, bottom: 10),
                       child: ElevatedButton(
-                        onPressed: () {
-                          _loginMobx.validateFields( context );
-                        },
+                        onPressed: () => _loginMobx.validateFields( context ),
                         style: ElevatedButton.styleFrom(
                           primary: Theme.of(context).primaryColor,
                           padding: const EdgeInsets.symmetric( vertical: 16, horizontal: 36 ),

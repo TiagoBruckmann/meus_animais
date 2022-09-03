@@ -1,5 +1,6 @@
 // imports nativos do flutter
 import 'package:flutter/material.dart';
+import 'package:meus_animais/data/sources/remote/services/events.dart';
 
 // import dos pacotes
 import 'package:shimmer_animation/shimmer_animation.dart';
@@ -13,6 +14,7 @@ class LoadingSettings extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    EventsApp().sendScreen("loading_settings");
     return Container(
       padding: const EdgeInsets.all(16),
       child: SingleChildScrollView(

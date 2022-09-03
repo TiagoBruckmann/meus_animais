@@ -1,10 +1,10 @@
 // pacotes nativos flutter
 import 'package:flutter/material.dart';
-import 'package:meus_animais/data/sources/local/injection/injection.dart';
-import 'package:meus_animais/data/sources/local/manager/get_user.dart';
 
 // import dos sources
-import 'package:meus_animais/data/sources/remote/services/services.dart';
+import 'package:meus_animais/data/sources/local/injection/injection.dart';
+import 'package:meus_animais/data/sources/remote/services/events.dart';
+import 'package:meus_animais/data/sources/local/manager/get_user.dart';
 
 // import das telas
 import 'package:meus_animais/ui/pages/widgets/loading/loading_connection.dart';
@@ -39,8 +39,7 @@ class _CreateVaccinesState extends State<CreateVaccines> {
   @override
   void initState() {
     super.initState();
-    Services().sendScreen("Vaccines");
-    Services().facebookEvent("Vaccines");
+    EventsApp().sendScreen("create_vaccines");
   }
 
   @override
@@ -256,6 +255,7 @@ class _CreateVaccinesState extends State<CreateVaccines> {
                         label: FlutterI18n.translate(context, "pages.vaccines.create.type_time_label"),
                         selectedItem: _vaccinesMobx.typeTime,
                         onChanged: (value) {
+                          EventsApp().logTypeTime("create_vaccines", value.toString());
                           _vaccinesMobx.setTypeTime(value.toString());
                         },
                         dropdownBuilder: (context, typeTime) {
@@ -307,6 +307,7 @@ class _CreateVaccinesState extends State<CreateVaccines> {
                         selectedItem: _vaccinesMobx.time,
                         onChanged: (value) {
                           String time = value.toString().split(" - ")[0];
+                          EventsApp().logTime("create_vaccines", time);
                           _vaccinesMobx.setTime(time);
                         },
                         dropdownBuilder: (context, time) {
@@ -389,9 +390,7 @@ class _CreateVaccinesState extends State<CreateVaccines> {
                   padding: const EdgeInsets.fromLTRB(10, 16, 10, 10),
                   width: width,
                   child: ElevatedButton(
-                    onPressed: () {
-                      _vaccinesMobx.validateFields( context, widget.petId, widget.update, widget.petName, _userManager.modelUser!.name );
-                    },
+                    onPressed: () => _vaccinesMobx.validateFields( context, widget.petId, widget.update, widget.petName, _userManager.modelUser!.name ),
                     style: ElevatedButton.styleFrom(
                       primary: Theme.of(context).primaryColor,
                       padding: const EdgeInsets.symmetric( vertical: 16, horizontal: 36 ),

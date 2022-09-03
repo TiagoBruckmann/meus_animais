@@ -7,7 +7,15 @@ class Credentials {
   String onesignalAppId = "44ace734-623b-4022-98e6-a6fb254aebce";
 
   // api route
-  String apiUrl = "meuspets.com.br";
+  String apiUrl = "meus-animais-8ata4.ondigitalocean.app";
+
+  // rotas dos usuarios
+  String verifyToken = "user_verify";
+  String authRoute = "auth";
+  String userRoute = "user";
+
+  // rotas dos pets
+  String petsRoute = "pets";
 
   // rotas da onesignal
   String onesignalUrl = "onesignal.com";

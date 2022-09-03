@@ -191,17 +191,6 @@ mixin _$EditMobx on _EditMobx, Store {
   }
 
   @override
-  void clear() {
-    final _$actionInfo =
-        _$_EditMobxActionController.startAction(name: '_EditMobx.clear');
-    try {
-      return super.clear();
-    } finally {
-      _$_EditMobxActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
   String toString() {
     return '''
 controllerName: ${controllerName},

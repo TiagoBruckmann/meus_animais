@@ -1,11 +1,15 @@
 // imports nativos
 import 'package:flutter/material.dart';
 
+// import dos eventos
+import 'package:meus_animais/data/sources/remote/services/events.dart';
+
 class TermsPage extends StatelessWidget {
   const TermsPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    EventsApp().sendScreen("terms");
     return Scaffold(
       appBar: AppBar(
         leading: null,

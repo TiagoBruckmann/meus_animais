@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:meus_animais/data/sources/local/injection/injection.dart';
 import 'package:meus_animais/data/sources/remote/services/services.dart';
 import 'package:meus_animais/data/sources/local/manager/life_time.dart';
+import 'package:meus_animais/data/sources/remote/services/events.dart';
 import 'package:meus_animais/domain/models/hygiene/hygiene_pets.dart';
 import 'package:meus_animais/domain/models/vaccines/vaccines.dart';
 import 'package:meus_animais/domain/models/pets/pets.dart';
@@ -61,6 +62,7 @@ abstract class _EditMobx with Store {
 
   @action
   changeWillPopUp( bool value ) {
+    EventsApp().sharedEvent("edit_pet_change_will_pop_up");
     willPopUp = value;
   }
 
@@ -96,8 +98,7 @@ abstract class _EditMobx with Store {
   @action
   validateFields( ModelPets modelPets, XFile? picture, context ) async {
 
-    Services().analyticsEvent("validate_update_pet");
-    Services().facebookEvent("validate_update_pet");
+    EventsApp().sharedEvent("edit_pet_validate_update");
     String removedKg = controllerWeight.text.replaceAll("KG ", "");
     if ( removedKg.length > 6 ) {
       changeWillPopUp( true );
@@ -122,6 +123,7 @@ abstract class _EditMobx with Store {
     if ( picture != null ) {
       modelPets.picture = picture.name;
     }
+    EventsApp().sharedEvent("edit_pet_upload_picture");
     await Services().uploadPicture(modelPets, picture, context);
 
   }
@@ -132,11 +134,5 @@ abstract class _EditMobx with Store {
   @action
   setHygiene( Iterable<ModelHygienePets> modelHygienePets ) => listHygiene.addAll(modelHygienePets);
 
-  @action
-  void clear() {
-    controllerName.dispose();
-    controllerWeight.dispose();
-    controllerBirth.dispose();
-  }
 
 }

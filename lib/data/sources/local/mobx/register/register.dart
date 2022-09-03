@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 
 // import dos sources
 import 'package:meus_animais/data/sources/local/injection/injection.dart';
-import 'package:meus_animais/data/sources/local/manager/register.dart';
 import 'package:meus_animais/data/sources/remote/services/services.dart';
+import 'package:meus_animais/data/sources/remote/services/events.dart';
+import 'package:meus_animais/data/sources/local/manager/register.dart';
 import 'package:meus_animais/domain/models/users/login.dart';
 
 // import dos pacotes
@@ -42,8 +43,7 @@ abstract class _RegisterMobx with Store {
   @action
   validateFields( context ) {
 
-    Services().analyticsEvent("validate_register");
-    Services().facebookEvent("validate_register");
+    EventsApp().sharedEvent("register_validate_register");
     String name = controllerName.text;
     String email = controllerEmail.text;
     String passwd = controllerPasswd.text;
@@ -60,6 +60,7 @@ abstract class _RegisterMobx with Store {
 
     setMessage("");
     Services().setEmail( email );
+    EventsApp().sharedEvent("register_create_user");
     registerManager.modelLogin = ModelLogin( email, passwd, name: name, context: context );
     registerManager.setCredentials();
 
@@ -67,6 +68,7 @@ abstract class _RegisterMobx with Store {
 
   @action
   void clear() {
+    EventsApp().sharedEvent("register_clear");
     controllerName.dispose();
     controllerEmail.dispose();
     controllerPasswd.dispose();

@@ -163,11 +163,11 @@ mixin _$CropMobx on _CropMobx, Store {
   }
 
   @override
-  dynamic settingCamera() {
+  dynamic settingCamera(String prefEvent) {
     final _$actionInfo = _$_CropMobxActionController.startAction(
         name: '_CropMobx.settingCamera');
     try {
-      return super.settingCamera();
+      return super.settingCamera(prefEvent);
     } finally {
       _$_CropMobxActionController.endAction(_$actionInfo);
     }

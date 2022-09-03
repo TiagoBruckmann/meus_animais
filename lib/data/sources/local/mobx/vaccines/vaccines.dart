@@ -8,7 +8,7 @@ import 'package:meus_animais/ui/pages/widgets/message.dart';
 // import dos sources
 import 'package:meus_animais/data/sources/local/manager/set_vaccines.dart';
 import 'package:meus_animais/data/sources/local/injection/injection.dart';
-import 'package:meus_animais/data/sources/remote/services/services.dart';
+import 'package:meus_animais/data/sources/remote/services/events.dart';
 import 'package:meus_animais/domain/models/vaccines/vaccines.dart';
 
 // import dos pacotes
@@ -86,8 +86,7 @@ abstract class _VaccinesMobx with Store {
   @action
   validateFields( context, String petId, bool updatePet, String? petName, String? userName ) async {
 
-    Services().analyticsEvent("validate_vaccines");
-    Services().facebookEvent("validate_vaccines");
+    EventsApp().sharedEvent("validate_vaccines");
     String name = controllerName.text;
     String type = controllerType.text;
     String day = controllerDay.text;
@@ -187,6 +186,7 @@ abstract class _VaccinesMobx with Store {
       );
     }
 
+    EventsApp().logSetVaccines(listModelVaccines, updatePet);
     vaccineManager.listVaccines.addAll( listModelVaccines );
 
     if ( updatePet == true ) {

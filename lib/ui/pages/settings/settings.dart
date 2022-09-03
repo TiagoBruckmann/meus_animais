@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 // import dos sources
 import 'package:meus_animais/data/sources/local/injection/injection.dart';
 import 'package:meus_animais/data/sources/remote/services/services.dart';
+import 'package:meus_animais/data/sources/remote/services/events.dart';
 import 'package:meus_animais/data/sources/local/manager/destroy.dart';
 import 'package:meus_animais/data/sources/local/manager/logout.dart';
 
@@ -35,6 +36,7 @@ class _SettingsPageState extends State<SettingsPage> {
   late ConnectionMobx _connectionMobx;
 
   _goToTerms() {
+    EventsApp().sharedEvent("settings_open_terms");
     Navigator.pushNamed(
       context,
       "/terms",
@@ -42,6 +44,7 @@ class _SettingsPageState extends State<SettingsPage> {
   }
 
   _goToPolicy() {
+    EventsApp().sharedEvent("settings_open_policy");
     Navigator.pushNamed(
       context,
       "/policy",
@@ -51,9 +54,7 @@ class _SettingsPageState extends State<SettingsPage> {
   @override
   void initState() {
     super.initState();
-    Services().sendScreen("settings");
-    Services().facebookEvent("settings");
-
+    EventsApp().sendScreen("settings");
   }
 
   @override
@@ -191,6 +192,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                 title: FlutterI18n.translate(context, "widgets.settings.logout.title"),
                                 text: FlutterI18n.translate(context, "widgets.settings.logout.text"),
                                 function: () {
+                                  EventsApp().sharedEvent("settings_logout");
                                   final logout = getIt.get<LogoutManager>();
                                   logout.context = context;
                                   logout.disconnect();
@@ -248,6 +250,7 @@ class _SettingsPageState extends State<SettingsPage> {
                       showDialog(
                         context: context,
                         builder: (builder) {
+                          EventsApp().sharedEvent("settings_info_account");
                           return _getUser.infoAccountDialog( context );
                         },
                       );
@@ -341,12 +344,14 @@ class _SettingsPageState extends State<SettingsPage> {
                         padding: const EdgeInsets.fromLTRB(30, 0, 16, 0),
                         child: GestureDetector(
                           onTap: () {
+                            EventsApp().sharedEvent("settings_delete_account");
                             showDialog(
                               context: context,
                               builder: (builder) => PopUpWidget(
                                 title: FlutterI18n.translate(context, "widgets.settings.destroy.title"),
                                 text: FlutterI18n.translate(context, "widgets.settings.destroy.text"),
                                 function: () {
+                                  EventsApp().sharedEvent("settings_delete_account_apply");
                                   final destroy = getIt.get<DestroyManager>();
                                   destroy.context = context;
                                   destroy.destroy();

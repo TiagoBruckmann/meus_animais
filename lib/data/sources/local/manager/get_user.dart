@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 // import dos sources
 import 'package:meus_animais/data/sources/remote/routes/routes_api.dart';
+import 'package:meus_animais/data/sources/remote/services/events.dart';
 import 'package:meus_animais/domain/repositories/get_user.dart';
 import 'package:meus_animais/domain/models/users/user.dart';
 
@@ -45,9 +46,7 @@ class GetUserManager {
                 color: Colors.red,
               ),
             ),
-            onPressed: () {
-              Navigator.pop( context );
-            },
+            onPressed: () => Navigator.pop( context ),
           ),
           TextButton(
             child: Text(
@@ -57,6 +56,7 @@ class GetUserManager {
               ),
             ),
             onPressed: () {
+              EventsApp().sendScreen("settings_info_account_apply");
               Navigator.pop( context );
               RoutesApi().sendInfoData( modelUser! );
             },

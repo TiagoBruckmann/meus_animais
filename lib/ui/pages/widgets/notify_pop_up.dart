@@ -1,5 +1,6 @@
 // pacotes nativos flutter
 import 'package:flutter/material.dart';
+import 'package:meus_animais/data/sources/remote/services/events.dart';
 
 class NotifyPopUpWidget extends StatelessWidget {
 
@@ -36,6 +37,7 @@ class NotifyPopUpWidget extends StatelessWidget {
               ),
             ),
             onPressed: () {
+              EventsApp().logPopUp("closed", title, message, false);
               Navigator.pop( context );
             },
           ),
@@ -51,6 +53,7 @@ class NotifyPopUpWidget extends StatelessWidget {
             ),
             onPressed: () {
 
+              EventsApp().logPopUp("opened", title, message, true);
               Navigator.pop( context );
               Map<String, dynamic> params = {
                 "pet_id": petId,

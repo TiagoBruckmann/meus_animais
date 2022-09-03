@@ -1,7 +1,11 @@
-// import dos sources
+// imports nativos
 import 'package:flutter/material.dart';
+
+// import dos sources
 import 'package:meus_animais/data/sources/local/injection/injection.dart';
 import 'package:meus_animais/data/sources/local/manager/get_user.dart';
+import 'package:meus_animais/data/sources/remote/routes/requests.dart';
+import 'package:meus_animais/data/sources/remote/credentials.dart';
 
 // import dos sources
 import 'package:meus_animais/data/sources/remote/services/services.dart';
@@ -58,11 +62,8 @@ class LogoutApi implements LogoutRepository {
   logout( context ) async {
     Services().deleteAllTokens();
     getIt.resetLazySingleton<GetUserManager>();
-    Navigator.pushNamedAndRemoveUntil(
-      context,
-      "/login",
-      (route) => false,
-    );
+    Uri url = Uri.https(Credentials().apiUrl, Credentials().authRoute);
+    await Requests().httpGetDefault(url);
   }
 }
 

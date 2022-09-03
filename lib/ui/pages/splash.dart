@@ -5,7 +5,7 @@ import 'dart:async';
 
 // import dos sources
 import 'package:meus_animais/data/sources/local/injection/injection.dart';
-import 'package:meus_animais/data/sources/remote/services/services.dart';
+import 'package:meus_animais/data/sources/remote/services/events.dart';
 import 'package:meus_animais/data/sources/local/manager/splash.dart';
 
 // import das telas
@@ -33,8 +33,7 @@ class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {
     super.initState();
-    Services().sendScreen("Splash");
-    Services().facebookEvent("Splash");
+    EventsApp().sendScreen("Splash");
   }
 
   @override
