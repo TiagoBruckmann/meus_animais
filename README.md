@@ -22,8 +22,8 @@ to run this app, you need an **.ENV** file, here is an example.
 BASE_URL=TODO
     
 ONESIGNAL_APP_ID=TODO
-ONESIGNAL_TEMPLATE_UPD_CATEGORY=TODO
-ONESIGNAL_TEMPLATE_BILLING_EXPIRED=TODO
+ONESIGNAL_TEMPLATE_INFO_DATA=TODO
+ONESIGNAL_TEMPLATE_REAPPLY=TODO
 ```
 
 ---
@@ -78,6 +78,8 @@ pod install
 ```sh
 flutter test test/pasta/nome_do_arquivo.dart
 ```
+
+---
 
 ### :gear: Configurações do firebase debug - ANDROID
 Para que os dados do firebase não sejam poluidos com dados do desenvolvimento precisa ser utilizado o comando abaixo para que todos os logs e ações dentro do app de desenvolvimento seja realocada no setor de dev do proprio firebase. Este comando ativará o modo depuração do analytics até que seja desativado.
