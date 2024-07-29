@@ -1,0 +1,95 @@
+name: meus_animais
+description: "Tome nota dos cuidados especiais que seu pet precisa!"
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+version: 2.0.0+33
+
+environment:
+  sdk: '>=3.4.4 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  myne_find_dropdown:
+    git:
+      url: https://github.com/TiagoBruckmann/myne_find_dropdown.git
+      ref: V0.0.1
+
+  flutter_launcher_icons: ^0.13.1
+  firebase_performance: ^0.10.0+3
+  flutter_secure_storage: ^9.2.2
+  font_awesome_flutter: ^10.7.0
+  firebase_app_check: ^0.3.0+3
+  firebase_crashlytics: ^4.0.3
+  flutter_masked_text2: ^0.9.1
+  firebase_analytics: ^11.2.0
+  shimmer_animation: ^2.2.1
+  firebase_storage: ^12.1.1
+  onesignal_flutter: ^5.2.2
+  connectivity_plus: ^6.0.4
+  device_info_plus: ^10.1.1
+  new_version_plus: ^0.0.11
+  cloud_firestore: ^5.1.0
+  cupertino_icons: ^1.0.8
+  flutter_mobx: ^2.2.1+1
+  google_nav_bar: ^5.0.6
+  firebase_auth: ^5.1.2
+  firebase_core: ^3.2.0
+  flutter_i18n: ^0.36.2
+  image_picker: ^1.1.2
+  url_launcher: ^6.3.0
+  injectable: ^2.4.4
+  equatable: ^2.0.5
+  image_crop: ^0.4.1
+  provider: ^6.1.2
+  dartz: ^0.10.1
+  get_it: ^7.7.0
+  mobx: ^2.3.3+2
+  intl: ^0.19.0
+  http: ^1.2.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_native_splash: ^2.4.1
+  injectable_generator: ^2.6.2
+  build_runner: ^2.4.11
+  flutter_lints: ^4.0.0
+  mobx_codegen: ^2.6.1
+
+# configuracao do launch icon
+flutter_launcher_icons:
+  image_path: "assets/img/logo.png"
+  android: true
+  ios: true
+  min_sdk_android: 19
+  remove_alpha_ios: true
+  background_color_ios: "#FFC000"
+
+# configuracao da splash
+flutter_native_splash:
+  color: "#FFC000"
+  color_dark: "#FFC000"
+  image: assets/img/logo_splash.png
+  image_dark: assets/img/logo_splash.png
+  android: true
+  ios: true
+  fullscreen: true
+
+  android_12:
+    image: assets/img/logo_splash.png
+    icon_background_color: "#FFC000"
+    image_dark: assets/img/logo_splash.png
+    icon_background_color_dark: "#FFC000"
+
+  web: false
+
+flutter:
+
+  uses-material-design: true
+
+  assets:
+    - assets/languages/
+    - assets/img/
