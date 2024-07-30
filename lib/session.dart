@@ -5,6 +5,7 @@ import 'package:meus_animais/app/core/services/env_settings.dart';
 // import das telas
 import 'package:meus_animais/app/core/services/notification.dart';
 import 'package:meus_animais/app/core/services/shared.dart';
+import 'package:meus_animais/domain/source/local/local_storage.dart';
 
 // imports globais
 import 'package:meus_animais/domain/source/remote/performance.dart';
@@ -18,6 +19,7 @@ class Session {
 
   static final NotificationsServices notifications = NotificationsServices();
   static final SharedServices sharedServices = SharedServices();
+  static final LocalStorage localStorage = LocalStorage();
   static final Performance performance = Performance();
   static final AppEvents appEvents = AppEvents();
   static final EnvSettings env = EnvSettings();

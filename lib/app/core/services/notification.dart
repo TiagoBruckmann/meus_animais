@@ -105,21 +105,4 @@ class NotificationsServices {
     _isNotificationOpened = false;
   }
 
-  static Future<void> _updStatus( Map<String, dynamic> json ) async {
-
-    /*
-    ReleasesEntity releasesEntity = ReleasesEntity.fromJson(json);
-    DateTime convertedDate = DateTime.parse(releasesEntity.date);
-    String date = "${convertedDate.year}-${Session.sharedServices.formatDate(convertedDate.month)}";
-
-    final failureOrSuccess = await ReleasesUseCase(getIt()).updateStatus( date, releasesEntity.updateStatus());
-
-    failureOrSuccess.fold(
-          (failure) => Session.logs.errorLog("deu ruim update status notification => ${failure.message}"),
-          (success) => Session.logs.successLog("deu boa update status notification => "),
-    );
-    */
-
-  }
-
 }

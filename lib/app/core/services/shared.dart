@@ -189,10 +189,11 @@ class SharedServices {
       year += time;
     }
 
-    final formatedDay = formatDate(day);
-    final formatedMonth = formatDate(month);
+    final formattedDay = formatDate(day);
+    final formattedMonth = formatDate(month);
 
-    return "$formatedDay/$formatedMonth/$year";
+    return "$formattedDay/$formattedMonth/$year";
   }
+
 
 }
