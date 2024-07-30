@@ -1,6 +1,14 @@
 // import do domain
+import 'package:meus_animais/domain/repositories/auth_repo.dart';
+import 'package:meus_animais/domain/repositories/user_repo.dart';
+import 'package:meus_animais/domain/usecases/auth_use_case.dart';
+import 'package:meus_animais/domain/usecases/user_usecase.dart';
 
 // import do data
+import 'package:meus_animais/data/datasource/auth_remote_datasource.dart';
+import 'package:meus_animais/data/datasource/user_remote_datasource.dart';
+import 'package:meus_animais/data/repositories/auth_repo_impl.dart';
+import 'package:meus_animais/data/repositories/user_repo_impl.dart';
 
 // import dos pacotes
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -15,11 +23,14 @@ final getIt = GetIt.I;
 void configureDependencies() {
 
   // domain
-  // getIt.registerFactory(() => UserUseCase(getIt()));
+  getIt.registerFactory(() => AuthUseCase(getIt()));
+  getIt.registerFactory(() => UserUseCase(getIt()));
 
   // data
-  // getIt.registerFactory<UserRemoteDatasource>(() => UserRemoteSourceImpl(getIt(), getIt(), getIt()));
-  // getIt.registerFactory<UserRepo>(() => UserRepoImpl(getIt()));
+  getIt.registerFactory<UserRemoteDatasource>(() => UserRemoteSourceImpl(getIt(), getIt(), getIt()));
+  getIt.registerFactory<AuthRemoteDatasource>(() => AuthRemoteDatasourceImpl());
+  getIt.registerFactory<AuthRepo>(() => AuthRepoImpl(getIt()));
+  getIt.registerFactory<UserRepo>(() => UserRepoImpl(getIt()));
 
   // extern
   getIt.registerFactory(() => FirebaseFirestore.instance);

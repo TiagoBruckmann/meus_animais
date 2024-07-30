@@ -1,0 +1,202 @@
+{
+  "btn_register": "Register",
+  "btn_update": "Update",
+  "btn_login": "Login",
+  "btn_await": "Await...",
+  "home": {
+    "main": "Pets",
+    "new": "New Pet",
+    "settings": "Settings"
+  },
+  "widgets": {
+    "pop_up": {
+      "btn_no": "Cancel",
+      "btn_yes": "Confirm"
+    },
+    "settings": {
+      "appbar": "Profile",
+      "title": "User name",
+      "subtitle": "User e-mail",
+      "main": "General",
+      "rate": "Let your opinion about the app",
+      "logout": {
+        "title": "Disconnect",
+        "text": "Do you wish logout of your account?"
+      },
+      "faq": "FAQ",
+      "info_account": {
+        "name": "Request account information",
+        "title": "Do you want request your information?",
+        "description": "We will find your information on we system, in 48 hours send to you through of this email."
+      },
+      "terms": {
+        "terms": "Terms of use",
+        "policy": "Policy of privacy"
+      },
+      "destroy": {
+        "title": "Delete your account?",
+        "text": "Do you want to delete your account? you will not be able to undo this action!",
+        "destroy": "Delete my account"
+      }
+    },
+    "pets": {
+      "title": "Searching pets."
+    },
+    "connection": {
+        "title": "Verify your connection with the ethernet, to continue using the app."
+    },
+    "crop": {
+      "new": "New image",
+      "save": "Save image"
+    }
+  },
+  "pages": {
+    "vaccines": {
+      "type": "Type: ",
+      "reapply": "Reapply: ",
+      "time": "Yes, in {time} {type_time}",
+      "create": {
+        "appbar": "Register vaccine",
+        "name": "Name",
+        "type": "Type of vaccine",
+        "description": "Description",
+        "day": "Day of vaccine",
+        "reapply": "Revaccinate?",
+        "type_time_day": "Day(s)",
+        "type_time_week": "Week(s)",
+        "type_time_month": "Month(s)",
+        "type_time_year": "Year(s)",
+        "type_time_label": "Period to revaccinate.",
+        "type_time_empty": "Select period of time to revaccinate.",
+        "interval": "Interval of time.",
+        "interval_empty": "Interval of time between vaccines.",
+        "laboratory": "Laboratory of  manufacturing."
+      }
+    },
+    "pets": {
+      "pets": {
+        "appbar": "Pets",
+        "empty": "Not found any pets, in this moment!"
+      },
+      "edit": {
+        "detail": "Data of pet",
+        "name": "Name",
+        "weight": "Weight",
+        "sex": "Sex",
+        "specie": "Specie",
+        "breed": "Breed",
+        "birth": "Birth/Adoption",
+        "calc_birth": "{year} year(s) {month} month(s) and {day} day(s)",
+        "life_time": "Life time estimated",
+        "vaccines": "Vaccines",
+        "hygiene": "Hygiene"
+      },
+      "create": {
+        "appbar": "Register pet",
+        "male": "Male",
+        "female": "Female",
+        "sex_empty": "Select sex of animal.",
+        "specie_error": "Not found any specie.",
+        "specie_empty": "Select breed of animal."
+      }
+    },
+    "login": {
+      "title": "Authentication",
+      "email": "E-mail",
+      "password": "Password",
+      "register": {
+        "appbar": "Registration",
+        "name": "Name"
+      },
+      "login": {
+        "forgot": "Forgot\nyour password?"
+      },
+      "forgot": {
+        "appbar": "Forgot my password",
+        "forgot": "Forgot your password",
+        "btn_email": "Validate e-mail",
+        "btn_unreceived": "don't received the e-mail"
+      }
+    },
+    "hygiene": {
+      "hygiene": {
+        "place": "Place: ",
+        "value": "Value: "
+      },
+      "create": {
+        "appbar": "Register hygiene",
+        "category": "Services category",
+        "empty_category": "No found any services.",
+        "day": "Service day",
+        "establishment": "Establishment",
+        "value": "Value"
+      }
+    }
+  },
+  "custom_message": {
+    "destroy": {
+      "error": "Not possible delete your account, try again!",
+      "success": "Account deleted with success!"
+    },
+    "forgot": {
+      "success": "Redefination link sended with success!",
+      "error": "Not possible send your redefinition password , try again!"
+    },
+    "login": {
+      "error": "Have an error on your request, try again later!"
+    },
+    "logout": {
+      "success": "Disconnected with successfully!",
+      "error": "Not possible have a logout, try again!"
+    },
+    "register": {
+      "success": "Registered have with successfully!",
+      "error": "Have an error with your request, try again later!",
+      "validate": {
+        "name": "We inform your name",
+        "email": "Fill in a valid e-mail.",
+        "password": "Fill in a valid password."
+      }
+    },
+    "set_pet": {
+      "error": "Not possible register pet, try again later.",
+      "validate": {
+        "name": "Fill in your friend's name!",
+        "weight": "Fill in your friend's weight!",
+        "birth": "Fill in your friend's birth!",
+        "day": "Inform a valid date!",
+        "another": "Have another fields empty!"
+      }
+    },
+    "update_pet": {
+      "error": "Not possible update pet, try again later.",
+      "validate": {
+        "weight": "Inform a weight."
+      }
+    },
+    "vaccines": {
+      "validate": {
+        "name": "Fill in a valid name.",
+        "type": "Inform a type of vaccine.",
+        "day": "Inform the day of application of the vaccine.",
+        "time": "Select estimated time.",
+        "type_time": "Select period of time."
+      }
+    },
+    "hygiene": {
+      "validate": {
+        "name": "Select a category of services",
+        "date": "Inform a service date.",
+        "day": "Inform a valid date!",
+        "place": "Inform the establishment."
+      }
+    }
+  },
+  "routes": {
+    "appbar": "Screen not found."
+  },
+  "update": {
+    "title": "New version available to download!",
+    "body": "the version {store_version} are available to download, update now."
+  }
+}

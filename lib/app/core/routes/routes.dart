@@ -1,12 +1,13 @@
 // imports nativos do flutter
 import 'package:flutter/material.dart';
 
-// import dos pacotes
-import 'package:flutter_i18n/flutter_i18n.dart';
-
 // import das telas
 import 'package:meus_animais/app/core/widgets/verify_connection.dart';
 import 'package:meus_animais/app/core/style/app_images.dart';
+import 'package:meus_animais/app/pages/splash/splash.dart';
+
+// import dos pacotes
+import 'package:flutter_i18n/flutter_i18n.dart';
 
 class Routes {
 
@@ -19,11 +20,11 @@ class Routes {
         return MaterialPageRoute(
           builder: (_) => const SplashPage(),
         );
+        /*
       case "/login" :
         return MaterialPageRoute(
           builder: (_) => const LoginPage(),
         );
-        /*
       case "/register" :
         return MaterialPageRoute(
           builder: (_) => const RegisterPage(),
