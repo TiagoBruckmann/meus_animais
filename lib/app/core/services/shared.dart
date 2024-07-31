@@ -1,13 +1,17 @@
 // imports nativos
 import 'dart:math';
+import 'dart:io';
+
+// imports globais
+import 'package:meus_animais/session.dart';
 
 // import dos domains
+import 'package:meus_animais/domain/source/local/mobx/connection.dart';
 
 // import dos pacotes
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
-import 'package:meus_animais/domain/source/local/mobx/connection.dart';
-import 'package:meus_animais/session.dart';
 
 class SharedServices {
 
@@ -53,24 +57,12 @@ class SharedServices {
   }
 
   String formatDate( int date ) {
-    String? newDate;
+    String newDate = date.toString();
     if ( date < 10 ) {
       newDate = "0$date";
-    } else {
-      newDate = date.toString();
     }
+
     return newDate;
-  }
-
-  String formatHour( int value ) {
-    String newValue = "$value pm";
-    if ( value == 24 ) {
-      newValue = "00 am";
-    } else if ( value < 12 ) {
-      newValue = "$value am";
-    }
-
-    return newValue;
   }
 
   String calculateBirth( String birth ) {
@@ -195,5 +187,25 @@ class SharedServices {
     return "$formattedDay/$formattedMonth/$year";
   }
 
+  Future<void> rateApp() async {
+
+    Session.appEvents.sharedEvent("rate_app");
+
+    Uri url = Uri.https("play.google.com", "/store/apps/details", {"id": "br.com.meus_animais"});
+    if ( Platform.isIOS ) {
+      url = Uri.https("www.apple.com", "/br/app-store/");
+    }
+
+    if ( await canLaunchUrl(url) ) {
+      await launchUrl(
+        url,
+        mode: LaunchMode.inAppWebView,
+      );
+    } else {
+      Session.crash.onError("Could not launch appStoreLink");
+      throw 'Could not launch appStoreLink';
+    }
+
+  }
 
 }
