@@ -1,14 +1,14 @@
 // import dos pacotes
 import 'package:equatable/equatable.dart';
 
-class HygieneEntity extends Equatable {
+class ServiceEntity extends Equatable {
 
   final String id, name;
 
-  const HygieneEntity( this.id, this.name );
+  const ServiceEntity( this.id, this.name );
 
   @override
-  String toString() => "HygieneEntity($id - $name)";
+  String toString() => "ServiceEntity($id - $name)";
 
   @override
   List<Object?> get props => [id, name];

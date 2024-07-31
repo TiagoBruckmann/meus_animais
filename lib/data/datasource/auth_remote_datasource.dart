@@ -1,6 +1,5 @@
 // imports globais
 import 'package:meus_animais/session.dart';
-import 'dart:convert';
 
 // import dos data
 import 'package:meus_animais/data/exceptions/exceptions.dart';
@@ -10,7 +9,6 @@ import 'package:meus_animais/data/models/user_model.dart';
 import 'package:firebase_performance/firebase_performance.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:http/http.dart' as http;
 
 Map<String, String> _mapErrorAuthentication = {
   "week_password": "Password should be at least 6 characters",
@@ -49,11 +47,15 @@ class AuthRemoteDatasourceImpl implements AuthRemoteDatasource {
   @override
   Future<UserModel> register( Map<String, dynamic> json ) async {
 
+    final metric = Session.performance.newHttpMetric("register", HttpMethod.Post);
+    await metric.start();
+
     final firebaseUser = await auth.createUserWithEmailAndPassword(
       email: json["email"],
       password: json["password"],
     )
     .onError((error, stackTrace) {
+      metric.stop();
       if ( error.toString().contains(_mapErrorAuthentication["week_password"].toString()) ) {
         throw WeekPasswordException(_mapErrorAuthentication["week_password"].toString());
       } else if ( error.toString().contains(_mapErrorAuthentication["used_email"].toString()) ) {
@@ -65,6 +67,8 @@ class AuthRemoteDatasourceImpl implements AuthRemoteDatasource {
         throw ServerExceptions(error.toString());
       }
     });
+
+    await metric.stop();
 
     final name = json["name"];
     String imageUrl = "https://ui-avatars.com/api/?name=$name";
@@ -86,11 +90,15 @@ class AuthRemoteDatasourceImpl implements AuthRemoteDatasource {
   @override
   Future<UserModel> login( Map<String, dynamic> json ) async {
 
+    final metric = Session.performance.newHttpMetric("login", HttpMethod.Post);
+    await metric.start();
+
     final firebaseUser = await auth.signInWithEmailAndPassword(
       email: json["email"],
       password: json["password"],
     )
     .onError((error, stackTrace) {
+      metric.stop();
       if ( error.toString().contains(_mapErrorAuthentication["week_password"].toString()) ) {
         throw WeekPasswordException(_mapErrorAuthentication["week_password"].toString());
       } else if ( error.toString().contains(_mapErrorAuthentication["used_email"].toString()) ) {
@@ -106,6 +114,8 @@ class AuthRemoteDatasourceImpl implements AuthRemoteDatasource {
         throw ServerExceptions(error.toString());
       }
     });
+
+    await metric.stop();
 
     UserModel userModel = UserModel(
       firebaseUser.user!.uid,
@@ -123,19 +133,24 @@ class AuthRemoteDatasourceImpl implements AuthRemoteDatasource {
   @override
   Future<void> forgotPassword( String email ) async {
 
+    final metric = Session.performance.newHttpMetric("forgot-password", HttpMethod.Post);
+    await metric.start();
+
     await auth.sendPasswordResetEmail(
       email: email,
     )
     .onError((error, stackTrace) {
+      metric.stop();
       Session.crash.onError(error.toString(), error: error, stackTrace: stackTrace);
       throw ServerExceptions(error.toString());
     })
     .catchError((onError) {
+      metric.stop();
       Session.crash.log(onError);
       throw ServerExceptions(onError.toString());
     });
 
-    return;
+    return await metric.stop();
 
   }
 

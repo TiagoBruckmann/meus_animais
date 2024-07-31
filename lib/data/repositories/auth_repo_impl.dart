@@ -1,10 +1,10 @@
 // imports globais
-import 'package:meus_animais/domain/entities/user.dart';
 import 'package:meus_animais/session.dart';
 
 // import dos domain
 import 'package:meus_animais/domain/repositories/auth_repo.dart';
 import 'package:meus_animais/domain/failures/failures.dart';
+import 'package:meus_animais/domain/entities/user.dart';
 
 // import dos data
 import 'package:meus_animais/data/datasource/auth_remote_datasource.dart';

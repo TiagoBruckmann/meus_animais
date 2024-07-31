@@ -1,5 +1,8 @@
-import 'package:equatable/equatable.dart';
+// import dos domain
 import 'package:meus_animais/domain/entities/life_time.dart';
+
+// import dos pacotes
+import 'package:equatable/equatable.dart';
 
 class LifeTimeModel extends LifeTimeEntity with EquatableMixin {
 

@@ -1,5 +1,8 @@
-import 'package:equatable/equatable.dart';
+// import dos domain
 import 'package:meus_animais/domain/entities/hygiene_pet.dart';
+
+// import dos pacotes
+import 'package:equatable/equatable.dart';
 
 class HygienePetModel extends HygienePetEntity with EquatableMixin {
 
