@@ -33,6 +33,7 @@ class Themes {
     thickness: 2,
   );
 
+  /*
   static const TextStyle _headlineLargeTextLight = TextStyle(
     fontWeight: FontWeight.bold,
     color: _textPrimaryLight,
@@ -44,22 +45,27 @@ class Themes {
     color: _textPrimaryLight,
     fontSize: 20,
   );
+  */
 
   static const TextStyle _displayMediumTextLight = TextStyle(
     fontWeight: FontWeight.w500,
-    color: _textPrimaryLight,
+    color: _primaryColorLight,
     fontSize: 16,
   );
 
+  /*
   static const TextStyle _displaySmallTextLight = TextStyle(
     color: _tertiaryColorLight,
     fontSize: 17,
   );
+  */
 
-  static const TextStyle _defaultTextLight = TextStyle(
-    color: _textPrimaryLight,
+  static const TextStyle _bodyMediumTextLight = TextStyle(
+    color: _secondaryColorLight,
+    fontWeight: FontWeight.bold,
   );
 
+  /*
   static const TextStyle _labelMediumTextLight = TextStyle(
     color: _tertiaryColorLight,
     fontSize: 15,
@@ -69,15 +75,22 @@ class Themes {
     color: _tertiaryColorLight,
     fontSize: 12,
   );
+   */
 
   static const TextTheme _textThemeLight = TextTheme(
+    /*
     headlineLarge: _headlineLargeTextLight,
     displayLarge: _displayLargeTextLight,
+     */
     displayMedium: _displayMediumTextLight,
+    /*
     displaySmall: _displaySmallTextLight,
-    bodyMedium: _defaultTextLight,
+    */
+    bodyMedium: _bodyMediumTextLight,
+    /*
     labelMedium: _labelMediumTextLight,
     labelSmall: _labelSmallTextLight,
+     */
   );
 
   static final ThemeData lightTheme = ThemeData(
@@ -134,7 +147,7 @@ class Themes {
     dividerTheme: _dividerThemeDataLight,
     inputDecorationTheme: InputDecorationTheme(
       contentPadding: const EdgeInsets.all(8),
-      labelStyle: _defaultTextLight,
+      labelStyle: _bodyMediumTextLight,
       filled: true,
       fillColor: Colors.transparent,
       enabledBorder: const OutlineInputBorder(
@@ -184,6 +197,7 @@ class Themes {
     thickness: 2,
   );
 
+  /*
   static const TextStyle _headlineLargeTextDark = TextStyle(
     fontWeight: FontWeight.bold,
     color: _textPrimaryDark,
@@ -195,22 +209,27 @@ class Themes {
     color: _textPrimaryDark,
     fontSize: 20,
   );
+  */
 
   static const TextStyle _displayMediumTextDark = TextStyle(
     fontWeight: FontWeight.w500,
-    color: _textPrimaryDark,
+    color: _primaryColorDark,
     fontSize: 16,
   );
 
+  /*
   static const TextStyle _displaySmallTextDark = TextStyle(
     color: _tertiaryColorDark,
     fontSize: 17,
   );
+  */
 
-  static const TextStyle _defaultTextDark = TextStyle(
-    color: _textPrimaryDark,
+  static const TextStyle _bodyMediumTextDark = TextStyle(
+    color: _secondaryColorDark,
+    fontWeight: FontWeight.bold,
   );
 
+  /*
   static const TextStyle _labelMediumTextDark = TextStyle(
     color: _tertiaryColorDark,
     fontSize: 15,
@@ -220,15 +239,20 @@ class Themes {
     color: _tertiaryColorDark,
     fontSize: 12,
   );
+  */
 
   static const TextTheme _textThemeDark = TextTheme(
+    /*
     headlineLarge: _headlineLargeTextDark,
     displayLarge: _displayLargeTextDark,
+    */
     displayMedium: _displayMediumTextDark,
-    displaySmall: _displaySmallTextDark,
-    bodyMedium: _defaultTextDark,
+    // displaySmall: _displaySmallTextDark,
+    bodyMedium: _bodyMediumTextDark,
+    /*
     labelMedium: _labelMediumTextDark,
     labelSmall: _labelSmallTextDark,
+     */
   );
 
   static final ThemeData darkTheme = ThemeData(
@@ -285,7 +309,7 @@ class Themes {
     dividerTheme: _dividerThemeDataDark,
     inputDecorationTheme: InputDecorationTheme(
       contentPadding: const EdgeInsets.all(8),
-      labelStyle: _defaultTextDark,
+      labelStyle: _bodyMediumTextDark,
       filled: true,
       fillColor: Colors.transparent,
       enabledBorder: const OutlineInputBorder(

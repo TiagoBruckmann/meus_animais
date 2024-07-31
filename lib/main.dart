@@ -1,8 +1,6 @@
 // imports nativos
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:meus_animais/domain/source/local/injection/injection.dart';
-import 'package:meus_animais/domain/source/local/mobx/connection.dart';
 
 // imports globais
 import 'package:meus_animais/session.dart';
@@ -13,6 +11,9 @@ import 'package:meus_animais/app/core/routes/routes.dart';
 import 'package:meus_animais/app/core/style/themes.dart';
 
 // import dos domain
+import 'package:meus_animais/domain/source/local/mobx/connection/connection.dart';
+import 'package:meus_animais/domain/source/local/injection/injection.dart';
+import 'package:meus_animais/domain/source/local/mobx/pet/pet.dart';
 
 // import dos pacotes
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
@@ -48,6 +49,9 @@ void main() async {
       providers: [
         Provider(
           create: (context) => ConnectionMobx(),
+        ),
+        Provider(
+          create: (context) => PetMobx(),
         ),
       ],
       child: MaterialApp(

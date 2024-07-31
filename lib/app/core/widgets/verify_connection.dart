@@ -8,7 +8,7 @@ import 'package:meus_animais/session.dart';
 import 'package:meus_animais/app/core/widgets/loading_connection.dart';
 
 // import dos domain
-import 'package:meus_animais/domain/source/local/mobx/connection.dart';
+import 'package:meus_animais/domain/source/local/mobx/connection/connection.dart';
 
 // import dos pacotes
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
