@@ -3,27 +3,33 @@ import 'package:meus_animais/session.dart';
 import 'dart:io';
 
 // import dos domain
-import 'package:meus_animais/domain/entities/hygiene_pet.dart';
+import 'package:meus_animais/domain/entities/vaccine.dart';
+import 'package:meus_animais/domain/entities/hygiene.dart';
 
 // import dos data
-import 'package:meus_animais/data/models/hygiene_pet_model.dart';
 import 'package:meus_animais/data/models/life_time_model.dart';
 import 'package:meus_animais/data/exceptions/exceptions.dart';
+import 'package:meus_animais/data/models/vaccine_model.dart';
+import 'package:meus_animais/data/models/hygiene_model.dart';
 import 'package:meus_animais/data/models/pet_model.dart';
 
 // import dos pacotess
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:firebase_performance/firebase_performance.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:image_picker/image_picker.dart';
 
 abstract class PetRemoteDatasource {
 
   Future<List<PetModel>> getPets();
-  Future<void> setPet( Map<String, dynamic> json );
+  Future<void> setPet( Map<String, dynamic> json, XFile? picture );
   Future<void> updatePet( Map<String, dynamic> json );
   Future<List<LifeTimeModel>> getLifeTime();
-  Future<List<HygienePetModel>> getHygiene( String petId );
-  Future<void> setHygiene( List<HygienePetEntity> list );
+  Future<List<HygieneModel>> getHygiene( String petId );
+  Future<void> setHygiene( List<HygieneEntity> list );
+  Future<List<VaccineModel>> getVaccines( String petId );
+  Future<void> setVaccines( List<VaccineEntity> list );
 
 }
 
@@ -74,8 +80,64 @@ class PetRemoteSourceImpl implements PetRemoteDatasource {
   }
 
   @override
-  Future<void> setPet( Map<String, dynamic> json ) async {
+  Future<void> setPet( Map<String, dynamic> json, XFile? picture ) async {
 
+    final user = auth.currentUser;
+    if ( user == null ) {
+      const errorMessage = "NULL user - Set Pet";
+      Session.crash.onError("set_pet", error: errorMessage);
+      throw ServerExceptions(errorMessage);
+    }
+
+    final metric = Session.performance.newHttpMetric("set-pet", HttpMethod.Post);
+    await metric.start();
+    
+    final pet = json["pet"] as Map<String, dynamic>;
+    final List<VaccineEntity> vaccines = [];
+    final List<HygieneEntity> hygiene = [];
+
+    for ( final item in json["vaccine"] ) {
+      vaccines.add(VaccineModel.fromJson(item));
+    }
+
+    for ( final item in json["hygiene"] ) {
+      hygiene.add(HygieneModel.fromJson(item));
+    }
+
+    await db.collection("pets")
+      .doc(pet["id"])
+      .set(pet)
+      .then((value) async {
+
+        await metric.stop();
+
+        if ( vaccines.isNotEmpty ) {
+          await setVaccines(vaccines);
+        }
+
+        if ( hygiene.isNotEmpty ) {
+          await setHygiene(hygiene);
+        }
+
+        if ( picture != null ) {
+          return await _uploadPicture(pet, picture);
+        }
+
+        return;
+
+      })
+      .onError((error, stackTrace) {
+        metric.stop();
+        Session.crash.onError(error.toString(), error: error, stackTrace: stackTrace);
+        throw ServerExceptions(error.toString());
+      })
+      .catchError((onError) {
+        metric.stop();
+        Session.crash.log(onError);
+        throw ServerExceptions(onError.toString());
+      });
+
+    return;
   }
 
   @override
@@ -150,12 +212,12 @@ class PetRemoteSourceImpl implements PetRemoteDatasource {
   }
 
   @override
-  Future<List<HygienePetModel>> getHygiene( String petId ) async {
+  Future<List<HygieneModel>> getHygiene( String petId ) async {
 
     final metric = Session.performance.newHttpMetric("get-hygiene-pet-$petId", HttpMethod.Get);
     await metric.start();
 
-    final List<HygienePetModel> list = [];
+    final List<HygieneModel> list = [];
 
     await db.collection("pets")
       .doc(petId)
@@ -166,7 +228,7 @@ class PetRemoteSourceImpl implements PetRemoteDatasource {
         metric.stop();
 
         for ( final item in value.docs ) {
-          list.add(HygienePetModel.fromJson(item));
+          list.add(HygieneModel.fromJson(item));
         }
 
       })
@@ -185,7 +247,7 @@ class PetRemoteSourceImpl implements PetRemoteDatasource {
   }
 
   @override
-  Future<void> setHygiene( List<HygienePetEntity> list ) async {
+  Future<void> setHygiene( List<HygieneEntity> list ) async {
 
     for ( final item in list ) {
 
@@ -204,4 +266,101 @@ class PetRemoteSourceImpl implements PetRemoteDatasource {
 
   }
 
+  @override
+  Future<List<VaccineModel>> getVaccines( String petId ) async {
+
+    final metric = Session.performance.newHttpMetric("get-vaccines-$petId", HttpMethod.Get);
+    await metric.start();
+
+    final List<VaccineModel> list = [];
+
+    await db.collection("pets")
+      .doc(petId)
+      .collection("vaccines")
+      .get()
+      .then((value) {
+
+        metric.stop();
+
+        for ( final item in value.docs ) {
+          list.add(VaccineModel.fromJson(item));
+        }
+
+      })
+      .onError((error, stackTrace) {
+        metric.stop();
+        Session.crash.onError(error.toString(), error: error, stackTrace: stackTrace);
+        throw ServerExceptions(error.toString());
+      })
+      .catchError((onError) {
+        metric.stop();
+        Session.crash.log(onError);
+        throw ServerExceptions(onError.toString());
+      });
+
+    await metric.stop();
+
+    return list;
+  }
+
+  @override
+  Future<void> setVaccines( List<VaccineEntity> list ) async {
+
+    for ( final item in list ) {
+
+      final metric = Session.performance.newHttpMetric("set-vaccine-${item.id}", HttpMethod.Post);
+      await metric.start();
+
+      await db.collection("pets")
+        .doc(item.petId)
+        .collection("vaccines")
+        .doc(item.id)
+        .set(item.toMap());
+
+      await metric.stop();
+
+    }
+
+  }
+
+  Future<void> _uploadPicture( Map<String, dynamic> json , XFile picture ) async {
+
+    final metric = Session.performance.newHttpMetric("upload-image", HttpMethod.Post);
+    await metric.start();
+
+    firebase_storage.UploadTask uploadTask;
+    firebase_storage.Reference archive = firebase_storage
+      .FirebaseStorage.instance
+      .ref()
+      .child("documents/pets/${json["id"]}/")
+      .child(picture.name);
+
+    await metric.stop();
+
+    final metadata = firebase_storage.SettableMetadata(
+      contentType: '${picture.mimeType}',
+      customMetadata: {'picked-file-path': picture.path},
+    );
+
+    uploadTask = archive.putData(await picture.readAsBytes(), metadata);
+
+    uploadTask.snapshotEvents.listen((event) async {
+      event.ref.getDownloadURL().then((value) async {
+
+        await metric.stop();
+
+        json["picture"] = value;
+
+        final pet = PetModel.fromJson(json);
+        await updatePet(pet.updateToMap());
+
+      });
+    })
+    .onError((handleError) {
+      metric.stop();
+      Session.crash.onError(handleError);
+      throw ServerExceptions(handleError.toString());
+    });
+
+  }
 }

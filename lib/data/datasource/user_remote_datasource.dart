@@ -107,6 +107,7 @@ class UserRemoteSourceImpl implements UserRemoteDatasource {
     await metric.stop();
 
     if ( response.statusCode == 204 ) {
+      Session.appEvents.sharedEvent("send_email_delete_account");
       return await _deleteAccount(json);
     }
 

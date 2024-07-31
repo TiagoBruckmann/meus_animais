@@ -1,4 +1,6 @@
 // import do domain
+import 'package:meus_animais/domain/repositories/notification_repo.dart';
+import 'package:meus_animais/domain/usecases/notification_use_case.dart';
 import 'package:meus_animais/domain/usecases/service_use_case.dart';
 import 'package:meus_animais/domain/repositories/service_repo.dart';
 import 'package:meus_animais/domain/repositories/user_repo.dart';
@@ -9,8 +11,9 @@ import 'package:meus_animais/domain/repositories/pet_repo.dart';
 import 'package:meus_animais/domain/usecases/user_usecase.dart';
 
 // import do data
-
+import 'package:meus_animais/data/datasource/notification_remote_datasource.dart';
 import 'package:meus_animais/data/datasource/service_remote_datasource.dart';
+import 'package:meus_animais/data/repositories/notification_repo_impl.dart';
 import 'package:meus_animais/data/datasource/auth_remote_datasource.dart';
 import 'package:meus_animais/data/datasource/user_remote_datasource.dart';
 import 'package:meus_animais/data/datasource/pet_remote_datasource.dart';
@@ -32,16 +35,19 @@ final getIt = GetIt.I;
 void configureDependencies() {
 
   // domain
+  getIt.registerFactory(() => NotificationUseCase(getIt()));
   getIt.registerFactory(() => ServiceUseCase(getIt()));
   getIt.registerFactory(() => AuthUseCase(getIt()));
   getIt.registerFactory(() => UserUseCase(getIt()));
   getIt.registerFactory(() => PetUseCase(getIt()));
 
   // data
+  getIt.registerFactory<NotificationRemoteDatasource>(() => NotificationRemoteDatasourceImpl(getIt(), getIt()));
   getIt.registerFactory<UserRemoteDatasource>(() => UserRemoteSourceImpl(getIt(), getIt(), getIt()));
   getIt.registerFactory<AuthRemoteDatasource>(() => AuthRemoteDatasourceImpl(getIt(), getIt()));
   getIt.registerFactory<ServiceRemoteDatasource>(() => ServiceRemoteDatasourceImpl(getIt()));
   getIt.registerFactory<PetRemoteDatasource>(() => PetRemoteSourceImpl(getIt(), getIt()));
+  getIt.registerFactory<NotificationRepo>(() => NotificationRepoImpl(getIt()));
   getIt.registerFactory<ServiceRepo>(() => ServiceRepoImpl(getIt()));
   getIt.registerFactory<AuthRepo>(() => AuthRepoImpl(getIt()));
   getIt.registerFactory<UserRepo>(() => UserRepoImpl(getIt()));

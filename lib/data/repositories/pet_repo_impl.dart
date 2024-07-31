@@ -3,9 +3,10 @@ import 'package:meus_animais/session.dart';
 
 // import dos domain
 import 'package:meus_animais/domain/repositories/pet_repo.dart';
-import 'package:meus_animais/domain/entities/hygiene_pet.dart';
 import 'package:meus_animais/domain/entities/life_time.dart';
 import 'package:meus_animais/domain/failures/failures.dart';
+import 'package:meus_animais/domain/entities/hygiene.dart';
+import 'package:meus_animais/domain/entities/vaccine.dart';
 import 'package:meus_animais/domain/entities/pet.dart';
 
 // import dos data
@@ -13,6 +14,7 @@ import 'package:meus_animais/data/datasource/pet_remote_datasource.dart';
 import 'package:meus_animais/data/exceptions/exceptions.dart';
 
 // import dos pacotes
+import 'package:image_picker/image_picker.dart';
 import 'package:dartz/dartz.dart';
 
 class PetRepoImpl implements PetRepo {
@@ -34,9 +36,9 @@ class PetRepoImpl implements PetRepo {
   }
 
   @override
-  Future<Either<Failure, void>> setPet( Map<String, dynamic> json ) async {
+  Future<Either<Failure, void>> setPet( Map<String, dynamic> json, XFile? picture ) async {
     try {
-      final result = await petRemoteDatasource.setPet( json );
+      final result = await petRemoteDatasource.setPet( json, picture );
       return right(result);
     } on ServerExceptions catch (e) {
       Session.crash.onError("set_pet_server_error", error: e.message);
@@ -76,7 +78,7 @@ class PetRepoImpl implements PetRepo {
   }
 
   @override
-  Future<Either<Failure, List<HygienePetEntity>>> getHygiene( String petId ) async {
+  Future<Either<Failure, List<HygieneEntity>>> getHygiene( String petId ) async {
     try {
       final result = await petRemoteDatasource.getHygiene( petId );
       return right(result);
@@ -90,7 +92,7 @@ class PetRepoImpl implements PetRepo {
   }
 
   @override
-  Future<Either<Failure, void>> setHygiene( List<HygienePetEntity> list ) async {
+  Future<Either<Failure, void>> setHygiene( List<HygieneEntity> list ) async {
     try {
       final result = await petRemoteDatasource.setHygiene( list );
       return right(result);
@@ -99,6 +101,34 @@ class PetRepoImpl implements PetRepo {
       return left(ServerFailure(e.message));
     } catch (e) {
       Session.crash.onError("set_hygiene_error", error: e);
+      return left(GeneralFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<VaccineEntity>>> getVaccines( String petId ) async {
+    try {
+      final result = await petRemoteDatasource.getVaccines( petId );
+      return right(result);
+    } on ServerExceptions catch (e) {
+      Session.crash.onError("get_vaccines_server_error", error: e.message);
+      return left(ServerFailure(e.message));
+    } catch (e) {
+      Session.crash.onError("get_vaccines_error", error: e);
+      return left(GeneralFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> setVaccines( List<VaccineEntity> list ) async {
+    try {
+      final result = await petRemoteDatasource.setVaccines( list );
+      return right(result);
+    } on ServerExceptions catch (e) {
+      Session.crash.onError("set_vaccines_server_error", error: e.message);
+      return left(ServerFailure(e.message));
+    } catch (e) {
+      Session.crash.onError("set_vaccines_error", error: e);
       return left(GeneralFailure(e.toString()));
     }
   }

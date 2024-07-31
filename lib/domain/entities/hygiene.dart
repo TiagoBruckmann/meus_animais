@@ -1,12 +1,12 @@
 // import dos pacotes
 import 'package:equatable/equatable.dart';
 
-class HygienePetEntity extends Equatable {
+class HygieneEntity extends Equatable {
 
   final String id, name, day, place, value, createdAt;
   final String? petId;
 
-  const HygienePetEntity( this.id, this.name, this.day, this.place, this.value, this.createdAt, { this.petId } );
+  const HygieneEntity( this.id, this.name, this.day, this.place, this.value, this.createdAt, { this.petId } );
 
   Map<String, dynamic> toMap() {
     Map<String, dynamic> map = {
@@ -22,7 +22,7 @@ class HygienePetEntity extends Equatable {
   }
 
   @override
-  String toString() => "HygienePetEntity($name, $day, $place, $petId)";
+  String toString() => "HygieneEntity($name, $day, $place, $petId)";
 
   @override
   List<Object?> get props => [id, name, day, place, value, createdAt, petId];

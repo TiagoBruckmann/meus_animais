@@ -2,7 +2,7 @@
 import 'dart:io';
 
 // imports globais
-import 'package:meus_animais/domain/entities/hygiene_pet.dart';
+import 'package:meus_animais/domain/entities/hygiene.dart';
 import 'package:meus_animais/domain/entities/vaccine.dart';
 import 'package:meus_animais/session.dart';
 
@@ -54,7 +54,7 @@ class AppEvents {
     await _logEvent(eventName, params);
   }
 
-  Future<void> logSetHygiene( List<HygienePetEntity> list, bool updatePet ) async {
+  Future<void> logSetHygiene( List<HygieneEntity> list, bool updatePet ) async {
     const String eventName = "set_hygiene";
     final params = {
       "hygiene": list.toString(),

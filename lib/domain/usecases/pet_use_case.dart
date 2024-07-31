@@ -1,11 +1,13 @@
 // import dos domain
 import 'package:meus_animais/domain/repositories/pet_repo.dart';
-import 'package:meus_animais/domain/entities/hygiene_pet.dart';
 import 'package:meus_animais/domain/entities/life_time.dart';
 import 'package:meus_animais/domain/failures/failures.dart';
+import 'package:meus_animais/domain/entities/vaccine.dart';
+import 'package:meus_animais/domain/entities/hygiene.dart';
 import 'package:meus_animais/domain/entities/pet.dart';
 
 // import dos pacotes
+import 'package:image_picker/image_picker.dart';
 import 'package:dartz/dartz.dart';
 
 class PetUseCase {
@@ -16,8 +18,8 @@ class PetUseCase {
     return await petRepo.getPets();
   }
 
-  Future<Either<Failure, void>> setPet( Map<String, dynamic> json ) async {
-    return await petRepo.setPet( json );
+  Future<Either<Failure, void>> setPet( Map<String, dynamic> json, XFile? picture ) async {
+    return await petRepo.setPet( json, picture );
   }
 
   Future<Either<Failure, void>> updatePet( Map<String, dynamic> json ) async {
@@ -28,12 +30,20 @@ class PetUseCase {
     return await petRepo.getLifeTime();
   }
 
-  Future<Either<Failure, List<HygienePetEntity>>> getHygienePets( String petId ) async {
+  Future<Either<Failure, List<HygieneEntity>>> getHygienePets( String petId ) async {
     return await petRepo.getHygiene( petId );
   }
 
-  Future<Either<Failure, void>> setHygienePets( List<HygienePetEntity> list ) async {
+  Future<Either<Failure, void>> setHygienePets( List<HygieneEntity> list ) async {
     return await petRepo.setHygiene( list );
+  }
+
+  Future<Either<Failure, List<VaccineEntity>>> getVaccines( String petId ) async {
+    return await petRepo.getVaccines( petId );
+  }
+
+  Future<Either<Failure, void>> setVaccines( List<VaccineEntity> list ) async {
+    return await petRepo.setVaccines( list );
   }
 
 }

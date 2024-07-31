@@ -198,5 +198,8 @@
   "update": {
     "title": "New version available to download!",
     "body": "the version {store_version} are available to download, update now."
+  },
+  "notifications": {
+    "btn_reapply": "Reapply"
   }
 }
