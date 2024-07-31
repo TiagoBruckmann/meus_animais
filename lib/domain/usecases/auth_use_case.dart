@@ -1,4 +1,5 @@
 // import dos domain
+import 'package:meus_animais/domain/entities/user.dart';
 import 'package:meus_animais/domain/repositories/auth_repo.dart';
 import 'package:meus_animais/domain/failures/failures.dart';
 
@@ -11,6 +12,18 @@ class AuthUseCase {
 
   Future<Either<Failure, bool>> verifyConnection() async {
     return await authRepo.verifyConnection();
+  }
+
+  Future<Either<Failure, UserEntity>> register( Map<String, dynamic> json ) async {
+    return await authRepo.register(json);
+  }
+
+  Future<Either<Failure, UserEntity>> login( Map<String, dynamic> json ) async {
+    return await authRepo.login(json);
+  }
+
+  Future<Either<Failure, void>> forgotPassword( String email ) async {
+    return await authRepo.forgotPassword(email);
   }
 
 }

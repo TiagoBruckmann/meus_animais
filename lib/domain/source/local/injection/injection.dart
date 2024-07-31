@@ -28,7 +28,7 @@ void configureDependencies() {
 
   // data
   getIt.registerFactory<UserRemoteDatasource>(() => UserRemoteSourceImpl(getIt(), getIt(), getIt()));
-  getIt.registerFactory<AuthRemoteDatasource>(() => AuthRemoteDatasourceImpl());
+  getIt.registerFactory<AuthRemoteDatasource>(() => AuthRemoteDatasourceImpl(getIt(), getIt()));
   getIt.registerFactory<AuthRepo>(() => AuthRepoImpl(getIt()));
   getIt.registerFactory<UserRepo>(() => UserRepoImpl(getIt()));
 

@@ -18,7 +18,7 @@ class UserEntity extends Equatable {
       "email": email,
       "picture": picture,
       "created_at": DateTime.now().toString(),
-      "updated_at": ( createdAt == null ) ? null : DateTime.now().toString(),
+      "updated_at": ( createdAt == null ) ? "" : DateTime.now().toString(),
     };
 
     return map;
