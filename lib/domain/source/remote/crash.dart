@@ -9,7 +9,7 @@ import 'package:meus_animais/session.dart';
 class Crash {
   final FirebaseCrashlytics _crashlytics = FirebaseCrashlytics.instance;
 
-  void userConnected(String userId) async {
+  void userConnected( String userId ) async {
     if ( _crashlytics.isCrashlyticsCollectionEnabled ) {
       await _crashlytics.setUserIdentifier(userId);
     }
@@ -26,7 +26,7 @@ class Crash {
     }
   }
 
-  void log( PlatformException exception) {
+  void log( PlatformException exception ) {
     if ( _crashlytics.isCrashlyticsCollectionEnabled ) {
       final map = {
         "code": exception.code,

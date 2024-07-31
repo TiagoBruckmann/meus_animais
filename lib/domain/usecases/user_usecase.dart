@@ -18,8 +18,8 @@ class UserUseCase {
     return await userRepo.logOut();
   }
 
-  Future<Either<Failure, void>> deleteAccount( Map<String, dynamic> json ) async {
-    return await userRepo.deleteAccount( json );
+  Future<Either<Failure, void>> sendEmailDeleteAccount( Map<String, dynamic> json ) async {
+    return await userRepo.sendEmailDeleteAccount( json );
   }
 
 }

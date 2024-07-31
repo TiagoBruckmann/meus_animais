@@ -8,5 +8,5 @@ import 'package:meus_animais/domain/entities/user.dart';
 abstract class UserRepo {
   Future<Either<Failure, UserEntity>> getUserData();
   Future<Either<Failure, void>> logOut();
-  Future<Either<Failure, void>> deleteAccount( Map<String, dynamic> json );
+  Future<Either<Failure, void>> sendEmailDeleteAccount( Map<String, dynamic> json );
 }
