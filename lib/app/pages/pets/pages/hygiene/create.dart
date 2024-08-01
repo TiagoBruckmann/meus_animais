@@ -50,7 +50,7 @@ class _CreateHygienePageState extends State<CreateHygienePage> {
     final theme = Theme.of(context);
 
     return VerifyConnection(
-      keyAppBar: "pages.hygiene.create.appbar",
+      keyAppBar: "pages.hygiene.create.app_bar",
       page: Observer(
         builder: ( builder ) {
 

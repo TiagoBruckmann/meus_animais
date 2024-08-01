@@ -44,7 +44,7 @@ class _PetsPageState extends State<PetsPage> {
     final theme = Theme.of(context);
 
     return VerifyConnection(
-      keyAppBar: "pages.pets.pets.appbar",
+      keyAppBar: "pages.pets.pets.app_bar",
       page: Observer(
         builder: ( builder ) {
 

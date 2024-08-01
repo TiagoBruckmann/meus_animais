@@ -50,7 +50,7 @@ class _SettingPageState extends State<SettingPage> {
     final theme = Theme.of(context);
 
     return VerifyConnection(
-      keyAppBar: "widgets.settings.appbar",
+      keyAppBar: "widgets.settings.app_bar",
       page: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
         child: Column(

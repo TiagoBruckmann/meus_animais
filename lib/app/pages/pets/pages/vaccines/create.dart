@@ -47,7 +47,7 @@ class _CreateVaccinePageState extends State<CreateVaccinePage> {
     final theme = Theme.of(context);
 
     return VerifyConnection(
-      keyAppBar: "pages.vaccines.create.appbar",
+      keyAppBar: "pages.vaccines.create.app_bar",
       page: Observer(
         builder: ( builder ) {
 

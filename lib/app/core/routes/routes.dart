@@ -135,7 +135,7 @@ class Routes {
                     ),
                     onPressed: () => Navigator.pushNamedAndRemoveUntil(context, "/", (route) => false),
                     child: Text(
-                      FlutterI18n.translate(context, "pages.dashboard.main.financial_balance.back_dash"),
+                      FlutterI18n.translate(context, "routes.back_home"),
                       textAlign: TextAlign.center,
                       style: theme.textTheme.displayMedium!.apply(
                         color: theme.colorScheme.surfaceContainer,

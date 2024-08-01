@@ -58,7 +58,7 @@ class _CreatePetState extends State<CreatePet> {
     final theme = Theme.of(context);
 
     return VerifyConnection(
-      keyAppBar: "pages.pets.create.appbar",
+      keyAppBar: "pages.pets.create.app_bar",
       page: Builder(
         builder: (context) {
 

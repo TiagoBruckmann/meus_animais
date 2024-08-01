@@ -14,7 +14,7 @@
       "btn_yes": "Confirm"
     },
     "settings": {
-      "appbar": "Profile",
+      "app_bar": "Profile",
       "title": "User name",
       "subtitle": "User e-mail",
       "main": "General",
@@ -56,7 +56,7 @@
       "reapply": "Reapply: ",
       "time": "Yes, in {time} {type_time}",
       "create": {
-        "appbar": "Register vaccine",
+        "app_bar": "Register vaccine",
         "name": "Name",
         "type": "Type of vaccine",
         "description": "Description",
@@ -77,7 +77,7 @@
     "pets": {
       "error_life_time": "unable to find animal species, please try again later!",
       "pets": {
-        "appbar": "Pets",
+        "app_bar": "Pets",
         "empty": "Not found any pets, in this moment!"
       },
       "edit": {
@@ -94,7 +94,7 @@
         "hygiene": "Hygiene"
       },
       "create": {
-        "appbar": "Register pet",
+        "app_bar": "Register pet",
         "male": "Male",
         "female": "Female",
         "sex_empty": "Select sex of animal.",
@@ -107,14 +107,14 @@
       "email": "E-mail",
       "password": "Password",
       "register": {
-        "appbar": "Registration",
+        "app_bar": "Registration",
         "name": "Name"
       },
       "login": {
         "forgot": "Forgot\nyour password?"
       },
       "forgot": {
-        "appbar": "Forgot my password",
+        "app_bar": "Forgot my password",
         "forgot": "Forgot your password",
         "btn_email": "Validate e-mail",
         "btn_unreceived": "don't received the e-mail"
@@ -127,7 +127,7 @@
         "value": "Value: "
       },
       "create": {
-        "appbar": "Register hygiene",
+        "app_bar": "Register hygiene",
         "category": "Services category",
         "empty_category": "No services found.",
         "day": "Service day",
@@ -196,7 +196,10 @@
     }
   },
   "routes": {
-    "appbar": "Screen not found."
+    "app_bar": "Screen not found.",
+    "title": "404 ERROR",
+    "subtitle": "Oppss, it looks like this page doesn`t exist!",
+    "back_home": "Back to home"
   },
   "update": {
     "title": "New version available to download!",
