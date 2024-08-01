@@ -1,12 +1,19 @@
 // pacotes nativos flutter
 import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:meus_animais/app/core/style/app_images.dart';
-import 'package:meus_animais/app/core/widgets/verify_connection.dart';
 import 'dart:io';
 
-import 'package:meus_animais/domain/source/local/mobx/pet/pet.dart';
+// imports globais
 import 'package:meus_animais/session.dart';
+
+// import das telas
+import 'package:meus_animais/app/core/widgets/verify_connection.dart';
+import 'package:meus_animais/app/core/style/app_images.dart';
+
+// import dos domain
+import 'package:meus_animais/domain/source/local/mobx/pet/pet.dart';
+
+// import dos pacotes
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
 
 class PetsPage extends StatefulWidget {
@@ -25,13 +32,13 @@ class _PetsPageState extends State<PetsPage> {
     super.didChangeDependencies();
 
     _petsMobx = Provider.of<PetMobx>(context);
-
     _petsMobx.getPets();
   }
 
   @override
   Widget build(BuildContext context) {
 
+    final width = MediaQuery.of(context).size.width;
     final theme = Theme.of(context);
 
     return VerifyConnection(
@@ -56,7 +63,7 @@ class _PetsPageState extends State<PetsPage> {
                   child: GestureDetector(
                     onTap: () => _petsMobx.goToDetail( pet ),
                     child: SizedBox(
-                      width: MediaQuery.of(context).size.width,
+                      width: width,
                       child: Padding(
                         padding: const EdgeInsets.symmetric( horizontal: 5 ),
                         child: ClipRect(
@@ -83,7 +90,7 @@ class _PetsPageState extends State<PetsPage> {
                                     ),
                                     child: Container(
                                       padding: const EdgeInsets.symmetric( horizontal: 16, vertical: 7 ),
-                                      width: MediaQuery.of(context).size.width - 25,
+                                      width: width - 25,
                                       child: Text(
                                         pet.name,
                                         textAlign: TextAlign.center,

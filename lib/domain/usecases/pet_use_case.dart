@@ -18,7 +18,7 @@ class PetUseCase {
     return await petRepo.getPets();
   }
 
-  Future<Either<Failure, void>> setPet( Map<String, dynamic> json, XFile? picture ) async {
+  Future<Either<Failure, void>> createPet( Map<String, dynamic> json, XFile? picture ) async {
     return await petRepo.setPet( json, picture );
   }
 
@@ -34,7 +34,7 @@ class PetUseCase {
     return await petRepo.getHygiene( petId );
   }
 
-  Future<Either<Failure, void>> setHygienePets( List<HygieneEntity> list ) async {
+  Future<Either<Failure, void>> createHygienePets( List<HygieneEntity> list ) async {
     return await petRepo.setHygiene( list );
   }
 
@@ -42,7 +42,7 @@ class PetUseCase {
     return await petRepo.getVaccines( petId );
   }
 
-  Future<Either<Failure, void>> setVaccines( List<VaccineEntity> list ) async {
+  Future<Either<Failure, void>> createVaccines( List<VaccineEntity> list ) async {
     return await petRepo.setVaccines( list );
   }
 

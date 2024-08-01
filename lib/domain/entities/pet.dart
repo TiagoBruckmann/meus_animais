@@ -3,13 +3,13 @@ import 'package:equatable/equatable.dart';
 
 class PetEntity extends Equatable {
 
-  final String id, userId, name, sex, specie, breed, picture, age, birth;
+  final String id, userId, name, sex, specie, breed, picture, age, birth, death;
   final String? createdAt, updatedAt;
   final double weight;
 
   const PetEntity(
     this.id, this.userId, this.name, this.sex, this.specie, this.breed,
-    this.picture, this.age, this.birth, this.weight, this.createdAt, this.updatedAt,
+    this.picture, this.age, this.birth, this.death, this.weight, this.createdAt, this.updatedAt,
   );
 
   Map<String, dynamic> toMap() {
@@ -22,6 +22,7 @@ class PetEntity extends Equatable {
       "breed": breed,
       "picture": picture,
       "age": age,
+      "death": death,
       "weight": weight,
       "created_at": createdAt ?? DateTime.now().toString(),
       "updated_at": ( createdAt == null ) ? null : DateTime.now().toString(),
@@ -34,6 +35,7 @@ class PetEntity extends Equatable {
     Map<String, dynamic> map = {
       "picture": picture,
       "weight": weight,
+      "death": death,
       "updated_at": DateTime.now().toString(),
     };
 
@@ -44,6 +46,6 @@ class PetEntity extends Equatable {
   String toString() => "PetEntity($name, $specie, $sex, $age)";
 
   @override
-  List<Object?> get props => [id, userId, name, sex, specie, breed, picture, age, birth, weight, createdAt, updatedAt];
+  List<Object?> get props => [id, userId, name, sex, specie, breed, picture, age, birth, death, weight, createdAt, updatedAt];
 
 }

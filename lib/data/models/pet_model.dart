@@ -8,7 +8,7 @@ import 'package:equatable/equatable.dart';
 
 class PetModel extends PetEntity with EquatableMixin {
 
-  PetModel( super.id, super.userId, super.name, super.sex, super.specie, super.breed, super.picture, super.age, super.birth, super.weight, super.createdAt, super.updatedAt );
+  PetModel( super.id, super.userId, super.name, super.sex, super.specie, super.breed, super.picture, super.age, super.birth, super.death, super.weight, super.createdAt, super.updatedAt );
 
   factory PetModel.fromJson( dynamic json ) {
     return PetModel(
@@ -21,6 +21,7 @@ class PetModel extends PetEntity with EquatableMixin {
       json["picture"],
       json["age"],
       Session.sharedServices.calculateBirth(json["age"]),
+      json["death"],
       json["weight"],
       json["created_at"],
       json["updated_at"],
