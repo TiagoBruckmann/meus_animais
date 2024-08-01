@@ -1,7 +1,7 @@
 // import dos domain
-import 'package:meus_animais/domain/entities/user.dart';
 import 'package:meus_animais/domain/repositories/auth_repo.dart';
 import 'package:meus_animais/domain/failures/failures.dart';
+import 'package:meus_animais/domain/entities/user.dart';
 
 // import dos pacotes
 import 'package:dartz/dartz.dart';

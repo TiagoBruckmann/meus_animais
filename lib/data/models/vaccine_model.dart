@@ -20,6 +20,7 @@ class VaccineModel extends VaccineEntity with EquatableMixin {
       typeTime: json["type_time"],
       time: json["time"],
       laboratory: json["laboratory"],
+      petId: json["pet_id"],
     );
   }
 

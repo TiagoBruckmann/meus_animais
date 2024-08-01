@@ -14,6 +14,7 @@ import 'package:http/http.dart' as http;
 abstract class NotificationRemoteDatasource {
 
   Future<void> sendNotifyReapplyVaccine( Map<String, dynamic> json );
+  Future<void> requestInfoData();
 
 }
 
@@ -83,6 +84,76 @@ class NotificationRemoteDatasourceImpl implements NotificationRemoteDatasource {
 
     if ( response.statusCode == 200 ) {
       Session.appEvents.sharedEvent("reapply_notification");
+      return;
+    }
+
+    throw ServerExceptions(response.body);
+
+  }
+
+  @override
+  Future<void> requestInfoData() async {
+
+    final body = {
+      "app_id": Session.env.onesignalAppId,
+      "headings": {
+        "en": "💣Solicitação de dados efetuada💥",
+      },
+      "contents": {
+        "en": "O usuário ${Session.user.name}, ID: ${Session.user.id}. Solicitou que seja enviado um relatório de todos os seus dados cadastrais existentes no sistema!\n\n Data da solicitação: ${DateTime.now()}",
+      },
+      "included_segments": ["only admins"],
+      "template_id": Session.env.onesignalTemplateInfoData,
+    };
+
+    Uri url = Uri.https(Session.env.baseUrl, "send-notification");
+    final metric = Session.performance.newHttpMetric(url.host, HttpMethod.Post);
+    await metric.start();
+
+    final response = await client.post(
+      url,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: jsonEncode(body),
+    );
+
+    await metric.stop();
+
+    _requestInfoSendEmail();
+
+    if ( response.statusCode == 200 ) {
+      Session.appEvents.sharedEvent("reapply_notification");
+      return;
+    }
+
+    throw ServerExceptions(response.body);
+
+  }
+
+  Future<void> _requestInfoSendEmail() async {
+
+    Map<String, dynamic> params = {
+      "subject": "💣Solicitação de dados efetuada💥",
+      "body": "O usuário ${Session.user.name}, ID: ${Session.user.id}. Solicitou que seja enviado um relatório de todos os seus dados cadastrais existentes no sistema!\n\n Data da solicitação: ${DateTime.now()}!"
+    };
+
+    Uri url = Uri.https(Session.env.baseUrl, "send_email");
+    final metric = Session.performance.newHttpMetric(url.host, HttpMethod.Post);
+    await metric.start();
+
+    final response = await client.post(
+      url,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: jsonEncode(params),
+    );
+
+    await metric.stop();
+
+    if ( response.statusCode == 204 ) {
+      Session.appEvents.sharedEvent("send_email_request_info");
       return;
     }
 

@@ -7,6 +7,10 @@ class ServiceEntity extends Equatable {
 
   const ServiceEntity( this.id, this.name );
 
+  factory ServiceEntity.isEmpty() {
+    return const ServiceEntity("", "");
+  }
+
   @override
   String toString() => "ServiceEntity($id - $name)";
 

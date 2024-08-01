@@ -30,4 +30,18 @@ class NotificationRepoImpl implements NotificationRepo {
     }
   }
 
+  @override
+  Future<Either<Failure, void>> requestInfoData() async {
+    try {
+      final result = await notificationRemoteDatasource.requestInfoData();
+      return right(result);
+    } on ServerExceptions catch (e) {
+      Session.crash.onError("request_info_data_server_error", error: e.message);
+      return left(ServerFailure(e.message));
+    } catch (e) {
+      Session.crash.onError("request_info_data_error", error: e);
+      return left(GeneralFailure(e.toString()));
+    }
+  }
+
 }

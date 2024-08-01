@@ -56,6 +56,22 @@ mixin _$EditPetMobx on _EditPetMobx, Store {
     });
   }
 
+  late final _$isUpdateAtom =
+      Atom(name: '_EditPetMobx.isUpdate', context: context);
+
+  @override
+  bool get isUpdate {
+    _$isUpdateAtom.reportRead();
+    return super.isUpdate;
+  }
+
+  @override
+  set isUpdate(bool value) {
+    _$isUpdateAtom.reportWrite(value, super.isUpdate, () {
+      super.isUpdate = value;
+    });
+  }
+
   late final _$typePageAtom =
       Atom(name: '_EditPetMobx.typePage', context: context);
 
@@ -118,6 +134,38 @@ mixin _$EditPetMobx on _EditPetMobx, Store {
     });
   }
 
+  late final _$controllerSexAtom =
+      Atom(name: '_EditPetMobx.controllerSex', context: context);
+
+  @override
+  TextEditingController get controllerSex {
+    _$controllerSexAtom.reportRead();
+    return super.controllerSex;
+  }
+
+  @override
+  set controllerSex(TextEditingController value) {
+    _$controllerSexAtom.reportWrite(value, super.controllerSex, () {
+      super.controllerSex = value;
+    });
+  }
+
+  late final _$controllerSpecieAtom =
+      Atom(name: '_EditPetMobx.controllerSpecie', context: context);
+
+  @override
+  TextEditingController get controllerSpecie {
+    _$controllerSpecieAtom.reportRead();
+    return super.controllerSpecie;
+  }
+
+  @override
+  set controllerSpecie(TextEditingController value) {
+    _$controllerSpecieAtom.reportWrite(value, super.controllerSpecie, () {
+      super.controllerSpecie = value;
+    });
+  }
+
   late final _$controllerWeightAtom =
       Atom(name: '_EditPetMobx.controllerWeight', context: context);
 
@@ -166,6 +214,38 @@ mixin _$EditPetMobx on _EditPetMobx, Store {
     });
   }
 
+  late final _$validateIsEditAsyncAction =
+      AsyncAction('_EditPetMobx.validateIsEdit', context: context);
+
+  @override
+  Future<void> validateIsEdit(PetEntity? pet) {
+    return _$validateIsEditAsyncAction.run(() => super.validateIsEdit(pet));
+  }
+
+  late final _$_getVaccinesAsyncAction =
+      AsyncAction('_EditPetMobx._getVaccines', context: context);
+
+  @override
+  Future<void> _getVaccines(String petId) {
+    return _$_getVaccinesAsyncAction.run(() => super._getVaccines(petId));
+  }
+
+  late final _$_getHygieneAsyncAction =
+      AsyncAction('_EditPetMobx._getHygiene', context: context);
+
+  @override
+  Future<void> _getHygiene(String petId) {
+    return _$_getHygieneAsyncAction.run(() => super._getHygiene(petId));
+  }
+
+  late final _$_getSpeciesAsyncAction =
+      AsyncAction('_EditPetMobx._getSpecies', context: context);
+
+  @override
+  Future<void> _getSpecies() {
+    return _$_getSpeciesAsyncAction.run(() => super._getSpecies());
+  }
+
   late final _$_createPetAsyncAction =
       AsyncAction('_EditPetMobx._createPet', context: context);
 
@@ -194,11 +274,33 @@ mixin _$EditPetMobx on _EditPetMobx, Store {
       ActionController(name: '_EditPetMobx', context: context);
 
   @override
-  void validateIsEdit(PetEntity? pet) {
+  void _setListVaccines(Iterable<VaccineEntity> value) {
     final _$actionInfo = _$_EditPetMobxActionController.startAction(
-        name: '_EditPetMobx.validateIsEdit');
+        name: '_EditPetMobx._setListVaccines');
     try {
-      return super.validateIsEdit(pet);
+      return super._setListVaccines(value);
+    } finally {
+      _$_EditPetMobxActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void _setListHygiene(Iterable<HygieneEntity> value) {
+    final _$actionInfo = _$_EditPetMobxActionController.startAction(
+        name: '_EditPetMobx._setListHygiene');
+    try {
+      return super._setListHygiene(value);
+    } finally {
+      _$_EditPetMobxActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void _setListSpecies(Iterable<LifeTimeEntity> value) {
+    final _$actionInfo = _$_EditPetMobxActionController.startAction(
+        name: '_EditPetMobx._setListSpecies');
+    try {
+      return super._setListSpecies(value);
     } finally {
       _$_EditPetMobxActionController.endAction(_$actionInfo);
     }
@@ -232,28 +334,6 @@ mixin _$EditPetMobx on _EditPetMobx, Store {
         name: '_EditPetMobx.setSpecie');
     try {
       return super.setSpecie(value);
-    } finally {
-      _$_EditPetMobxActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  void setVaccine(Iterable<VaccineEntity> vaccines) {
-    final _$actionInfo = _$_EditPetMobxActionController.startAction(
-        name: '_EditPetMobx.setVaccine');
-    try {
-      return super.setVaccine(vaccines);
-    } finally {
-      _$_EditPetMobxActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  void setHygiene(Iterable<HygieneEntity> hygiene) {
-    final _$actionInfo = _$_EditPetMobxActionController.startAction(
-        name: '_EditPetMobx.setHygiene');
-    try {
-      return super.setHygiene(hygiene);
     } finally {
       _$_EditPetMobxActionController.endAction(_$actionInfo);
     }
@@ -298,10 +378,13 @@ mixin _$EditPetMobx on _EditPetMobx, Store {
 petId: ${petId},
 controllerName: ${controllerName},
 isLoading: ${isLoading},
+isUpdate: ${isUpdate},
 typePage: ${typePage},
 sex: ${sex},
 specie: ${specie},
 controllerBreed: ${controllerBreed},
+controllerSex: ${controllerSex},
+controllerSpecie: ${controllerSpecie},
 controllerWeight: ${controllerWeight},
 controllerBirth: ${controllerBirth},
 controllerDeath: ${controllerDeath}

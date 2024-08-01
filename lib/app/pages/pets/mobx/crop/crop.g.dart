@@ -119,7 +119,7 @@ mixin _$CropMobx on _CropMobx, Store {
   }
 
   @override
-  void setSampleImage(File value) {
+  void setSampleImage(File? value) {
     final _$actionInfo = _$_CropMobxActionController.startAction(
         name: '_CropMobx.setSampleImage');
     try {

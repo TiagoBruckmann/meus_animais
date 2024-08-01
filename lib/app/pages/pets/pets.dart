@@ -1,5 +1,7 @@
 // pacotes nativos flutter
 import 'package:flutter/material.dart';
+import 'package:meus_animais/app/core/widgets/empty_page.dart';
+import 'package:meus_animais/app/pages/pets/pages/widgets/loading_pets.dart';
 import 'dart:io';
 
 // imports globais
@@ -45,6 +47,16 @@ class _PetsPageState extends State<PetsPage> {
       keyAppBar: "pages.pets.pets.appbar",
       page: Observer(
         builder: ( builder ) {
+
+          if ( _petsMobx.isLoading ) {
+            return const LoadingPetsWidget();
+          }
+
+          if ( _petsMobx.listPets.isEmpty ) {
+            return EmptyPageWidget(
+              message: _petsMobx.errorMessage ?? "pages.pets.pets.empty",
+            );
+          }
 
           return RefreshIndicator(
             onRefresh: () {

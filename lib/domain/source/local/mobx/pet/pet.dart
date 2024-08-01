@@ -23,9 +23,22 @@ abstract class _PetMobx with Store {
 
   ObservableList<PetEntity> listPets = ObservableList();
 
+  @observable
+  bool isLoading = true;
+
+  @observable
+  String? errorMessage;
+
+  @action
+  void setIsLoading( bool value ) => isLoading = value;
+
+  @action
+  void setErrorMessage( String? value ) => errorMessage = value;
+
   @action
   Future<void> getPets() async {
     if ( listPets.isNotEmpty ) {
+      setIsLoading(false);
       return;
     }
 
@@ -34,19 +47,33 @@ abstract class _PetMobx with Store {
     final successOrFailure = await _petUseCase.getPets();
 
     successOrFailure.fold(
-      (failure) => Session.logs.errorLog(failure.message),
+      (failure) {
+        Session.logs.errorLog(failure.message);
+        setErrorMessage(failure.message);
+      },
       (success) => _setList(success),
     );
 
   }
 
   @action
-  void _setList( List<PetEntity> list ) => listPets.addAll(list);
+  void _setList( List<PetEntity> list ) {
+    setErrorMessage(null);
+    listPets.addAll(list);
+    setIsLoading(false);
+  }
 
   @action
-  refresh() async {
+  Future<void> refresh() async {
     await Future.delayed(const Duration(seconds: 1, milliseconds: 500));
+    setIsLoading(true);
     listPets.clear();
+  }
+
+  @action
+  void clear() {
+    refresh();
+    setErrorMessage(null);
   }
 
   @action

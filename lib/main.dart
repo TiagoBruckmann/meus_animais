@@ -13,6 +13,7 @@ import 'package:meus_animais/app/core/style/themes.dart';
 // import dos domain
 import 'package:meus_animais/domain/source/local/mobx/connection/connection.dart';
 import 'package:meus_animais/domain/source/local/injection/injection.dart';
+import 'package:meus_animais/domain/source/local/mobx/user/user.dart';
 import 'package:meus_animais/domain/source/local/mobx/pet/pet.dart';
 
 // import dos pacotes
@@ -52,6 +53,9 @@ void main() async {
         ),
         Provider(
           create: (context) => PetMobx(),
+        ),
+        Provider(
+          create: (context) => UserMobx(),
         ),
       ],
       child: MaterialApp(

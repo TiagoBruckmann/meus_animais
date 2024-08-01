@@ -13,4 +13,8 @@ class NotificationUseCase {
     return await notificationRepo.sendNotifyReapplyVaccine(json);
   }
 
+  Future<Either<Failure, void>> requestInfoData() async {
+    return await notificationRepo.requestInfoData();
+  }
+
 }

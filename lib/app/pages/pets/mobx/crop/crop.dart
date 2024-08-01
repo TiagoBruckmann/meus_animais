@@ -41,7 +41,7 @@ abstract class _CropMobx with Store {
   void setImage( XFile value ) => image = value;
 
   @action
-  void setSampleImage( File value ) => sampleImage = value;
+  void setSampleImage( File? value ) => sampleImage = value;
 
   @action
   void setFile( File value ) => imageFile = value;
@@ -119,6 +119,8 @@ abstract class _CropMobx with Store {
 
   @action
   Future<void> cropImage() async {
+    Session.appEvents.sharedEvent("crop_image_save_image");
+
     final area = cropKey.currentState!.area;
 
     if ( area == null ) {
@@ -144,6 +146,7 @@ abstract class _CropMobx with Store {
     lastCropped?.delete();
     setLastCropped(file);
     setImage(XFile(file.path));
+    setSampleImage(null);
   }
 
 }

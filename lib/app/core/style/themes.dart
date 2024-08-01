@@ -12,16 +12,15 @@ class Themes {
   static const Color _backgroundColor = AppColors.white;
   static const Color _onSecondaryColor = AppColors.balticSea;
   static const Color _errorColor = AppColors.cinnabar;
+  static const Color _tertiaryColor = AppColors.blueSolitude;
 
   // Light colors
   static const Color _primaryColorLight = AppColors.amber;
   static const Color _secondaryColorLight = AppColors.barossa;
-  static const Color _tertiaryColorLight = AppColors.blueSolitude;
 
   // Dark colors
   static const Color _primaryColorDark = AppColors.barossa;
   static const Color _secondaryColorDark = AppColors.whiteSmoke;
-  static const Color _tertiaryColorDark = AppColors.blueSolitude;
 
   // .****************
   // Theme - Dark
@@ -30,7 +29,13 @@ class Themes {
     color: AppColors.bossanova,
     indent: 16,
     endIndent: 16,
-    thickness: 2,
+    thickness: 2.5,
+  );
+
+  static const TextStyle _headlineLargeTextDark = TextStyle(
+    fontWeight: FontWeight.w800,
+    color: _secondaryColorDark,
+    fontSize: 22,
   );
 
   static const TextStyle _headlineMediumTextDark = TextStyle(
@@ -82,8 +87,8 @@ class Themes {
   */
 
   static const TextTheme _textThemeDark = TextTheme(
+    headlineLarge: _headlineLargeTextDark,
     headlineMedium: _headlineMediumTextDark,
-    // headlineLarge: _headlineLargeTextDark,
     displayLarge: _displayLargeTextDark,
     displayMedium: _displayMediumTextDark,
     displaySmall: _displaySmallTextDark,
@@ -102,6 +107,7 @@ class Themes {
     appBarTheme: const AppBarTheme(
       backgroundColor: _primaryColorDark,
       centerTitle: true,
+      titleTextStyle: _bodyMediumTextDark,
       systemOverlayStyle: SystemUiOverlayStyle(
         statusBarBrightness: Brightness.light,
         statusBarColor: _primaryColorDark,
@@ -110,21 +116,12 @@ class Themes {
         color: _secondaryColorDark,
       ),
     ),
-    popupMenuTheme: PopupMenuThemeData(
-      labelTextStyle: WidgetStateProperty.resolveWith((states) => _displaySmallTextDark),
-      color: _primaryColorDark,
-      elevation: 8,
-    ),
-    bottomAppBarTheme: const BottomAppBarTheme(
-      color: _primaryColorDark,
-      surfaceTintColor: _secondaryColorDark,
-    ),
     textTheme: _textThemeDark,
     colorScheme: const ColorScheme.dark(
       primary: _primaryColorDark,
       secondary: _secondaryColorDark,
       onSecondary: _onSecondaryColor,
-      tertiary: _tertiaryColorDark,
+      tertiary: _tertiaryColor,
       error: _errorColor,
     ),
     cardTheme: CardTheme(
@@ -152,7 +149,7 @@ class Themes {
       contentPadding: const EdgeInsets.all(16),
       labelStyle: _bodySmallTextDark,
       filled: true,
-      fillColor: _tertiaryColorDark,
+      fillColor: _tertiaryColor,
       enabledBorder: const OutlineInputBorder(
         borderSide: BorderSide(
           color: _primaryColorDark,

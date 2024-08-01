@@ -12,7 +12,7 @@ class VaccineEntity extends Equatable {
     { this.petId, this.typeTime, this.time, this.laboratory }
   );
 
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> toMap( String petId ) {
     Map<String, dynamic> map = {
       "id": id,
       "name": name,
@@ -24,6 +24,7 @@ class VaccineEntity extends Equatable {
       "type_time": typeTime,
       "time": time,
       "laboratory": laboratory,
+      "pet_id": petId,
     };
 
     return map;

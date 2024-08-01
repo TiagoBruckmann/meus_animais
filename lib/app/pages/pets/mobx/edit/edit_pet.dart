@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 // import das telas
 import 'package:meus_animais/app/core/widgets/custom_snack_bar.dart';
+import 'package:meus_animais/domain/entities/life_time.dart';
 
 // imports globais
 import 'package:meus_animais/session.dart';
@@ -39,6 +40,9 @@ abstract class _EditPetMobx with Store {
   bool isLoading = true;
 
   @observable
+  bool isUpdate = true;
+
+  @observable
   String typePage = "";
 
   @observable
@@ -51,6 +55,12 @@ abstract class _EditPetMobx with Store {
   TextEditingController controllerBreed = TextEditingController();
 
   @observable
+  TextEditingController controllerSex = TextEditingController();
+
+  @observable
+  TextEditingController controllerSpecie = TextEditingController();
+
+  @observable
   MoneyMaskedTextController controllerWeight = MoneyMaskedTextController(leftSymbol: "KG ", decimalSeparator: ".", precision: 2);
 
   @observable
@@ -59,14 +69,19 @@ abstract class _EditPetMobx with Store {
   @observable
   MaskedTextController controllerDeath = MaskedTextController(mask: "00/00/0000");
 
+  ObservableList<LifeTimeEntity> listSpecies = ObservableList();
+
   ObservableList<VaccineEntity> listVaccines = ObservableList();
 
   ObservableList<HygieneEntity> listHygiene = ObservableList();
 
   @action
-  void validateIsEdit( PetEntity? pet ) {
+  Future<void> validateIsEdit( PetEntity? pet ) async {
+
+    _getSpecies();
 
     if ( pet == null ) {
+      isUpdate = true;
       typePage = "create_pet";
       Session.appEvents.sendScreen(typePage);
       setIsLoading(false);
@@ -82,12 +97,67 @@ abstract class _EditPetMobx with Store {
     controllerBirth = MaskedTextController(mask: "00/00/0000", text: pet.birth);
     controllerDeath = MaskedTextController(mask: "00/00/0000", text: pet.death);
 
+    controllerSex.text = pet.sex;
+    controllerSpecie.text = pet.specie;
+
     setSex(pet.sex);
     setSpecie(pet.specie);
+
+    await _getVaccines( pet.id );
+    await _getHygiene( pet.id );
 
     setIsLoading(false);
 
   }
+
+  @action
+  Future<void> _getVaccines( String petId ) async {
+
+    final successOrFailure = await _petUseCase.getVaccines(petId);
+
+    successOrFailure.fold(
+      (failure) => Session.logs.errorLog(failure.message),
+      (success) => _setListVaccines(success),
+    );
+
+  }
+
+  @action
+  Future<void> _getHygiene( String petId ) async {
+
+    final successOrFailure = await _petUseCase.getHygienePets(petId);
+
+    successOrFailure.fold(
+      (failure) => Session.logs.errorLog(failure.message),
+      (success) => _setListHygiene(success),
+    );
+
+  }
+
+  @action
+  Future<void> _getSpecies() async {
+
+    final successOrFailure = await _petUseCase.getLifeTimePets();
+
+    successOrFailure.fold(
+      (failure) {
+        Session.logs.errorLog(failure.message);
+        CustomSnackBar(messageKey: "pages.pets.error_life_time");
+        return;
+      },
+      (success) => _setListSpecies(success),
+    );
+
+  }
+
+  @action
+  void _setListVaccines( Iterable<VaccineEntity> value ) => listVaccines.addAll(value);
+
+  @action
+  void _setListHygiene( Iterable<HygieneEntity> value ) => listHygiene.addAll(value);
+
+  @action
+  void _setListSpecies( Iterable<LifeTimeEntity> value ) => listSpecies.addAll(value);
 
   @action
   void setIsLoading( bool value ) => isLoading = value;
@@ -97,12 +167,6 @@ abstract class _EditPetMobx with Store {
 
   @action
   void setSpecie( String value ) => specie = value;
-
-  @action
-  void setVaccine( Iterable<VaccineEntity> vaccines ) => listVaccines.addAll(vaccines);
-
-  @action
-  void setHygiene( Iterable<HygieneEntity> hygiene ) => listHygiene.addAll(hygiene);
 
   @action
   void validateFields( XFile? picture ) {
@@ -183,7 +247,27 @@ abstract class _EditPetMobx with Store {
 
     Session.appEvents.sharedEvent("create_pet");
 
-    final successOrFailure = await _petUseCase.createPet(pet.toMap(), picture);
+    List<Map<String, dynamic>> vaccines = [];
+    for ( final item in listVaccines ) {
+      vaccines.add(
+        item.toMap( pet.id ),
+      );
+    }
+
+    List<Map<String, dynamic>> hygiene = [];
+    for ( final item in listHygiene ) {
+      hygiene.add(
+        item.toMap( pet.id ),
+      );
+    }
+
+    Map<String, dynamic> params = {
+      "pet": pet.toMap(),
+      "vaccine": vaccines,
+      "hygiene": hygiene,
+    };
+
+    final successOrFailure = await _petUseCase.createPet(params, picture);
 
     successOrFailure.fold(
       (failure) {
@@ -205,8 +289,10 @@ abstract class _EditPetMobx with Store {
     controllerWeight.dispose();
     controllerBirth.dispose();
     controllerDeath.dispose();
-    listHygiene.clear();
+    controllerSex.dispose();
+    controllerSpecie.dispose();
     listVaccines.clear();
+    listHygiene.clear();
   }
 
   @action
@@ -221,14 +307,14 @@ abstract class _EditPetMobx with Store {
 
     final params = {
       "pet_id": petId,
-      "update": false,
+      "is_update": isUpdate,
     };
 
-    final response = await Navigator.pushNamed(_currentContext, "/vaccines", arguments: params);
+    final response = await Navigator.pushNamed(_currentContext, "/vaccine", arguments: params);
 
     if ( response != null ) {
       Iterable<VaccineEntity> vaccines = response as Iterable<VaccineEntity>;
-      setVaccine( vaccines );
+      _setListVaccines( vaccines );
     }
 
     return;
@@ -240,14 +326,14 @@ abstract class _EditPetMobx with Store {
 
     final params = {
       "pet_id": petId,
-      "update": false,
+      "is_update": isUpdate,
     };
 
     final response = await Navigator.pushNamed(_currentContext, "/hygiene", arguments: params);
 
     if ( response != null ) {
       Iterable<HygieneEntity> hygiene = response as Iterable<HygieneEntity>;
-      setHygiene( hygiene );
+      _setListHygiene( hygiene );
     }
 
     return;

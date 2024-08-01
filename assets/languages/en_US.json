@@ -70,10 +70,12 @@
         "type_time_empty": "Select period of time to revaccinate.",
         "interval": "Interval of time.",
         "interval_empty": "Interval of time between vaccines.",
-        "laboratory": "Laboratory of  manufacturing."
+        "laboratory": "Laboratory of  manufacturing.",
+        "empty_vaccine": "No vaccine found."
       }
     },
     "pets": {
+      "error_life_time": "unable to find animal species, please try again later!",
       "pets": {
         "appbar": "Pets",
         "empty": "Not found any pets, in this moment!"
@@ -119,6 +121,7 @@
       }
     },
     "hygiene": {
+      "error_services": "Unable to find available services, please try again later!",
       "hygiene": {
         "place": "Place: ",
         "value": "Value: "
@@ -126,7 +129,7 @@
       "create": {
         "appbar": "Register hygiene",
         "category": "Services category",
-        "empty_category": "No found any services.",
+        "empty_category": "No services found.",
         "day": "Service day",
         "establishment": "Establishment",
         "value": "Value"

@@ -70,10 +70,12 @@
         "type_time_empty": "Selecione o periodo de tempo para revacinar.",
         "interval": "Intervalo de tempo",
         "interval_empty": "Intervalo de tempo entre as vacinas.",
-        "laboratory": "Laboratorio de fabricação"
+        "laboratory": "Laboratorio de fabricação",
+        "empty_vaccine": "Nenhuma vacina foi encontrada encontrada."
       }
     },
     "pets": {
+      "error_life_time": "Não foi possível buscar as especies de animais, tente novamente mais tarde!",
       "pets": {
         "appbar": "Pets",
         "empty": "Nenhum pet encontrado no momento!"
@@ -119,6 +121,7 @@
       }
     },
     "hygiene": {
+      "error_services": "Não foi possível buscar os serviços disponíveis, tente novamente mais tarde!",
       "hygiene": {
         "place": "Local: ",
         "value": "valor: "

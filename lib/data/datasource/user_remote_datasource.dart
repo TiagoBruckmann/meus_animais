@@ -130,7 +130,6 @@ class UserRemoteSourceImpl implements UserRemoteDatasource {
     await user.delete().then((value) async {
 
       await metric.stop();
-      Session.localStorage.deleteAllTokens();
 
       await db.collection("users").doc(json["id"]).update(json["delete_user"]);
 

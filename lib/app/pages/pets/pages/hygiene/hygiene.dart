@@ -1,13 +1,15 @@
 // pacotes nativos flutter
 import 'package:flutter/material.dart';
 
+// import dos domain
+import 'package:meus_animais/domain/entities/hygiene.dart';
+
 // import dos pacotes
 import 'package:flutter_i18n/flutter_i18n.dart';
-import 'package:meus_animais/domain/entities/vaccine.dart';
 
-class VaccinesPage extends StatelessWidget {
-  final VaccineEntity vaccine;
-  const VaccinesPage({ super.key, required this.vaccine });
+class HygienePage extends StatelessWidget {
+  final HygieneEntity hygiene;
+  const HygienePage({ super.key, required this.hygiene });
 
   @override
   Widget build(BuildContext context) {
@@ -26,13 +28,13 @@ class VaccinesPage extends StatelessWidget {
               children: [
 
                 Text(
-                  vaccine.name,
+                  hygiene.name,
                   style: theme.textTheme.headlineMedium,
                 ),
 
                 Text(
-                  vaccine.day,
-                  style: theme.textTheme.displaySmall,
+                  hygiene.day,
+                  style: theme.textTheme.headlineMedium,
                 ),
 
               ],
@@ -49,15 +51,19 @@ class VaccinesPage extends StatelessWidget {
 
                 Text.rich(
                   TextSpan(
-                    text: FlutterI18n.translate(context, "pages.vaccines.type"),
+                    text: FlutterI18n.translate(context, "pages.hygiene.hygiene.place"),
                     style: theme.textTheme.displayLarge?.apply(
                       fontWeightDelta: 4,
                     ),
                     children: [
+
                       TextSpan(
-                        text: vaccine.type,
-                        style: theme.textTheme.bodySmall,
+                        text: hygiene.place,
+                        style: theme.textTheme.displayLarge?.apply(
+                          fontWeightDelta: -5,
+                        ),
                       ),
+
                     ],
                   ),
                 ),
@@ -66,25 +72,23 @@ class VaccinesPage extends StatelessWidget {
             ),
           ),
 
-          ( !vaccine.reapply )
-            ? const Padding(padding: EdgeInsets.zero)
-            : Padding(
-            padding: const EdgeInsets.fromLTRB(16, 0, 0, 8),
+          Padding(
+            padding: const EdgeInsets.only( left: 16, bottom: 8 ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
 
                 Text.rich(
                   TextSpan(
-                    text: FlutterI18n.translate(context, "pages.vaccines.reapply"),
-                    style: theme.textTheme.displayLarge,
+                    text: FlutterI18n.translate(context, "pages.hygiene.hygiene.value"),
+                    style: theme.textTheme.displayLarge?.apply(
+                      fontWeightDelta: 4,
+                    ),
                     children: [
 
                       TextSpan(
-                        text: FlutterI18n.translate(context, "pages.vaccines.time", translationParams: <String, String>{"time": vaccine.time!, "type_time": vaccine.typeTime!}),
-                        style: theme.textTheme.displayLarge?.apply(
-                          fontWeightDelta: -5,
-                        ),
+                        text: hygiene.value,
+                        style: theme.textTheme.bodySmall,
                       ),
 
                     ],

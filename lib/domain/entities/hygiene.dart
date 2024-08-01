@@ -8,7 +8,7 @@ class HygieneEntity extends Equatable {
 
   const HygieneEntity( this.id, this.name, this.day, this.place, this.value, this.createdAt, { this.petId } );
 
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> toMap( String petId ) {
     Map<String, dynamic> map = {
       "id": id,
       "name": name,
@@ -16,6 +16,7 @@ class HygieneEntity extends Equatable {
       "day": day,
       "value": value,
       "created_at": DateTime.now().toString(),
+      "pet_id": petId,
     };
 
     return map;

@@ -251,16 +251,20 @@ class PetRemoteSourceImpl implements PetRemoteDatasource {
 
     for ( final item in list ) {
 
-      final metric = Session.performance.newHttpMetric("set-hygiene-pet-${item.id}", HttpMethod.Post);
-      await metric.start();
+      if ( item.petId != null ) {
 
-      await db.collection("pets")
-        .doc(item.petId)
-        .collection("hygiene")
-        .doc(item.id)
-        .set(item.toMap());
+        final metric = Session.performance.newHttpMetric("set-hygiene-pet-${item.id}", HttpMethod.Post);
+        await metric.start();
 
-      await metric.stop();
+        await db.collection("pets")
+          .doc(item.petId)
+          .collection("hygiene")
+          .doc(item.id)
+          .set(item.toMap( item.petId! ));
+
+        await metric.stop();
+
+      }
 
     }
 
@@ -308,16 +312,20 @@ class PetRemoteSourceImpl implements PetRemoteDatasource {
 
     for ( final item in list ) {
 
-      final metric = Session.performance.newHttpMetric("set-vaccine-${item.id}", HttpMethod.Post);
-      await metric.start();
+      if ( item.petId != null ) {
 
-      await db.collection("pets")
-        .doc(item.petId)
-        .collection("vaccines")
-        .doc(item.id)
-        .set(item.toMap());
+        final metric = Session.performance.newHttpMetric("set-vaccine-${item.id}", HttpMethod.Post);
+        await metric.start();
 
-      await metric.stop();
+        await db.collection("pets")
+          .doc(item.petId)
+          .collection("vaccines")
+          .doc(item.id)
+          .set(item.toMap( item.petId! ));
+
+        await metric.stop();
+
+      }
 
     }
 

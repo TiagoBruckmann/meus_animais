@@ -11,7 +11,6 @@ import 'package:meus_animais/app/core/widgets/loading_connection.dart';
 import 'package:meus_animais/domain/source/local/mobx/connection/connection.dart';
 
 // import dos pacotes
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
@@ -22,16 +21,13 @@ class VerifyConnection extends StatelessWidget {
   final Map<String, String>? appBarParams;
   final List<Widget>? actionWidgets;
   final Widget page;
-  final bool floatingButtonOnLeft;
-  final Function? function;
-  const VerifyConnection({ super.key, required this.keyAppBar, this.appBarParams, this.actionWidgets, required this.page, this.function, this.floatingButtonOnLeft = false });
+  const VerifyConnection({ super.key, required this.keyAppBar, this.appBarParams, this.actionWidgets, required this.page });
 
   @override
   Widget build(BuildContext context) {
 
     final connectionMobx = Provider.of<ConnectionMobx>(context);
     connectionMobx.listenChangeConnectivityState();
-    final ThemeData theme = Theme.of(context);
 
     return Observer(
       builder: (builder) {
@@ -43,27 +39,12 @@ class VerifyConnection extends StatelessWidget {
                 : AppBar(
               title: Text(
                 FlutterI18n.translate(context, keyAppBar, translationParams: appBarParams),
-                style: theme.textTheme.bodyMedium,
               ),
-              centerTitle: true,
               actions: actionWidgets ?? [],
             ),
             body: ( !Session.sharedServices.validateConnection(connectionMobx) )
-                ? const LoadingConnection()
-                : page,
-            floatingActionButtonLocation: ( floatingButtonOnLeft )
-                ? FloatingActionButtonLocation.startFloat
-                : FloatingActionButtonLocation.endFloat,
-            floatingActionButton: ( function == null )
-                ? null
-                : FloatingActionButton(
-              onPressed: () => function!.call(),
-              child: FaIcon(
-                FontAwesomeIcons.plus,
-                color: theme.colorScheme.surfaceContainer,
-                size: 18,
-              ),
-            ),
+              ? const LoadingConnection()
+              : page,
           ),
         );
 
