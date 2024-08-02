@@ -23,6 +23,148 @@ class Themes {
   static const Color _secondaryColorDark = AppColors.whiteSmoke;
 
   // .****************
+  // Theme - Light
+  // .****************
+  static const DividerThemeData _dividerThemeDataLight = DividerThemeData(
+    color: AppColors.bossanova,
+    indent: 16,
+    endIndent: 16,
+    thickness: 2.5,
+  );
+
+  static const TextStyle _headlineLargeTextLight = TextStyle(
+    fontWeight: FontWeight.w800,
+    color: _secondaryColorLight,
+    fontSize: 22,
+  );
+
+  static const TextStyle _headlineMediumTextLight = TextStyle(
+    color: _secondaryColorLight,
+    fontSize: 20,
+  );
+
+  static const TextStyle _displayLargeTextLight = TextStyle(
+    color: _secondaryColorLight,
+    fontSize: 18,
+  );
+
+  static const TextStyle _displayMediumTextLight = TextStyle(
+    fontWeight: FontWeight.bold,
+    color: _secondaryColorLight,
+    fontSize: 17,
+  );
+
+  static const TextStyle _displaySmallTextLight = TextStyle(
+    fontWeight: FontWeight.w500,
+    color: _primaryColorLight,
+    fontSize: 16,
+  );
+
+  static const TextStyle _bodyLargeTextLight = TextStyle(
+    color: _secondaryColorLight,
+    fontSize: 15,
+  );
+
+  static const TextStyle _bodyMediumTextLight = TextStyle(
+    color: _secondaryColorLight,
+    fontWeight: FontWeight.bold,
+  );
+
+  static const TextStyle _bodySmallTextLight = TextStyle(
+    color: _onSecondaryColor,
+  );
+
+  static const TextTheme _textThemeLight = TextTheme(
+    headlineLarge: _headlineLargeTextLight,
+    headlineMedium: _headlineMediumTextLight,
+    displayLarge: _displayLargeTextLight,
+    displayMedium: _displayMediumTextLight,
+    displaySmall: _displaySmallTextLight,
+    bodyLarge: _bodyLargeTextLight,
+    bodyMedium: _bodyMediumTextLight,
+    bodySmall: _bodySmallTextLight,
+  );
+
+  static final ThemeData lightTheme = ThemeData(
+    useMaterial3: true,
+    scaffoldBackgroundColor: _backgroundColor,
+    appBarTheme: const AppBarTheme(
+      backgroundColor: _primaryColorLight,
+      centerTitle: true,
+      titleTextStyle: _bodyMediumTextLight,
+      systemOverlayStyle: SystemUiOverlayStyle(
+        statusBarBrightness: Brightness.light,
+        statusBarColor: _primaryColorLight,
+      ),
+      iconTheme: IconThemeData(
+        color: _secondaryColorLight,
+      ),
+    ),
+    textTheme: _textThemeLight,
+    colorScheme: const ColorScheme.light(
+      primary: _primaryColorLight,
+      secondary: _secondaryColorLight,
+      onSecondary: _onSecondaryColor,
+      tertiary: _tertiaryColor,
+      error: _errorColor,
+    ),
+    cardTheme: CardTheme(
+      color: _primaryColorLight,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular( 10 ),
+      ),
+    ),
+    iconTheme: const IconThemeData(
+      color: _primaryColorLight,
+      size: 18,
+    ),
+    dialogTheme: const DialogTheme(
+      backgroundColor: _primaryColorLight,
+      titleTextStyle: TextStyle(
+        color: _secondaryColorLight,
+        fontSize: 20,
+      ),
+      contentTextStyle: TextStyle(
+        color: _secondaryColorLight,
+      ),
+    ),
+    dividerTheme: _dividerThemeDataLight,
+    inputDecorationTheme: InputDecorationTheme(
+      contentPadding: const EdgeInsets.all(16),
+      labelStyle: _bodySmallTextLight,
+      filled: true,
+      fillColor: _tertiaryColor,
+      enabledBorder: const OutlineInputBorder(
+        borderSide: BorderSide(
+          color: _primaryColorLight,
+        ),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderSide: const BorderSide(
+          color: _primaryColorLight,
+        ),
+        borderRadius: BorderRadius.circular(5),
+      ),
+      border:  OutlineInputBorder(
+        borderRadius: BorderRadius.circular(5),
+      ),
+    ),
+    elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ElevatedButton.styleFrom(
+        backgroundColor: _primaryColorLight,
+        padding: const EdgeInsets.symmetric( vertical: 16, horizontal: 36 ),
+        side: const BorderSide(
+          color: _secondaryColorLight,
+          width: 3,
+        ),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+      ),
+    ),
+  );
+
+  // .****************
   // Theme - Dark
   // .****************
   static const DividerThemeData _dividerThemeDataDark = DividerThemeData(
@@ -74,18 +216,6 @@ class Themes {
     color: _onSecondaryColor,
   );
 
-  /*
-  static const TextStyle _labelMediumTextDark = TextStyle(
-    color: _tertiaryColorDark,
-    fontSize: 15,
-  );
-
-  static const TextStyle _labelSmallTextDark = TextStyle(
-    color: _tertiaryColorDark,
-    fontSize: 12,
-  );
-  */
-
   static const TextTheme _textThemeDark = TextTheme(
     headlineLarge: _headlineLargeTextDark,
     headlineMedium: _headlineMediumTextDark,
@@ -94,11 +224,7 @@ class Themes {
     displaySmall: _displaySmallTextDark,
     bodyLarge: _bodyLargeTextDark,
     bodyMedium: _bodyMediumTextDark,
-    bodySmall: _bodySmallTextDark
-    /*
-    labelMedium: _labelMediumTextDark,
-    labelSmall: _labelSmallTextDark,
-     */
+    bodySmall: _bodySmallTextDark,
   );
 
   static final ThemeData darkTheme = ThemeData(
@@ -176,13 +302,6 @@ class Themes {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
         ),
-      ),
-    ),
-    floatingActionButtonTheme: FloatingActionButtonThemeData(
-      backgroundColor: _secondaryColorDark,
-      elevation: 3,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular( 30 ),
       ),
     ),
   );

@@ -124,12 +124,9 @@ abstract class _CropMobx with Store {
     final area = cropKey.currentState!.area;
 
     if ( area == null ) {
-      // cannot crop, widget is not setup
       return;
     }
 
-    // scale up to use maximum possible number of pixels
-    // this will sample image in higher resolution to make cropped image larger
     final sample = await ImageCrop.sampleImage(
       file: imageFile!,
       preferredWidth: (1280).round(),

@@ -2,10 +2,13 @@
 import 'package:flutter/material.dart';
 
 // import das telas
+import 'package:meus_animais/app/pages/auth/pages/forgot_password.dart';
 import 'package:meus_animais/app/pages/pets/pages/vaccines/create.dart';
 import 'package:meus_animais/app/pages/pets/pages/hygiene/create.dart';
 import 'package:meus_animais/app/core/widgets/verify_connection.dart';
+import 'package:meus_animais/app/pages/auth/pages/register.dart';
 import 'package:meus_animais/app/pages/settings/setting.dart';
+import 'package:meus_animais/app/pages/auth/pages/login.dart';
 import 'package:meus_animais/app/core/style/app_images.dart';
 import 'package:meus_animais/app/pages/splash/splash.dart';
 import 'package:meus_animais/app/pages/terms/policy.dart';
@@ -30,7 +33,6 @@ class Routes {
         return MaterialPageRoute(
           builder: (_) => const SplashPage(),
         );
-        /*
       case "/login" :
         return MaterialPageRoute(
           builder: (_) => const LoginPage(),
@@ -41,9 +43,8 @@ class Routes {
         );
       case "/forgot_password" :
         return MaterialPageRoute(
-          builder: (_) => const ForgotPassword(),
+          builder: (_) => const ForgotPasswordPage(),
         );
-         */
       case "/" :
         return MaterialPageRoute(
           builder: (_) => const HomePage(),

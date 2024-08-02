@@ -93,7 +93,7 @@ abstract class _UserMobx with Store {
 
   @action
   void goToTerms() {
-    Session.appEvents.sharedEvent("settings_open_terms");
+    Session.appEvents.sendScreen("terms");
     Navigator.pushNamed(
       _currentContext,
       "/terms",
@@ -102,7 +102,7 @@ abstract class _UserMobx with Store {
 
   @action
   void goToPolicy() {
-    Session.appEvents.sharedEvent("settings_open_policy");
+    Session.appEvents.sendScreen("policy");
     Navigator.pushNamed(
       _currentContext,
       "/policy",
@@ -111,7 +111,7 @@ abstract class _UserMobx with Store {
 
   @action
   void _goToLogin() {
-    Session.appEvents.sharedEvent("settings_open_login");
+    Session.appEvents.sharedEvent("settings_return_to_login");
     Navigator.pushNamedAndRemoveUntil(
       _currentContext,
       "/login",
