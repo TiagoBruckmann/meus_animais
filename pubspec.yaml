@@ -2,7 +2,7 @@ name: meus_animais
 description: "Tome nota dos cuidados especiais que seu pet precisa!"
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
-version: 2.0.0+34
+version: 2.0.0+35
 
 environment:
   sdk: '>=3.4.4 <4.0.0'
@@ -31,6 +31,7 @@ dependencies:
   new_version_plus: ^0.0.11
   cloud_firestore: ^5.1.0
   cupertino_icons: ^1.0.8
+  crop_your_image: ^1.1.0
   flutter_mobx: ^2.2.1+1
   google_nav_bar: ^5.0.6
   firebase_auth: ^5.1.2
@@ -40,7 +41,6 @@ dependencies:
   url_launcher: ^6.3.0
   injectable: ^2.4.4
   equatable: ^2.0.5
-  image_crop: ^0.4.1
   provider: ^6.1.2
   dartz: ^0.10.1
   get_it: ^7.7.0
