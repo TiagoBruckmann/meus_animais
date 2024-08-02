@@ -9,8 +9,9 @@ import 'package:meus_animais/session.dart';
 import 'package:meus_animais/app/core/style/app_colors.dart';
 
 // import dos pacotes
+import 'package:crop_your_image/crop_your_image.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:image_crop/image_crop.dart';
+// import 'package:image_crop/image_crop.dart';
 import 'package:mobx/mobx.dart';
 
 part 'crop.g.dart';

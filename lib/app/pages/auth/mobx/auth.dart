@@ -115,7 +115,10 @@ abstract class _AuthMobx with Store {
         Session.logs.errorLog(failure.message);
         return setMessage(failure.message);
       },
-      (success) => _goToHome(),
+      (success) {
+        Session.user = success;
+        _goToHome();
+      },
     );
     
   }
@@ -151,7 +154,10 @@ abstract class _AuthMobx with Store {
         Session.logs.errorLog(failure.message);
         return setMessage(failure.message);
       },
-      (success) => _goToHome(),
+      (success) {
+        Session.user = success;
+        _goToHome();
+      },
     );
 
   }

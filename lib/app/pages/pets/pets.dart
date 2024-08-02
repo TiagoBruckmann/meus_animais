@@ -1,17 +1,18 @@
 // pacotes nativos flutter
 import 'package:flutter/material.dart';
-import 'package:meus_animais/app/core/widgets/empty_page.dart';
-import 'package:meus_animais/app/pages/pets/pages/widgets/loading_pets.dart';
 import 'dart:io';
 
 // imports globais
 import 'package:meus_animais/session.dart';
 
 // import das telas
+import 'package:meus_animais/app/pages/pets/pages/widgets/loading_pets.dart';
 import 'package:meus_animais/app/core/widgets/verify_connection.dart';
+import 'package:meus_animais/app/core/widgets/empty_page.dart';
 import 'package:meus_animais/app/core/style/app_images.dart';
 
 // import dos domain
+import 'package:meus_animais/domain/source/local/mobx/user/user.dart';
 import 'package:meus_animais/domain/source/local/mobx/pet/pet.dart';
 
 // import dos pacotes
@@ -28,13 +29,23 @@ class PetsPage extends StatefulWidget {
 class _PetsPageState extends State<PetsPage> {
 
   late PetMobx _petsMobx;
+  late UserMobx _userMobx;
 
   @override
-  void didChangeDependencies() {
+  void initState() {
+    super.initState();
+    Session.appEvents.sendScreen("pets");
+  }
+
+  @override
+  void didChangeDependencies() async {
     super.didChangeDependencies();
 
     _petsMobx = Provider.of<PetMobx>(context);
-    _petsMobx.getPets();
+    _userMobx = Provider.of<UserMobx>(context);
+    await _petsMobx.getPets();
+
+    _userMobx.verifyVersion();
   }
 
   @override
