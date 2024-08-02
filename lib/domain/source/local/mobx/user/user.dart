@@ -1,6 +1,5 @@
 // pacotes nativos do flutter
 import 'package:flutter/material.dart';
-import 'package:meus_animais/domain/usecases/notification_use_case.dart';
 
 // imports globais
 import 'package:meus_animais/session.dart';
@@ -10,9 +9,12 @@ import 'package:meus_animais/app/core/widgets/custom_snack_bar.dart';
 
 // import dos domain
 import 'package:meus_animais/domain/source/local/injection/injection.dart';
+import 'package:meus_animais/domain/usecases/notification_use_case.dart';
 import 'package:meus_animais/domain/usecases/user_usecase.dart';
 
 // import dos pacotes
+import 'package:new_version_plus/new_version_plus.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:mobx/mobx.dart';
 
 part 'user.g.dart';
@@ -24,6 +26,35 @@ abstract class _UserMobx with Store {
   final _currentContext = Session.globalContext.currentContext!;
   final _notificationUseCase = NotificationUseCase(getIt());
   final _userUseCase = UserUseCase(getIt());
+
+  @action
+  Future<void> verifyVersion() async {
+
+    final newVersion = NewVersionPlus();
+    final versionStatus = await newVersion.getVersionStatus();
+
+    if ( versionStatus == null ) return;
+
+    int storeVersion = int.parse(versionStatus.storeVersion.replaceAll(".", ""));
+    int localVersion = int.parse(versionStatus.localVersion.replaceAll(".", ""));
+
+    if ( localVersion < storeVersion && versionStatus.canUpdate ) {
+
+      Map<String, String> params = {
+        "store_version": versionStatus.storeVersion,
+      };
+
+      newVersion.showUpdateDialog(
+        context: _currentContext,
+        versionStatus: versionStatus,
+        dialogTitle: FlutterI18n.translate(_currentContext, "update.title"),
+        dialogText: FlutterI18n.translate(_currentContext, "update.body", translationParams: params),
+        updateButtonText: FlutterI18n.translate(_currentContext, "btn_update"),
+        allowDismissal: false,
+      );
+    }
+
+  }
 
   @action
   Future<void> getUser() async {
