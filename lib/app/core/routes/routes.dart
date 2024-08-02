@@ -8,6 +8,8 @@ import 'package:meus_animais/app/core/widgets/verify_connection.dart';
 import 'package:meus_animais/app/pages/settings/setting.dart';
 import 'package:meus_animais/app/core/style/app_images.dart';
 import 'package:meus_animais/app/pages/splash/splash.dart';
+import 'package:meus_animais/app/pages/terms/policy.dart';
+import 'package:meus_animais/app/pages/terms/terms.dart';
 import 'package:meus_animais/app/pages/pets/create.dart';
 import 'package:meus_animais/app/pages/home.dart';
 
@@ -72,7 +74,6 @@ class Routes {
         return MaterialPageRoute(
           builder: (_) => const SettingPage(),
         );
-        /*
       case "/terms" :
         return MaterialPageRoute(
           builder: (_) => const TermsPage(),
@@ -81,7 +82,6 @@ class Routes {
         return MaterialPageRoute(
           builder: (_) => const PolicyPage(),
         );
-        */
       default:
         _errorRoute();
     }
