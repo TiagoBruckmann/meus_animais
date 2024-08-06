@@ -1,13 +1,13 @@
-// import dos pacotes
-import 'package:image_picker/image_picker.dart';
-import 'package:dartz/dartz.dart';
-
 // import dos domain
 import 'package:meus_animais/domain/entities/hygiene.dart';
 import 'package:meus_animais/domain/entities/life_time.dart';
 import 'package:meus_animais/domain/failures/failures.dart';
 import 'package:meus_animais/domain/entities/vaccine.dart';
 import 'package:meus_animais/domain/entities/pet.dart';
+
+// import dos pacotes
+import 'package:image_picker/image_picker.dart';
+import 'package:dartz/dartz.dart';
 
 abstract class PetRepo {
   Future<Either<Failure, List<PetEntity>>> getPets();

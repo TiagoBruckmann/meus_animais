@@ -44,16 +44,22 @@ abstract class _UserMobx with Store {
         "store_version": versionStatus.storeVersion,
       };
 
-      newVersion.showUpdateDialog(
-        context: _currentContext,
-        versionStatus: versionStatus,
-        dialogTitle: FlutterI18n.translate(_currentContext, "update.title"),
-        dialogText: FlutterI18n.translate(_currentContext, "update.body", translationParams: params),
-        updateButtonText: FlutterI18n.translate(_currentContext, "btn_update"),
-        allowDismissal: false,
-      );
+      _showDialogNewVersion(newVersion, versionStatus, params);
+
     }
 
+  }
+
+  @action
+  void _showDialogNewVersion( NewVersionPlus newVersion, VersionStatus versionStatus, Map<String, String> params ) {
+    newVersion.showUpdateDialog(
+      context: _currentContext,
+      versionStatus: versionStatus,
+      dialogTitle: FlutterI18n.translate(_currentContext, "update.title"),
+      dialogText: FlutterI18n.translate(_currentContext, "update.body", translationParams: params),
+      updateButtonText: FlutterI18n.translate(_currentContext, "btn_update"),
+      allowDismissal: false,
+    );
   }
 
   @action

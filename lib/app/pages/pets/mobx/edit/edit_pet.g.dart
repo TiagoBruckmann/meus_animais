@@ -340,7 +340,7 @@ mixin _$EditPetMobx on _EditPetMobx, Store {
   }
 
   @override
-  void validateFields(XFile? picture) {
+  void validateFields(Uint8List? picture) {
     final _$actionInfo = _$_EditPetMobxActionController.startAction(
         name: '_EditPetMobx.validateFields');
     try {

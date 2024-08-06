@@ -53,6 +53,18 @@ mixin _$UserMobx on _UserMobx, Store {
       ActionController(name: '_UserMobx', context: context);
 
   @override
+  void _showDialogNewVersion(NewVersionPlus newVersion,
+      VersionStatus versionStatus, Map<String, String> params) {
+    final _$actionInfo = _$_UserMobxActionController.startAction(
+        name: '_UserMobx._showDialogNewVersion');
+    try {
+      return super._showDialogNewVersion(newVersion, versionStatus, params);
+    } finally {
+      _$_UserMobxActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   void goToTerms() {
     final _$actionInfo =
         _$_UserMobxActionController.startAction(name: '_UserMobx.goToTerms');

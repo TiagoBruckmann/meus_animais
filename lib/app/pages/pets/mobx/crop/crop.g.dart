@@ -9,165 +9,208 @@ part of 'crop.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
 mixin _$CropMobx on _CropMobx, Store {
-  late final _$imageAtom = Atom(name: '_CropMobx.image', context: context);
+  late final _$cropControllerAtom =
+      Atom(name: '_CropMobx.cropController', context: context);
 
   @override
-  XFile? get image {
-    _$imageAtom.reportRead();
-    return super.image;
+  CropController get cropController {
+    _$cropControllerAtom.reportRead();
+    return super.cropController;
   }
 
   @override
-  set image(XFile? value) {
-    _$imageAtom.reportWrite(value, super.image, () {
-      super.image = value;
+  set cropController(CropController value) {
+    _$cropControllerAtom.reportWrite(value, super.cropController, () {
+      super.cropController = value;
     });
   }
 
-  late final _$listImageFileAtom =
-      Atom(name: '_CropMobx.listImageFile', context: context);
+  late final _$croppedDataAtom =
+      Atom(name: '_CropMobx.croppedData', context: context);
 
   @override
-  List<XFile> get listImageFile {
-    _$listImageFileAtom.reportRead();
-    return super.listImageFile;
+  Uint8List? get croppedData {
+    _$croppedDataAtom.reportRead();
+    return super.croppedData;
   }
 
   @override
-  set listImageFile(List<XFile> value) {
-    _$listImageFileAtom.reportWrite(value, super.listImageFile, () {
-      super.listImageFile = value;
+  set croppedData(Uint8List? value) {
+    _$croppedDataAtom.reportWrite(value, super.croppedData, () {
+      super.croppedData = value;
     });
   }
 
-  late final _$imageFileAtom =
-      Atom(name: '_CropMobx.imageFile', context: context);
+  late final _$currentImageAtom =
+      Atom(name: '_CropMobx.currentImage', context: context);
 
   @override
-  File? get imageFile {
-    _$imageFileAtom.reportRead();
-    return super.imageFile;
+  Uint8List? get currentImage {
+    _$currentImageAtom.reportRead();
+    return super.currentImage;
   }
 
   @override
-  set imageFile(File? value) {
-    _$imageFileAtom.reportWrite(value, super.imageFile, () {
-      super.imageFile = value;
+  set currentImage(Uint8List? value) {
+    _$currentImageAtom.reportWrite(value, super.currentImage, () {
+      super.currentImage = value;
     });
   }
 
-  late final _$sampleImageAtom =
-      Atom(name: '_CropMobx.sampleImage', context: context);
+  late final _$statusTextAtom =
+      Atom(name: '_CropMobx.statusText', context: context);
 
   @override
-  File? get sampleImage {
-    _$sampleImageAtom.reportRead();
-    return super.sampleImage;
+  String get statusText {
+    _$statusTextAtom.reportRead();
+    return super.statusText;
   }
 
   @override
-  set sampleImage(File? value) {
-    _$sampleImageAtom.reportWrite(value, super.sampleImage, () {
-      super.sampleImage = value;
+  set statusText(String value) {
+    _$statusTextAtom.reportWrite(value, super.statusText, () {
+      super.statusText = value;
     });
   }
 
-  late final _$lastCroppedAtom =
-      Atom(name: '_CropMobx.lastCropped', context: context);
+  late final _$isLoadingAtom =
+      Atom(name: '_CropMobx.isLoading', context: context);
 
   @override
-  File? get lastCropped {
-    _$lastCroppedAtom.reportRead();
-    return super.lastCropped;
+  bool get isLoading {
+    _$isLoadingAtom.reportRead();
+    return super.isLoading;
   }
 
   @override
-  set lastCropped(File? value) {
-    _$lastCroppedAtom.reportWrite(value, super.lastCropped, () {
-      super.lastCropped = value;
+  set isLoading(bool value) {
+    _$isLoadingAtom.reportWrite(value, super.isLoading, () {
+      super.isLoading = value;
     });
   }
 
-  late final _$_selectImageAsyncAction =
-      AsyncAction('_CropMobx._selectImage', context: context);
+  late final _$isCropImageAtom =
+      Atom(name: '_CropMobx.isCropImage', context: context);
 
   @override
-  Future<void> _selectImage(String imageSource) {
-    return _$_selectImageAsyncAction.run(() => super._selectImage(imageSource));
+  bool get isCropImage {
+    _$isCropImageAtom.reportRead();
+    return super.isCropImage;
   }
 
-  late final _$cropImageAsyncAction =
-      AsyncAction('_CropMobx.cropImage', context: context);
+  @override
+  set isCropImage(bool value) {
+    _$isCropImageAtom.reportWrite(value, super.isCropImage, () {
+      super.isCropImage = value;
+    });
+  }
+
+  late final _$chooseTypePictureAsyncAction =
+      AsyncAction('_CropMobx.chooseTypePicture', context: context);
 
   @override
-  Future<void> cropImage() {
-    return _$cropImageAsyncAction.run(() => super.cropImage());
+  Future<void> chooseTypePicture(String typeSelected) {
+    return _$chooseTypePictureAsyncAction
+        .run(() => super.chooseTypePicture(typeSelected));
   }
 
   late final _$_CropMobxActionController =
       ActionController(name: '_CropMobx', context: context);
 
   @override
-  void setImage(XFile value) {
-    final _$actionInfo =
-        _$_CropMobxActionController.startAction(name: '_CropMobx.setImage');
-    try {
-      return super.setImage(value);
-    } finally {
-      _$_CropMobxActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  void setSampleImage(File? value) {
+  void setCroppedData(Uint8List? value) {
     final _$actionInfo = _$_CropMobxActionController.startAction(
-        name: '_CropMobx.setSampleImage');
+        name: '_CropMobx.setCroppedData');
     try {
-      return super.setSampleImage(value);
+      return super.setCroppedData(value);
     } finally {
       _$_CropMobxActionController.endAction(_$actionInfo);
     }
   }
 
   @override
-  void setFile(File value) {
-    final _$actionInfo =
-        _$_CropMobxActionController.startAction(name: '_CropMobx.setFile');
-    try {
-      return super.setFile(value);
-    } finally {
-      _$_CropMobxActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  void setListImage(XFile value) {
-    final _$actionInfo =
-        _$_CropMobxActionController.startAction(name: '_CropMobx.setListImage');
-    try {
-      return super.setListImage(value);
-    } finally {
-      _$_CropMobxActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  void setLastCropped(File value) {
+  void setCurrentImage(Uint8List? value) {
     final _$actionInfo = _$_CropMobxActionController.startAction(
-        name: '_CropMobx.setLastCropped');
+        name: '_CropMobx.setCurrentImage');
     try {
-      return super.setLastCropped(value);
+      return super.setCurrentImage(value);
     } finally {
       _$_CropMobxActionController.endAction(_$actionInfo);
     }
   }
 
   @override
-  Widget settingCamera(String prefEvent) {
+  void setStatusText(String value) {
     final _$actionInfo = _$_CropMobxActionController.startAction(
-        name: '_CropMobx.settingCamera');
+        name: '_CropMobx.setStatusText');
     try {
-      return super.settingCamera(prefEvent);
+      return super.setStatusText(value);
+    } finally {
+      _$_CropMobxActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void setIsLoading(bool value) {
+    final _$actionInfo =
+        _$_CropMobxActionController.startAction(name: '_CropMobx.setIsLoading');
+    try {
+      return super.setIsLoading(value);
+    } finally {
+      _$_CropMobxActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void setIsCropImage(bool value) {
+    final _$actionInfo = _$_CropMobxActionController.startAction(
+        name: '_CropMobx.setIsCropImage');
+    try {
+      return super.setIsCropImage(value);
+    } finally {
+      _$_CropMobxActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void _setCurrentImage(Uint8List? image) {
+    final _$actionInfo = _$_CropMobxActionController.startAction(
+        name: '_CropMobx._setCurrentImage');
+    try {
+      return super._setCurrentImage(image);
+    } finally {
+      _$_CropMobxActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void cutImage() {
+    final _$actionInfo =
+        _$_CropMobxActionController.startAction(name: '_CropMobx.cutImage');
+    try {
+      return super.cutImage();
+    } finally {
+      _$_CropMobxActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void onCroppedImage(Uint8List croppedImage) {
+    final _$actionInfo = _$_CropMobxActionController.startAction(
+        name: '_CropMobx.onCroppedImage');
+    try {
+      return super.onCroppedImage(croppedImage);
+    } finally {
+      _$_CropMobxActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void goToPop({dynamic value}) {
+    final _$actionInfo =
+        _$_CropMobxActionController.startAction(name: '_CropMobx.goToPop');
+    try {
+      return super.goToPop(value: value);
     } finally {
       _$_CropMobxActionController.endAction(_$actionInfo);
     }
@@ -176,11 +219,12 @@ mixin _$CropMobx on _CropMobx, Store {
   @override
   String toString() {
     return '''
-image: ${image},
-listImageFile: ${listImageFile},
-imageFile: ${imageFile},
-sampleImage: ${sampleImage},
-lastCropped: ${lastCropped}
+cropController: ${cropController},
+croppedData: ${croppedData},
+currentImage: ${currentImage},
+statusText: ${statusText},
+isLoading: ${isLoading},
+isCropImage: ${isCropImage}
     ''';
   }
 }

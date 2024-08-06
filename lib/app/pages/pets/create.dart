@@ -1,12 +1,11 @@
 // pacotes nativos flutter
 import 'package:flutter/material.dart';
 
-import 'dart:io';
-
 // imports globais
 import 'package:meus_animais/session.dart';
 
 // import das telas
+import 'package:meus_animais/app/pages/pets/pages/widgets/picture_selection.dart';
 import 'package:meus_animais/app/pages/pets/pages/vaccines/vaccines.dart';
 import 'package:meus_animais/app/pages/pets/pages/camera/crop_page.dart';
 import 'package:meus_animais/app/pages/pets/pages/hygiene/hygiene.dart';
@@ -62,7 +61,7 @@ class _CreatePetState extends State<CreatePet> {
       page: Builder(
         builder: (context) {
 
-          if ( _cropMobx.sampleImage != null ) {
+          if ( _cropMobx.isCropImage ) {
             return CropPage(
               mobx: _cropMobx,
             );
@@ -83,17 +82,17 @@ class _CreatePetState extends State<CreatePet> {
                         children: [
 
                           GestureDetector(
-                            onTap: () => _cropMobx.settingCamera(_petMobx.typePage),
+                            onTap: () => showPictureSelection(),
                             child: Image.asset(
                               AppImages.banner,
                             ),
                           ),
 
                           GestureDetector(
-                            onTap: () => _cropMobx.settingCamera(_petMobx.typePage),
-                            child: ( _cropMobx.image == null )
+                            onTap: () => showPictureSelection(),
+                            child: ( _cropMobx.croppedData == null )
                               ? Image.asset(AppImages.banner)
-                              : Image.file(File(_cropMobx.image!.path)),
+                              : Image.memory(_cropMobx.croppedData!),
                           ),
 
                         ],
@@ -423,7 +422,7 @@ class _CreatePetState extends State<CreatePet> {
                     padding: const EdgeInsets.fromLTRB(10, 16, 10, 10),
                     width: width,
                     child: ElevatedButton(
-                      onPressed: () => _petMobx.validateFields( _cropMobx.image ),
+                      onPressed: () => _petMobx.validateFields( _cropMobx.croppedData ),
                       child: Text(
                         FlutterI18n.translate(context, _petMobx.isUpdate ? "btn_update" : "btn_register"),
                         style: theme.textTheme.headlineMedium,

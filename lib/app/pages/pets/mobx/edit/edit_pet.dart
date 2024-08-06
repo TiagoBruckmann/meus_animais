@@ -1,4 +1,5 @@
 // imports nativos
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 // import das telas
@@ -169,7 +170,7 @@ abstract class _EditPetMobx with Store {
   void setSpecie( String value ) => specie = value;
 
   @action
-  void validateFields( XFile? picture ) {
+  void validateFields( Uint8List? picture ) {
 
     setIsLoading(true);
     Session.appEvents.sharedEvent("create_pet_validate_fields");
@@ -221,6 +222,8 @@ abstract class _EditPetMobx with Store {
       return;
     }
 
+    final file = XFile.fromData(picture);
+
     final pet = PetEntity(
       petId,
       Session.user.id,
@@ -228,7 +231,7 @@ abstract class _EditPetMobx with Store {
       sex,
       specie,
       breed,
-      picture.name,
+      file.name,
       birth,
       birth,
       death,
@@ -237,7 +240,7 @@ abstract class _EditPetMobx with Store {
       "",
     );
 
-    _createPet(pet, picture);
+    _createPet(pet, file);
     return;
 
   }

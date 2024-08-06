@@ -1,6 +1,8 @@
+// imports nativos
+import 'dart:io';
+
 // imports globais
 import 'package:meus_animais/session.dart';
-import 'dart:io';
 
 // import dos domain
 import 'package:meus_animais/domain/entities/vaccine.dart';
@@ -331,7 +333,7 @@ class PetRemoteSourceImpl implements PetRemoteDatasource {
 
   }
 
-  Future<void> _uploadPicture( Map<String, dynamic> json , XFile picture ) async {
+  Future<void> _uploadPicture( Map<String, dynamic> json , XFile file ) async {
 
     final metric = Session.performance.newHttpMetric("upload-image", HttpMethod.Post);
     await metric.start();
@@ -341,16 +343,16 @@ class PetRemoteSourceImpl implements PetRemoteDatasource {
       .FirebaseStorage.instance
       .ref()
       .child("documents/pets/${json["id"]}/")
-      .child(picture.name);
+      .child(file.name);
 
     await metric.stop();
 
     final metadata = firebase_storage.SettableMetadata(
-      contentType: '${picture.mimeType}',
-      customMetadata: {'picked-file-path': picture.path},
+      contentType: '${file.mimeType}',
+      customMetadata: {'picked-file-path': file.path},
     );
 
-    uploadTask = archive.putData(await picture.readAsBytes(), metadata);
+    uploadTask = archive.putData(await file.readAsBytes(), metadata);
 
     uploadTask.snapshotEvents.listen((event) async {
       event.ref.getDownloadURL().then((value) async {

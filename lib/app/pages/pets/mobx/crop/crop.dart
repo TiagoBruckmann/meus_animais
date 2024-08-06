@@ -1,17 +1,13 @@
 // pacotes nativos do flutter
 import 'package:flutter/material.dart';
-import 'dart:io';
+import 'package:flutter/services.dart';
 
 // imports globais
 import 'package:meus_animais/session.dart';
 
-// import das telas
-import 'package:meus_animais/app/core/style/app_colors.dart';
-
 // import dos pacotes
 import 'package:crop_your_image/crop_your_image.dart';
 import 'package:image_picker/image_picker.dart';
-// import 'package:image_crop/image_crop.dart';
 import 'package:mobx/mobx.dart';
 
 part 'crop.g.dart';
@@ -20,131 +16,80 @@ class CropMobx extends _CropMobx with _$CropMobx {}
 
 abstract class _CropMobx with Store {
 
-  final cropKey = GlobalKey<CropState>();
-  final _imagePicker = ImagePicker();
+  final _currentContext = Session.globalContext.currentContext!;
+
+  final ImagePicker _picker = ImagePicker();
 
   @observable
-  XFile? image;
+  CropController cropController = CropController();
 
   @observable
-  List<XFile> listImageFile = [];
+  Uint8List? croppedData;
 
   @observable
-  File? imageFile;
+  Uint8List? currentImage;
 
   @observable
-  File? sampleImage;
+  String statusText = "";
 
   @observable
-  File? lastCropped;
+  bool isLoading = false;
+
+  @observable
+  bool isCropImage = false;
 
   @action
-  void setImage( XFile value ) => image = value;
+  void setCroppedData( Uint8List? value ) => croppedData = value;
 
   @action
-  void setSampleImage( File? value ) => sampleImage = value;
+  void setCurrentImage( Uint8List? value ) => currentImage = value;
 
   @action
-  void setFile( File value ) => imageFile = value;
+  void setStatusText( String value ) => statusText = value;
 
   @action
-  void setListImage( XFile value ) => listImageFile = [value];
+  void setIsLoading( bool value ) => isLoading = value;
 
   @action
-  void setLastCropped( File value ) => lastCropped = value;
+  void setIsCropImage( bool value ) => isCropImage = value;
 
   @action
-  Widget settingCamera( String prefEvent ) {
-    Session.appEvents.sharedEvent("${prefEvent}_settings_camera");
+  Future<void> chooseTypePicture( String typeSelected ) async {
 
-    final bottomSheet = BottomSheet(
-      backgroundColor: AppColors.barossa,
-      elevation: 5,
-      onClosing: () {
-        print("onClosing bottom Sheet => ");
-      },
-      builder: ( builder ) {
-
-        return ListTile(
-          title: TextButton(
-            child: const Text("Camera"),
-            onPressed: () => _selectImage("camera"),
-          ),
-          subtitle: TextButton(
-            child: const Text("Galeria"),
-            onPressed: () => _selectImage("gallery"),
-          ),
-        );
-
-      },
-    );
-
-    return bottomSheet;
-  }
-
-  @action
-  Future<void> _selectImage( String imageSource ) async {
-    Session.appEvents.logCameraOption(imageSource);
-
-    try {
-
-      XFile? image;
-      switch ( imageSource ) {
-        case "camera": image = await _imagePicker.pickImage(source: ImageSource.camera);
-        break;
-        case "gallery": image = await _imagePicker.pickImage(source: ImageSource.gallery);
-        break;
-      }
-
-      final file = File(image!.path);
-      final sample = await ImageCrop.sampleImage(
-        file: file,
-        preferredSize: 2550,
-        // preferredSize: context.size!.longestSide.ceil(),
-      );
-
-      sampleImage?.delete();
-      imageFile?.delete();
-      listImageFile.clear();
-      setSampleImage(sample);
-      setFile(file);
-      setListImage(image);
-
-      return;
-
-    } catch (e) {
-      Session.crash.onError("select_image_error", error: e);
-      throw Exception("select_image_error => ${e.toString()}");
-    }
-  }
-
-  @action
-  Future<void> cropImage() async {
-    Session.appEvents.sharedEvent("crop_image_save_image");
-
-    final area = cropKey.currentState!.area;
-
-    if ( area == null ) {
-      return;
+    ImageSource typeFunction = ImageSource.camera;
+    if ( typeSelected == "gallery" ) {
+      typeFunction = ImageSource.gallery;
     }
 
-    final sample = await ImageCrop.sampleImage(
-      file: imageFile!,
-      preferredWidth: (1280).round(),
-      preferredHeight: (620).round(),
-    );
-
-    final file = await ImageCrop.cropImage(
-      file: sample,
-      area: area,
-    );
-
-    sample.delete();
-
-    lastCropped?.delete();
-    setLastCropped(file);
-    setImage(XFile(file.path));
-    setSampleImage(null);
+    final XFile? image = await _picker.pickImage(source: typeFunction);
+    return _setCurrentImage(await image?.readAsBytes());
   }
+
+  @action
+  void _setCurrentImage( Uint8List? image ) {
+
+    if ( image == null ) {
+      return goToPop();
+    }
+
+    setCurrentImage(image);
+    return setIsCropImage(true);
+  }
+
+  @action
+  void cutImage() {
+    setIsLoading(true);
+    cropController.cropCircle();
+    return;
+  }
+
+  @action
+  void onCroppedImage( Uint8List croppedImage ) {
+    setCroppedData(croppedImage);
+    return goToPop(value: croppedImage);
+  }
+
+  @action
+  void goToPop({ dynamic value }) => Navigator.pop(_currentContext, value);
 
 }
