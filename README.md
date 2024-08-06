@@ -46,6 +46,7 @@ flutter build apk --split-per-abi --release --dart-define-from-file=.env
 ```sh
     flutter pub get
     flutter pub run flutter_native_splash:create
+    flutter pub run flutter_launcher_icons
     flutter pub run build_runner build
     flutter run --dart-define-from-file=.env
 ```
@@ -56,6 +57,7 @@ flutter build apk --split-per-abi --release --dart-define-from-file=.env
     rm -rf pubspec.lock
     flutter pub get
     flutter pub run flutter_native_splash:create
+    flutter pub run flutter_launcher_icons
     flutter pub run build_runner build --delete-conflicting-outputs
     flutter run --dart-define-from-file=.env
 ```
