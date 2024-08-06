@@ -49,6 +49,7 @@ android {
         multiDexEnabled = true
     }
 
+    /*
     signingConfigs {
         release {
             keyAlias keystoreProperties['keyAlias']
@@ -57,6 +58,7 @@ android {
             storePassword keystoreProperties['storePassword']
         }
     }
+    */
 
     buildTypes {
         release {
