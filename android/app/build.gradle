@@ -4,6 +4,7 @@ plugins {
     id "dev.flutter.flutter-gradle-plugin"
     id "com.google.gms.google-services"
     id "com.google.firebase.crashlytics"
+    id 'com.google.firebase.firebase-perf'
 }
 
 def localProperties = new Properties()
@@ -40,9 +41,13 @@ android {
         targetCompatibility = JavaVersion.VERSION_1_8
     }
 
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
     defaultConfig {
         applicationId = "br.com.meus_animais"
-        minSdk = 21
+        minSdk = 23
         targetSdk = 34
         versionCode = flutterVersionCode.toInteger()
         versionName = flutterVersionName
@@ -62,8 +67,8 @@ android {
 
     buildTypes {
         release {
-            // signingConfig = signingConfigs.debug
-            signingConfig = signingConfigs.release
+            signingConfig = signingConfigs.debug
+            // signingConfig = signingConfigs.release
         }
     }
 }
