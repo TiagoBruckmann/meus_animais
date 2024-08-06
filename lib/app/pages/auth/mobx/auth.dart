@@ -173,7 +173,7 @@ abstract class _AuthMobx with Store {
   }
 
   @action
-  void goToForgot() => Navigator.pushNamed(_currentContext, "/forgot");
+  void goToForgot() => Navigator.pushNamed(_currentContext, "/forgot-password");
 
   @action
   void goToRegister() => Navigator.pushNamed(_currentContext, "/register");

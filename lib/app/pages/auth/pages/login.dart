@@ -43,6 +43,7 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
       body: Center(
         child: SingleChildScrollView(
+          padding: const EdgeInsets.symmetric( horizontal: 16, vertical: 10 ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
@@ -52,8 +53,8 @@ class _LoginPageState extends State<LoginPage> {
                 child: Center(
                   child: Text(
                     FlutterI18n.translate(context, "pages.login.title"),
-                    style: const TextStyle(
-                      fontSize: 25,
+                    style: theme.textTheme.headlineLarge?.apply(
+                      fontWeightDelta: 3,
                     ),
                   ),
                 ),
@@ -112,18 +113,20 @@ class _LoginPageState extends State<LoginPage> {
                       ),
 
                       Padding(
-                        padding: const EdgeInsets.only(right: 5),
+                        padding: const EdgeInsets.only(left: 20),
                         child: Text(
                           FlutterI18n.translate(context, "btn_login"),
-                          style: theme.textTheme.headlineMedium,
+                          style: theme.textTheme.headlineMedium?.apply(
+                            color: theme.colorScheme.secondary,
+                          ),
                         ),
                       ),
 
                     ],
                   ),
                 ),
-
               ),
+
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -161,6 +164,10 @@ class _LoginPageState extends State<LoginPage> {
 
               Observer(
                 builder: (context) {
+
+                  if ( _mobx.message.trim().isEmpty ) {
+                    return const Padding(padding: EdgeInsets.zero);
+                  }
 
                   return Padding(
                     padding: const EdgeInsets.only(top: 16),

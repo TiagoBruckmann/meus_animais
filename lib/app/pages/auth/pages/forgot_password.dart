@@ -41,8 +41,14 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
     final theme = Theme.of(context);
 
     return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          FlutterI18n.translate(context, "pages.login.forgot.forgot"),
+        ),
+      ),
       body: Center(
         child: SingleChildScrollView(
+          padding: const EdgeInsets.symmetric( horizontal: 16, vertical: 10 ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
@@ -52,8 +58,8 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                 child: Center(
                   child: Text(
                     FlutterI18n.translate(context, "pages.login.forgot.forgot"),
-                    style: const TextStyle(
-                      fontSize: 25,
+                    style: theme.textTheme.headlineLarge?.apply(
+                      fontWeightDelta: 3,
                     ),
                   ),
                 ),
@@ -78,7 +84,9 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                   onPressed: () => _mobx.validateFields( AuthTypeEnum.forgot.value ),
                   child: Text(
                     FlutterI18n.translate(context, ( !_mobx.isEmailVerified ) ? "pages.login.forgot.btn_email" : "pages.login.forgot.btn_unreceived"),
-                    style: theme.textTheme.headlineMedium,
+                    style: theme.textTheme.headlineMedium?.apply(
+                      color: theme.colorScheme.secondary,
+                    ),
                   ),
                 ),
               ),

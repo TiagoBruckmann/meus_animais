@@ -41,7 +41,7 @@ class Routes {
         return MaterialPageRoute(
           builder: (_) => const RegisterPage(),
         );
-      case "/forgot_password" :
+      case "/forgot-password" :
         return MaterialPageRoute(
           builder: (_) => const ForgotPasswordPage(),
         );

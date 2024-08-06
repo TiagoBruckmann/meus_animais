@@ -41,8 +41,14 @@ class _RegisterPageState extends State<RegisterPage> {
     final theme = Theme.of(context);
 
     return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          FlutterI18n.translate(context, "btn_register"),
+        ),
+      ),
       body: Center(
         child: SingleChildScrollView(
+          padding: const EdgeInsets.symmetric( vertical: 10, horizontal: 16 ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
@@ -52,8 +58,8 @@ class _RegisterPageState extends State<RegisterPage> {
                 child: Center(
                   child: Text(
                     FlutterI18n.translate(context, "pages.login.title"),
-                    style: const TextStyle(
-                      fontSize: 25,
+                    style: theme.textTheme.headlineLarge?.apply(
+                      fontWeightDelta: 3,
                     ),
                   ),
                 ),
@@ -117,7 +123,9 @@ class _RegisterPageState extends State<RegisterPage> {
                   onPressed: () => _mobx.validateFields( AuthTypeEnum.register.value ),
                   child: Text(
                     FlutterI18n.translate(context, "btn_register"),
-                    style: theme.textTheme.headlineMedium,
+                    style: theme.textTheme.headlineMedium?.apply(
+                      color: theme.colorScheme.secondary,
+                    ),
                   ),
                 ),
               ),

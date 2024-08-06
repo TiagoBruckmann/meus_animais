@@ -34,12 +34,12 @@ class Themes {
 
   static const TextStyle _headlineLargeTextLight = TextStyle(
     fontWeight: FontWeight.w800,
-    color: _secondaryColorLight,
+    color: _primaryColorLight,
     fontSize: 22,
   );
 
   static const TextStyle _headlineMediumTextLight = TextStyle(
-    color: _secondaryColorLight,
+    color: _primaryColorLight,
     fontSize: 20,
   );
 
@@ -153,10 +153,6 @@ class Themes {
       style: ElevatedButton.styleFrom(
         backgroundColor: _primaryColorLight,
         padding: const EdgeInsets.symmetric( vertical: 16, horizontal: 36 ),
-        side: const BorderSide(
-          color: _secondaryColorLight,
-          width: 3,
-        ),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
         ),
@@ -176,12 +172,12 @@ class Themes {
 
   static const TextStyle _headlineLargeTextDark = TextStyle(
     fontWeight: FontWeight.w800,
-    color: _secondaryColorDark,
+    color: _primaryColorDark,
     fontSize: 22,
   );
 
   static const TextStyle _headlineMediumTextDark = TextStyle(
-    color: _secondaryColorDark,
+    color: _primaryColorDark,
     fontSize: 20,
   );
 
@@ -295,10 +291,6 @@ class Themes {
       style: ElevatedButton.styleFrom(
         backgroundColor: _primaryColorDark,
         padding: const EdgeInsets.symmetric( vertical: 16, horizontal: 36 ),
-        side: const BorderSide(
-          color: _secondaryColorDark,
-          width: 3,
-        ),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
         ),
