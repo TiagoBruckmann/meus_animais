@@ -16,90 +16,98 @@ class HygienePage extends StatelessWidget {
 
     final theme = Theme.of(context);
 
-    return Card(
-      color: theme.colorScheme.tertiary,
-      child: Column(
-        children: [
+    return Padding(
+      padding: const EdgeInsets.symmetric( horizontal: 10 ),
+      child: Card(
+        color: theme.colorScheme.tertiary,
+        child: Column(
+          children: [
 
-          Padding(
-            padding: const EdgeInsets.fromLTRB( 16, 12, 16, 0 ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
+            Padding(
+              padding: const EdgeInsets.fromLTRB( 16, 12, 16, 0 ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
 
-                Text(
-                  hygiene.name,
-                  style: theme.textTheme.headlineMedium,
-                ),
+                  Text(
+                    hygiene.name,
+                    style: theme.textTheme.headlineMedium,
+                  ),
 
-                Text(
-                  hygiene.day,
-                  style: theme.textTheme.headlineMedium,
-                ),
+                  Text(
+                    hygiene.day,
+                    style: theme.textTheme.displaySmall,
+                  ),
 
-              ],
+                ],
+              ),
             ),
-          ),
 
-          const Divider(),
+            const Divider(),
 
-          Padding(
-            padding: const EdgeInsets.fromLTRB(16, 0, 0, 8),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
+            Padding(
+              padding: const EdgeInsets.fromLTRB(16, 0, 0, 8),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
 
-                Text.rich(
-                  TextSpan(
-                    text: FlutterI18n.translate(context, "pages.hygiene.hygiene.place"),
-                    style: theme.textTheme.displayLarge?.apply(
-                      fontWeightDelta: 4,
-                    ),
-                    children: [
+                  Text.rich(
+                    TextSpan(
+                      text: FlutterI18n.translate(context, "pages.hygiene.hygiene.place"),
+                      style: theme.textTheme.displayLarge?.apply(
+                        color: theme.colorScheme.primary,
+                        fontWeightDelta: 3,
+                      ),
+                      children: [
 
-                      TextSpan(
-                        text: hygiene.place,
-                        style: theme.textTheme.displayLarge?.apply(
-                          fontWeightDelta: -5,
+                        TextSpan(
+                          text: hygiene.place,
+                          style: theme.textTheme.displayLarge?.apply(
+                              color: theme.colorScheme.primary,
+                              fontWeightDelta: -1
+                          ),
                         ),
-                      ),
 
-                    ],
-                  ),
-                ),
-
-              ],
-            ),
-          ),
-
-          Padding(
-            padding: const EdgeInsets.only( left: 16, bottom: 8 ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-
-                Text.rich(
-                  TextSpan(
-                    text: FlutterI18n.translate(context, "pages.hygiene.hygiene.value"),
-                    style: theme.textTheme.displayLarge?.apply(
-                      fontWeightDelta: 4,
+                      ],
                     ),
-                    children: [
-
-                      TextSpan(
-                        text: hygiene.value,
-                        style: theme.textTheme.bodySmall,
-                      ),
-
-                    ],
                   ),
-                ),
 
-              ],
+                ],
+              ),
             ),
-          ),
 
-        ],
+            Padding(
+              padding: const EdgeInsets.only( left: 16, bottom: 8 ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+
+                  Text.rich(
+                    TextSpan(
+                      text: FlutterI18n.translate(context, "pages.hygiene.hygiene.value"),
+                      style: theme.textTheme.displayLarge?.apply(
+                        color: theme.colorScheme.primary,
+                      ),
+                      children: [
+
+                        TextSpan(
+                          text: hygiene.value,
+                          style: theme.textTheme.displayLarge?.apply(
+                            color: theme.colorScheme.primary,
+                            fontWeightDelta: -1,
+                          ),
+                        ),
+
+                      ],
+                    ),
+                  ),
+
+                ],
+              ),
+            ),
+
+          ],
+        ),
       ),
     );
   }

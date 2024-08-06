@@ -88,6 +88,7 @@
         "specie": "Specie",
         "breed": "Breed",
         "birth": "Birth/Adoption",
+        "death": "Death date",
         "calc_birth": "{year} year(s) {month} month(s) and {day} day(s)",
         "life_time": "Life time estimated",
         "vaccines": "Vaccines",

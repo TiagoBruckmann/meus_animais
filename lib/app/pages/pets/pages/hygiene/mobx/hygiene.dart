@@ -30,10 +30,10 @@ abstract class _HygieneMobx with Store {
   final _petUseCase = PetUseCase(getIt());
 
   @observable
-  bool isLoading = false;
+  bool isLoading = true;
 
   @observable
-  ServiceEntity selectedService = ServiceEntity.isEmpty();
+  String selectedService = "";
 
   @observable
   TextEditingController controllerPlace = TextEditingController();
@@ -66,10 +66,13 @@ abstract class _HygieneMobx with Store {
   }
 
   @action
-  void setListServices( Iterable<ServiceEntity> value ) => listService.addAll(value);
+  void setListServices( Iterable<ServiceEntity> value ) {
+    listService.addAll(value);
+    setIsLoading(false);
+  }
 
   @action
-  void setSelectedService( ServiceEntity value ) => selectedService = value;
+  void setSelectedService( String value ) => selectedService = value;
 
   @action
   Future<void> validateFields( String petId, bool isUpdate ) async {
@@ -77,7 +80,7 @@ abstract class _HygieneMobx with Store {
     setIsLoading(true);
 
     Session.appEvents.sharedEvent("hygiene_validate_fields");
-    String name = selectedService.name.trim();
+    String name = selectedService.trim();
     String date = controllerDay.text.trim();
     String place = controllerPlace.text.trim();
     String value = controllerValue.text.trim();
@@ -144,7 +147,7 @@ abstract class _HygieneMobx with Store {
   @action
   void clear() {
     Session.appEvents.sharedEvent("create_hygiene_clear");
-    setSelectedService(ServiceEntity.isEmpty());
+    setSelectedService("");
     controllerDay.dispose();
     controllerPlace.dispose();
     controllerValue.dispose();

@@ -7,6 +7,7 @@ import 'package:meus_animais/session.dart';
 
 // import dos domain
 import 'package:meus_animais/domain/source/local/injection/injection.dart';
+import 'package:meus_animais/domain/source/local/mobx/user/user.dart';
 import 'package:meus_animais/domain/usecases/auth_use_case.dart';
 
 // import dos pacotes
@@ -22,26 +23,29 @@ abstract class _SplashMobx with Store {
   final AuthUseCase _useCase = AuthUseCase(getIt());
 
   @action
-  Future<void> verifyConnection() async {
+  Future<void> verifyConnection( UserMobx userMobx ) async {
     final connectedOrNot = await _useCase.verifyConnection();
 
     connectedOrNot.fold(
-      (failure) => goToLogin(),
-      (success) => redirect(success),
+      (failure) => _goToLogin(),
+      (success) {
+        userMobx.getUser();
+        redirect(success);
+      },
     );
   }
 
   @action
   Future<void> redirect( bool connected ) async {
     if ( connected ) {
-      return goToDashboard();
+      return _goToHome();
     }
 
-    return goToLogin();
+    return _goToLogin();
   }
 
   @action
-  void goToDashboard() {
+  void _goToHome() {
     Navigator.pushNamedAndRemoveUntil(
       _currentContext,
       "/",
@@ -50,7 +54,7 @@ abstract class _SplashMobx with Store {
   }
 
   @action
-  void goToLogin() {
+  void _goToLogin() {
     Navigator.pushNamedAndRemoveUntil(
       _currentContext,
       "/login",

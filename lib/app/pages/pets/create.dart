@@ -17,13 +17,13 @@ import 'package:meus_animais/app/pages/pets/mobx/crop/crop.dart';
 import 'package:meus_animais/app/core/style/app_images.dart';
 
 // import dos domain
-import 'package:meus_animais/domain/entities/life_time.dart';
 import 'package:meus_animais/domain/entities/pet.dart';
 
 // import dos pacotes
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:myne_find_dropdown/myne_find_dropdown.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 
 class CreatePet extends StatefulWidget {
   final PetEntity? petEntity;
@@ -57,8 +57,10 @@ class _CreatePetState extends State<CreatePet> {
     final theme = Theme.of(context);
 
     return VerifyConnection(
-      keyAppBar: "pages.pets.create.app_bar",
-      page: Builder(
+      keyAppBar: ( widget.petEntity != null )
+      ? widget.petEntity!.name
+      : "pages.pets.create.app_bar",
+      page: Observer(
         builder: (context) {
 
           if ( _cropMobx.isCropImage ) {
@@ -90,8 +92,10 @@ class _CreatePetState extends State<CreatePet> {
 
                           GestureDetector(
                             onTap: () => showPictureSelection(),
-                            child: ( _cropMobx.croppedData == null )
+                            child: ( _cropMobx.croppedData == null && widget.petEntity == null )
                               ? Image.asset(AppImages.banner)
+                              : ( widget.petEntity != null )
+                              ? Image.network(widget.petEntity!.picture)
                               : Image.memory(_cropMobx.croppedData!),
                           ),
 
@@ -119,11 +123,11 @@ class _CreatePetState extends State<CreatePet> {
 
                   // nome
                   Padding(
-                    padding: const EdgeInsets.symmetric( vertical: 12, horizontal: 10 ),
+                    padding: const EdgeInsets.symmetric( vertical: 8, horizontal: 10 ),
                     child: TextField(
                       controller: _petMobx.controllerName,
                       style: theme.textTheme.headlineMedium,
-                      enabled: false,
+                      enabled: !_petMobx.isUpdate,
                       decoration: InputDecoration(
                         labelText: FlutterI18n.translate(context, "pages.pets.edit.name"),
                       ),
@@ -132,12 +136,12 @@ class _CreatePetState extends State<CreatePet> {
 
                   // peso
                   Padding(
-                    padding: const EdgeInsets.symmetric( vertical: 4, horizontal: 10 ),
+                    padding: const EdgeInsets.symmetric( vertical: 8, horizontal: 10 ),
                     child: TextField(
                       controller: _petMobx.controllerWeight,
                       style: theme.textTheme.headlineMedium,
                       keyboardType: TextInputType.number,
-                      textInputAction: TextInputAction.done,
+                      textInputAction: TextInputAction.next,
                       decoration: InputDecoration(
                         labelText: FlutterI18n.translate(context, "pages.pets.edit.weight"),
                       ),
@@ -147,7 +151,7 @@ class _CreatePetState extends State<CreatePet> {
                   // sexo
                   if ( !_petMobx.isUpdate )
                     Padding(
-                      padding: const EdgeInsets.symmetric( vertical: 12, horizontal: 10 ),
+                      padding: const EdgeInsets.symmetric( vertical: 8, horizontal: 10 ),
                       child: FindDropdown<String>(
                         showSearchBox: false,
                         items: [
@@ -157,9 +161,7 @@ class _CreatePetState extends State<CreatePet> {
                         label: FlutterI18n.translate(context, "pages.pets.create.sex_empty"),
                         selectedItem: _petMobx.sex,
                         onChanged: ( String? value ) {
-                          if ( value == null ) {
-                            return;
-                          }
+                          if ( value == null ) return;
 
                           Session.appEvents.logSex(value);
                           _petMobx.setSex(value);
@@ -179,6 +181,7 @@ class _CreatePetState extends State<CreatePet> {
                                 ( _petMobx.sex.trim().isEmpty )
                                     ? FlutterI18n.translate(context, "pages.pets.create.sex_empty")
                                     : _petMobx.sex,
+                                style: theme.textTheme.headlineMedium,
                               ),
                             ),
                           );
@@ -205,7 +208,7 @@ class _CreatePetState extends State<CreatePet> {
 
                   if ( _petMobx.isUpdate )
                     Padding(
-                      padding: const EdgeInsets.symmetric( horizontal: 10, vertical: 4 ),
+                      padding: const EdgeInsets.symmetric( horizontal: 10, vertical: 8 ),
                       child: TextField(
                         controller: _petMobx.controllerSex,
                         style: theme.textTheme.headlineMedium,
@@ -219,9 +222,12 @@ class _CreatePetState extends State<CreatePet> {
                   // especie
                   if ( !_petMobx.isUpdate )
                     Padding(
-                      padding: const EdgeInsets.symmetric( vertical: 12, horizontal: 10 ),
-                      child: FindDropdown<LifeTimeEntity>(
-                        items: _petMobx.listSpecies,
+                      padding: const EdgeInsets.symmetric( vertical: 8, horizontal: 10 ),
+                      child: FindDropdown<String>(
+                        items: [
+                          for ( final item in _petMobx.listSpecies )
+                            item.name
+                        ],
                         showSearchBox: false,
                         label: FlutterI18n.translate(context, "pages.pets.create.specie_empty"),
                         errorBuilder: ( context, item ) {
@@ -234,13 +240,13 @@ class _CreatePetState extends State<CreatePet> {
                             text: "pages.pets.create.specie_error",
                           );
                         },
-                        onChanged: ( LifeTimeEntity? value ) {
+                        onChanged: ( String? value ) {
                           if ( value == null ) {
                             return;
                           }
 
-                          Session.appEvents.logSpecie(value.name);
-                          _petMobx.setSpecie(value.name);
+                          Session.appEvents.logSpecie(value);
+                          _petMobx.setSpecie(value);
                         },
                         dropdownBuilder: (context, specie) {
                           return Container(
@@ -255,6 +261,7 @@ class _CreatePetState extends State<CreatePet> {
                                 ( _petMobx.specie.trim().isEmpty )
                                     ? FlutterI18n.translate(context, "pages.pets.create.specie_empty")
                                     : _petMobx.specie,
+                                style: theme.textTheme.headlineMedium,
                               ),
                             ),
                           );
@@ -281,7 +288,7 @@ class _CreatePetState extends State<CreatePet> {
 
                   if ( _petMobx.isUpdate )
                     Padding(
-                      padding: const EdgeInsets.symmetric( horizontal: 10, vertical: 4 ),
+                      padding: const EdgeInsets.symmetric( horizontal: 10, vertical: 8 ),
                       child: TextField(
                         controller: _petMobx.controllerSpecie,
                         style: theme.textTheme.headlineMedium,
@@ -294,11 +301,12 @@ class _CreatePetState extends State<CreatePet> {
 
                   // raca
                   Padding(
-                    padding: const EdgeInsets.symmetric( horizontal: 10, vertical: 4 ),
+                    padding: const EdgeInsets.symmetric( horizontal: 10, vertical: 8 ),
                     child: TextField(
                       controller: _petMobx.controllerBreed,
                       style: theme.textTheme.headlineMedium,
-                      enabled: false,
+                      enabled: !_petMobx.isUpdate,
+                      textInputAction: TextInputAction.next,
                       decoration: InputDecoration(
                         labelText: FlutterI18n.translate(context, "pages.pets.edit.breed"),
                       ),
@@ -307,11 +315,13 @@ class _CreatePetState extends State<CreatePet> {
 
                   // nascimento/adocao
                   Padding(
-                    padding: const EdgeInsets.symmetric( horizontal: 10, vertical: 12 ),
+                    padding: const EdgeInsets.symmetric( horizontal: 10, vertical: 8 ),
                     child: TextField(
-                      controller: _petMobx.controllerBirth,
+                      controller: ( widget.petEntity != null )
+                      ? TextEditingController(text: widget.petEntity!.birth)
+                      : _petMobx.controllerBirth,
                       style: theme.textTheme.headlineMedium,
-                      enabled: false,
+                      enabled: !_petMobx.isUpdate,
                       decoration: InputDecoration(
                         labelText: FlutterI18n.translate(context, "pages.pets.edit.birth"),
                       ),
@@ -320,13 +330,28 @@ class _CreatePetState extends State<CreatePet> {
 
                   if ( _petMobx.isUpdate )
                     Padding(
-                      padding: const EdgeInsets.symmetric( horizontal: 10, vertical: 12 ),
+                      padding: const EdgeInsets.symmetric( horizontal: 10, vertical: 8 ),
                       child: TextField(
                         controller: _petMobx.controllerBirth,
                         style: theme.textTheme.headlineMedium,
                         enabled: false,
                         decoration: InputDecoration(
                           labelText: FlutterI18n.translate(context, "pages.pets.edit.life_time"),
+                        ),
+                      ),
+                    ),
+
+                  // morte
+                  if ( _petMobx.isUpdate )
+                    Padding(
+                      padding: const EdgeInsets.symmetric( horizontal: 10, vertical: 8 ),
+                      child: TextField(
+                        controller: _petMobx.controllerDeath,
+                        style: theme.textTheme.headlineMedium,
+                        textInputAction: TextInputAction.done,
+                        keyboardType: TextInputType.number,
+                        decoration: InputDecoration(
+                          labelText: FlutterI18n.translate(context, "pages.pets.edit.death"),
                         ),
                       ),
                     ),
@@ -355,7 +380,7 @@ class _CreatePetState extends State<CreatePet> {
                             GestureDetector(
                               onTap: () => _petMobx.goToVaccines(),
                               child: Padding(
-                                padding: const EdgeInsets.only( right: 10 ),
+                                padding: const EdgeInsets.only( right: 15 ),
                                 child: FaIcon(
                                   FontAwesomeIcons.circlePlus,
                                   color: theme.colorScheme.secondary,
@@ -398,7 +423,7 @@ class _CreatePetState extends State<CreatePet> {
                             GestureDetector(
                               onTap: () => _petMobx.goToHygiene(),
                               child: Padding(
-                                padding: const EdgeInsets.only( right: 10 ),
+                                padding: const EdgeInsets.only( right: 15 ),
                                 child: FaIcon(
                                   FontAwesomeIcons.circlePlus,
                                   color: theme.colorScheme.secondary,
@@ -425,7 +450,9 @@ class _CreatePetState extends State<CreatePet> {
                       onPressed: () => _petMobx.validateFields( _cropMobx.croppedData ),
                       child: Text(
                         FlutterI18n.translate(context, _petMobx.isUpdate ? "btn_update" : "btn_register"),
-                        style: theme.textTheme.headlineMedium,
+                        style: theme.textTheme.headlineMedium?.apply(
+                          color: theme.colorScheme.secondary,
+                        ),
                       ),
                     ),
                   ),

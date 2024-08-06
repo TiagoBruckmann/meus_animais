@@ -7,6 +7,7 @@ import 'package:meus_animais/app/pages/pets/mobx/crop/crop.dart';
 
 // import dos pacotes
 import 'package:crop_your_image/crop_your_image.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 
 class CropPage extends StatelessWidget {
@@ -22,7 +23,7 @@ class CropPage extends StatelessWidget {
       canPop: false,
       onPopInvoked: (bool value) => showBackModal(mobx, () => mobx.goToPop()),
       child: Scaffold(
-        body: Builder(
+        body: Observer(
           builder: (context) {
 
             return Center(

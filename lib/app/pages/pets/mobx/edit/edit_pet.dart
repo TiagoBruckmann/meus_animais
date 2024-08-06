@@ -82,7 +82,7 @@ abstract class _EditPetMobx with Store {
     _getSpecies();
 
     if ( pet == null ) {
-      isUpdate = true;
+      isUpdate = false;
       typePage = "create_pet";
       Session.appEvents.sendScreen(typePage);
       setIsLoading(false);
@@ -95,7 +95,6 @@ abstract class _EditPetMobx with Store {
     controllerName.text = pet.name;
     controllerBreed.text = pet.breed;
     controllerWeight = MoneyMaskedTextController(leftSymbol: "KG ", decimalSeparator: ".", precision: 2, initialValue: pet.weight);
-    controllerBirth = MaskedTextController(mask: "00/00/0000", text: pet.birth);
     controllerDeath = MaskedTextController(mask: "00/00/0000", text: pet.death);
 
     controllerSex.text = pet.sex;

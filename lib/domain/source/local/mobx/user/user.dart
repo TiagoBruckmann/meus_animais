@@ -28,7 +28,7 @@ abstract class _UserMobx with Store {
   final _userUseCase = UserUseCase(getIt());
 
   @action
-  Future<void> verifyVersion() async {
+  Future<void> _verifyVersion() async {
 
     final newVersion = NewVersionPlus();
     final versionStatus = await newVersion.getVersionStatus();
@@ -73,6 +73,8 @@ abstract class _UserMobx with Store {
       (failure) => Session.logs.errorLog(failure.message),
       (success) => Session.user = success,
     );
+
+    await _verifyVersion();
   }
 
   @action

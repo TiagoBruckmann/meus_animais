@@ -12,7 +12,6 @@ import 'package:meus_animais/app/core/widgets/empty_page.dart';
 import 'package:meus_animais/app/core/style/app_images.dart';
 
 // import dos domain
-import 'package:meus_animais/domain/source/local/mobx/user/user.dart';
 import 'package:meus_animais/domain/source/local/mobx/pet/pet.dart';
 
 // import dos pacotes
@@ -29,7 +28,6 @@ class PetsPage extends StatefulWidget {
 class _PetsPageState extends State<PetsPage> {
 
   late PetMobx _petsMobx;
-  late UserMobx _userMobx;
 
   @override
   void initState() {
@@ -40,12 +38,8 @@ class _PetsPageState extends State<PetsPage> {
   @override
   void didChangeDependencies() async {
     super.didChangeDependencies();
-
     _petsMobx = Provider.of<PetMobx>(context);
-    _userMobx = Provider.of<UserMobx>(context);
-    await _petsMobx.getPets();
-
-    _userMobx.verifyVersion();
+    _petsMobx.getPets();
   }
 
   @override
@@ -70,9 +64,9 @@ class _PetsPageState extends State<PetsPage> {
           }
 
           return RefreshIndicator(
-            onRefresh: () {
+            onRefresh: () async {
               Session.appEvents.sharedEvent("pets_refresh");
-              _petsMobx.refresh();
+              await _petsMobx.refresh();
               return _petsMobx.getPets();
             },
             child: ListView.builder(

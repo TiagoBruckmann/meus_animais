@@ -13,8 +13,9 @@ mixin _$SplashMobx on _SplashMobx, Store {
       AsyncAction('_SplashMobx.verifyConnection', context: context);
 
   @override
-  Future<void> verifyConnection() {
-    return _$verifyConnectionAsyncAction.run(() => super.verifyConnection());
+  Future<void> verifyConnection(UserMobx userMobx) {
+    return _$verifyConnectionAsyncAction
+        .run(() => super.verifyConnection(userMobx));
   }
 
   late final _$redirectAsyncAction =
@@ -29,22 +30,22 @@ mixin _$SplashMobx on _SplashMobx, Store {
       ActionController(name: '_SplashMobx', context: context);
 
   @override
-  void goToDashboard() {
+  void _goToHome() {
     final _$actionInfo = _$_SplashMobxActionController.startAction(
-        name: '_SplashMobx.goToDashboard');
+        name: '_SplashMobx._goToHome');
     try {
-      return super.goToDashboard();
+      return super._goToHome();
     } finally {
       _$_SplashMobxActionController.endAction(_$actionInfo);
     }
   }
 
   @override
-  void goToLogin() {
+  void _goToLogin() {
     final _$actionInfo = _$_SplashMobxActionController.startAction(
-        name: '_SplashMobx.goToLogin');
+        name: '_SplashMobx._goToLogin');
     try {
-      return super.goToLogin();
+      return super._goToLogin();
     } finally {
       _$_SplashMobxActionController.endAction(_$actionInfo);
     }

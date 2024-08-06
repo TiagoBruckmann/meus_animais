@@ -29,13 +29,13 @@ mixin _$HygieneMobx on _HygieneMobx, Store {
       Atom(name: '_HygieneMobx.selectedService', context: context);
 
   @override
-  ServiceEntity get selectedService {
+  String get selectedService {
     _$selectedServiceAtom.reportRead();
     return super.selectedService;
   }
 
   @override
-  set selectedService(ServiceEntity value) {
+  set selectedService(String value) {
     _$selectedServiceAtom.reportWrite(value, super.selectedService, () {
       super.selectedService = value;
     });
@@ -140,7 +140,7 @@ mixin _$HygieneMobx on _HygieneMobx, Store {
   }
 
   @override
-  void setSelectedService(ServiceEntity value) {
+  void setSelectedService(String value) {
     final _$actionInfo = _$_HygieneMobxActionController.startAction(
         name: '_HygieneMobx.setSelectedService');
     try {

@@ -29,7 +29,7 @@ class Themes {
     color: AppColors.bossanova,
     indent: 16,
     endIndent: 16,
-    thickness: 2.5,
+    thickness: 1,
   );
 
   static const TextStyle _headlineLargeTextLight = TextStyle(
@@ -167,7 +167,7 @@ class Themes {
     color: AppColors.bossanova,
     indent: 16,
     endIndent: 16,
-    thickness: 2.5,
+    thickness: 1,
   );
 
   static const TextStyle _headlineLargeTextDark = TextStyle(

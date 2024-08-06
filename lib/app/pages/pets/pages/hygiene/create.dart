@@ -35,6 +35,7 @@ class _CreateHygienePageState extends State<CreateHygienePage> {
   void initState() {
     super.initState();
     Session.appEvents.sendScreen("create_hygiene");
+    _mobx.getServices();
   }
 
   @override
@@ -63,15 +64,18 @@ class _CreateHygienePageState extends State<CreateHygienePage> {
 
                   Padding(
                     padding: const EdgeInsets.symmetric( vertical: 8, horizontal: 10 ),
-                    child: FindDropdown<ServiceEntity>(
+                    child: FindDropdown<String>(
                       showSearchBox: false,
-                      items: _mobx.listService,
+                      items: [
+                        for ( final item in _mobx.listService )
+                          item.name,
+                      ],
                       label: FlutterI18n.translate(context, "pages.hygiene.create.category"),
                       selectedItem: _mobx.selectedService,
-                      onChanged: ( ServiceEntity? value) {
+                      onChanged: ( String? value) {
                         if ( value == null ) return;
 
-                        Session.appEvents.logHygieneName(value.name);
+                        Session.appEvents.logHygieneName(value);
                         _mobx.setSelectedService(value);
                       },
                       errorBuilder: ( context, item ) {
@@ -88,15 +92,16 @@ class _CreateHygienePageState extends State<CreateHygienePage> {
                         return Container(
                           width: width,
                           decoration: BoxDecoration(
-                            border: Border.all(color: Theme.of(context).primaryColor),
+                            border: Border.all(color: theme.colorScheme.primary),
                             borderRadius: BorderRadius.circular(5),
-                            color: Theme.of(context).cardColor,
+                            color: theme.colorScheme.tertiary,
                           ),
                           child: ListTile(
                             title: Text(
-                              ( _mobx.selectedService.name.trim().isEmpty )
-                                  ? FlutterI18n.translate(context, "pages.hygiene.create.category")
-                                  : _mobx.selectedService.name,
+                              ( _mobx.selectedService.trim().isEmpty )
+                              ? FlutterI18n.translate(context, "pages.hygiene.create.category")
+                              : _mobx.selectedService,
+                              style: theme.textTheme.headlineMedium,
                             ),
                           ),
                         );
@@ -104,10 +109,10 @@ class _CreateHygienePageState extends State<CreateHygienePage> {
                       dropdownItemBuilder: (context, name, isSelected) {
                         return Container(
                           decoration: !isSelected
-                              ? null
-                              : BoxDecoration(
+                          ? null
+                          : BoxDecoration(
                             border: Border.all(
-                              color: Theme.of(context).primaryColor,
+                              color: theme.colorScheme.primary,
                             ),
                             borderRadius: BorderRadius.circular(5),
                             color: Colors.white,
@@ -170,7 +175,9 @@ class _CreateHygienePageState extends State<CreateHygienePage> {
                       onPressed: () => _mobx.validateFields( widget.petId, widget.isUpdate ),
                       child: Text(
                         FlutterI18n.translate(context, "btn_register"),
-                        style: theme.textTheme.headlineMedium,
+                        style: theme.textTheme.headlineMedium?.apply(
+                          color: theme.colorScheme.secondary,
+                        ),
                       ),
                     ),
                   ),

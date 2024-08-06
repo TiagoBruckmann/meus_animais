@@ -9,12 +9,12 @@ part of 'user.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
 mixin _$UserMobx on _UserMobx, Store {
-  late final _$verifyVersionAsyncAction =
-      AsyncAction('_UserMobx.verifyVersion', context: context);
+  late final _$_verifyVersionAsyncAction =
+      AsyncAction('_UserMobx._verifyVersion', context: context);
 
   @override
-  Future<void> verifyVersion() {
-    return _$verifyVersionAsyncAction.run(() => super.verifyVersion());
+  Future<void> _verifyVersion() {
+    return _$_verifyVersionAsyncAction.run(() => super._verifyVersion());
   }
 
   late final _$getUserAsyncAction =

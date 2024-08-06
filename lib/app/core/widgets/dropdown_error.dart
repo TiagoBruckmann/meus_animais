@@ -18,12 +18,13 @@ class DropdownErrorWidget extends StatelessWidget {
   Widget build(BuildContext context) {
 
     Session.appEvents.logDropDownError(text);
+    final theme = Theme.of(context);
 
     return Center(
       child: Text(
         FlutterI18n.translate(context, text),
-        style: Theme.of(context).textTheme.bodyLarge?.apply(
-          color: AppColors.bossanova,
+        style: theme.textTheme.bodyLarge?.apply(
+          color: theme.colorScheme.secondary,
         ),
         textAlign: TextAlign.center,
       ),

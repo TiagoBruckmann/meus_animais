@@ -1,4 +1,6 @@
 // imports nativos
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 
 // imports globais
@@ -58,6 +60,8 @@ abstract class _PetMobx with Store {
 
   @action
   void _setList( List<PetEntity> list ) {
+    if ( listPets.isNotEmpty ) return;
+
     setErrorMessage(null);
     listPets.addAll(list);
     setIsLoading(false);

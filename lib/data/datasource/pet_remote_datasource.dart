@@ -64,7 +64,6 @@ class PetRemoteSourceImpl implements PetRemoteDatasource {
         for ( final item in value.docs ) {
           list.add(PetModel.fromJson(item));
         }
-        return list;
 
       })
       .onError((error, stackTrace) {
@@ -99,11 +98,11 @@ class PetRemoteSourceImpl implements PetRemoteDatasource {
     final List<HygieneEntity> hygiene = [];
 
     for ( final item in json["vaccine"] ) {
-      vaccines.add(VaccineModel.fromJson(item));
+      vaccines.add(VaccineModel.fromJson(item, item["pet_id"]));
     }
 
     for ( final item in json["hygiene"] ) {
-      hygiene.add(HygieneModel.fromJson(item));
+      hygiene.add(HygieneModel.fromJson(item, item["pet_id"]));
     }
 
     await db.collection("pets")
@@ -230,7 +229,7 @@ class PetRemoteSourceImpl implements PetRemoteDatasource {
         metric.stop();
 
         for ( final item in value.docs ) {
-          list.add(HygieneModel.fromJson(item));
+          list.add(HygieneModel.fromJson(item, petId));
         }
 
       })
@@ -289,7 +288,7 @@ class PetRemoteSourceImpl implements PetRemoteDatasource {
         metric.stop();
 
         for ( final item in value.docs ) {
-          list.add(VaccineModel.fromJson(item));
+          list.add(VaccineModel.fromJson(item, petId));
         }
 
       })

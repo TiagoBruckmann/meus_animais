@@ -54,7 +54,7 @@ class _CreateVaccinePageState extends State<CreateVaccinePage> {
           return LoadingOverlay(
             isLoading: _mobx.isLoading,
             child: SingleChildScrollView(
-              padding: const EdgeInsets.symmetric( horizontal: 15, vertical: 10 ),
+              padding: const EdgeInsets.symmetric( horizontal: 8, vertical: 10 ),
               child: Column(
                 children: [
 
@@ -125,7 +125,10 @@ class _CreateVaccinePageState extends State<CreateVaccinePage> {
                         fontWeightDelta: 4,
                       ),
                     ),
-                    activeColor: theme.colorScheme.primary,
+                    activeColor: theme.colorScheme.tertiary,
+                    activeTrackColor: theme.colorScheme.onSecondary,
+                    inactiveThumbColor: theme.colorScheme.primary,
+                    inactiveTrackColor: theme.colorScheme.tertiary,
                   ),
 
                   if ( _mobx.reapply )
@@ -134,7 +137,7 @@ class _CreateVaccinePageState extends State<CreateVaccinePage> {
 
                       // tipo de tempo
                       Padding(
-                        padding: const EdgeInsets.symmetric( vertical: 12, horizontal: 10 ),
+                        padding: const EdgeInsets.symmetric( vertical: 4, horizontal: 10 ),
                         child: FindDropdown<String>(
                           showSearchBox: false,
                           items: [
@@ -173,6 +176,7 @@ class _CreateVaccinePageState extends State<CreateVaccinePage> {
                                   ( _mobx.typeTime.trim().isEmpty )
                                   ? FlutterI18n.translate(context, "pages.vaccines.create.type_time_empty")
                                   : _mobx.typeTime,
+                                  style: theme.textTheme.headlineMedium,
                                 ),
                               ),
                             );
@@ -200,7 +204,7 @@ class _CreateVaccinePageState extends State<CreateVaccinePage> {
                       // tempo
                       if ( _mobx.typeTime.trim().isNotEmpty )
                         Padding(
-                          padding: const EdgeInsets.symmetric( vertical: 12, horizontal: 10 ),
+                          padding: const EdgeInsets.symmetric( vertical: 8, horizontal: 10 ),
                           child: FindDropdown(
                             showSearchBox: false,
                             items: _mobx.listTime,
@@ -236,6 +240,7 @@ class _CreateVaccinePageState extends State<CreateVaccinePage> {
                                     ( _mobx.time.trim().isEmpty )
                                     ? FlutterI18n.translate(context, "pages.vaccines.create.interval_empty")
                                     : _mobx.time,
+                                    style: theme.textTheme.headlineMedium,
                                   ),
                                 ),
                               );
@@ -262,7 +267,7 @@ class _CreateVaccinePageState extends State<CreateVaccinePage> {
 
                       // laboratorio da vacina
                       Padding(
-                        padding: const EdgeInsets.symmetric( vertical: 4, horizontal: 10 ),
+                        padding: const EdgeInsets.symmetric( vertical: 6, horizontal: 10 ),
                         child: TextField(
                           controller: _mobx.controllerLaboratory,
                           style: theme.textTheme.headlineMedium,
@@ -284,7 +289,9 @@ class _CreateVaccinePageState extends State<CreateVaccinePage> {
                       onPressed: () => _mobx.validateFields( widget.petId, widget.isUpdate ),
                       child: Text(
                         FlutterI18n.translate(context, "btn_register"),
-                        style: theme.textTheme.headlineMedium,
+                        style: theme.textTheme.headlineMedium?.apply(
+                          color: theme.colorScheme.secondary,
+                        ),
                       ),
                     ),
                   ),

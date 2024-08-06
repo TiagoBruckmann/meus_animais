@@ -7,6 +7,8 @@ import 'dart:async';
 import 'package:meus_animais/app/pages/splash/mobx/splash.dart';
 import 'package:meus_animais/app/core/style/app_colors.dart';
 import 'package:meus_animais/app/core/style/app_images.dart';
+import 'package:meus_animais/domain/source/local/mobx/user/user.dart';
+import 'package:provider/provider.dart';
 
 class SplashPage extends StatelessWidget {
   const SplashPage({super.key});
@@ -15,6 +17,7 @@ class SplashPage extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final SplashMobx splashMobx = SplashMobx();
+    final userMobx = Provider.of<UserMobx>(context);
 
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
@@ -22,7 +25,7 @@ class SplashPage extends StatelessWidget {
 
     Timer(
       const Duration(seconds: 3),
-      () => splashMobx.verifyConnection(),
+      () => splashMobx.verifyConnection( userMobx ),
     );
 
     return Scaffold(

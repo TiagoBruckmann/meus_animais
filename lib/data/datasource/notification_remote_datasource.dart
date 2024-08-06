@@ -96,13 +96,14 @@ class NotificationRemoteDatasourceImpl implements NotificationRemoteDatasource {
 
     final body = {
       "app_id": Session.env.onesignalAppId,
-      "headings": {
+      "header": {
         "en": "💣Solicitação de dados efetuada💥",
       },
-      "contents": {
+      "content": {
         "en": "O usuário ${Session.user.name}, ID: ${Session.user.id}. Solicitou que seja enviado um relatório de todos os seus dados cadastrais existentes no sistema!\n\n Data da solicitação: ${DateTime.now()}",
       },
       "included_segments": ["only admins"],
+      "data": {},
       "template_id": Session.env.onesignalTemplateInfoData,
     };
 

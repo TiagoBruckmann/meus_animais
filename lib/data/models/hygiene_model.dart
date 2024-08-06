@@ -8,7 +8,7 @@ class HygieneModel extends HygieneEntity with EquatableMixin {
 
   HygieneModel( super.id, super.name, super.day, super.place, super.value, super.createdAt, { super.petId } );
 
-  factory HygieneModel.fromJson(dynamic json) {
+  factory HygieneModel.fromJson(dynamic json, String petId) {
     return HygieneModel(
       json["id"].toString(),
       json["name"],
@@ -16,7 +16,7 @@ class HygieneModel extends HygieneEntity with EquatableMixin {
       json["place"],
       json["value"],
       json["created_at"],
-      petId: json["pet_id"],
+      petId: petId,
     );
   }
 

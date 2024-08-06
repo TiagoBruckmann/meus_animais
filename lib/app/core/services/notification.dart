@@ -25,7 +25,7 @@ class NotificationsServices {
   static bool _isNotificationOpened = false;
 
   Future<void> init() async {
-    OneSignal.Debug.setLogLevel(OSLogLevel.verbose);
+    // OneSignal.Debug.setLogLevel(OSLogLevel.verbose);
     OneSignal.initialize(Session.env.onesignalAppId);
     await OneSignal.Notifications.requestPermission(true);
   }

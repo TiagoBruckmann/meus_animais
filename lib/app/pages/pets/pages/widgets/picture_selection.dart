@@ -14,7 +14,7 @@ Future<String> showPictureSelection() async {
   void goToPop() => Navigator.pop(currentContext);
 
   await showModalBottomSheet(
-    backgroundColor: Theme.of(currentContext).scaffoldBackgroundColor,
+    backgroundColor: Theme.of(currentContext).colorScheme.primary,
     isDismissible: true,
     elevation: 2.0,
     context: currentContext,
