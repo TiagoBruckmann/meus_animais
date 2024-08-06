@@ -134,8 +134,14 @@
         "establishment": "Estabelecimento",
         "value": "Valor"
       }
-    }
-  },
+    },
+    "picture": {
+      "gallery": "Galeria",
+      "picture": "Camera",
+      "modal_title": "Você tem certeza?",
+      "modal_body": "Se você confirmar está ação, você perderá a sua foto atual!"
+  }
+},
   "custom_message": {
     "destroy": {
       "error": "Não foi possível deletar sua conta, tente novamente!",

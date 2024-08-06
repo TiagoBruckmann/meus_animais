@@ -134,6 +134,12 @@
         "establishment": "Establishment",
         "value": "Value"
       }
+    },
+    "picture": {
+      "gallery": "Gallery",
+      "picture": "Picture",
+      "modal_title": "Are you sure?",
+      "modal_body": "If you confirm that you want to return you will lose the current photo!"
     }
   },
   "custom_message": {
