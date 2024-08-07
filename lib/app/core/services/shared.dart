@@ -3,6 +3,8 @@ import 'dart:math';
 import 'dart:io';
 
 // imports globais
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:meus_animais/session.dart';
 
 // import dos domains
@@ -206,6 +208,53 @@ class SharedServices {
       throw 'Could not launch appStoreLink';
     }
 
+  }
+
+  Future<void> exitApp() async {
+    final currentContext = Session.globalContext.currentContext!;
+    return showDialog(
+      context: currentContext,
+      builder: (builder) {
+
+        final theme = Theme.of(builder);
+
+        return AlertDialog(
+          title: Text(
+            FlutterI18n.translate(builder, "pages.exit_app.title"),
+            textAlign: TextAlign.center,
+          ),
+          content: Text(
+            FlutterI18n.translate(builder, "pages.exit_app.sub_title"),
+            style: theme.textTheme.bodyLarge?.apply(
+              fontWeightDelta: 1,
+            ),
+            textAlign: TextAlign.center,
+          ),
+          actions: [
+
+            TextButton(
+              onPressed: () => Navigator.pop(currentContext),
+              child: Text(
+                FlutterI18n.translate(builder, "widgets.pop_up.btn_no"),
+                style: theme.textTheme.displayMedium?.apply(
+                  color: theme.colorScheme.error,
+                ),
+              ),
+            ),
+
+            TextButton(
+              onPressed: () => SystemChannels.platform.invokeMethod('SystemNavigator.pop'),
+              child: Text(
+                FlutterI18n.translate(builder, "widgets.pop_up.btn_yes"),
+                style: theme.textTheme.displayMedium,
+              ),
+            ),
+
+          ],
+        );
+
+      },
+    );
   }
 
 }

@@ -62,6 +62,22 @@ class UserNotFoundFailure extends Failure with EquatableMixin {
   List<Object?> get props => [errorMessage];
 }
 
+class SensitiveAccessFailure extends Failure with EquatableMixin {
+  final String errorMessage;
+  SensitiveAccessFailure( this.errorMessage );
+
+  @override
+  List<Object?> get props => [errorMessage];
+}
+
+class PermissionDeniedFailure extends Failure with EquatableMixin {
+  final String errorMessage;
+  PermissionDeniedFailure( this.errorMessage );
+
+  @override
+  List<Object?> get props => [errorMessage];
+}
+
 class GeneralFailure extends Failure with EquatableMixin {
   final String errorMessage;
   GeneralFailure( this.errorMessage );

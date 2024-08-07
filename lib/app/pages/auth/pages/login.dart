@@ -79,7 +79,7 @@ class _LoginPageState extends State<LoginPage> {
 
                   return TextField(
                     controller: _mobx.controllerPasswd,
-                    obscureText: _mobx.passwdVisible,
+                    obscureText: !_mobx.passwdVisible,
                     keyboardType: TextInputType.text,
                     style: theme.textTheme.headlineMedium,
                     decoration: InputDecoration(
@@ -87,7 +87,7 @@ class _LoginPageState extends State<LoginPage> {
                       suffixIcon: TextButton(
                         onPressed: () => _mobx.changeVisible(),
                         child: Icon(
-                          ( !_mobx.passwdVisible )
+                          ( _mobx.passwdVisible )
                             ? Icons.visibility_off
                             : Icons.visibility,
                           color: theme.colorScheme.onSecondary,

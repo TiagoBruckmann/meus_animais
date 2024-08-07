@@ -4,13 +4,15 @@ import 'package:flutter/material.dart';
 // imports globais
 import 'package:meus_animais/session.dart';
 
+// import das telas
+import 'package:meus_animais/app/pages/pets/mobx/crop/crop.dart';
+
 // import dos pacotes
 import 'package:flutter_i18n/flutter_i18n.dart';
 
-Future<String> showPictureSelection() async {
+Future<void> showPictureSelection( CropMobx cropMobx ) async {
 
   final currentContext = Session.globalContext.currentContext!;
-  String imageSelected = "";
   void goToPop() => Navigator.pop(currentContext);
 
   await showModalBottomSheet(
@@ -31,8 +33,8 @@ Future<String> showPictureSelection() async {
               width: double.infinity,
               child: TextButton(
                 onPressed: () {
-                  imageSelected = "gallery";
                   goToPop();
+                  cropMobx.chooseTypePicture("gallery");
                 },
                 child: FittedBox(
                   fit: BoxFit.scaleDown,
@@ -51,8 +53,8 @@ Future<String> showPictureSelection() async {
               width: double.infinity,
               child: TextButton(
                 onPressed: () {
-                  imageSelected = "picture";
                   goToPop();
+                  cropMobx.chooseTypePicture("picture");
                 },
                 child: FittedBox(
                   fit: BoxFit.scaleDown,
@@ -89,6 +91,4 @@ Future<String> showPictureSelection() async {
       );
     },
   );
-
-  return imageSelected;
 }

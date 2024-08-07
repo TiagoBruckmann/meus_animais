@@ -57,6 +57,22 @@ mixin _$AuthMobx on _AuthMobx, Store {
     });
   }
 
+  late final _$isLoadingAtom =
+      Atom(name: '_AuthMobx.isLoading', context: context);
+
+  @override
+  bool get isLoading {
+    _$isLoadingAtom.reportRead();
+    return super.isLoading;
+  }
+
+  @override
+  set isLoading(bool value) {
+    _$isLoadingAtom.reportWrite(value, super.isLoading, () {
+      super.isLoading = value;
+    });
+  }
+
   late final _$messageAtom = Atom(name: '_AuthMobx.message', context: context);
 
   @override
@@ -130,6 +146,17 @@ mixin _$AuthMobx on _AuthMobx, Store {
 
   late final _$_AuthMobxActionController =
       ActionController(name: '_AuthMobx', context: context);
+
+  @override
+  void setIsLoading(bool value) {
+    final _$actionInfo =
+        _$_AuthMobxActionController.startAction(name: '_AuthMobx.setIsLoading');
+    try {
+      return super.setIsLoading(value);
+    } finally {
+      _$_AuthMobxActionController.endAction(_$actionInfo);
+    }
+  }
 
   @override
   void setMessage(String value) {
@@ -225,6 +252,7 @@ mixin _$AuthMobx on _AuthMobx, Store {
 controllerName: ${controllerName},
 controllerEmail: ${controllerEmail},
 controllerPasswd: ${controllerPasswd},
+isLoading: ${isLoading},
 message: ${message},
 isEmailVerified: ${isEmailVerified},
 passwdVisible: ${passwdVisible}

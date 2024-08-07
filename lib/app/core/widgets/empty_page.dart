@@ -10,9 +10,15 @@ class EmptyPageWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    final theme = Theme.of(context);
+
     return Center(
       child: Text(
         FlutterI18n.translate(context, message),
+        style: theme.textTheme.bodyLarge?.apply(
+          color: theme.colorScheme.primary,
+        ),
         textAlign: TextAlign.center,
       ),
     );

@@ -1,9 +1,5 @@
 // pacotes nativos do flutter
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
-// imports globais
-import 'package:meus_animais/session.dart';
 
 // import dos pacotes
 import 'package:crop_your_image/crop_your_image.dart';
@@ -15,8 +11,6 @@ part 'crop.g.dart';
 class CropMobx extends _CropMobx with _$CropMobx {}
 
 abstract class _CropMobx with Store {
-
-  final _currentContext = Session.globalContext.currentContext!;
 
   final ImagePicker _picker = ImagePicker();
 
@@ -30,9 +24,6 @@ abstract class _CropMobx with Store {
   Uint8List? currentImage;
 
   @observable
-  String statusText = "";
-
-  @observable
   bool isLoading = false;
 
   @observable
@@ -43,9 +34,6 @@ abstract class _CropMobx with Store {
 
   @action
   void setCurrentImage( Uint8List? value ) => currentImage = value;
-
-  @action
-  void setStatusText( String value ) => statusText = value;
 
   @action
   void setIsLoading( bool value ) => isLoading = value;
@@ -68,9 +56,8 @@ abstract class _CropMobx with Store {
   @action
   void _setCurrentImage( Uint8List? image ) {
 
-    if ( image == null ) {
-      return goToPop();
-    }
+    setCroppedData(null);
+    if ( image == null ) return;
 
     setCurrentImage(image);
     return setIsCropImage(true);
@@ -79,17 +66,17 @@ abstract class _CropMobx with Store {
   @action
   void cutImage() {
     setIsLoading(true);
-    cropController.cropCircle();
+    cropController.crop();
+    // cropController.cropCircle();
     return;
   }
 
   @action
   void onCroppedImage( Uint8List croppedImage ) {
     setCroppedData(croppedImage);
-    return goToPop(value: croppedImage);
+    setCurrentImage(null);
+    setIsLoading(false);
+    return setIsCropImage(false);
   }
-
-  @action
-  void goToPop({ dynamic value }) => Navigator.pop(_currentContext, value);
 
 }

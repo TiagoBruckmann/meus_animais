@@ -102,12 +102,17 @@ abstract class _UserMobx with Store {
   @action
   Future<void> logOut( Function clearUserData ) async {
 
+    setIsLoading(true);
+
     Session.appEvents.sharedEvent("settings_logout");
 
     final successOrFailure = await _userUseCase.logOut();
 
     successOrFailure.fold(
-      (failure) => Session.logs.errorLog(failure.message),
+      (failure) {
+        setIsLoading(false);
+        Session.logs.errorLog(failure.message);
+      },
       (success) {
         clearUserData.call();
         return _goToLogin();
@@ -118,6 +123,7 @@ abstract class _UserMobx with Store {
   @action
   Future<void> deleteAccount() async {
 
+    setIsLoading(true);
     Session.appEvents.sharedEvent("settings_delete_account_apply");
 
     Map<String, dynamic> params = {
@@ -129,6 +135,7 @@ abstract class _UserMobx with Store {
 
     successOrFailure.fold(
       (failure) {
+        setIsLoading(false);
         Session.logs.errorLog(failure.message);
         CustomSnackBar(messageKey: "custom_message.destroy.error");
       },

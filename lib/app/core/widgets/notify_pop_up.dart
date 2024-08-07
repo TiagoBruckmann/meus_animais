@@ -32,9 +32,6 @@ class NotifyPopUpWidget extends StatelessWidget {
             child: Text(
               leftButton,
               textAlign: TextAlign.left,
-              style: const TextStyle(
-                color: Colors.red,
-              ),
             ),
             onPressed: () {
               Session.appEvents.logPopUp("closed", title, message, false);

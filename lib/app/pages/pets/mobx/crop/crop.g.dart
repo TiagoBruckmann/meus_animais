@@ -57,22 +57,6 @@ mixin _$CropMobx on _CropMobx, Store {
     });
   }
 
-  late final _$statusTextAtom =
-      Atom(name: '_CropMobx.statusText', context: context);
-
-  @override
-  String get statusText {
-    _$statusTextAtom.reportRead();
-    return super.statusText;
-  }
-
-  @override
-  set statusText(String value) {
-    _$statusTextAtom.reportWrite(value, super.statusText, () {
-      super.statusText = value;
-    });
-  }
-
   late final _$isLoadingAtom =
       Atom(name: '_CropMobx.isLoading', context: context);
 
@@ -140,17 +124,6 @@ mixin _$CropMobx on _CropMobx, Store {
   }
 
   @override
-  void setStatusText(String value) {
-    final _$actionInfo = _$_CropMobxActionController.startAction(
-        name: '_CropMobx.setStatusText');
-    try {
-      return super.setStatusText(value);
-    } finally {
-      _$_CropMobxActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
   void setIsLoading(bool value) {
     final _$actionInfo =
         _$_CropMobxActionController.startAction(name: '_CropMobx.setIsLoading');
@@ -206,23 +179,11 @@ mixin _$CropMobx on _CropMobx, Store {
   }
 
   @override
-  void goToPop({dynamic value}) {
-    final _$actionInfo =
-        _$_CropMobxActionController.startAction(name: '_CropMobx.goToPop');
-    try {
-      return super.goToPop(value: value);
-    } finally {
-      _$_CropMobxActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
   String toString() {
     return '''
 cropController: ${cropController},
 croppedData: ${croppedData},
 currentImage: ${currentImage},
-statusText: ${statusText},
 isLoading: ${isLoading},
 isCropImage: ${isCropImage}
     ''';

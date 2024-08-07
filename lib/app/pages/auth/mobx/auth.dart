@@ -40,6 +40,9 @@ abstract class _AuthMobx with Store {
   TextEditingController controllerPasswd = TextEditingController(text: kDebugMode ? "Tiago12345" : "");
 
   @observable
+  bool isLoading = false;
+
+  @observable
   String message = "";
 
   @observable
@@ -49,7 +52,10 @@ abstract class _AuthMobx with Store {
   bool passwdVisible = false;
 
   @action
-  void setMessage(String value ) => message = value;
+  void setIsLoading( bool value ) => isLoading = value;
+
+  @action
+  void setMessage( String value ) => message = value;
 
   @action
   void changeVisible() {
@@ -62,7 +68,9 @@ abstract class _AuthMobx with Store {
 
   @action
   void validateFields( String authType ) {
-    
+
+    setIsLoading(true);
+
     Session.appEvents.sharedEvent("auth_validate_fields_$authType");
     
     final name = controllerName.text.trim();
@@ -70,15 +78,18 @@ abstract class _AuthMobx with Store {
     final password = controllerPasswd.text.trim();
 
     if ( authType == AuthTypeEnum.register.value && ( name.isEmpty || name.length < 3 ) ) {
+      setIsLoading(false);
       return setMessage("custom_message.register.validate.name");
     }
     
     if ( email.isEmpty || !email.contains("@") ) {
+      setIsLoading(false);
       return setMessage("custom_message.register.validate.email");
     }
 
     if ( authType != AuthTypeEnum.forgot.value ) {
       if ( password.isEmpty || password.length < 5 ) {
+        setIsLoading(false);
         return setMessage("custom_message.register.validate.password");
       }
     }
@@ -112,6 +123,7 @@ abstract class _AuthMobx with Store {
 
     successOrFailure.fold(
       (failure) {
+        setIsLoading(false);
         Session.logs.errorLog(failure.message);
         return setMessage(failure.message);
       },
@@ -130,6 +142,7 @@ abstract class _AuthMobx with Store {
 
     successOrFailure.fold(
       (failure) {
+        setIsLoading(false);
         Session.logs.errorLog(failure.message);
         return setMessage(failure.message);
       },
@@ -151,6 +164,7 @@ abstract class _AuthMobx with Store {
 
     successOrFailure.fold(
       (failure) {
+        setIsLoading(false);
         Session.logs.errorLog(failure.message);
         return setMessage(failure.message);
       },
@@ -170,6 +184,7 @@ abstract class _AuthMobx with Store {
     controllerPasswd.dispose();
     setMessage("");
     setVerifyEmail(false);
+    setIsLoading(false);
   }
 
   @action

@@ -24,7 +24,6 @@ class NotificationRemoteDatasourceImpl implements NotificationRemoteDatasource {
   NotificationRemoteDatasourceImpl( this.auth, this.client );
 
   final _titleInfoData = "💣Solicitação de dados efetuada💥";
-  final _subTitleInfoData = "O usuário ${Session.user.name}, ID: ${Session.user.id}, do aplicativo Meus Animais. Solicitou que seja enviado um relatório de todos os seus dados cadastrais existentes no sistema!\n\n Data da solicitação: ${DateTime.now()}";
 
   @override
   Future<void> sendNotifyReapplyVaccine( Map<String, dynamic> json ) async {
@@ -105,7 +104,7 @@ class NotificationRemoteDatasourceImpl implements NotificationRemoteDatasource {
         "en": _titleInfoData,
       },
       "content": {
-        "en": _subTitleInfoData,
+        "en": "O usuário ${Session.user.name}, ID: ${Session.user.id}, do aplicativo Meus Animais. Solicitou que seja enviado um relatório de todos os seus dados cadastrais existentes no sistema!\n\n Data da solicitação: ${DateTime.now()}",
       },
       "include_player_ids": [playerId],
       // "included_segments": ["only admins"],
@@ -142,7 +141,7 @@ class NotificationRemoteDatasourceImpl implements NotificationRemoteDatasource {
 
     Map<String, dynamic> params = {
       "subject": _titleInfoData,
-      "body": _subTitleInfoData,
+      "body": "O usuário ${Session.user.name}, ID: ${Session.user.id}, do aplicativo Meus Animais. Solicitou que seja enviado um relatório de todos os seus dados cadastrais existentes no sistema!\n\n Data da solicitação: ${DateTime.now()}",
     };
 
     Uri url = Uri.https(Session.env.baseUrl, "send_email");

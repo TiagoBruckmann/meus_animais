@@ -141,6 +141,10 @@
       "picture": "Picture",
       "modal_title": "Are you sure?",
       "modal_body": "If you confirm that you want to return you will lose the current photo!"
+    },
+    "exit_app": {
+      "title": "Wish out of app?",
+      "sub_title": "Do you really intent get out app?"
     }
   },
   "custom_message": {

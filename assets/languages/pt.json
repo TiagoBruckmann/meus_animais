@@ -141,7 +141,11 @@
       "picture": "Camera",
       "modal_title": "Você tem certeza?",
       "modal_body": "Se você confirmar está ação, você perderá a sua foto atual!"
-  }
+  },
+    "exit_app": {
+      "title": "Deseja sair do app?",
+      "sub_title": "Você realmente deseja sair do app?"
+    }
 },
   "custom_message": {
     "destroy": {

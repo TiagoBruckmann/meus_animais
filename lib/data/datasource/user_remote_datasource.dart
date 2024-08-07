@@ -1,4 +1,6 @@
 // imports globais
+import 'dart:developer';
+
 import 'package:meus_animais/session.dart';
 import 'dart:convert';
 
@@ -12,11 +14,17 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:http/http.dart' as http;
 
+Map<String, String> _mapErrorAuthentication = {
+  "sensitive_access": "This operation is sensitive and requires recent authentication. Log in again before retrying this request.",
+  "permission_denied": "The caller does not have permission to execute the specified operation."
+};
+
 abstract class UserRemoteDatasource {
 
   Future<UserModel> getUserData();
   Future<void> logOut();
   Future<void> sendEmailDeleteAccount( Map<String, dynamic> json );
+  Future<void> deleteAccount();
 
 }
 
@@ -61,6 +69,7 @@ class UserRemoteSourceImpl implements UserRemoteDatasource {
       });
 
     Session.notifications.login(user.uid);
+    Session.crash.userConnected(user.uid);
 
     return userModel;
   }
@@ -108,14 +117,15 @@ class UserRemoteSourceImpl implements UserRemoteDatasource {
 
     if ( response.statusCode == 204 ) {
       Session.appEvents.sharedEvent("send_email_delete_account");
-      return await _deleteAccount(json);
+      return;
     }
 
     throw ServerExceptions(response.body);
 
   }
 
-  Future<void> _deleteAccount( Map<String, dynamic> json ) async {
+  @override
+  Future<void> deleteAccount() async {
 
     final user = auth.currentUser;
     if ( user == null ) {
@@ -124,20 +134,26 @@ class UserRemoteSourceImpl implements UserRemoteDatasource {
       throw ServerExceptions(errorMessage);
     }
 
+    final json = Session.user.deleteToMap();
+
     final metric = Session.performance.newHttpMetric("delete-user", HttpMethod.Delete);
     await metric.start();
 
-    await user.delete().then((value) async {
+    await db.collection("users").doc(json["id"]).update(json).then((value) async {
 
       await metric.stop();
 
-      await db.collection("users").doc(json["id"]).update(json["delete_user"]);
-
+      await user.delete();
       return;
 
     })
     .onError((error, stackTrace) {
       metric.stop();
+      if ( error.toString().contains(_mapErrorAuthentication["sensitive_access"].toString()) ) {
+        throw SensitiveAccessException(_mapErrorAuthentication["sensitive_access"].toString());
+      } else if ( error.toString().contains(_mapErrorAuthentication["permission_denied"].toString()) ) {
+        throw SensitiveAccessException(_mapErrorAuthentication["permission_denied"].toString());
+      }
       Session.crash.onError(error.toString(), error: error, stackTrace: stackTrace);
       throw ServerExceptions(error.toString());
     })
@@ -146,6 +162,8 @@ class UserRemoteSourceImpl implements UserRemoteDatasource {
       Session.crash.log(onError);
       throw ServerExceptions(onError.toString());
     });
+
+    return;
 
   }
 

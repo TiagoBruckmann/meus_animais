@@ -84,6 +84,8 @@ class AuthRemoteDatasourceImpl implements AuthRemoteDatasource {
 
     await db.collection("users").doc(userModel.id).set(userModel.toMap());
 
+    Session.notifications.login(userModel.id);
+    Session.crash.userConnected(userModel.id);
     return userModel;
   }
 
@@ -124,7 +126,8 @@ class AuthRemoteDatasourceImpl implements AuthRemoteDatasource {
       picture: firebaseUser.user!.photoURL!,
     );
 
-    await Session.notifications.login(firebaseUser.user!.uid);
+    await Session.notifications.login(userModel.id);
+    Session.crash.userConnected(userModel.id);
 
     return userModel;
 

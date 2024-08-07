@@ -32,3 +32,13 @@ class UserNotFoundException implements Exception {
   final String message;
   UserNotFoundException( this.message );
 }
+
+class SensitiveAccessException implements Exception {
+  final String message;
+  SensitiveAccessException( this.message );
+}
+
+class PermissionDeniedException implements Exception {
+  final String message;
+  PermissionDeniedException( this.message );
+}

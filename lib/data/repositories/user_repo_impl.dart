@@ -48,12 +48,47 @@ class UserRepoImpl implements UserRepo {
   @override
   Future<Either<Failure, void>> sendEmailDeleteAccount( Map<String, dynamic> json ) async {
     try {
-      final result = await userRemoteDatasource.sendEmailDeleteAccount( json );
+      await userRemoteDatasource.sendEmailDeleteAccount( json );
+      final result = await _deleteAccount();
+      return right(result);
+    } on ServerExceptions catch (e) {
+      Session.crash.onError("send_email_delete_account_server_error", error: e.message);
+      return left(ServerFailure(e.message));
+    } on SensitiveAccessException catch (e) {
+      Session.crash.onError("send_email_delete_account_sensitive_access", error: e.message);
+      return left(SensitiveAccessFailure(e.message));
+    } on PermissionDeniedException catch (e) {
+      Session.crash.onError("send_email_delete_account_permission_denied", error: e.message);
+      return left(PermissionDeniedFailure(e.message));
+    } catch (e) {
+
+      if ( e is SensitiveAccessException ) {
+        Session.crash.onError("send_email_delete_account_sensitive_access", error: e.message);
+        return left(SensitiveAccessFailure(e.message));
+      }
+
+      Session.crash.onError("send_email_delete_account_error", error: e);
+      return left(GeneralFailure(e.toString()));
+    }
+  }
+
+  Future<Either<Failure, void>> _deleteAccount() async {
+    try {
+      final result = await userRemoteDatasource.deleteAccount();
       return right(result);
     } on ServerExceptions catch (e) {
       Session.crash.onError("delete_account_server_error", error: e.message);
       return left(ServerFailure(e.message));
+    } on SensitiveAccessException catch (e) {
+      Session.crash.onError("delete_account_sensitive_access", error: e.message);
+      return left(SensitiveAccessFailure(e.message));
     } catch (e) {
+
+      if ( e is SensitiveAccessException ) {
+        Session.crash.onError("delete_account_sensitive_access", error: e.message);
+        return left(SensitiveAccessFailure(e.message));
+      }
+
       Session.crash.onError("delete_account_error", error: e);
       return left(GeneralFailure(e.toString()));
     }

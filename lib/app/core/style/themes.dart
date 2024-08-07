@@ -120,13 +120,8 @@ class Themes {
     ),
     dialogTheme: const DialogTheme(
       backgroundColor: _primaryColorLight,
-      titleTextStyle: TextStyle(
-        color: _secondaryColorLight,
-        fontSize: 20,
-      ),
-      contentTextStyle: TextStyle(
-        color: _secondaryColorLight,
-      ),
+      titleTextStyle: _displayMediumTextLight,
+      contentTextStyle: _bodyLargeTextLight,
     ),
     dividerTheme: _dividerThemeDataLight,
     inputDecorationTheme: InputDecorationTheme(
@@ -258,13 +253,8 @@ class Themes {
     ),
     dialogTheme: const DialogTheme(
       backgroundColor: _primaryColorDark,
-      titleTextStyle: TextStyle(
-        color: _secondaryColorDark,
-        fontSize: 20,
-      ),
-      contentTextStyle: TextStyle(
-        color: _secondaryColorDark,
-      ),
+      titleTextStyle: _displayMediumTextDark,
+      contentTextStyle: _bodyLargeTextDark,
     ),
     dividerTheme: _dividerThemeDataDark,
     inputDecorationTheme: InputDecorationTheme(
