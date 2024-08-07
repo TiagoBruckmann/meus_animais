@@ -95,10 +95,29 @@ class AuthRemoteDatasourceImpl implements AuthRemoteDatasource {
     final metric = Session.performance.newHttpMetric("login", HttpMethod.Post);
     await metric.start();
 
-    final firebaseUser = await auth.signInWithEmailAndPassword(
+    late UserModel userModel;
+
+    await auth.signInWithEmailAndPassword(
       email: json["email"],
       password: json["password"],
     )
+    .then((value) async {
+
+      await metric.stop();
+
+       userModel = UserModel(
+        value.user!.uid,
+        value.user!.displayName!,
+        json["email"],
+        picture: value.user!.photoURL,
+      );
+
+      await Session.notifications.login(userModel.id);
+      Session.crash.userConnected(userModel.id);
+
+      return userModel;
+
+    })
     .onError((error, stackTrace) {
       metric.stop();
       if ( error.toString().contains(_mapErrorAuthentication["week_password"].toString()) ) {
@@ -116,18 +135,6 @@ class AuthRemoteDatasourceImpl implements AuthRemoteDatasource {
         throw ServerExceptions(error.toString());
       }
     });
-
-    await metric.stop();
-
-    UserModel userModel = UserModel(
-      firebaseUser.user!.uid,
-      firebaseUser.user!.displayName!,
-      json["email"],
-      picture: firebaseUser.user!.photoURL!,
-    );
-
-    await Session.notifications.login(userModel.id);
-    Session.crash.userConnected(userModel.id);
 
     return userModel;
 

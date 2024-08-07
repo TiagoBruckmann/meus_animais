@@ -167,6 +167,7 @@ abstract class _UserMobx with Store {
 
   @action
   void _goToLogin() {
+    setIsLoading(false);
     Session.appEvents.sharedEvent("settings_return_to_login");
     Navigator.pushNamedAndRemoveUntil(
       _currentContext,
