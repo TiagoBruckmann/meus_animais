@@ -23,6 +23,9 @@ class NotificationRemoteDatasourceImpl implements NotificationRemoteDatasource {
   final http.Client client;
   NotificationRemoteDatasourceImpl( this.auth, this.client );
 
+  final _titleInfoData = "💣Solicitação de dados efetuada💥";
+  final _subTitleInfoData = "O usuário ${Session.user.name}, ID: ${Session.user.id}, do aplicativo Meus Animais. Solicitou que seja enviado um relatório de todos os seus dados cadastrais existentes no sistema!\n\n Data da solicitação: ${DateTime.now()}";
+
   @override
   Future<void> sendNotifyReapplyVaccine( Map<String, dynamic> json ) async {
 
@@ -94,15 +97,18 @@ class NotificationRemoteDatasourceImpl implements NotificationRemoteDatasource {
   @override
   Future<void> requestInfoData() async {
 
+    String? playerId = Session.notifications.getPlayerId();
+
     final body = {
       "app_id": Session.env.onesignalAppId,
       "header": {
-        "en": "💣Solicitação de dados efetuada💥",
+        "en": _titleInfoData,
       },
       "content": {
-        "en": "O usuário ${Session.user.name}, ID: ${Session.user.id}. Solicitou que seja enviado um relatório de todos os seus dados cadastrais existentes no sistema!\n\n Data da solicitação: ${DateTime.now()}",
+        "en": _subTitleInfoData,
       },
-      "included_segments": ["only admins"],
+      "include_player_ids": [playerId],
+      // "included_segments": ["only admins"],
       "data": {},
       "template_id": Session.env.onesignalTemplateInfoData,
     };
@@ -135,8 +141,8 @@ class NotificationRemoteDatasourceImpl implements NotificationRemoteDatasource {
   Future<void> _requestInfoSendEmail() async {
 
     Map<String, dynamic> params = {
-      "subject": "💣Solicitação de dados efetuada💥",
-      "body": "O usuário ${Session.user.name}, ID: ${Session.user.id}. Solicitou que seja enviado um relatório de todos os seus dados cadastrais existentes no sistema!\n\n Data da solicitação: ${DateTime.now()}!"
+      "subject": _titleInfoData,
+      "body": _subTitleInfoData,
     };
 
     Uri url = Uri.https(Session.env.baseUrl, "send_email");

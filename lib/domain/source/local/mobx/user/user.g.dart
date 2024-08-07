@@ -9,6 +9,22 @@ part of 'user.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
 mixin _$UserMobx on _UserMobx, Store {
+  late final _$isLoadingAtom =
+      Atom(name: '_UserMobx.isLoading', context: context);
+
+  @override
+  bool get isLoading {
+    _$isLoadingAtom.reportRead();
+    return super.isLoading;
+  }
+
+  @override
+  set isLoading(bool value) {
+    _$isLoadingAtom.reportWrite(value, super.isLoading, () {
+      super.isLoading = value;
+    });
+  }
+
   late final _$_verifyVersionAsyncAction =
       AsyncAction('_UserMobx._verifyVersion', context: context);
 
@@ -51,6 +67,17 @@ mixin _$UserMobx on _UserMobx, Store {
 
   late final _$_UserMobxActionController =
       ActionController(name: '_UserMobx', context: context);
+
+  @override
+  void setIsLoading(bool value) {
+    final _$actionInfo =
+        _$_UserMobxActionController.startAction(name: '_UserMobx.setIsLoading');
+    try {
+      return super.setIsLoading(value);
+    } finally {
+      _$_UserMobxActionController.endAction(_$actionInfo);
+    }
+  }
 
   @override
   void _showDialogNewVersion(NewVersionPlus newVersion,
@@ -100,7 +127,7 @@ mixin _$UserMobx on _UserMobx, Store {
   @override
   String toString() {
     return '''
-
+isLoading: ${isLoading}
     ''';
   }
 }

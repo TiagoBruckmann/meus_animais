@@ -27,6 +27,12 @@ abstract class _UserMobx with Store {
   final _notificationUseCase = NotificationUseCase(getIt());
   final _userUseCase = UserUseCase(getIt());
 
+  @observable
+  bool isLoading = false;
+
+  @action
+  void setIsLoading( bool value ) => isLoading = value;
+
   @action
   Future<void> _verifyVersion() async {
 
@@ -74,11 +80,13 @@ abstract class _UserMobx with Store {
       (success) => Session.user = success,
     );
 
-    await _verifyVersion();
+    // await _verifyVersion();
   }
 
   @action
   Future<void> requestInfoData() async {
+
+    setIsLoading(true);
 
     final successOrFailure = await _notificationUseCase.requestInfoData();
 
@@ -86,6 +94,8 @@ abstract class _UserMobx with Store {
       (failure) => Session.logs.errorLog(failure.message),
       (success) => Session.logs.successLog("Solicitação efetuada com sucesso"),
     );
+
+    setIsLoading(false);
 
   }
 
