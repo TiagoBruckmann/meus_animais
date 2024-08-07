@@ -1,5 +1,6 @@
 // pacotes nativos do flutter
 import 'package:flutter/material.dart';
+import 'package:meus_animais/app/core/widgets/loading_overlay.dart';
 
 // imports globais
 import 'package:meus_animais/session.dart';
@@ -40,81 +41,86 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
 
     final theme = Theme.of(context);
 
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          FlutterI18n.translate(context, "pages.login.forgot.forgot"),
-        ),
-      ),
-      body: Center(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric( horizontal: 16, vertical: 10 ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
+    return Observer(
+      builder: (context) {
 
-              Padding(
-                padding: const EdgeInsets.all(30),
-                child: Center(
-                  child: Text(
-                    FlutterI18n.translate(context, "pages.login.forgot.forgot"),
-                    style: theme.textTheme.headlineLarge?.apply(
-                      fontWeightDelta: 3,
-                    ),
-                  ),
-                ),
+        return LoadingOverlay(
+          isLoading: _mobx.isLoading,
+          child: Scaffold(
+            appBar: AppBar(
+              title: Text(
+                FlutterI18n.translate(context, "pages.login.forgot.forgot"),
               ),
+            ),
+            body: Center(
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.symmetric( horizontal: 16, vertical: 10 ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
 
-              Padding(
-                padding: const EdgeInsets.only(bottom: 8),
-                child: TextField(
-                  controller: _mobx.controllerEmail,
-                  keyboardType: TextInputType.emailAddress,
-                  style: theme.textTheme.headlineMedium,
-                  textInputAction: TextInputAction.done,
-                  decoration: InputDecoration(
-                    labelText: FlutterI18n.translate(context, "pages.login.email"),
-                  ),
-                ),
-              ),
-
-              Padding(
-                padding: const EdgeInsets.only(top: 16, bottom: 10),
-                child: ElevatedButton(
-                  onPressed: () => _mobx.validateFields( AuthTypeEnum.forgot.value ),
-                  child: Text(
-                    FlutterI18n.translate(context, ( !_mobx.isEmailVerified ) ? "pages.login.forgot.btn_email" : "pages.login.forgot.btn_unreceived"),
-                    style: theme.textTheme.headlineMedium?.apply(
-                      color: theme.colorScheme.secondary,
-                    ),
-                  ),
-                ),
-              ),
-
-              Observer(
-                builder: (context) {
-
-                  return Padding(
-                    padding: const EdgeInsets.only(top: 16),
-                    child: Center(
-                      child: Text(
-                        _mobx.message,
-                        style: theme.textTheme.headlineMedium?.apply(
-                          color: theme.colorScheme.error,
+                    Padding(
+                      padding: const EdgeInsets.all(30),
+                      child: Center(
+                        child: Text(
+                          FlutterI18n.translate(context, "pages.login.forgot.forgot"),
+                          style: theme.textTheme.headlineLarge?.apply(
+                            fontWeightDelta: 3,
+                          ),
                         ),
                       ),
                     ),
-                  );
 
-                }
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 8),
+                      child: TextField(
+                        controller: _mobx.controllerEmail,
+                        keyboardType: TextInputType.emailAddress,
+                        style: theme.textTheme.headlineMedium,
+                        textInputAction: TextInputAction.done,
+                        decoration: InputDecoration(
+                          labelText: FlutterI18n.translate(context, "pages.login.email"),
+                        ),
+                      ),
+                    ),
+
+                    Padding(
+                      padding: const EdgeInsets.only(top: 16, bottom: 10),
+                      child: ElevatedButton(
+                        onPressed: () => _mobx.validateFields( AuthTypeEnum.forgot.value ),
+                        child: Text(
+                          FlutterI18n.translate(context, "pages.login.forgot.btn_email"),
+                          style: theme.textTheme.headlineMedium?.apply(
+                            color: theme.colorScheme.secondary,
+                          ),
+                        ),
+                      ),
+                    ),
+
+                    Padding(
+                      padding: const EdgeInsets.only(top: 16),
+                      child: Center(
+                        child: Text(
+                          _mobx.message,
+                          style: theme.textTheme.headlineMedium?.apply(
+                            color: _mobx.isSuccessMessage
+                            ? Colors.green
+                            : theme.colorScheme.error,
+                          ),
+                        ),
+                      ),
+                    ),
+
+                    const CopyrightWidget(),
+
+                  ],
+                ),
               ),
-
-              const CopyrightWidget(),
-
-            ],
+            ),
           ),
-        ),
-      ),
+        );
+
+      }
     );
   }
 }

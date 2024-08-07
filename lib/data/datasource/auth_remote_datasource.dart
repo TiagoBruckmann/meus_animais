@@ -16,6 +16,7 @@ Map<String, String> _mapErrorAuthentication = {
   "bad_email": "The email address is badly formatted",
   "user_pwd_not_found": "The password is invalid or the user does not have a password",
   "user_not_found": "There is no user record corresponding to this identifier. The user may have been deleted",
+  "invalid-credential": "The supplied auth credential is incorrect, malformed or has expired."
 };
 
 abstract class AuthRemoteDatasource {
@@ -130,6 +131,8 @@ class AuthRemoteDatasourceImpl implements AuthRemoteDatasource {
         throw UserPwdNotFoundException(_mapErrorAuthentication["user_pwd_not_found"].toString());
       } else if ( error.toString().contains(_mapErrorAuthentication["user_not_found"].toString()) ) {
         throw UserNotFoundException(_mapErrorAuthentication["user_not_found"].toString());
+      } else if ( error.toString().contains(_mapErrorAuthentication["invalid-credential"].toString()) ) {
+        throw InvalidCredentialException(_mapErrorAuthentication["invalid-credential"].toString());
       } else {
         Session.crash.onError(error.toString(), error: error, stackTrace: stackTrace);
         throw ServerExceptions(error.toString());

@@ -155,6 +155,7 @@ class _LoginPageState extends State<LoginPage> {
                                 color: theme.colorScheme.onSecondary,
                                 fontWeightDelta: 2,
                               ),
+                              textAlign: TextAlign.center,
                             ),
                           ),
                         ),

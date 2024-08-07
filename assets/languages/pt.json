@@ -118,7 +118,7 @@
         "app_bar": "Esqueci minha senha",
         "forgot": "Esqueceu sua senha",
         "btn_email": "Validar e-mail",
-        "btn_unreceived": "Não recebi o e-mail"
+        "access_email": "Acesse seu e-mail para efetuar a atualização da sua senha!"
       }
     },
     "hygiene": {

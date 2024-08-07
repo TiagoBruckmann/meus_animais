@@ -1,6 +1,7 @@
 // pacotes nativos do flutter
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:meus_animais/domain/failures/failures.dart';
 
 // imports globais
 import 'package:meus_animais/session.dart';
@@ -46,7 +47,7 @@ abstract class _AuthMobx with Store {
   String message = "";
 
   @observable
-  bool isEmailVerified = false;
+  bool isSuccessMessage = false;
 
   @observable
   bool passwdVisible = false;
@@ -55,16 +56,16 @@ abstract class _AuthMobx with Store {
   void setIsLoading( bool value ) => isLoading = value;
 
   @action
-  void setMessage( String value ) => message = value;
+  void setMessage( String value, { bool isSuccess = false }) {
+    message = value;
+    isSuccessMessage = isSuccess;
+  }
 
   @action
   void changeVisible() {
     Session.appEvents.sharedEvent("change_visible_password");
     passwdVisible = !passwdVisible;
   }
-
-  @action
-  void setVerifyEmail( bool value ) => isEmailVerified = value;
 
   @action
   void validateFields( String authType ) {
@@ -102,7 +103,6 @@ abstract class _AuthMobx with Store {
     }
 
     if ( authType == AuthTypeEnum.forgot.value ) {
-      setVerifyEmail(true);
       _forgot();
       return;
     }
@@ -142,12 +142,17 @@ abstract class _AuthMobx with Store {
 
     successOrFailure.fold(
       (failure) {
-        setIsLoading(false);
         Session.logs.errorLog(failure.message);
         return setMessage(failure.message);
       },
-      (success) => Session.logs.successLog("forgot_success => "),
+      (success) async {
+        setMessage("pages.login.forgot.access_email", isSuccess: true);
+        await Future.delayed(const Duration(seconds: 3));
+        _goToPop();
+      },
     );
+
+    setIsLoading(false);
 
   }
 
@@ -165,7 +170,6 @@ abstract class _AuthMobx with Store {
     successOrFailure.fold(
       (failure) {
         setIsLoading(false);
-        print("failure.message => ${failure.message}");
         Session.logs.errorLog(failure.message);
         return setMessage(failure.message);
       },
@@ -184,7 +188,6 @@ abstract class _AuthMobx with Store {
     controllerEmail.dispose();
     controllerPasswd.dispose();
     setMessage("");
-    setVerifyEmail(false);
     setIsLoading(false);
   }
 
@@ -196,5 +199,8 @@ abstract class _AuthMobx with Store {
 
   @action
   void _goToHome() => Navigator.pushNamedAndRemoveUntil(_currentContext, "/", (route) => false);
+
+  @action
+  void _goToPop() => Navigator.pop(_currentContext);
 
 }

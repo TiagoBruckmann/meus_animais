@@ -77,6 +77,9 @@ class AuthRepoImpl implements AuthRepo {
     } on UserNotFoundException catch (e) {
       Session.crash.onError("login_user_not_found", error: e.message);
       return left(UserNotFoundFailure(e.message));
+    } on InvalidCredentialException catch (e) {
+      Session.crash.onError("login_invalid_credential", error: e.message);
+      return left(InvalidCredentialFailure(e.message));
     } on ServerExceptions catch (e) {
       Session.crash.onError("login_server_error", error: e.message);
       return left(ServerFailure(e.message));

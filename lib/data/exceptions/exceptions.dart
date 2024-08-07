@@ -23,6 +23,11 @@ class InvalidEmailException implements Exception {
   InvalidEmailException( this.message );
 }
 
+class InvalidCredentialException implements Exception {
+  final String message;
+  InvalidCredentialException( this.message );
+}
+
 class UserPwdNotFoundException implements Exception {
   final String message;
   UserPwdNotFoundException( this.message );

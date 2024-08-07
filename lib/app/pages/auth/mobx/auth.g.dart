@@ -88,19 +88,19 @@ mixin _$AuthMobx on _AuthMobx, Store {
     });
   }
 
-  late final _$isEmailVerifiedAtom =
-      Atom(name: '_AuthMobx.isEmailVerified', context: context);
+  late final _$isSuccessMessageAtom =
+      Atom(name: '_AuthMobx.isSuccessMessage', context: context);
 
   @override
-  bool get isEmailVerified {
-    _$isEmailVerifiedAtom.reportRead();
-    return super.isEmailVerified;
+  bool get isSuccessMessage {
+    _$isSuccessMessageAtom.reportRead();
+    return super.isSuccessMessage;
   }
 
   @override
-  set isEmailVerified(bool value) {
-    _$isEmailVerifiedAtom.reportWrite(value, super.isEmailVerified, () {
-      super.isEmailVerified = value;
+  set isSuccessMessage(bool value) {
+    _$isSuccessMessageAtom.reportWrite(value, super.isSuccessMessage, () {
+      super.isSuccessMessage = value;
     });
   }
 
@@ -159,11 +159,11 @@ mixin _$AuthMobx on _AuthMobx, Store {
   }
 
   @override
-  void setMessage(String value) {
+  void setMessage(String value, {bool isSuccess = false}) {
     final _$actionInfo =
         _$_AuthMobxActionController.startAction(name: '_AuthMobx.setMessage');
     try {
-      return super.setMessage(value);
+      return super.setMessage(value, isSuccess: isSuccess);
     } finally {
       _$_AuthMobxActionController.endAction(_$actionInfo);
     }
@@ -175,17 +175,6 @@ mixin _$AuthMobx on _AuthMobx, Store {
         name: '_AuthMobx.changeVisible');
     try {
       return super.changeVisible();
-    } finally {
-      _$_AuthMobxActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  void setVerifyEmail(bool value) {
-    final _$actionInfo = _$_AuthMobxActionController.startAction(
-        name: '_AuthMobx.setVerifyEmail');
-    try {
-      return super.setVerifyEmail(value);
     } finally {
       _$_AuthMobxActionController.endAction(_$actionInfo);
     }
@@ -247,6 +236,17 @@ mixin _$AuthMobx on _AuthMobx, Store {
   }
 
   @override
+  void _goToPop() {
+    final _$actionInfo =
+        _$_AuthMobxActionController.startAction(name: '_AuthMobx._goToPop');
+    try {
+      return super._goToPop();
+    } finally {
+      _$_AuthMobxActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 controllerName: ${controllerName},
@@ -254,7 +254,7 @@ controllerEmail: ${controllerEmail},
 controllerPasswd: ${controllerPasswd},
 isLoading: ${isLoading},
 message: ${message},
-isEmailVerified: ${isEmailVerified},
+isSuccessMessage: ${isSuccessMessage},
 passwdVisible: ${passwdVisible}
     ''';
   }

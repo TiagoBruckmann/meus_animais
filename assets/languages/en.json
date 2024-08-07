@@ -118,7 +118,7 @@
         "app_bar": "Forgot my password",
         "forgot": "Forgot your password",
         "btn_email": "Validate e-mail",
-        "btn_unreceived": "don't received the e-mail"
+        "access_email": "Access your e-mail to update your password!"
       }
     },
     "hygiene": {
