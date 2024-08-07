@@ -23,9 +23,19 @@ class TermsPage extends StatelessWidget {
           children: [
 
             // cabeçalho
-            const ListTile(
-              title: Text("TERMO DE USO MEUS ANIMAIS"),
-              subtitle: Text("Atualizado em 29 de Julho de 2022"),
+            ListTile(
+              title: Text(
+                "TERMO DE USO MEUS ANIMAIS",
+                style: theme.textTheme.displayMedium?.apply(
+                  color: theme.colorScheme.onSecondary,
+                ),
+              ),
+              subtitle: Text(
+                "Atualizado em 29 de Julho de 2022",
+                style: theme.textTheme.bodyLarge?.apply(
+                  color: theme.colorScheme.onSecondary,
+                ),
+              ),
             ),
 
             // sobre nossos servicos
@@ -40,6 +50,7 @@ class TermsPage extends StatelessWidget {
                 TextSpan(
                   text: "Segurança e privacidade:\n\n",
                   style: theme.textTheme.bodyLarge?.apply(
+                    color: theme.colorScheme.onSecondary,
                     fontWeightDelta: 5,
                   ),
                   children: [
@@ -47,7 +58,8 @@ class TermsPage extends StatelessWidget {
                     TextSpan(
                       text: "- Desenvolvemos nosso sistema de forma segura e pensando na confiabilidade e privacidade.\n\n",
                       style: theme.textTheme.bodyLarge?.apply(
-                        fontWeightDelta: -3,
+                        color: theme.colorScheme.onSecondary,
+                        fontWeightDelta: -1,
                       ),
                     ),
 
@@ -55,6 +67,7 @@ class TermsPage extends StatelessWidget {
                     TextSpan(
                       text: "Formas de melhorar nosso sistema:\n\n",
                       style: theme.textTheme.bodyLarge?.apply(
+                        color: theme.colorScheme.onSecondary,
                         fontWeightDelta: 5,
                       ),
                       children: [
@@ -63,7 +76,8 @@ class TermsPage extends StatelessWidget {
                           text: "- Utilizamos nossas métricas para prever e ter estudos de sequência e utilização dos nossos usuários, a fim de sempre buscarmos melhorar a sua experiência.\n\n"
                               "- Buscamos sempre dar ouvidos às suas contribuições, sejam elas via avaliação da loja ou via dicas e sugestões internas do aplicativo.\n\n",
                           style: theme.textTheme.bodyLarge?.apply(
-                            fontWeightDelta: -3,
+                            color: theme.colorScheme.onSecondary,
+                            fontWeightDelta: -1,
                           ),
                         ),
 
@@ -71,6 +85,7 @@ class TermsPage extends StatelessWidget {
                         TextSpan(
                           text: "Acessos a nossos serviços:\n\n",
                           style: theme.textTheme.bodyLarge?.apply(
+                            color: theme.colorScheme.onSecondary,
                             fontWeightDelta: 5,
                           ),
                           children: [
@@ -78,7 +93,8 @@ class TermsPage extends StatelessWidget {
                             TextSpan(
                               text: "- Para que seja possível o nosso sistema estar disponível em diversos lugares do mundo, utilizamos serviços em diversos lugares do globo, sempre visando a maior integridade de nosso sistema.\n\n",
                               style: theme.textTheme.bodyLarge?.apply(
-                                fontWeightDelta: -3,
+                                color: theme.colorScheme.onSecondary,
+                                fontWeightDelta: -1,
                               ),
                             ),
 
@@ -89,6 +105,7 @@ class TermsPage extends StatelessWidget {
                         TextSpan(
                           text: "Permissões necessárias:\n\n",
                           style: theme.textTheme.bodyLarge?.apply(
+                            color: theme.colorScheme.onSecondary,
                             fontWeightDelta: 5,
                           ),
                           children: [
@@ -96,7 +113,8 @@ class TermsPage extends StatelessWidget {
                             TextSpan(
                               text: "- Nosso sistema não necessita de nenhuma permissão exclusiva como por exemplo acesso a Localização ou Agenda de contatos.\n\n",
                               style: theme.textTheme.bodyLarge?.apply(
-                                fontWeightDelta: -3,
+                                color: theme.colorScheme.onSecondary,
+                                fontWeightDelta: -1,
                               ),
                             ),
 
@@ -107,6 +125,7 @@ class TermsPage extends StatelessWidget {
                         TextSpan(
                           text: "Utilização:\n\n",
                           style: theme.textTheme.bodyLarge?.apply(
+                            color: theme.colorScheme.onSecondary,
                             fontWeightDelta: 5,
                           ),
                           children: [
@@ -114,7 +133,8 @@ class TermsPage extends StatelessWidget {
                             TextSpan(
                               text: "- Nosso sistema não possui nenhum embargo ou serviços que seja necessário uma faixa etária mínima, logo sua utilização pode ser feita por pessoas de qualquer idade.\n\n",
                               style: theme.textTheme.bodyLarge?.apply(
-                                fontWeightDelta: -3,
+                                color: theme.colorScheme.onSecondary,
+                                fontWeightDelta: -1,
                               ),
                             ),
 
@@ -125,6 +145,7 @@ class TermsPage extends StatelessWidget {
                         TextSpan(
                           text: "Dispositivos e software:\n\n",
                           style: theme.textTheme.bodyLarge?.apply(
+                            color: theme.colorScheme.onSecondary,
                             fontWeightDelta: 5,
                           ),
                           children: [
@@ -132,13 +153,15 @@ class TermsPage extends StatelessWidget {
                             TextSpan(
                               text: "- Para a utilização o usuário precisará possuir certos dispositivos, softwares ou conexões de dados mínimos, os quais ",
                               style: theme.textTheme.bodyLarge?.apply(
-                                fontWeightDelta: -3,
+                                color: theme.colorScheme.onSecondary,
+                                fontWeightDelta: -1,
                               ),
                             ),
 
                             TextSpan(
                               text: "não são ",
                               style: theme.textTheme.bodyLarge?.apply(
+                                color: theme.colorScheme.onSecondary,
                                 fontWeightDelta: 5,
                               ),
                             ),
@@ -146,13 +169,15 @@ class TermsPage extends StatelessWidget {
                             TextSpan(
                               text: "disponibilizados pela ",
                               style: theme.textTheme.bodyLarge?.apply(
-                                fontWeightDelta: -3,
+                                color: theme.colorScheme.onSecondary,
+                                fontWeightDelta: -1,
                               ),
                             ),
 
                             TextSpan(
                               text: "Meus Animais.\n\n",
                               style: theme.textTheme.bodyLarge?.apply(
+                                color: theme.colorScheme.onSecondary,
                                 fontWeightDelta: 5,
                               ),
                             ),
@@ -164,6 +189,7 @@ class TermsPage extends StatelessWidget {
                         TextSpan(
                           text: "Tarifas e custos:\n\n",
                           style: theme.textTheme.bodyLarge?.apply(
+                            color: theme.colorScheme.onSecondary,
                             fontWeightDelta: 5,
                           ),
                           children: [
@@ -171,7 +197,8 @@ class TermsPage extends StatelessWidget {
                             TextSpan(
                               text: "- Nosso sistema não possui nenhum tipo de venda de pacotes, porém para efetuar sua utilização é necessário ter acesso a internet seja via Wi-fi ou Dados móveis, e estes custos são de total responsabilidade do utilizador.\n\n",
                               style: theme.textTheme.bodyLarge?.apply(
-                                fontWeightDelta: -3,
+                                color: theme.colorScheme.onSecondary,
+                                fontWeightDelta: -1,
                               ),
                             ),
 
@@ -190,19 +217,23 @@ class TermsPage extends StatelessWidget {
             ListTile(
               title: Text(
                 "Sobre serviços terceiros\n",
-                style: theme.textTheme.displayMedium,
+                style: theme.textTheme.displayMedium?.apply(
+                  color: theme.colorScheme.onSecondary,
+                ),
               ),
               subtitle: Text.rich(
                 TextSpan(
                   text: "Nosso sistema não faz a utilização de nenhum serviço terceiro, todas as funcionalidades e opções existentes no aplicativo foram construídas e são gerenciadas pela própria equipe de ",
                   style: theme.textTheme.bodyLarge?.apply(
-                    fontWeightDelta: -3,
+                    color: theme.colorScheme.onSecondary,
+                    fontWeightDelta: -1,
                   ),
                   children: [
 
                     TextSpan(
                       text: "Meus animais.",
                       style: theme.textTheme.bodyLarge?.apply(
+                        color: theme.colorScheme.onSecondary,
                         fontWeightDelta: 5,
                       ),
                     ),
@@ -213,8 +244,8 @@ class TermsPage extends StatelessWidget {
             ),
 
             // avisos legais e insecoes
-            const ListTile(
-              title: Padding(
+            ListTile(
+              title: const Padding(
                 padding: EdgeInsets.only( bottom: 10 ),
                 child: TitleTextWidget(
                   title: "\nAvisos legais e Isenções\n",
@@ -225,7 +256,11 @@ class TermsPage extends StatelessWidget {
                       "- Nossos serviços são como eles se apresentam, sem garantias expressas ou tácitas incluindo garantias de comercialidade, adequação a um fim de propriedade específico.\n\n"
                       "- Não nos responsabilizamos por violação e proteção contra vírus de computador ou outros códigos nocivos.\n\n"
                       "- Não garantimos que nossos serviços estejam operantes 24/7, sem interrupções, atrasos ou imperfeições.\n\n"
-                      "- Não controlamos e não nos responsabilizamos quando ou como nossos usuários utilizam nossos serviços ou recursos.\n\n"
+                      "- Não controlamos e não nos responsabilizamos quando ou como nossos usuários utilizam nossos serviços ou recursos.\n\n",
+                style: theme.textTheme.bodyLarge?.apply(
+                  color: theme.colorScheme.onSecondary,
+                  fontWeightDelta: -1,
+                ),
               ),
             ),
 
@@ -241,6 +276,7 @@ class TermsPage extends StatelessWidget {
                 TextSpan(
                   text: "Disponibilidade de nossos serviços:\n\n",
                   style: theme.textTheme.bodyLarge?.apply(
+                    color: theme.colorScheme.onSecondary,
                     fontWeightDelta: 5,
                   ),
                   children: [
@@ -248,7 +284,8 @@ class TermsPage extends StatelessWidget {
                     TextSpan(
                       text: "- Estamos sempre à procura de aprimorar nossos serviços, isso podemos ampliar, adicionar ou remover algum serviço, recurso, funcionalidade ou compatibilidade com algum dispositivo ou plataforma.\n\n",
                       style: theme.textTheme.bodyLarge?.apply(
-                        fontWeightDelta: -3,
+                        color: theme.colorScheme.onSecondary,
+                        fontWeightDelta: -1,
                       ),
                       children: const [
 
@@ -267,6 +304,7 @@ class TermsPage extends StatelessWidget {
                     TextSpan(
                       text: "Rescisão:\n\n",
                       style: theme.textTheme.bodyLarge?.apply(
+                        color: theme.colorScheme.onSecondary,
                         fontWeightDelta: 5,
                       ),
                       children: [
@@ -274,13 +312,15 @@ class TermsPage extends StatelessWidget {
                         TextSpan(
                           text: "- Embora esperamos que nossos usuários nunca deixem de utilizar nosso aplicativo e de seus serviços, existe a possibilidade de encerrar seu relacionamento para com a ",
                           style: theme.textTheme.bodyLarge?.apply(
-                            fontWeightDelta: -3,
+                            color: theme.colorScheme.onSecondary,
+                            fontWeightDelta: -1,
                           ),
                         ),
 
                         TextSpan(
                           text: "Meus animais ",
                           style: theme.textTheme.bodyLarge?.apply(
+                            color: theme.colorScheme.onSecondary,
                             fontWeightDelta: 5,
                           ),
                         ),
@@ -288,14 +328,16 @@ class TermsPage extends StatelessWidget {
                         TextSpan(
                           text: "a qualquer momento que seja da vontade do usuário, podendo optar por apenas parar de utilizar nossos serviços ou podendo deletar sua conta e todos os seus dados de nosso sistema.\n\n",
                           style: theme.textTheme.bodyLarge?.apply(
-                            fontWeightDelta: -3,
+                            color: theme.colorScheme.onSecondary,
+                            fontWeightDelta: -1,
                           ),
                         ),
 
                         TextSpan(
                           text: "- Podemos acabar desativando sua conta caso ela não possua utilização ou não tenha alterações após um prolongado período.\n\n",
                           style: theme.textTheme.bodyLarge?.apply(
-                            fontWeightDelta: -3,
+                            color: theme.colorScheme.onSecondary,
+                            fontWeightDelta: -1,
                           ),
                         ),
 
@@ -319,7 +361,8 @@ class TermsPage extends StatelessWidget {
                 TextSpan(
                   text: "- Reservamo-nos o direito de declarar futuramente que alguns de nossos serviços são governados por termos separados. (deverá ser aceito separadamente, se aplicados).\n\n",
                   style: theme.textTheme.bodyLarge?.apply(
-                    fontWeightDelta: -3,
+                    color: theme.colorScheme.onSecondary,
+                    fontWeightDelta: -1,
                   ),
                   children: const [
 
