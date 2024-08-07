@@ -1,5 +1,6 @@
 // import dos pacotes
 import 'package:equatable/equatable.dart';
+import 'package:image_picker/image_picker.dart';
 
 class PetEntity extends Equatable {
 
@@ -33,6 +34,7 @@ class PetEntity extends Equatable {
 
   Map<String, dynamic> updateToMap() {
     Map<String, dynamic> map = {
+      "id": id,
       "picture": picture,
       "weight": weight,
       "death": death,

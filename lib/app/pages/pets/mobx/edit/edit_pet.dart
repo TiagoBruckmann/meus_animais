@@ -38,6 +38,9 @@ abstract class _EditPetMobx with Store {
   TextEditingController controllerName = TextEditingController();
 
   @observable
+  PetEntity? petDetail;
+
+  @observable
   bool isLoading = true;
 
   @observable
@@ -105,6 +108,7 @@ abstract class _EditPetMobx with Store {
 
     await _getVaccines( pet.id );
     await _getHygiene( pet.id );
+    petDetail = pet;
 
     setIsLoading(false);
 
@@ -174,12 +178,54 @@ abstract class _EditPetMobx with Store {
     setIsLoading(true);
     Session.appEvents.sharedEvent("create_pet_validate_fields");
 
-    String name = controllerName.text.trim();
-    String birth = controllerBirth.text.trim();
-    String death = controllerDeath.text.trim();
-    String breed = controllerBreed.text.trim();
     String weight = controllerWeight.text.trim().replaceAll("KG ", "");
     double weightParse = double.parse(weight);
+    String death = controllerDeath.text.trim();
+
+    if ( weight.length > 6 ) {
+      setIsLoading(false);
+      CustomSnackBar(messageKey: "custom_message.update_pet.validate.weight");
+      return;
+    }
+
+    if ( weightParse == 0.0 ) {
+      setIsLoading(false);
+      CustomSnackBar(messageKey: "custom_message.set_pet.validate.weight");
+      return;
+    }
+
+    if ( isUpdate && petDetail != null ) {
+
+      String imageName = petDetail!.picture;
+      if ( picture != null ) {
+        final file = XFile.fromData(picture);
+        imageName = file.name;
+      }
+
+      final pet = PetEntity(
+        petDetail!.id,
+        petDetail!.userId,
+        petDetail!.name,
+        sex,
+        specie,
+        petDetail!.breed,
+        imageName,
+        petDetail!.birth,
+        petDetail!.birth,
+        death,
+        weightParse,
+        petDetail!.createdAt,
+        DateTime.now().toString(),
+      );
+
+      _updatePet(pet);
+      return;
+
+    }
+
+    String name = controllerName.text.trim();
+    String birth = controllerBirth.text.trim();
+    String breed = controllerBreed.text.trim();
 
     int day = int.parse(birth.split("/")[0]);
     int month = int.parse(birth.split("/")[1]);
@@ -194,18 +240,6 @@ abstract class _EditPetMobx with Store {
     if ( birth.isEmpty || birth.length != 10 ) {
       setIsLoading(false);
       CustomSnackBar(messageKey: "custom_message.set_pet.validate.birth");
-      return;
-    }
-
-    if ( weight.length > 6 ) {
-      setIsLoading(false);
-      CustomSnackBar(messageKey: "custom_message.update_pet.validate.weight");
-      return;
-    }
-
-    if ( weightParse == 0.0 ) {
-      setIsLoading(false);
-      CustomSnackBar(messageKey: "custom_message.set_pet.validate.weight");
       return;
     }
 
@@ -277,7 +311,23 @@ abstract class _EditPetMobx with Store {
         CustomSnackBar(messageKey: "custom_message.set_pet.error");
         return;
       },
-      (success) => _goToHome(pet),
+      (success) => _goToHome(),
+    );
+
+  }
+
+  @action
+  Future<void> _updatePet( PetEntity pet ) async {
+
+    final successOrFailure = await _petUseCase.updatePet(pet.updateToMap());
+
+    successOrFailure.fold(
+      (failure) {
+        Session.logs.errorLog(failure.message);
+        CustomSnackBar(messageKey: "custom_message.update_pet.error");
+        return;
+      },
+      (success) => _goToHome(),
     );
 
   }
@@ -298,8 +348,8 @@ abstract class _EditPetMobx with Store {
   }
 
   @action
-  void _goToHome( PetEntity pet ) {
-    Navigator.pushNamedAndRemoveUntil(_currentContext, "/", (route) => false, arguments: pet);
+  void _goToHome() {
+    Navigator.pushNamedAndRemoveUntil(_currentContext, "/", (route) => false);
     return;
   }
 

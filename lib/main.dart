@@ -38,7 +38,8 @@ void main() async {
     return true;
   };
 
-  await FirebasePerformance.instance.setPerformanceCollectionEnabled(!kDebugMode);
+  await FirebasePerformance.instance.setPerformanceCollectionEnabled(true);
+  // await FirebasePerformance.instance.setPerformanceCollectionEnabled(!kDebugMode);
 
   await Session.notifications.init();
   Session.notifications.receiveNotification();

@@ -40,6 +40,22 @@ mixin _$EditPetMobx on _EditPetMobx, Store {
     });
   }
 
+  late final _$petDetailAtom =
+      Atom(name: '_EditPetMobx.petDetail', context: context);
+
+  @override
+  PetEntity? get petDetail {
+    _$petDetailAtom.reportRead();
+    return super.petDetail;
+  }
+
+  @override
+  set petDetail(PetEntity? value) {
+    _$petDetailAtom.reportWrite(value, super.petDetail, () {
+      super.petDetail = value;
+    });
+  }
+
   late final _$isLoadingAtom =
       Atom(name: '_EditPetMobx.isLoading', context: context);
 
@@ -254,6 +270,14 @@ mixin _$EditPetMobx on _EditPetMobx, Store {
     return _$_createPetAsyncAction.run(() => super._createPet(pet, picture));
   }
 
+  late final _$_updatePetAsyncAction =
+      AsyncAction('_EditPetMobx._updatePet', context: context);
+
+  @override
+  Future<void> _updatePet(PetEntity pet) {
+    return _$_updatePetAsyncAction.run(() => super._updatePet(pet));
+  }
+
   late final _$goToVaccinesAsyncAction =
       AsyncAction('_EditPetMobx.goToVaccines', context: context);
 
@@ -362,11 +386,11 @@ mixin _$EditPetMobx on _EditPetMobx, Store {
   }
 
   @override
-  void _goToHome(PetEntity pet) {
+  void _goToHome() {
     final _$actionInfo = _$_EditPetMobxActionController.startAction(
         name: '_EditPetMobx._goToHome');
     try {
-      return super._goToHome(pet);
+      return super._goToHome();
     } finally {
       _$_EditPetMobxActionController.endAction(_$actionInfo);
     }
@@ -377,6 +401,7 @@ mixin _$EditPetMobx on _EditPetMobx, Store {
     return '''
 petId: ${petId},
 controllerName: ${controllerName},
+petDetail: ${petDetail},
 isLoading: ${isLoading},
 isUpdate: ${isUpdate},
 typePage: ${typePage},
