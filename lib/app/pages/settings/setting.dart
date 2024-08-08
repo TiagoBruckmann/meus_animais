@@ -83,7 +83,7 @@ class _SettingPageState extends State<SettingPage> {
                     subtitle: Text(
                       Session.user.email,
                       style: theme.textTheme.displayLarge?.apply(
-                        color: theme.colorScheme.primary,
+                        color: theme.colorScheme.onSecondary,
                       ),
                     ),
                   ),

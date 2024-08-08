@@ -53,7 +53,7 @@ class VaccinesPage extends StatelessWidget {
                     TextSpan(
                       text: FlutterI18n.translate(context, "pages.vaccines.type"),
                       style: theme.textTheme.displayLarge?.apply(
-                        color: theme.colorScheme.primary,
+                        color: theme.colorScheme.onSecondary,
                         fontWeightDelta: 1,
                       ),
                       children: [
@@ -61,7 +61,7 @@ class VaccinesPage extends StatelessWidget {
                         TextSpan(
                           text: vaccine.type,
                           style: theme.textTheme.displayLarge?.apply(
-                            color: theme.colorScheme.primary,
+                            color: theme.colorScheme.onSecondary,
                             fontWeightDelta: -1
                           ),
                         ),
@@ -86,14 +86,14 @@ class VaccinesPage extends StatelessWidget {
                     TextSpan(
                       text: FlutterI18n.translate(context, "pages.vaccines.reapply"),
                       style: theme.textTheme.displayLarge?.apply(
-                        color: theme.colorScheme.primary,
+                        color: theme.colorScheme.onSecondary,
                       ),
                       children: [
 
                         TextSpan(
                           text: FlutterI18n.translate(context, "pages.vaccines.time", translationParams: <String, String>{"time": vaccine.time!, "type_time": vaccine.typeTime!}),
                           style: theme.textTheme.displayLarge?.apply(
-                            color: theme.colorScheme.primary,
+                            color: theme.colorScheme.onSecondary,
                             fontWeightDelta: -1,
                           ),
                         ),

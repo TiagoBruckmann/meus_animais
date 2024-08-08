@@ -17,7 +17,7 @@ class EmptyPageWidget extends StatelessWidget {
       child: Text(
         FlutterI18n.translate(context, message),
         style: theme.textTheme.bodyLarge?.apply(
-          color: theme.colorScheme.primary,
+          color: theme.colorScheme.onSecondary,
         ),
         textAlign: TextAlign.center,
       ),

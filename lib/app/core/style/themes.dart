@@ -39,7 +39,7 @@ class Themes {
   );
 
   static const TextStyle _headlineMediumTextLight = TextStyle(
-    color: _primaryColorLight,
+    color: _onSecondaryColor,
     fontSize: 20,
   );
 
@@ -56,7 +56,7 @@ class Themes {
 
   static const TextStyle _displaySmallTextLight = TextStyle(
     fontWeight: FontWeight.w500,
-    color: _primaryColorLight,
+    color: _onSecondaryColor,
     fontSize: 16,
   );
 

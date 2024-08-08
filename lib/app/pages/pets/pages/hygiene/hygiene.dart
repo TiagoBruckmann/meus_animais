@@ -55,7 +55,7 @@ class HygienePage extends StatelessWidget {
                     TextSpan(
                       text: FlutterI18n.translate(context, "pages.hygiene.hygiene.place"),
                       style: theme.textTheme.displayLarge?.apply(
-                        color: theme.colorScheme.primary,
+                        color: theme.colorScheme.onSecondary,
                         fontWeightDelta: 3,
                       ),
                       children: [
@@ -63,8 +63,8 @@ class HygienePage extends StatelessWidget {
                         TextSpan(
                           text: hygiene.place,
                           style: theme.textTheme.displayLarge?.apply(
-                              color: theme.colorScheme.primary,
-                              fontWeightDelta: -1
+                            color: theme.colorScheme.onSecondary,
+                            fontWeightDelta: -1
                           ),
                         ),
 
@@ -86,14 +86,14 @@ class HygienePage extends StatelessWidget {
                     TextSpan(
                       text: FlutterI18n.translate(context, "pages.hygiene.hygiene.value"),
                       style: theme.textTheme.displayLarge?.apply(
-                        color: theme.colorScheme.primary,
+                        color: theme.colorScheme.onSecondary,
                       ),
                       children: [
 
                         TextSpan(
                           text: hygiene.value,
                           style: theme.textTheme.displayLarge?.apply(
-                            color: theme.colorScheme.primary,
+                            color: theme.colorScheme.onSecondary,
                             fontWeightDelta: -1,
                           ),
                         ),
