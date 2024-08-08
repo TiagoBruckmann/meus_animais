@@ -1,6 +1,4 @@
 // imports nativos
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 
 // imports globais

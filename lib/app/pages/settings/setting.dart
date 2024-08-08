@@ -58,254 +58,251 @@ class _SettingPageState extends State<SettingPage> {
 
           return LoadingOverlay(
             isLoading: _userMobx.isLoading,
-            child: PopScope(
-              canPop: false,
-              onPopInvokedWithResult: ( value, object ) async => await Session.sharedServices.exitApp(),
-              child: SingleChildScrollView(
-                padding: const EdgeInsets.all(16),
-                child: Column(
-                  children: [
+            exitApp: true,
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                children: [
 
-                    ListTile(
-                      leading: CircleAvatar(
-                        radius: 35,
-                        backgroundColor: theme.colorScheme.onSecondary,
-                        child: CircleAvatar(
-                          radius: 45,
-                          backgroundColor: theme.colorScheme.primary,
-                          backgroundImage: AssetImage(
-                            AppImages.defaultUser,
-                          ),
-                        ),
-                      ),
-                      title: Text(
-                        Session.user.name,
-                        style: theme.textTheme.headlineMedium,
-                      ),
-                      subtitle: Text(
-                        Session.user.email,
-                        style: theme.textTheme.displayLarge?.apply(
-                          color: theme.colorScheme.primary,
+                  ListTile(
+                    leading: CircleAvatar(
+                      radius: 35,
+                      backgroundColor: theme.colorScheme.onSecondary,
+                      child: CircleAvatar(
+                        radius: 45,
+                        backgroundColor: theme.colorScheme.primary,
+                        backgroundImage: AssetImage(
+                          AppImages.defaultUser,
                         ),
                       ),
                     ),
-
-                    Divider(
-                      height: 30,
-                      color: theme.colorScheme.onSecondary,
+                    title: Text(
+                      Session.user.name,
+                      style: theme.textTheme.headlineMedium,
                     ),
+                    subtitle: Text(
+                      Session.user.email,
+                      style: theme.textTheme.displayLarge?.apply(
+                        color: theme.colorScheme.primary,
+                      ),
+                    ),
+                  ),
 
-                    // geral
-                    Row(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.symmetric( horizontal: 16 ),
+                  Divider(
+                    height: 30,
+                    color: theme.colorScheme.onSecondary,
+                  ),
+
+                  // geral
+                  Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric( horizontal: 16 ),
+                        child: Text(
+                          FlutterI18n.translate(context, "widgets.settings.main"),
+                          style: theme.textTheme.headlineLarge,
+                        ),
+                      ),
+                    ],
+                  ),
+
+                  Divider(
+                    height: 30,
+                    color: theme.colorScheme.onSecondary,
+                  ),
+
+                  // avaliar
+                  Row(
+                    children: [
+
+                      GestureDetector(
+                        onTap: () => Session.sharedServices.rateApp(),
+                        child: Padding(
+                          padding: const EdgeInsets.fromLTRB(30, 0, 16, 0),
                           child: Text(
-                            FlutterI18n.translate(context, "widgets.settings.main"),
-                            style: theme.textTheme.headlineLarge,
+                            FlutterI18n.translate(context, "widgets.settings.rate"),
+                            style: theme.textTheme.displaySmall,
                           ),
                         ),
-                      ],
-                    ),
+                      ),
 
-                    Divider(
-                      height: 30,
-                      color: theme.colorScheme.onSecondary,
-                    ),
+                    ],
+                  ),
 
-                    // avaliar
-                    Row(
-                      children: [
+                  Divider(
+                    height: 30,
+                    color: theme.colorScheme.onSecondary,
+                  ),
 
-                        GestureDetector(
-                          onTap: () => Session.sharedServices.rateApp(),
-                          child: Padding(
-                            padding: const EdgeInsets.fromLTRB(30, 0, 16, 0),
-                            child: Text(
-                              FlutterI18n.translate(context, "widgets.settings.rate"),
-                              style: theme.textTheme.displaySmall,
-                            ),
+                  // desconectar
+                  Row(
+                    children: [
+
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(30, 0, 16, 0),
+                        child: GestureDetector(
+                          onTap: () {
+
+                            showDialog(
+                              context: context,
+                              builder: (builder) => PopUpWidget(
+                                title: "widgets.settings.logout.title",
+                                text: "widgets.settings.logout.text",
+                                function: () => _userMobx.logOut(() {
+                                  _petMobx.clear();
+                                }),
+                              ),
+                            );
+
+                          },
+                          child: Text(
+                            FlutterI18n.translate(context, "widgets.settings.logout.title"),
+                            style: theme.textTheme.displaySmall,
                           ),
                         ),
+                      ),
 
-                      ],
-                    ),
+                    ],
+                  ),
 
-                    Divider(
-                      height: 30,
-                      color: theme.colorScheme.onSecondary,
-                    ),
+                  Divider(
+                    height: 30,
+                    color: theme.colorScheme.onSecondary,
+                  ),
 
-                    // desconectar
-                    Row(
+                  // FAQ
+                  Row(
+                    children: [
+
+                      Padding(
+                        padding: const EdgeInsets.symmetric( horizontal: 16 ),
+                        child: Text(
+                          FlutterI18n.translate(context, "widgets.settings.faq"),
+                          style: theme.textTheme.headlineLarge,
+                        ),
+                      ),
+
+                    ],
+                  ),
+
+                  Divider(
+                    height: 30,
+                    color: theme.colorScheme.onSecondary,
+                  ),
+
+                  // solicitar informacoes
+                  GestureDetector(
+                    onTap: () {
+
+                      showDialog(
+                        context: context,
+                        builder: (builder) => PopUpWidget(
+                          title: "widgets.settings.info_account.title",
+                          text: "widgets.settings.info_account.description",
+                          function: () {
+                            Session.appEvents.sendScreen("settings_info_account_apply");
+                            _userMobx.requestInfoData();
+                          },
+                        ),
+                      );
+
+                    },
+                    child: Row(
                       children: [
 
                         Padding(
                           padding: const EdgeInsets.fromLTRB(30, 0, 16, 0),
-                          child: GestureDetector(
-                            onTap: () {
-
-                              showDialog(
-                                context: context,
-                                builder: (builder) => PopUpWidget(
-                                  title: "widgets.settings.logout.title",
-                                  text: "widgets.settings.logout.text",
-                                  function: () => _userMobx.logOut(() {
-                                    _petMobx.clear();
-                                  }),
-                                ),
-                              );
-
-                            },
-                            child: Text(
-                              FlutterI18n.translate(context, "widgets.settings.logout.title"),
-                              style: theme.textTheme.displaySmall,
-                            ),
-                          ),
-                        ),
-
-                      ],
-                    ),
-
-                    Divider(
-                      height: 30,
-                      color: theme.colorScheme.onSecondary,
-                    ),
-
-                    // FAQ
-                    Row(
-                      children: [
-
-                        Padding(
-                          padding: const EdgeInsets.symmetric( horizontal: 16 ),
                           child: Text(
-                            FlutterI18n.translate(context, "widgets.settings.faq"),
-                            style: theme.textTheme.headlineLarge,
+                            FlutterI18n.translate(context, "widgets.settings.info_account.name"),
+                            style: theme.textTheme.displaySmall,
                           ),
                         ),
 
                       ],
                     ),
+                  ),
 
-                    Divider(
-                      height: 30,
-                      color: theme.colorScheme.onSecondary,
-                    ),
+                  Divider(
+                    height: 30,
+                    color: theme.colorScheme.onSecondary,
+                  ),
 
-                    // solicitar informacoes
-                    GestureDetector(
-                      onTap: () {
-
-                        showDialog(
-                          context: context,
-                          builder: (builder) => PopUpWidget(
-                            title: "widgets.settings.info_account.title",
-                            text: "widgets.settings.info_account.description",
-                            function: () {
-                              Session.appEvents.sendScreen("settings_info_account_apply");
-                              _userMobx.requestInfoData();
-                            },
-                          ),
-                        );
-
-                      },
-                      child: Row(
-                        children: [
-
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(30, 0, 16, 0),
-                            child: Text(
-                              FlutterI18n.translate(context, "widgets.settings.info_account.name"),
-                              style: theme.textTheme.displaySmall,
-                            ),
-                          ),
-
-                        ],
-                      ),
-                    ),
-
-                    Divider(
-                      height: 30,
-                      color: theme.colorScheme.onSecondary,
-                    ),
-
-                    // Termos de uso
-                    GestureDetector(
-                      onTap: () => _userMobx.goToTerms(),
-                      child: Row(
-                        children: [
-
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(30, 0, 16, 0),
-                            child: Text(
-                              FlutterI18n.translate(context, "widgets.settings.terms.terms"),
-                              style: theme.textTheme.displaySmall,
-                            ),
-                          ),
-
-                        ],
-                      ),
-                    ),
-
-                    Divider(
-                      height: 30,
-                      color: theme.colorScheme.onSecondary,
-                    ),
-
-                    // politica de privacidade
-                    GestureDetector(
-                      onTap: () => _userMobx.goToPolicy(),
-                      child: Row(
-                        children: [
-
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(30, 0, 16, 0),
-                            child: Text(
-                              FlutterI18n.translate(context, "widgets.settings.terms.policy"),
-                              style: theme.textTheme.displaySmall,
-                            ),
-                          ),
-
-                        ],
-                      ),
-                    ),
-
-                    Divider(
-                      height: 30,
-                      color: theme.colorScheme.onSecondary,
-                    ),
-
-                    // excluir conta
-                    Row(
+                  // Termos de uso
+                  GestureDetector(
+                    onTap: () => _userMobx.goToTerms(),
+                    child: Row(
                       children: [
+
                         Padding(
                           padding: const EdgeInsets.fromLTRB(30, 0, 16, 0),
-                          child: GestureDetector(
-                            onTap: () {
-
-                              Session.appEvents.sharedEvent("settings_delete_account");
-                              showDialog(
-                                context: context,
-                                builder: (builder) => PopUpWidget(
-                                  title: "widgets.settings.destroy.title",
-                                  text: "widgets.settings.destroy.text",
-                                  function: () => _userMobx.deleteAccount(),
-                                ),
-                              );
-
-                            },
-                            child: Text(
-                              FlutterI18n.translate(context, "widgets.settings.destroy.destroy"),
-                              style: theme.textTheme.displaySmall,
-                            ),
+                          child: Text(
+                            FlutterI18n.translate(context, "widgets.settings.terms.terms"),
+                            style: theme.textTheme.displaySmall,
                           ),
                         ),
 
                       ],
                     ),
+                  ),
 
-                  ],
-                ),
+                  Divider(
+                    height: 30,
+                    color: theme.colorScheme.onSecondary,
+                  ),
+
+                  // politica de privacidade
+                  GestureDetector(
+                    onTap: () => _userMobx.goToPolicy(),
+                    child: Row(
+                      children: [
+
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(30, 0, 16, 0),
+                          child: Text(
+                            FlutterI18n.translate(context, "widgets.settings.terms.policy"),
+                            style: theme.textTheme.displaySmall,
+                          ),
+                        ),
+
+                      ],
+                    ),
+                  ),
+
+                  Divider(
+                    height: 30,
+                    color: theme.colorScheme.onSecondary,
+                  ),
+
+                  // excluir conta
+                  Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(30, 0, 16, 0),
+                        child: GestureDetector(
+                          onTap: () {
+
+                            Session.appEvents.sharedEvent("settings_delete_account");
+                            showDialog(
+                              context: context,
+                              builder: (builder) => PopUpWidget(
+                                title: "widgets.settings.destroy.title",
+                                text: "widgets.settings.destroy.text",
+                                function: () => _userMobx.deleteAccount(),
+                              ),
+                            );
+
+                          },
+                          child: Text(
+                            FlutterI18n.translate(context, "widgets.settings.destroy.destroy"),
+                            style: theme.textTheme.displaySmall,
+                          ),
+                        ),
+                      ),
+
+                    ],
+                  ),
+
+                ],
               ),
             ),
           );

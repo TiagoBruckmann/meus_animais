@@ -4,9 +4,6 @@ import 'package:flutter/material.dart';
 // imports globais
 import 'package:meus_animais/session.dart';
 
-// imports das telas
-import 'package:meus_animais/app/core/style/app_colors.dart';
-
 // import dos pacotes
 import 'package:flutter_i18n/flutter_i18n.dart';
 

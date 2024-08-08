@@ -52,7 +52,7 @@ class _PetsPageState extends State<PetsPage> {
       keyAppBar: "pages.pets.pets.app_bar",
       page: PopScope(
         canPop: false,
-        onPopInvokedWithResult: ( value, object ) async => await Session.sharedServices.exitApp(),
+        onPopInvokedWithResult: ( bool? canPop, object ) async => await Session.sharedServices.exitApp(),
         child: Observer(
           builder: ( builder ) {
 

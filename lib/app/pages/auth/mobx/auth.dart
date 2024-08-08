@@ -1,7 +1,6 @@
 // pacotes nativos do flutter
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:meus_animais/domain/failures/failures.dart';
 
 // imports globais
 import 'package:meus_animais/session.dart';

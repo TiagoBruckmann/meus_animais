@@ -10,9 +10,6 @@ import 'package:meus_animais/app/core/widgets/verify_connection.dart';
 import 'package:meus_animais/app/core/widgets/loading_overlay.dart';
 import 'package:meus_animais/app/core/widgets/dropdown_error.dart';
 
-// import dos domain
-import 'package:meus_animais/domain/entities/service.dart';
-
 // import dos pacotes
 import 'package:myne_find_dropdown/myne_find_dropdown.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';

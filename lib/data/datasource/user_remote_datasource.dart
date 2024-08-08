@@ -1,8 +1,8 @@
 // imports globais
-import 'dart:developer';
-
-import 'package:meus_animais/session.dart';
 import 'dart:convert';
+
+// imports globais
+import 'package:meus_animais/session.dart';
 
 // import dos data
 import 'package:meus_animais/data/exceptions/exceptions.dart';

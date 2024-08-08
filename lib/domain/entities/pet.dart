@@ -1,6 +1,5 @@
 // import dos pacotes
 import 'package:equatable/equatable.dart';
-import 'package:image_picker/image_picker.dart';
 
 class PetEntity extends Equatable {
 
