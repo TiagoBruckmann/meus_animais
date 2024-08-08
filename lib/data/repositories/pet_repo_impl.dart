@@ -36,7 +36,7 @@ class PetRepoImpl implements PetRepo {
   }
 
   @override
-  Future<Either<Failure, void>> setPet( Map<String, dynamic> json, XFile? picture ) async {
+  Future<Either<Failure, void>> setPet( Map<String, dynamic> json, XFile picture ) async {
     try {
       final result = await petRemoteDatasource.setPet( json, picture );
       return right(result);
@@ -50,9 +50,9 @@ class PetRepoImpl implements PetRepo {
   }
 
   @override
-  Future<Either<Failure, void>> updatePet( Map<String, dynamic> json ) async {
+  Future<Either<Failure, PetEntity>> updatePet( Map<String, dynamic> json, XFile? picture ) async {
     try {
-      final result = await petRemoteDatasource.updatePet( json );
+      final result = await petRemoteDatasource.updatePet( json, picture );
       return right(result);
     } on ServerExceptions catch (e) {
       Session.crash.onError("update_pet_server_error", error: e.message);

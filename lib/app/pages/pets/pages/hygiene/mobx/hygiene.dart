@@ -124,6 +124,7 @@ abstract class _HygieneMobx with Store {
 
     final List<HygieneEntity> listHygiene = [hygiene];
 
+    print("isUpdate hygiene => $isUpdate");
     if ( isUpdate ) {
       return await _setHygiene( listHygiene );
     }

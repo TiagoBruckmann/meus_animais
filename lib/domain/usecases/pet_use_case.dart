@@ -18,12 +18,12 @@ class PetUseCase {
     return await petRepo.getPets();
   }
 
-  Future<Either<Failure, void>> createPet( Map<String, dynamic> json, XFile? picture ) async {
+  Future<Either<Failure, void>> createPet( Map<String, dynamic> json, XFile picture ) async {
     return await petRepo.setPet( json, picture );
   }
 
-  Future<Either<Failure, void>> updatePet( Map<String, dynamic> json ) async {
-    return await petRepo.updatePet( json );
+  Future<Either<Failure, PetEntity>> updatePet( Map<String, dynamic> json, XFile? picture ) async {
+    return await petRepo.updatePet( json, picture );
   }
 
   Future<Either<Failure, List<LifeTimeEntity>>> getLifeTimePets() async {

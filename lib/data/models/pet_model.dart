@@ -20,7 +20,7 @@ class PetModel extends PetEntity with EquatableMixin {
       json["breed"],
       json["picture"],
       json["age"],
-      Session.sharedServices.calculateBirth(json["age"]),
+      json["age"].toString().contains("/") ? Session.sharedServices.calculateBirth(json["age"]) : json["age"],
       json["death"],
       json["weight"],
       json["created_at"],

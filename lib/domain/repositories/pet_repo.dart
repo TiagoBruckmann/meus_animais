@@ -11,8 +11,8 @@ import 'package:dartz/dartz.dart';
 
 abstract class PetRepo {
   Future<Either<Failure, List<PetEntity>>> getPets();
-  Future<Either<Failure, void>> setPet( Map<String, dynamic> json, XFile? picture );
-  Future<Either<Failure, void>> updatePet( Map<String, dynamic> json );
+  Future<Either<Failure, void>> setPet( Map<String, dynamic> json, XFile picture );
+  Future<Either<Failure, PetEntity>> updatePet( Map<String, dynamic> json, XFile? picture );
   Future<Either<Failure, List<LifeTimeEntity>>> getLifeTime();
   Future<Either<Failure, List<HygieneEntity>>> getHygiene( String petId );
   Future<Either<Failure, void>> setHygiene( List<HygieneEntity> list );

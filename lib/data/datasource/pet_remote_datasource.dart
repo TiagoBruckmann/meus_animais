@@ -25,8 +25,8 @@ import 'package:image_picker/image_picker.dart';
 abstract class PetRemoteDatasource {
 
   Future<List<PetModel>> getPets();
-  Future<void> setPet( Map<String, dynamic> json, XFile? picture );
-  Future<void> updatePet( Map<String, dynamic> json );
+  Future<void> setPet( Map<String, dynamic> json, XFile picture );
+  Future<PetModel> updatePet( Map<String, dynamic> json, XFile? picture );
   Future<List<LifeTimeModel>> getLifeTime();
   Future<List<HygieneModel>> getHygiene( String petId );
   Future<void> setHygiene( List<HygieneEntity> list );
@@ -81,7 +81,7 @@ class PetRemoteSourceImpl implements PetRemoteDatasource {
   }
 
   @override
-  Future<void> setPet( Map<String, dynamic> json, XFile? picture ) async {
+  Future<void> setPet( Map<String, dynamic> json, XFile picture ) async {
 
     final user = auth.currentUser;
     if ( user == null ) {
@@ -120,11 +120,7 @@ class PetRemoteSourceImpl implements PetRemoteDatasource {
           await setHygiene(hygiene);
         }
 
-        if ( picture != null ) {
-          return await _uploadPicture(pet, picture);
-        }
-
-        return;
+        return await _uploadPicture(pet, picture);
 
       })
       .onError((error, stackTrace) {
@@ -142,7 +138,7 @@ class PetRemoteSourceImpl implements PetRemoteDatasource {
   }
 
   @override
-  Future<void> updatePet( Map<String, dynamic> json ) async {
+  Future<PetModel> updatePet( Map<String, dynamic> json, XFile? picture ) async {
 
     final user = auth.currentUser;
     if ( user == null ) {
@@ -151,12 +147,18 @@ class PetRemoteSourceImpl implements PetRemoteDatasource {
       throw ServerExceptions(errorMessage);
     }
 
+    if ( picture != null ) {
+      return await _uploadPicture(json, picture);
+    }
+
+    final pet = PetModel.fromJson(json);
+
     final metric = Session.performance.newHttpMetric("update-pet", HttpMethod.Put);
     await metric.start();
 
     await db.collection("pets")
-      .doc(json["id"])
-      .update(json)
+      .doc(pet.id)
+      .update(pet.updateToMap())
       .onError((error, stackTrace) {
         metric.stop();
         Session.crash.onError(error.toString(), error: error, stackTrace: stackTrace);
@@ -168,7 +170,9 @@ class PetRemoteSourceImpl implements PetRemoteDatasource {
         throw ServerExceptions(onError.toString());
       });
 
-    return;
+    await metric.stop();
+
+    return pet;
   }
 
   @override
@@ -250,8 +254,10 @@ class PetRemoteSourceImpl implements PetRemoteDatasource {
   @override
   Future<void> setHygiene( List<HygieneEntity> list ) async {
 
+    print("list => $list");
     for ( final item in list ) {
 
+      print("item.petId => ${item.petId}");
       if ( item.petId != null ) {
 
         final metric = Session.performance.newHttpMetric("set-hygiene-pet-${item.id}", HttpMethod.Post);
@@ -332,7 +338,12 @@ class PetRemoteSourceImpl implements PetRemoteDatasource {
 
   }
 
-  Future<void> _uploadPicture( Map<String, dynamic> json , XFile file ) async {
+  Future<PetModel> _uploadPicture( Map<String, dynamic> json , XFile? file ) async {
+
+    PetModel pet = PetModel.fromJson(json);
+    if ( file == null ) {
+      return pet;
+    }
 
     final metric = Session.performance.newHttpMetric("upload-image", HttpMethod.Post);
     await metric.start();
@@ -341,27 +352,30 @@ class PetRemoteSourceImpl implements PetRemoteDatasource {
     firebase_storage.Reference archive = firebase_storage
       .FirebaseStorage.instance
       .ref()
-      .child("documents/pets/${json["id"]}/")
-      .child(file.name);
+      .child("documents/pets/${json["id"]}/${file.name}/");
 
     await metric.stop();
 
+    String path = file.path;
+    if ( path.trim().isEmpty ) {
+      path = json["name"].toString().replaceAll(" ", "_");
+    }
     final metadata = firebase_storage.SettableMetadata(
-      contentType: '${file.mimeType}',
-      customMetadata: {'picked-file-path': file.path},
+      contentType: file.mimeType ?? "jpg",
+      customMetadata: {'picked-file-path': path},
     );
 
     uploadTask = archive.putData(await file.readAsBytes(), metadata);
 
     uploadTask.snapshotEvents.listen((event) async {
-      event.ref.getDownloadURL().then((value) async {
+      await event.ref.getDownloadURL().then((value) async {
 
         await metric.stop();
 
         json["picture"] = value;
 
-        final pet = PetModel.fromJson(json);
-        await updatePet(pet.updateToMap());
+        pet = PetModel.fromJson(json);
+        return await updatePet(pet.toMap(image: value), null);
 
       });
     })
@@ -370,6 +384,8 @@ class PetRemoteSourceImpl implements PetRemoteDatasource {
       Session.crash.onError(handleError);
       throw ServerExceptions(handleError.toString());
     });
+
+    return pet;
 
   }
 }

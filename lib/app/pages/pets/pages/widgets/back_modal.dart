@@ -43,26 +43,26 @@ class BackModalWidget extends StatelessWidget {
             FlutterI18n.translate(context, "widgets.pop_up.btn_no"),
             textAlign: TextAlign.left,
             style: theme.textTheme.titleSmall?.apply(
-              color: theme.colorScheme.primary,
+              color: theme.colorScheme.error,
               fontWeightDelta: 2,
             ),
           ),
           onPressed: () => Navigator.pop(context),
         ),
 
-        Container(
-          padding: const EdgeInsets.fromLTRB(10, 16, 10, 10),
-          width: 100,
-          child: ElevatedButton(
-            onPressed: () {
-              Navigator.pop(context);
-              function.call();
-            },
-            child: Text(
-              FlutterI18n.translate(context, "widgets.pop_up.btn_yes"),
-              style: theme.textTheme.headlineMedium,
+        TextButton(
+          child: Text(
+            FlutterI18n.translate(context, "widgets.pop_up.btn_yes"),
+            textAlign: TextAlign.right,
+            style: theme.textTheme.titleSmall?.apply(
+              color: theme.colorScheme.secondary,
+              fontWeightDelta: 2,
             ),
           ),
+          onPressed: () {
+            Navigator.pop(context);
+            function.call();
+          },
         ),
 
       ],

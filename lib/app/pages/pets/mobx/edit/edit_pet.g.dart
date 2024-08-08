@@ -214,6 +214,22 @@ mixin _$EditPetMobx on _EditPetMobx, Store {
     });
   }
 
+  late final _$lifeTimeAtom =
+      Atom(name: '_EditPetMobx.lifeTime', context: context);
+
+  @override
+  String get lifeTime {
+    _$lifeTimeAtom.reportRead();
+    return super.lifeTime;
+  }
+
+  @override
+  set lifeTime(String value) {
+    _$lifeTimeAtom.reportWrite(value, super.lifeTime, () {
+      super.lifeTime = value;
+    });
+  }
+
   late final _$controllerDeathAtom =
       Atom(name: '_EditPetMobx.controllerDeath', context: context);
 
@@ -274,8 +290,9 @@ mixin _$EditPetMobx on _EditPetMobx, Store {
       AsyncAction('_EditPetMobx._updatePet', context: context);
 
   @override
-  Future<void> _updatePet(PetEntity pet) {
-    return _$_updatePetAsyncAction.run(() => super._updatePet(pet));
+  Future<void> _updatePet(PetEntity pet, XFile? picture, PetMobx petMobx) {
+    return _$_updatePetAsyncAction
+        .run(() => super._updatePet(pet, picture, petMobx));
   }
 
   late final _$goToVaccinesAsyncAction =
@@ -364,11 +381,11 @@ mixin _$EditPetMobx on _EditPetMobx, Store {
   }
 
   @override
-  void validateFields(Uint8List? picture) {
+  void validateFields(Uint8List? picture, PetMobx petMobx) {
     final _$actionInfo = _$_EditPetMobxActionController.startAction(
         name: '_EditPetMobx.validateFields');
     try {
-      return super.validateFields(picture);
+      return super.validateFields(picture, petMobx);
     } finally {
       _$_EditPetMobxActionController.endAction(_$actionInfo);
     }
@@ -412,6 +429,7 @@ controllerSex: ${controllerSex},
 controllerSpecie: ${controllerSpecie},
 controllerWeight: ${controllerWeight},
 controllerBirth: ${controllerBirth},
+lifeTime: ${lifeTime},
 controllerDeath: ${controllerDeath}
     ''';
   }

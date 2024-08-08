@@ -17,6 +17,7 @@ import 'package:meus_animais/app/pages/pets/mobx/crop/crop.dart';
 import 'package:meus_animais/app/core/style/app_images.dart';
 
 // import dos domain
+import 'package:meus_animais/domain/source/local/mobx/pet/pet.dart';
 import 'package:meus_animais/domain/entities/pet.dart';
 
 // import dos pacotes
@@ -24,6 +25,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:myne_find_dropdown/myne_find_dropdown.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:provider/provider.dart';
 
 class CreatePet extends StatefulWidget {
   final PetEntity? petEntity;
@@ -35,6 +37,7 @@ class CreatePet extends StatefulWidget {
 
 class _CreatePetState extends State<CreatePet> {
 
+  late PetMobx _pets;
   final _petMobx = EditPetMobx();
   final _cropMobx = CropMobx();
   
@@ -42,6 +45,12 @@ class _CreatePetState extends State<CreatePet> {
   void initState() {
     super.initState();
     _petMobx.validateIsEdit(widget.petEntity);
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _pets = Provider.of<PetMobx>(context);
   }
 
   @override
@@ -95,7 +104,7 @@ class _CreatePetState extends State<CreatePet> {
                             onTap: () => showPictureSelection( _cropMobx ),
                             child: ( _cropMobx.croppedData == null && widget.petEntity == null )
                               ? Image.asset(AppImages.banner)
-                              : ( widget.petEntity != null )
+                              : ( _cropMobx.croppedData == null && widget.petEntity != null )
                               ? Image.network(widget.petEntity!.picture)
                               : Image.memory(_cropMobx.croppedData!),
                           ),
@@ -129,6 +138,7 @@ class _CreatePetState extends State<CreatePet> {
                       controller: _petMobx.controllerName,
                       style: theme.textTheme.headlineMedium,
                       enabled: !_petMobx.isUpdate,
+                      textInputAction: TextInputAction.next,
                       decoration: InputDecoration(
                         labelText: FlutterI18n.translate(context, "pages.pets.edit.name"),
                       ),
@@ -142,7 +152,7 @@ class _CreatePetState extends State<CreatePet> {
                       controller: _petMobx.controllerWeight,
                       style: theme.textTheme.headlineMedium,
                       keyboardType: TextInputType.number,
-                      textInputAction: TextInputAction.next,
+                      textInputAction: TextInputAction.done,
                       decoration: InputDecoration(
                         labelText: FlutterI18n.translate(context, "pages.pets.edit.weight"),
                       ),
@@ -333,7 +343,7 @@ class _CreatePetState extends State<CreatePet> {
                     Padding(
                       padding: const EdgeInsets.symmetric( horizontal: 10, vertical: 8 ),
                       child: TextField(
-                        controller: _petMobx.controllerBirth,
+                        controller: TextEditingController(text: _petMobx.lifeTime),
                         style: theme.textTheme.headlineMedium,
                         enabled: false,
                         decoration: InputDecoration(
@@ -351,6 +361,7 @@ class _CreatePetState extends State<CreatePet> {
                         style: theme.textTheme.headlineMedium,
                         textInputAction: TextInputAction.done,
                         keyboardType: TextInputType.number,
+                        enabled: _petMobx.controllerDeath.text.trim().isEmpty,
                         decoration: InputDecoration(
                           labelText: FlutterI18n.translate(context, "pages.pets.edit.death"),
                         ),
@@ -448,7 +459,7 @@ class _CreatePetState extends State<CreatePet> {
                     padding: const EdgeInsets.fromLTRB(10, 16, 10, 10),
                     width: width,
                     child: ElevatedButton(
-                      onPressed: () => _petMobx.validateFields( _cropMobx.croppedData ),
+                      onPressed: () => _petMobx.validateFields( _cropMobx.croppedData, _pets ),
                       child: Text(
                         FlutterI18n.translate(context, _petMobx.isUpdate ? "btn_update" : "btn_register"),
                         style: theme.textTheme.headlineMedium?.apply(

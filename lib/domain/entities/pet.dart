@@ -12,7 +12,7 @@ class PetEntity extends Equatable {
     this.picture, this.age, this.birth, this.death, this.weight, this.createdAt, this.updatedAt,
   );
 
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> toMap({ String? image }) {
     Map<String, dynamic> map = {
       "id": id,
       "user_id": userId,
@@ -20,7 +20,7 @@ class PetEntity extends Equatable {
       "sex": sex,
       "specie": specie,
       "breed": breed,
-      "picture": picture,
+      "picture": image ?? picture,
       "age": age,
       "death": death,
       "weight": weight,
@@ -44,7 +44,7 @@ class PetEntity extends Equatable {
   }
 
   @override
-  String toString() => "PetEntity($name, $specie, $sex, $age)";
+  String toString() => "PetEntity($name, $picture $specie, $sex, $age)";
 
   @override
   List<Object?> get props => [id, userId, name, sex, specie, breed, picture, age, birth, death, weight, createdAt, updatedAt];

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 // import das telas
 import 'package:meus_animais/app/core/widgets/custom_snack_bar.dart';
 import 'package:meus_animais/domain/entities/life_time.dart';
+import 'package:meus_animais/domain/source/local/mobx/pet/pet.dart';
 
 // imports globais
 import 'package:meus_animais/session.dart';
@@ -71,6 +72,9 @@ abstract class _EditPetMobx with Store {
   MaskedTextController controllerBirth = MaskedTextController(mask: "00/00/0000");
 
   @observable
+  String lifeTime = "";
+
+  @observable
   MaskedTextController controllerDeath = MaskedTextController(mask: "00/00/0000");
 
   ObservableList<LifeTimeEntity> listSpecies = ObservableList();
@@ -105,6 +109,13 @@ abstract class _EditPetMobx with Store {
 
     setSex(pet.sex);
     setSpecie(pet.specie);
+
+    /*
+    await _getSpecies();
+
+    final response = listSpecies.singleWhere((value) => value.name.contains(pet.specie));
+    lifeTime = response.time;
+    */
 
     await _getVaccines( pet.id );
     await _getHygiene( pet.id );
@@ -173,7 +184,7 @@ abstract class _EditPetMobx with Store {
   void setSpecie( String value ) => specie = value;
 
   @action
-  void validateFields( Uint8List? picture ) {
+  void validateFields( Uint8List? picture, PetMobx petMobx ) {
 
     setIsLoading(true);
     Session.appEvents.sharedEvent("create_pet_validate_fields");
@@ -218,7 +229,13 @@ abstract class _EditPetMobx with Store {
         DateTime.now().toString(),
       );
 
-      _updatePet(pet);
+      if ( picture == null ) {
+        _updatePet(pet, null, petMobx);
+      } else {
+        final file = XFile.fromData(picture);
+        _updatePet(pet, file, petMobx);
+      }
+
       return;
 
     }
@@ -317,9 +334,9 @@ abstract class _EditPetMobx with Store {
   }
 
   @action
-  Future<void> _updatePet( PetEntity pet ) async {
+  Future<void> _updatePet( PetEntity pet, XFile? picture, PetMobx petMobx ) async {
 
-    final successOrFailure = await _petUseCase.updatePet(pet.updateToMap());
+    final successOrFailure = await _petUseCase.updatePet(pet.toMap(), picture);
 
     successOrFailure.fold(
       (failure) {
@@ -327,7 +344,11 @@ abstract class _EditPetMobx with Store {
         CustomSnackBar(messageKey: "custom_message.update_pet.error");
         return;
       },
-      (success) => _goToHome(),
+      (success) async {
+        await Future.delayed(const Duration(seconds: 3));
+        await petMobx.refresh();
+        _goToHome();
+      },
     );
 
   }
@@ -358,7 +379,7 @@ abstract class _EditPetMobx with Store {
     Session.appEvents.sharedEvent("create_pet_open_vaccines");
 
     final params = {
-      "pet_id": petId,
+      "pet_id": petDetail?.id ?? petId,
       "is_update": isUpdate,
     };
 
@@ -377,7 +398,7 @@ abstract class _EditPetMobx with Store {
     Session.appEvents.sharedEvent("create_pet_open_hygiene");
 
     final params = {
-      "pet_id": petId,
+      "pet_id": petDetail?.id ?? petId,
       "is_update": isUpdate,
     };
 
