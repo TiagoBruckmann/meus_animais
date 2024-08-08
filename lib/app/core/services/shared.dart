@@ -100,7 +100,8 @@ class SharedServices {
     return FlutterI18n.translate(Session.globalContext.currentContext!, "pages.pets.edit.calc_birth", translationParams: params);
   }
 
-  calculateDate( String date, String time, String typeTime ) {
+  String calculateDate( String date, String time, String typeTime ) {
+
     String dayToReapply = "";
     int day = int.parse(date.split("/")[0]);
     int month = int.parse(date.split("/")[1]);
