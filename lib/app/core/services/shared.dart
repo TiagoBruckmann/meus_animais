@@ -81,9 +81,10 @@ class SharedServices {
       month = 12 - calcMonth;
     }
 
-    if ( month == 12 ) {
+    if ( month < 12 ) {
+      year--;
+    } else {
       month = 0;
-      year = year + 1;
     }
 
     int day = now.day - birthDay;

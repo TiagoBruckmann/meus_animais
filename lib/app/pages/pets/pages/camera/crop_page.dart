@@ -62,9 +62,9 @@ class CropPage extends StatelessWidget {
 
                                 return Rect.fromLTRB(
                                   rect.left + 28,
-                                  rect.top + 200,
+                                  rect.top + 160,
                                   rect.right - 28,
-                                  rect.bottom - 200,
+                                  rect.bottom - 160,
                                 );
 
                               },
