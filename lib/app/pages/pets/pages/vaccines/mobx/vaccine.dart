@@ -187,7 +187,6 @@ abstract class _VaccineMobx with Store {
 
     Session.appEvents.logSetVaccines(listVaccines, isUpdate);
 
-    print("isUpdate vaccines => $isUpdate");
     if ( isUpdate ) {
       return await _setVaccines(listVaccines);
     }

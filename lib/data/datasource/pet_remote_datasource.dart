@@ -254,10 +254,8 @@ class PetRemoteSourceImpl implements PetRemoteDatasource {
   @override
   Future<void> setHygiene( List<HygieneEntity> list ) async {
 
-    print("list => $list");
     for ( final item in list ) {
 
-      print("item.petId => ${item.petId}");
       if ( item.petId != null ) {
 
         final metric = Session.performance.newHttpMetric("set-hygiene-pet-${item.id}", HttpMethod.Post);
