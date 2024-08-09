@@ -80,7 +80,7 @@ abstract class _UserMobx with Store {
       (success) => Session.user = success,
     );
 
-    // await _verifyVersion();
+    await _verifyVersion();
   }
 
   @action

@@ -151,7 +151,6 @@ class AppEvents {
 
   Future<void> _logEvent(String eventName, Map<String, String> params) async {
 
-    /*
     NewVersionPlus versionPlus = NewVersionPlus();
     final version = await versionPlus.getVersionStatus();
 
@@ -160,7 +159,6 @@ class AppEvents {
         'app_version': version.localVersion,
       });
     }
-    */
 
     DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();
 
