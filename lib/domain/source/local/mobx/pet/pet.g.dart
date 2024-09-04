@@ -49,6 +49,14 @@ mixin _$PetMobx on _PetMobx, Store {
     return _$getPetsAsyncAction.run(() => super.getPets());
   }
 
+  late final _$_getSpeciesAsyncAction =
+      AsyncAction('_PetMobx._getSpecies', context: context);
+
+  @override
+  Future<void> _getSpecies() {
+    return _$_getSpeciesAsyncAction.run(() => super._getSpecies());
+  }
+
   late final _$refreshAsyncAction =
       AsyncAction('_PetMobx.refresh', context: context);
 
@@ -88,6 +96,17 @@ mixin _$PetMobx on _PetMobx, Store {
         _$_PetMobxActionController.startAction(name: '_PetMobx._setList');
     try {
       return super._setList(list);
+    } finally {
+      _$_PetMobxActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void _setListSpecies(Iterable<LifeTimeEntity> value) {
+    final _$actionInfo = _$_PetMobxActionController.startAction(
+        name: '_PetMobx._setListSpecies');
+    try {
+      return super._setListSpecies(value);
     } finally {
       _$_PetMobxActionController.endAction(_$actionInfo);
     }

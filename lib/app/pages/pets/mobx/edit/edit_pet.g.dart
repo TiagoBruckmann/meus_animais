@@ -250,8 +250,10 @@ mixin _$EditPetMobx on _EditPetMobx, Store {
       AsyncAction('_EditPetMobx.validateIsEdit', context: context);
 
   @override
-  Future<void> validateIsEdit(PetEntity? pet) {
-    return _$validateIsEditAsyncAction.run(() => super.validateIsEdit(pet));
+  Future<void> validateIsEdit(
+      PetEntity? pet, List<LifeTimeEntity> lifeTimeList) {
+    return _$validateIsEditAsyncAction
+        .run(() => super.validateIsEdit(pet, lifeTimeList));
   }
 
   late final _$_getVaccinesAsyncAction =

@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:meus_animais/session.dart';
 
 // import dos app
+import 'package:meus_animais/app/core/services/firebase_options.dart';
 import 'package:meus_animais/app/core/services/languages.dart';
 import 'package:meus_animais/app/core/routes/routes.dart';
 import 'package:meus_animais/app/core/style/themes.dart';
@@ -27,7 +28,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await Firebase.initializeApp(
-    // options: DefaultFirebaseOptions.currentPlatform,
+    options: DefaultFirebaseOptions.currentPlatform,
   );
 
   await FirebaseAppCheck.instance.activate();

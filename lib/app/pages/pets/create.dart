@@ -40,17 +40,12 @@ class _CreatePetState extends State<CreatePet> {
   late PetMobx _pets;
   final _petMobx = EditPetMobx();
   final _cropMobx = CropMobx();
-  
-  @override
-  void initState() {
-    super.initState();
-    _petMobx.validateIsEdit(widget.petEntity);
-  }
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     _pets = Provider.of<PetMobx>(context);
+    _petMobx.validateIsEdit(widget.petEntity, _pets.listSpecies);
   }
 
   @override

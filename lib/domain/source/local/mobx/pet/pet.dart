@@ -1,5 +1,6 @@
 // imports nativos
 import 'package:flutter/material.dart';
+import 'package:meus_animais/app/core/widgets/custom_snack_bar.dart';
 
 // imports globais
 import 'package:meus_animais/session.dart';
@@ -7,6 +8,7 @@ import 'package:meus_animais/session.dart';
 // import dos domain
 import 'package:meus_animais/domain/source/local/injection/injection.dart';
 import 'package:meus_animais/domain/usecases/pet_use_case.dart';
+import 'package:meus_animais/domain/entities/life_time.dart';
 import 'package:meus_animais/domain/entities/pet.dart';
 
 // import dos pacotes
@@ -22,6 +24,8 @@ abstract class _PetMobx with Store {
   final _petUseCase = PetUseCase(getIt());
 
   ObservableList<PetEntity> listPets = ObservableList();
+
+  ObservableList<LifeTimeEntity> listSpecies = ObservableList();
 
   @observable
   bool isLoading = true;
@@ -54,6 +58,24 @@ abstract class _PetMobx with Store {
       (success) => _setList(success),
     );
 
+    await _getSpecies();
+
+  }
+
+  @action
+  Future<void> _getSpecies() async {
+
+    final successOrFailure = await _petUseCase.getLifeTimePets();
+
+    successOrFailure.fold(
+      (failure) {
+        Session.logs.errorLog(failure.message);
+        CustomSnackBar(messageKey: "pages.pets.error_life_time");
+        return;
+      },
+      (success) => _setListSpecies(success),
+    );
+
   }
 
   @action
@@ -64,6 +86,9 @@ abstract class _PetMobx with Store {
     listPets.addAll(list);
     setIsLoading(false);
   }
+
+  @action
+  void _setListSpecies( Iterable<LifeTimeEntity> value ) => listSpecies.addAll(value);
 
   @action
   Future<void> refresh() async {

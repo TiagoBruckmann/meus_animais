@@ -4,15 +4,15 @@ import 'package:flutter/material.dart';
 
 // import das telas
 import 'package:meus_animais/app/core/widgets/custom_snack_bar.dart';
-import 'package:meus_animais/domain/entities/life_time.dart';
-import 'package:meus_animais/domain/source/local/mobx/pet/pet.dart';
 
 // imports globais
 import 'package:meus_animais/session.dart';
 
 // import dos domain
 import 'package:meus_animais/domain/source/local/injection/injection.dart';
+import 'package:meus_animais/domain/source/local/mobx/pet/pet.dart';
 import 'package:meus_animais/domain/usecases/pet_use_case.dart';
+import 'package:meus_animais/domain/entities/life_time.dart';
 import 'package:meus_animais/domain/entities/hygiene.dart';
 import 'package:meus_animais/domain/entities/vaccine.dart';
 import 'package:meus_animais/domain/entities/pet.dart';
@@ -84,7 +84,7 @@ abstract class _EditPetMobx with Store {
   ObservableList<HygieneEntity> listHygiene = ObservableList();
 
   @action
-  Future<void> validateIsEdit( PetEntity? pet ) async {
+  Future<void> validateIsEdit( PetEntity? pet, List<LifeTimeEntity> lifeTimeList ) async {
 
     _getSpecies();
 
@@ -110,12 +110,8 @@ abstract class _EditPetMobx with Store {
     setSex(pet.sex);
     setSpecie(pet.specie);
 
-    /*
-    await _getSpecies();
-
-    final response = listSpecies.singleWhere((value) => value.name.contains(pet.specie));
+    final response = lifeTimeList.singleWhere((value) => value.name.contains(pet.specie));
     lifeTime = response.time;
-    */
 
     await _getVaccines( pet.id );
     await _getHygiene( pet.id );
