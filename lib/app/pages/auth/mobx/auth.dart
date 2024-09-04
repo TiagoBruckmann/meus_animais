@@ -34,7 +34,7 @@ abstract class _AuthMobx with Store {
   TextEditingController controllerName = TextEditingController(text: kDebugMode ? "Tiago Brückmann" : "");
 
   @observable
-  TextEditingController controllerEmail = TextEditingController(text: kDebugMode ? "tiagobruckmann@gmail.com" : "");
+  TextEditingController controllerEmail = TextEditingController(text: kDebugMode ? "tiago.bruckmann@softdesign.com.br" : "");
 
   @observable
   TextEditingController controllerPasswd = TextEditingController(text: kDebugMode ? "Tiago12345" : "");

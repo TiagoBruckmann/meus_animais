@@ -346,24 +346,21 @@ class PetRemoteSourceImpl implements PetRemoteDatasource {
     final metric = Session.performance.newHttpMetric("upload-image", HttpMethod.Post);
     await metric.start();
 
-    firebase_storage.UploadTask uploadTask;
+    String animalName = json["name"].toString().replaceAll(" ", "_");
+
     firebase_storage.Reference archive = firebase_storage
       .FirebaseStorage.instance
       .ref()
-      .child("documents/pets/${json["id"]}/${file.name}/");
+      .child("documents/pets/${json["id"]}/$animalName/");
 
     await metric.stop();
 
-    String path = file.path;
-    if ( path.trim().isEmpty ) {
-      path = json["name"].toString().replaceAll(" ", "_");
-    }
     final metadata = firebase_storage.SettableMetadata(
-      contentType: file.mimeType ?? "jpg",
-      customMetadata: {'picked-file-path': path},
+      contentType: "jpg",
+      customMetadata: {'picked-file-path': animalName},
     );
 
-    uploadTask = archive.putData(await file.readAsBytes(), metadata);
+    final uploadTask = archive.putData(await file.readAsBytes(), metadata);
 
     uploadTask.snapshotEvents.listen((event) async {
       await event.ref.getDownloadURL().then((value) async {

@@ -66,7 +66,7 @@ abstract class _EditPetMobx with Store {
   TextEditingController controllerSpecie = TextEditingController();
 
   @observable
-  MoneyMaskedTextController controllerWeight = MoneyMaskedTextController(leftSymbol: "KG ", decimalSeparator: ".", precision: 2);
+  MoneyMaskedTextController controllerWeight = MoneyMaskedTextController(leftSymbol: "KG ", thousandSeparator: ".", decimalSeparator: ",", precision: 2);
 
   @observable
   MaskedTextController controllerBirth = MaskedTextController(mask: "00/00/0000");
@@ -101,7 +101,7 @@ abstract class _EditPetMobx with Store {
 
     controllerName.text = pet.name;
     controllerBreed.text = pet.breed;
-    controllerWeight = MoneyMaskedTextController(leftSymbol: "KG ", decimalSeparator: ".", precision: 2, initialValue: pet.weight);
+    controllerWeight = MoneyMaskedTextController(leftSymbol: "KG ", thousandSeparator: ".", decimalSeparator: ",", precision: 2, initialValue: pet.weight);
     controllerDeath = MaskedTextController(mask: "00/00/0000", text: pet.death);
 
     controllerSex.text = pet.sex;
@@ -110,7 +110,7 @@ abstract class _EditPetMobx with Store {
     setSex(pet.sex);
     setSpecie(pet.specie);
 
-    final response = lifeTimeList.singleWhere((value) => value.name.contains(pet.specie));
+    final response = lifeTimeList.firstWhere(( value ) => value.name.contains( pet.specie ), orElse: () => const LifeTimeEntity("", "", "Falha ao buscar a especie"));
     lifeTime = response.time;
 
     await _getVaccines( pet.id );
@@ -180,16 +180,16 @@ abstract class _EditPetMobx with Store {
   void setSpecie( String value ) => specie = value;
 
   @action
-  void validateFields( Uint8List? picture, PetMobx petMobx ) {
+  Future<void> validateFields( Uint8List? picture, PetMobx petMobx ) async {
 
     setIsLoading(true);
     Session.appEvents.sharedEvent("create_pet_validate_fields");
 
-    String weight = controllerWeight.text.trim().replaceAll("KG ", "");
+    String weight = controllerWeight.text.trim().replaceAll("KG ", "").replaceAll(".", "").replaceAll(",", ".");
     double weightParse = double.parse(weight);
     String death = controllerDeath.text.trim();
 
-    if ( weight.length > 6 ) {
+    if ( weight.length > 7 ) {
       setIsLoading(false);
       CustomSnackBar(messageKey: "custom_message.update_pet.validate.weight");
       return;
@@ -226,10 +226,10 @@ abstract class _EditPetMobx with Store {
       );
 
       if ( picture == null ) {
-        _updatePet(pet, null, petMobx);
+        await _updatePet(pet, null, petMobx);
       } else {
         final file = XFile.fromData(picture);
-        _updatePet(pet, file, petMobx);
+        await _updatePet(pet, file, petMobx);
       }
 
       return;
@@ -286,8 +286,7 @@ abstract class _EditPetMobx with Store {
       "",
     );
 
-    _createPet(pet, file);
-    return;
+    return await _createPet(pet, file);
 
   }
 

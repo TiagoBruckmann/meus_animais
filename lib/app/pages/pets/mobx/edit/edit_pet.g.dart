@@ -280,6 +280,15 @@ mixin _$EditPetMobx on _EditPetMobx, Store {
     return _$_getSpeciesAsyncAction.run(() => super._getSpecies());
   }
 
+  late final _$validateFieldsAsyncAction =
+      AsyncAction('_EditPetMobx.validateFields', context: context);
+
+  @override
+  Future<void> validateFields(Uint8List? picture, PetMobx petMobx) {
+    return _$validateFieldsAsyncAction
+        .run(() => super.validateFields(picture, petMobx));
+  }
+
   late final _$_createPetAsyncAction =
       AsyncAction('_EditPetMobx._createPet', context: context);
 
@@ -377,17 +386,6 @@ mixin _$EditPetMobx on _EditPetMobx, Store {
         name: '_EditPetMobx.setSpecie');
     try {
       return super.setSpecie(value);
-    } finally {
-      _$_EditPetMobxActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  void validateFields(Uint8List? picture, PetMobx petMobx) {
-    final _$actionInfo = _$_EditPetMobxActionController.startAction(
-        name: '_EditPetMobx.validateFields');
-    try {
-      return super.validateFields(picture, petMobx);
     } finally {
       _$_EditPetMobxActionController.endAction(_$actionInfo);
     }

@@ -1,6 +1,5 @@
 // imports nativos
 import 'package:flutter/material.dart';
-import 'package:meus_animais/app/core/widgets/custom_snack_bar.dart';
 
 // imports globais
 import 'package:meus_animais/session.dart';
@@ -70,7 +69,6 @@ abstract class _PetMobx with Store {
     successOrFailure.fold(
       (failure) {
         Session.logs.errorLog(failure.message);
-        CustomSnackBar(messageKey: "pages.pets.error_life_time");
         return;
       },
       (success) => _setListSpecies(success),

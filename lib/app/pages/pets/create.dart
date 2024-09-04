@@ -45,7 +45,9 @@ class _CreatePetState extends State<CreatePet> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     _pets = Provider.of<PetMobx>(context);
-    _petMobx.validateIsEdit(widget.petEntity, _pets.listSpecies);
+    if ( _petMobx.petDetail == null ) {
+      _petMobx.validateIsEdit(widget.petEntity, _pets.listSpecies);
+    }
   }
 
   @override
@@ -328,6 +330,7 @@ class _CreatePetState extends State<CreatePet> {
                       : _petMobx.controllerBirth,
                       style: theme.textTheme.headlineMedium,
                       enabled: !_petMobx.isUpdate,
+                      keyboardType: TextInputType.number,
                       decoration: InputDecoration(
                         labelText: FlutterI18n.translate(context, "pages.pets.edit.birth"),
                       ),
