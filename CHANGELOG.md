@@ -66,3 +66,19 @@ Versão publicada dia 13/09/2022
 
 ### :gear: Versão 2.0.0
 
+Reescrever o app, melhorias de código, melhorias de performance, manutenibilidade e etc.
+
+Versão publicada dia 08/09/2024
+
+**:bulb: Novas funcionalidades**
+
+<ul>
+    <li>Todas as demais funcionalidades já existente nas demais verões do app</li>
+    <li>Solicitar informações da conta.(Vai enviar um email para mim).</li>
+    <li>Adicionado termos e politicas de uso.</li>
+    <li>Envio e recebimento de notificações.</li>
+    <li>Configuração do CI/CD do Flutter.</li>
+    <li>Configuração do app check.</li>
+    <li>Atualização de pacotes.</li>
+    <li>Edição de foto do pet.</li>
+</ul>
