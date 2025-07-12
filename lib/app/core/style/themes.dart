@@ -108,7 +108,7 @@ class Themes {
       tertiary: _tertiaryColor,
       error: _errorColor,
     ),
-    cardTheme: CardTheme(
+    cardTheme: CardThemeData(
       color: _primaryColorLight,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular( 10 ),
@@ -118,7 +118,7 @@ class Themes {
       color: _primaryColorLight,
       size: 18,
     ),
-    dialogTheme: const DialogTheme(
+    dialogTheme: const DialogThemeData(
       backgroundColor: _primaryColorLight,
       titleTextStyle: _displayMediumTextLight,
       contentTextStyle: _bodyLargeTextLight,
@@ -241,7 +241,7 @@ class Themes {
       tertiary: _tertiaryColor,
       error: _errorColor,
     ),
-    cardTheme: CardTheme(
+    cardTheme: CardThemeData(
       color: _primaryColorDark,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular( 10 ),
@@ -251,7 +251,7 @@ class Themes {
       color: _primaryColorDark,
       size: 18,
     ),
-    dialogTheme: const DialogTheme(
+    dialogTheme: const DialogThemeData(
       backgroundColor: _primaryColorDark,
       titleTextStyle: _displayMediumTextDark,
       contentTextStyle: _bodyLargeTextDark,

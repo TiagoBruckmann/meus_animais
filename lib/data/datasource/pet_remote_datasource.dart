@@ -248,6 +248,8 @@ class PetRemoteSourceImpl implements PetRemoteDatasource {
         throw ServerExceptions(onError.toString());
       });
 
+    list.sort((a, b) => b.createdAt.compareTo(a.createdAt));
+
     return list;
   }
 
@@ -308,6 +310,8 @@ class PetRemoteSourceImpl implements PetRemoteDatasource {
       });
 
     await metric.stop();
+
+    list.sort((a, b) => b.createdAt.compareTo(a.createdAt));
 
     return list;
   }

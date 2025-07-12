@@ -217,6 +217,8 @@ abstract class _VaccineMobx with Store {
   }
 
   @action
-  void _goToPop( List<VaccineEntity>? list ) => Navigator.pop(_currentContext, list);
-
+  void _goToPop( List<VaccineEntity>? list ) {
+    list?.sort((a, b) => b.createdAt.compareTo(a.createdAt));
+    return Navigator.pop(_currentContext, list);
+  }
 }

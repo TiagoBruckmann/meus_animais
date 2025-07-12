@@ -9,9 +9,21 @@ rootProject.buildDir = "../build"
 subprojects {
     project.buildDir = "${rootProject.buildDir}/${project.name}"
 
+    /*
     afterEvaluate {
         android {
-            compileSdkVersion 34
+            compileSdkVersion 36
+        }
+    }
+    */
+
+    afterEvaluate { project ->
+        if (project.hasProperty('android')) {
+            project.android {
+                if (namespace == null) {
+                    namespace project.group
+                }
+            }
         }
     }
 

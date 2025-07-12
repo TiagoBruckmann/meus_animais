@@ -155,6 +155,9 @@ abstract class _HygieneMobx with Store {
   }
 
   @action
-  void _goToPop( List<HygieneEntity> hygiene ) => Navigator.pop(_currentContext, hygiene);
+  void _goToPop( List<HygieneEntity> hygiene ) {
+    hygiene.sort((a, b) => b.createdAt.compareTo(a.createdAt));
+    return Navigator.pop(_currentContext, hygiene);
+  }
 
 }
