@@ -39,7 +39,7 @@ class LoadingOverlay extends StatelessWidget {
           if ( isLoading )
             Container(
               width: MediaQuery.of(context).size.width,
-              color: Colors.black.withOpacity(0.7),
+              color: Colors.black.withValues(alpha: 0.7),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,

@@ -49,8 +49,8 @@ class UserRepoImpl implements UserRepo {
   Future<Either<Failure, void>> sendEmailDeleteAccount( Map<String, dynamic> json ) async {
     try {
       await userRemoteDatasource.sendEmailDeleteAccount( json );
-      final result = await _deleteAccount();
-      return right(result);
+      await _deleteAccount();
+      return right(null);
     } on ServerExceptions catch (e) {
       Session.crash.onError("send_email_delete_account_server_error", error: e.message);
       return left(ServerFailure(e.message));

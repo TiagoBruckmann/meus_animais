@@ -58,7 +58,7 @@ class CropPage extends StatelessWidget {
                               interactive: true,
                               fixCropRect: true,
                               radius: 10,
-                              initialRectBuilder: (rect, _) {
+                              initialRectBuilder: (rect, rect2) {
 
                                 return Rect.fromLTRB(
                                   rect.left + 28,
@@ -94,7 +94,7 @@ class CropPage extends StatelessWidget {
           ),
           bottomNavigationBar: SafeArea(
             child: Container(
-              color: theme.colorScheme.primary.withOpacity(0.5),
+              color: theme.colorScheme.primary.withValues(alpha: 0.5),
               padding: const EdgeInsets.fromLTRB(10, 16, 10, 10),
               width: 100,
               child: ElevatedButton(
