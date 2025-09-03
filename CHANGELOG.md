@@ -2,6 +2,20 @@
 
 --- 
 
+### :gear: Versão 2.0.2
+
+Substituido as APIS da digital Ocean para as Lambdas API
+
+Versão publicada dia 03/09/2025
+
+**:bug: Correções de funcionalidades já existentes**
+
+<ul>
+    <li>Substituição das variaveis de ambiente para Lambdas API.</li>
+</ul>
+
+---
+
 ### :gear: Versão 2.0.1
 
 Ajuste na listagem das vacinas e higienes dos bichanos, para trazer da mais recente para a mais antiga. Também foi atualizado para o targed Android SDK 36;

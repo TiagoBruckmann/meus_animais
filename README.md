@@ -5,9 +5,9 @@ Tome nota dos cuidados especiais que seu pet precisa! Desde os dias que tomam va
 ```
 # Versionamento
 #
-# ┌────── Marcos
-# │ ┌─────── Épicos
-# │ │ ┌──────── Funcionalidade nova (reseta ao finalizar um marco/Épico)
+# ┌────── Marcos: Atualização importante
+# │ ┌─────── Épicos: Nova funcionalidade (reseta ao finalizar um marco)
+# │ │ ┌──────── Bugs: incrementa a cada novo bug corrigido (reseta ao finalizar um marco/Épico)
 # │ │ │
 # 1.1.1
 ```
@@ -19,11 +19,15 @@ Tome nota dos cuidados especiais que seu pet precisa! Desde os dias que tomam va
 to run this app, you need an **.ENV** file, here is an example.
 
 ```sh
-BASE_URL=TODO
+BASE_URL_EMAIL=TODO
+BASE_URL_NOTIFICATION=TODO
     
 ONESIGNAL_APP_ID=TODO
 ONESIGNAL_TEMPLATE_INFO_DATA=TODO
 ONESIGNAL_TEMPLATE_REAPPLY=TODO
+
+CLIENT_NAME=TODO
+X_API_KEY=TODO
 ```
 
 ---
