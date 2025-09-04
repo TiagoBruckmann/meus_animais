@@ -101,7 +101,7 @@ class UserRemoteSourceImpl implements UserRemoteDatasource {
   @override
   Future<void> sendEmailDeleteAccount( Map<String, dynamic> json ) async {
 
-    Uri url = Uri.https(Session.env.baseUrl, "send_email");
+    Uri url = Uri.https(Session.env.baseUrlEmail, "v1/send-email");
     final metric = Session.performance.newHttpMetric(url.host, HttpMethod.Post);
     await metric.start();
 
@@ -109,6 +109,8 @@ class UserRemoteSourceImpl implements UserRemoteDatasource {
       url,
       headers: {
         "Content-Type": "application/json",
+        "client-name": Session.env.clientName,
+        "x-api-key": Session.env.xApiKey,
       },
       body: jsonEncode(json),
     );

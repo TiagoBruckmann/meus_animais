@@ -46,7 +46,7 @@ android {
 
     defaultConfig {
         applicationId = "br.com.meus_animais"
-        minSdk = 23
+        minSdkVersion = flutter.minSdkVersion
         targetSdk = 36
         versionCode = flutterVersionCode.toInteger()
         versionName = flutterVersionName

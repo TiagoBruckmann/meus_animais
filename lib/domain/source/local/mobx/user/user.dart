@@ -128,7 +128,10 @@ abstract class _UserMobx with Store {
 
     Map<String, dynamic> params = {
       "subject": "Deletar conta!",
-      "body": "Olá Tiago, me chamo ${Session.user.name} estou entrando em contato com você via email: ${Session.user.email}, através do aplicativo Meus Animais.\nO motivo do meu contato é: Deletar conta: Meus Animais, gostaria que você deleta-se minha conta.\n\nDesde já grato!"
+      "name": Session.user.name,
+      "contact_way": Session.env.clientName,
+      "email": Session.user.email,
+      "details": "Deletar conta: Meus Animais, gostaria que você deleta-se minha conta, ACCOUNT_ID = ${Session.user.id}.",
     };
 
     final successOrFailure = await _userUseCase.sendEmailDeleteAccount(params);
